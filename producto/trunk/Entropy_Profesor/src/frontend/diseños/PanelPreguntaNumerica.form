@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="bgrRespuestaCorrecta">
+    </Component>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+        <TitledBorder title="Respuesta Correcta">
+          <Font PropertyName="font" name="Calibri" size="12" style="0"/>
+          <Color PropertyName="color" blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
+        </TitledBorder>
+      </Border>
+    </Property>
+  </Properties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="lblDecimales" min="-2" pref="136" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="spnDecimales" pref="130" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="rbnRango" max="32767" attributes="0"/>
+                          <Component id="rbnNumero" pref="88" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="lblDesde" pref="41" max="32767" attributes="0"/>
+                                  <Component id="lblHasta" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="spnDesde" max="32767" attributes="0"/>
+                                  <Component id="spnHasta" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="spnNumero" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="rbnNumero" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="spnNumero" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="rbnRango" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDesde" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="spnDesde" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="spnHasta" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblHasta" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblDecimales" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="spnDecimales" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JRadioButton" name="rbnNumero">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="bgrRespuestaCorrecta"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+        </Property>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="N&#xfa;mero"/>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rbnNumeroItemStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="rbnRango">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="bgrRespuestaCorrecta"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Rango"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="spnNumero">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+        </Property>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0.0" numberType="java.lang.Double" stepSize="0.1" type="number"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="JTextField tf = ((JSpinner.DefaultEditor) spnNumero.getEditor()).getTextField();&#xa;tf.setCaretColor(LookAndFeelEntropy.COLOR_CURSOR);&#xa;tf.setSelectionColor(LookAndFeelEntropy.COLOR_SELECCION_TEXTO);"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblDecimales">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Variaci&#xf3;n aceptada:   &#xb1;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="spnDecimales">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+        </Property>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.1" type="number"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="JTextField txtDecimalesEditor = ((JSpinner.DefaultEditor) spnDecimales.getEditor()).getTextField();&#xa;txtDecimalesEditor.setCaretColor(LookAndFeelEntropy.COLOR_CURSOR);&#xa;txtDecimalesEditor.setSelectionColor(LookAndFeelEntropy.COLOR_SELECCION_TEXTO);"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblDesde">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Desde:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblHasta">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Hasta:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="spnDesde">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+        </Property>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0.0" numberType="java.lang.Double" stepSize="0.1" type="number"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="JTextField txtDesdeEditor = ((JSpinner.DefaultEditor) spnDesde.getEditor()).getTextField();&#xa;txtDesdeEditor.setCaretColor(LookAndFeelEntropy.COLOR_CURSOR);&#xa;txtDesdeEditor.setSelectionColor(LookAndFeelEntropy.COLOR_SELECCION_TEXTO);"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="spnHasta">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+        </Property>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0.0" numberType="java.lang.Double" stepSize="0.1" type="number"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="JTextField txtHastaEditor = ((JSpinner.DefaultEditor) spnHasta.getEditor()).getTextField();&#xa;txtHastaEditor.setCaretColor(LookAndFeelEntropy.COLOR_CURSOR);&#xa;txtHastaEditor.setSelectionColor(LookAndFeelEntropy.COLOR_SELECCION_TEXTO);"/>
+      </AuxValues>
+    </Component>
+  </SubComponents>
+</Form>

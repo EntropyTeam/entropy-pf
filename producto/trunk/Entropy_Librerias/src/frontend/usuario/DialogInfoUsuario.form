@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="undecorated" type="boolean" value="true"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="pnlFondo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="pnlFondo" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="frontend.auxiliares.PanelConFondo" name="pnlFondo">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+            <LineBorder roundedCorners="true">
+              <Color PropertyName="color" blue="0" green="66" red="ff" type="rgb"/>
+            </LineBorder>
+          </Border>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="private PanelGradiente pnlFondoAux;"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//pnlFondo.setImagen(GestorImagenes.crearImage(&quot;/frontend/imagenes/bg2.jpg&quot;));&#xa;pnlFondoAux = new PanelGradiente(new Color(235, 204, 114));&#xa;pnlFondo = pnlFondoAux;"/>
+      </AuxValues>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="pnlCentral" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="pnlCentral" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="pnlCentral">
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="PanelDatosAlumno" alignment="0" max="32767" attributes="0"/>
+                          <Component id="pnlImagen" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pnlImagen" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="PanelDatosAlumno" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="9" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="pnlImagen">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="af" green="e1" red="fa" type="rgb"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="LookAndFeelEntropy.BORDE_NARANJA" type="code"/>
+                </Property>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[204, 32767]"/>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="pnlImagenLogo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lblApellido" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btnCerrar" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="lblsDocumento" max="32767" attributes="0"/>
+                                      <Component id="lblsLegajo" max="32767" attributes="0"/>
+                                      <Component id="lblsEmail" min="-2" pref="78" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="lblLegajo" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblEmail" alignment="0" pref="268" max="32767" attributes="0"/>
+                                      <Component id="lblDocumento" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="pnlImagenLogo" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="btnCerrar" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblApellido" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="lblsDocumento" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblDocumento" min="-2" pref="16" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lblsLegajo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblLegajo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblsEmail" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblEmail" min="-2" pref="16" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="frontend.auxiliares.PanelConFondo" name="pnlImagenLogo">
+                  <Properties>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[155, 155]"/>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="lblLogo" min="-2" pref="155" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblLogo" alignment="0" pref="155" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="lblLogo">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="f6" green="f6" red="f8" type="rgb"/>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Calibri" size="12" style="0"/>
+                        </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="66" green="66" red="66" type="rgb"/>
+                        </Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/frontend/imagenes/ic_camara.png"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Sin imagen"/>
+                        <Property name="toolTipText" type="java.lang.String" value="Imagen"/>
+                        <Property name="horizontalTextPosition" type="int" value="0"/>
+                        <Property name="opaque" type="boolean" value="true"/>
+                        <Property name="verticalTextPosition" type="int" value="3"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JLabel" name="lblApellido">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Calibri" size="36" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="66" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Denise Giusto"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnCerrar">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/frontend/imagenes/ic_mensajes_cerrar_opcion.png"/>
+                    </Property>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="null"/>
+                    </Property>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Cursor de Mano"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrarActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblsDocumento">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Documento:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblDocumento">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="DNI 35580949"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblsLegajo">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Legajo:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblLegajo">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="55192"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblsEmail">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="E-mail:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblEmail">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="dg@gmail.com"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="PanelDatosAlumno">
+              <Properties>
+                <Property name="opaque" type="boolean" value="false"/>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="scrDescripcion" alignment="1" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="pnlDatosHost" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="scrClavePublica" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="scrDescripcion" pref="146" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="pnlDatosHost" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="scrClavePublica" min="-2" pref="149" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JScrollPane" name="scrDescripcion">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Descripci&#xf3;n del perfil">
+                          <Connection PropertyName="font" code="LookAndFeelEntropy.FUENTE_CURSIVA" type="code"/>
+                          <Color PropertyName="color" blue="0" green="66" red="cc" type="rgb"/>
+                        </TitledBorder>
+                      </Border>
+                    </Property>
+                    <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="frontend.auxiliares.TextAreaEntropy" name="txaDescripcion">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="5"/>
+                        <Property name="text" type="java.lang.String" value="mQGiBDc63i0RBAD9MWBVMGw2+NvyQQHFiF1sN7efjisFngFskggY9AfIdnQuLfIq&#xa;siQITwgeRSTKCb6PyQPk3CqLImU3xqXbuDIoLOlf/Xcmf2twcKG07kSThTWX0WyA&#xa;r81yMqgsE+4W7lj/AGPIUltjcJublwpPYVBG6RAC5nAPXICr1PjijDtAXQCg/wBL&#xa;7HTuBtOJ7qXeYIl4Ozfmsq0EANSdKecm6dqnOYA11rTBk/VAgyLYh3heDboj0WAb&#xa;TIpSf2Pjk7gIVBYutIzIocZ51j0YTG2/Sjs2gwxfRNz2zJt0COin6HrrUIAmGAE+&#xa;KVrRP1NZdSmWZCFSNkB/GzXfooe3rhRAhRgdyTV2qYeKpZMbc8txScqSpbfDoW+T&#xa;mH0vA/9/UvEfv6SClSjBa3/9Dq1QAqJsYEulqF1QzhmvI10fCKvtkzxTuj5vwlXC&#xa;o2G0iQoZG0dLOwazNTokW1Oo1VGmSxUb+zIp1LzNUSAzHEqI4iMOS4QakYgkeNH7&#xa;LgwQrlLnmdnL2kRZvKPjrab1nAEyFka1fVGYu8w59mymteSF+rQuQ2FybG9zIFNl&#xa;cnJhbm8gQ2luY2EgPHNlcnJhbm9AcG9zdGEudW5pemFyLmVzPokASwQQEQIACwUC&#xa;NzreLQQLAwIBAAoJEFlyxNs7kDT0la4Ani3+z1B3su+uuVnYRjknWsqkMOmfAJ9Y&#xa;NXuiASG3ABhOKHAcqE29rGB2H7kCDQQ3Ot4uEAgA9kJXtwh/CBdyorrWqULzBej5&#xa;UxE5T7bxbrlLOCDaAadWoxTpj0BV89AHxstDqZSt90xkhkn4DIO9ZekX1KHTUPj1&#xa;WV/cdlJPPT2N286Z4VeSWc39uK50T8X8dryDxUcwYc58yWb/Ffm7/ZFexwGq01ue&#xa;jaClcjrUGvC/RgBYK+X0iP1YTknbzSC0neSRBzZrM2w4DUUdD3yIsxx8Wy2O9vPJ&#xa;I8BD8KVbGI2Ou1WMuF040zT9fBdXQ6MdGGzeMyEstSr/POGxKUAYEY18hKcKctaG&#xa;xAMZyAcpesqVDNmWn6vQClCbAkbTCD1mpF1Bn5x8vYlLIhkmuquiXsNV6TILOwAC&#xa;Agf8D5yY0PJdoNcZ72DhRsfqz/EMGh6QWZRVd0lreAG1gdNL5oRkN3RSP1cSmiU6&#xa;RDrbBkfbPqKLIvhMZR8kzUSOIAcEhEaW1m4zanTK7iQwYifoWVnWAgKXIg9wzVMv&#xa;Zks37w/ekbaPWV8k9q1zmNezlscdHLF3WswEuhdKOnkdnuDmIb1hZkLhbXgspCJD&#xa;C6jZhJ7lJRF7Am56VKHNV1ArIENVdngiNDEYCQ4PgxzX2RL3PX/J5AqXp/hyJ9mi&#xa;1gOZjI91ZjCf70IY/khpKH5jd7cpFsfl1meNJnjbr3wSa+Vkx0Pv0MmoUZB1uvVo&#xa;RdsV9RiKOIn2YIov8sVjqXxrIokARgQYEQIABgUCNzreLgAKCRBZcsTbO5A09Aql&#xa;AKDtecIL1V+v8N5Av+c2EavWlJld4QCg704enpDj31SSO3hTKnl47dUQX8Q=&#xa;=YQDR"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JScrollPane" name="scrClavePublica">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Clave p&#xfa;blica">
+                          <Connection PropertyName="font" code="LookAndFeelEntropy.FUENTE_CURSIVA" type="code"/>
+                          <Color PropertyName="color" blue="0" green="66" red="cc" type="rgb"/>
+                        </TitledBorder>
+                      </Border>
+                    </Property>
+                    <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="frontend.auxiliares.TextAreaEntropy" name="txaClavePublica">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="5"/>
+                        <Property name="text" type="java.lang.String" value="mQGiBDc63i0RBAD9MWBVMGw2+NvyQQHFiF1sN7efjisFngFskggY9AfIdnQuLfIq&#xa;siQITwgeRSTKCb6PyQPk3CqLImU3xqXbuDIoLOlf/Xcmf2twcKG07kSThTWX0WyA&#xa;r81yMqgsE+4W7lj/AGPIUltjcJublwpPYVBG6RAC5nAPXICr1PjijDtAXQCg/wBL&#xa;7HTuBtOJ7qXeYIl4Ozfmsq0EANSdKecm6dqnOYA11rTBk/VAgyLYh3heDboj0WAb&#xa;TIpSf2Pjk7gIVBYutIzIocZ51j0YTG2/Sjs2gwxfRNz2zJt0COin6HrrUIAmGAE+&#xa;KVrRP1NZdSmWZCFSNkB/GzXfooe3rhRAhRgdyTV2qYeKpZMbc8txScqSpbfDoW+T&#xa;mH0vA/9/UvEfv6SClSjBa3/9Dq1QAqJsYEulqF1QzhmvI10fCKvtkzxTuj5vwlXC&#xa;o2G0iQoZG0dLOwazNTokW1Oo1VGmSxUb+zIp1LzNUSAzHEqI4iMOS4QakYgkeNH7&#xa;LgwQrlLnmdnL2kRZvKPjrab1nAEyFka1fVGYu8w59mymteSF+rQuQ2FybG9zIFNl&#xa;cnJhbm8gQ2luY2EgPHNlcnJhbm9AcG9zdGEudW5pemFyLmVzPokASwQQEQIACwUC&#xa;NzreLQQLAwIBAAoJEFlyxNs7kDT0la4Ani3+z1B3su+uuVnYRjknWsqkMOmfAJ9Y&#xa;NXuiASG3ABhOKHAcqE29rGB2H7kCDQQ3Ot4uEAgA9kJXtwh/CBdyorrWqULzBej5&#xa;UxE5T7bxbrlLOCDaAadWoxTpj0BV89AHxstDqZSt90xkhkn4DIO9ZekX1KHTUPj1&#xa;WV/cdlJPPT2N286Z4VeSWc39uK50T8X8dryDxUcwYc58yWb/Ffm7/ZFexwGq01ue&#xa;jaClcjrUGvC/RgBYK+X0iP1YTknbzSC0neSRBzZrM2w4DUUdD3yIsxx8Wy2O9vPJ&#xa;I8BD8KVbGI2Ou1WMuF040zT9fBdXQ6MdGGzeMyEstSr/POGxKUAYEY18hKcKctaG&#xa;xAMZyAcpesqVDNmWn6vQClCbAkbTCD1mpF1Bn5x8vYlLIhkmuquiXsNV6TILOwAC&#xa;Agf8D5yY0PJdoNcZ72DhRsfqz/EMGh6QWZRVd0lreAG1gdNL5oRkN3RSP1cSmiU6&#xa;RDrbBkfbPqKLIvhMZR8kzUSOIAcEhEaW1m4zanTK7iQwYifoWVnWAgKXIg9wzVMv&#xa;Zks37w/ekbaPWV8k9q1zmNezlscdHLF3WswEuhdKOnkdnuDmIb1hZkLhbXgspCJD&#xa;C6jZhJ7lJRF7Am56VKHNV1ArIENVdngiNDEYCQ4PgxzX2RL3PX/J5AqXp/hyJ9mi&#xa;1gOZjI91ZjCf70IY/khpKH5jd7cpFsfl1meNJnjbr3wSa+Vkx0Pv0MmoUZB1uvVo&#xa;RdsV9RiKOIn2YIov8sVjqXxrIokARgQYEQIABgUCNzreLgAKCRBZcsTbO5A09Aql&#xa;AKDtecIL1V+v8N5Av+c2EavWlJld4QCg704enpDj31SSO3hTKnl47dUQX8Q=&#xa;=YQDR"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="pnlDatosHost">
+                  <Properties>
+                    <Property name="opaque" type="boolean" value="false"/>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="lblsCodigo" min="-2" pref="78" max="-2" attributes="0"/>
+                                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                                      <Component id="lblCodigo" min="-2" pref="435" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="lblsIP" min="-2" pref="78" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="lblIP" min="-2" pref="435" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblIP" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblsIP" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblsCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="lblsIP">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="IP Equipo:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblIP">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="192.168.0.3"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblsCodigo">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblCodigo">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="YDHewr435"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
+<!-- 2015-05-04T18:13:09 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteDiseño" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2a80969c-4524-47c7-a6fb-9bcd2693933e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Adaptador Diseño Reporte"/>
+	<parameter name="nombreDiseno" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="prueba" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="strReferencia" class="java.lang.String">
+		<fieldDescription><![CDATA[strReferencia]]></fieldDescription>
+	</field>
+	<field name="strEnunciado" class="java.lang.String">
+		<fieldDescription><![CDATA[strEnunciado]]></fieldDescription>
+	</field>
+	<field name="dblPuntaje" class="java.lang.Double">
+		<fieldDescription><![CDATA[dblPuntaje]]></fieldDescription>
+	</field>
+	<field name="intTipo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[intTipo]]></fieldDescription>
+	</field>
+	<field name="intPreguntaId" class="java.lang.Integer">
+		<fieldDescription><![CDATA[intPreguntaId]]></fieldDescription>
+	</field>
+	<field name="strTemaNobre" class="java.lang.String">
+		<fieldDescription><![CDATA[strTemaNobre]]></fieldDescription>
+	</field>
+	<field name="intOrden" class="java.lang.Integer">
+		<fieldDescription><![CDATA[intOrden]]></fieldDescription>
+	</field>
+	<field name="strNivel" class="java.lang.String">
+		<fieldDescription><![CDATA[strNivel]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="10" width="350" height="30" uuid="56311a6a-deef-4f4a-b220-d7a3b61505d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreDiseno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="46" width="100" height="30" uuid="31637233-a998-4bda-814e-51897d619698"/>
+				<textFieldExpression><![CDATA[$P{prueba}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="158" splitType="Stretch">
+			<textField>
+				<reportElement x="50" y="30" width="510" height="50" uuid="cea550ca-9642-40b6-91d0-fa06a44b61b4"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{strEnunciado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-18" y="29" width="68" height="21" uuid="6fb6db1d-b3ce-4ad1-b9d2-6d6465c8b931"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Enunciado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="90" width="100" height="20" uuid="183038d5-79b1-4cd2-8d59-bd8ed70cb76c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dblPuntaje}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-18" y="90" width="68" height="20" uuid="ae48a427-2271-4138-8ddb-4b9d6a2e7276"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Puntaje:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

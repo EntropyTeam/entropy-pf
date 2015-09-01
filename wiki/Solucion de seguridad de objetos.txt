@@ -1,0 +1,9 @@
+Para corroborar la validez de un elemento a mandar o a guardar, se plantea asignarle un valor numerico a cada letra del
+Alfabeto de por ejemplo 4 digitos, luego recorrer todos los objetos que tenga el elemento a validar y por cada letra de 
+cadenas de letras acumular su respectivo valor, luego los numeros suman directo y los booleanos algun valor prefijado.
+Asi con cada calor primitivo que pueda contener un objeto, esto se guarda en un acumulador "checksum", que luego al 
+momento de re armar el objeto se vuelve a calcular para controlar su integridad.
+
+http://www.codigofantasma.com/blog/hacer-checksum-de-un-archivo-usando-md5-en-java/
+http://it4java.blogspot.com.ar/2013/05/generate-file-checksum-value-in-java.html
+http://tumatatigre.com/tumatatigre/contenido.do?id=25
