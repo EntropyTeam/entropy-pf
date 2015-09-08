@@ -11,4 +11,8 @@ package backend.dao;
  */
 public class Caca {
     
+    public Caca(){
+            System.out.println("Hola");
+}
+    
 }
