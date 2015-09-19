@@ -184,18 +184,17 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
         scrTablaAlumnos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Panel de control", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_CURSIVA));
         scrTablaAlumnos.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrTablaAlumnos.setOpaque(true);
 
         tblAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Alumno", "Estado", "Tiempo inicio", "Tiempo restante", "Preguntas respondidas", "Progreso", "Anular", "Otros"
+                "Alumno", "Estado", "Tiempo inicio", "Tiempo restante", "Preguntas respondidas", "Progreso", "Anular", "Otros", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, true
+                false, false, false, false, false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
