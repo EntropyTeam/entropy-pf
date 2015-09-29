@@ -57,6 +57,9 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
         pnlDuracion = new javax.swing.JPanel();
         lblsDuracion = new javax.swing.JLabel();
         lblDuracion = new javax.swing.JLabel();
+        pnlCodigo = new javax.swing.JPanel();
+        lblCodigo = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         btnComenzar = new javax.swing.JButton();
         pnlDatosProfesor = new javax.swing.JPanel();
@@ -116,6 +119,22 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
         pnlDuracion.add(lblDuracion);
 
         pnlDatosExamen.add(pnlDuracion);
+
+        pnlCodigo.setLayout(new java.awt.GridLayout());
+
+        lblCodigo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCodigo.setText("Codigo:     ");
+        pnlCodigo.add(lblCodigo);
+
+        txtCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
+        pnlCodigo.add(txtCodigo);
+
+        pnlDatosExamen.add(pnlCodigo);
 
         pnlSuperior.add(pnlDatosExamen);
 
@@ -211,7 +230,8 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
 
     private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
         try {
-            this.gestor.comenzarExamen();
+            String codigo = this.txtCodigo.getText();
+            this.gestor.comenzarExamen(codigo);
         } catch (IOException ioe) {
             Mensajes.mostrarError("Imposible avisar comienzo al profesor.");
         }
@@ -229,11 +249,16 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
         btnComenzar.setText("<html>Comenzar</html>");
     }//GEN-LAST:event_btnComenzarMouseExited
 
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComenzar;
     private javax.swing.JButton btnVerDatosProfesor;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblDuracion;
     private javax.swing.JLabel lblExamen;
@@ -241,6 +266,7 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
     private javax.swing.JLabel lblsDescripcion;
     private javax.swing.JLabel lblsDuracion;
     private javax.swing.JLabel lblsExamen;
+    private javax.swing.JPanel pnlCodigo;
     private javax.swing.JPanel pnlDatosExamen;
     private javax.swing.JPanel pnlDatosProfesor;
     private javax.swing.JPanel pnlDescripcion;
@@ -248,5 +274,6 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
     private javax.swing.JPanel pnlFondo;
     private javax.swing.JPanel pnlNombre;
     private javax.swing.JPanel pnlSuperior;
+    private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }

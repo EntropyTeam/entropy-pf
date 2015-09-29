@@ -119,4 +119,10 @@ public class TipoMensaje {
      * presentacion.
      */
     public static final int DESCONECTAR_PRESENTACION = 18;
+    
+    /**
+     * Se manda con el codigo de validacion de alumno
+     * antes de comenzar el examen.
+     */
+    public static final int VALIDAR_ALUMNO = 19;
 }

@@ -1,5 +1,4 @@
 package frontend.tomaexamenes;
-
 import backend.auxiliares.Mensajes;
 import backend.examenes.EstadoTomaExamen;
 import backend.examenes.Examen;
@@ -190,11 +189,11 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Alumno", "Estado", "Tiempo inicio", "Tiempo restante", "Preguntas respondidas", "Progreso", "Anular", "Otros", "Codigo"
+                "Alumno", "Estado", "Tiempo inicio", "Tiempo restante", "Preguntas respondidas", "Progreso", "Anular", "Otros"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, true, true
+                false, false, false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

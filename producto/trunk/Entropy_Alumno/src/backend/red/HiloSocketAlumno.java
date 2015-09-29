@@ -82,6 +82,10 @@ public class HiloSocketAlumno extends Thread {
                 byte[] bytesImg = (byte[]) mensaje.getPayload();
                 gestorPresentacion.mostrarImagen(bytesImg);
                 break;
+            case TipoMensaje.VALIDAR_ALUMNO:
+//                byte[] bytesImg = (byte[]) mensaje.getPayload();
+//                gestorPresentacion.mostrarImagen(bytesImg);
+                break;
         }
     }
 

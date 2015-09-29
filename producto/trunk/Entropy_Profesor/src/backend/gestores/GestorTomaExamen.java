@@ -1,5 +1,6 @@
 package backend.gestores;
 
+import backend.Seguridad.GestorSeguridadAutenticacion;
 import backend.auxiliares.Mensajes;
 import backend.dao.resoluciones.DAOResolucion;
 import backend.examenes.Examen;
@@ -85,6 +86,12 @@ public class GestorTomaExamen {
      * la tabla de control de examen.
      */
     public int agregarAlumno(Alumno alumno) {
+        
+        //Agrego el codigo unico al alumno que luego debe ser comunicado de nuevo al alumno.
+        GestorSeguridadAutenticacion gestorSeguridadAutenticacion = new GestorSeguridadAutenticacion();
+        String codigo = gestorSeguridadAutenticacion.generarCodigoAlfNum();
+        alumno.setStrCodigo(codigo);
+        
         int indice = frmControlTomaExamen.agregarAlumno(alumno);
         try {
             Usuario profesor = GestorConfiguracion.getInstancia().getIDAOUsuarios().getUsuario();

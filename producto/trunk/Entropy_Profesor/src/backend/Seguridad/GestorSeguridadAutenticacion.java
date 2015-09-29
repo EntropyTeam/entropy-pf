@@ -16,7 +16,7 @@ public class GestorSeguridadAutenticacion {
     public GestorSeguridadAutenticacion(){
 
 }
-    public String GenerarCodigoAlfNum(){
+    public String generarCodigoAlfNum(){
         String codigo =  UUID.randomUUID().toString().replaceAll("-", "").substring(0, 5).toUpperCase();
         return codigo;
     }
