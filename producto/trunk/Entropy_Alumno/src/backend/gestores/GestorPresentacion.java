@@ -94,6 +94,7 @@ public class GestorPresentacion {
             ByteArrayInputStream bufferImg = new ByteArrayInputStream(bytesImg);
             BufferedImage imagen = ImageIO.read(bufferImg);
             this.dialogPresentacion.setLblImagen(new ImageIcon(imagen));
+            this.dialogPresentacion.repaint();
             if(!this.dialogPresentacion.isVisible())
             {
                 this.dialogPresentacion.setVisible(true);
