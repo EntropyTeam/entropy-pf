@@ -5,40 +5,22 @@
  */
 package frontend.diseños;
 
-import backend.auxiliares.Mensajes;
-import backend.dao.diseños.DAOCurso;
-import backend.diseños.Curso;
-import backend.diseños.Institucion;
 import backend.diseños.Pregunta;
-import backend.gestores.GestorCursosEInstituciones;
-import frontend.auxiliares.CeldaListaRendererEntropy;
-import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.GestorImagenes;
-import frontend.inicio.VentanaPrincipal;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class DialogImportarAdjuntos extends javax.swing.JDialog {
 
     private final PanelContenidoExamen mPadre;
-    private boolean blnEdicion = false;
-    private boolean blnEdicionCurso = false;
     private byte[] bytesImagen = null;
 
     /**
@@ -48,6 +30,16 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
         super(parent, modal);
         this.mPadre=mPadre;
         initComponents();
+        validarImagen();
+    }
+    
+    private void validarImagen()
+    {
+        Pregunta pregunta = mPadre.getPreguntaSeleccionada();
+        if(pregunta.getColAdjuntos()==null)
+        {
+            
+        }
     }
 
     private byte[] guardarParametrosDeImagen(String ruta) {
@@ -64,10 +56,12 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
         return bytes;
     }
     
-    private void guardarAdjuntoEnPregunta()
+    private void guardarAdjuntoEnPregunta(Object imagen)
     {
         Pregunta pregunta = mPadre.getPreguntaSeleccionada();
-        pregunta.setColAdjuntos(null);
+        ArrayList<Object> adjuntos = new ArrayList<Object> ();
+        adjuntos.add(imagen);
+        pregunta.setColAdjuntos(adjuntos);
     }
 
     @SuppressWarnings("unchecked")
@@ -112,14 +106,6 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
         btnAgregarImagen.setContentAreaFilled(false);
         btnAgregarImagen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarImagen.setIconTextGap(10);
-        btnAgregarImagen.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAgregarImagenMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAgregarImagenMouseExited(evt);
-            }
-        });
         btnAgregarImagen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarImagenActionPerformed(evt);
@@ -230,16 +216,11 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAgregarImagenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarImagenMouseEntered
-    }//GEN-LAST:event_btnAgregarImagenMouseEntered
-
-    private void btnAgregarImagenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarImagenMouseExited
-
-    }//GEN-LAST:event_btnAgregarImagenMouseExited
-
     private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
         if (bytesImagen != null) {
             Object imagen = bytesImagen;
+            guardarAdjuntoEnPregunta(imagen);
+            this.dispose();
         } else {
             System.err.print("No se ha cargado ninguna imagen, si no desea cargar ninguna imagen oprima el boton regresar");
         }
