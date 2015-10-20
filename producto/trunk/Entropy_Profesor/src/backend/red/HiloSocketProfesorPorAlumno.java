@@ -142,6 +142,9 @@ public class HiloSocketProfesorPorAlumno extends Thread {
             // Tipos de mensajes generales
             case TipoMensaje.RESPONDER_SALUDO:
                 break;
+            // Mensaje del alumno con el codigo para validar, recibe un alumno con el codigo dentro
+            case TipoMensaje.VALIDAR_ALUMNO:
+                break;
         }
     }
 

@@ -125,4 +125,9 @@ public class TipoMensaje {
      * antes de comenzar el examen.
      */
     public static final int VALIDAR_ALUMNO = 19;
+    /**
+     * Se manda con el codigo el booleano que resulte
+     * de la validacion del codigo del alumno en el profesor.
+     */
+    public static final int RESULTADO_VALIDACION = 20;
 }
