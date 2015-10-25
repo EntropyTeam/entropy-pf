@@ -146,10 +146,10 @@ public class HiloSocketProfesorPorAlumno extends Thread {
                 break;
             // Mensaje del alumno con el codigo para validar, recibe un alumno con el codigo dentro
             case TipoMensaje.VALIDAR_ALUMNO:
-                Alumno alumnoMensaje = (Alumno) mensaje.getPayload();
+                String codigoAlumnoValidar = (String) mensaje.getPayload();
 //                gestorTomaExamen.validarAlumno(alumnoMensaje);
                 System.out.println("Codigo del alumno en su hilo en particular " + this.alumno.getStrCodigo());
-                System.out.println("Codigo del alumno en el mensaje recibido: " + alumnoMensaje.getStrCodigo());
+                System.out.println("Codigo del alumno en el mensaje recibido: " + codigoAlumnoValidar);
                 System.out.println("Alumno recibido: " );
                 break;
         }

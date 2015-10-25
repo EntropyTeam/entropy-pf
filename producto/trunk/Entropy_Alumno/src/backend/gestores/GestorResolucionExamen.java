@@ -179,10 +179,10 @@ public class GestorResolucionExamen {
      * @throws IOException excepcion si es imposible comunicarse con el
      * profesor.
      */
-    public void comenzarExamen(Alumno AlumnoAValidar) throws IOException {
+    public void comenzarExamen(String codigo) throws IOException {
 
         //valido el codigo con el servidor (MAndo mensajes de ida y vuelta)
-        Mensaje mnsValidarAlumno = new Mensaje(TipoMensaje.VALIDAR_ALUMNO, AlumnoAValidar);
+        Mensaje mnsValidarAlumno = new Mensaje(TipoMensaje.VALIDAR_ALUMNO, codigo);
         hiloSocketAlumno.enviarMensaje(mnsValidarAlumno);
 
         if (this.blnValidacion) {

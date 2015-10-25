@@ -232,9 +232,7 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
     private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
         try {
             String codigo = this.txtCodigo.getText();
-            Alumno alumno = this.gestor.getAlumno();
-            alumno.setStrCodigo(codigo);
-            this.gestor.comenzarExamen(alumno);
+            this.gestor.comenzarExamen(codigo);
         } catch (IOException ioe) {
             Mensajes.mostrarError("Imposible avisar comienzo al profesor.");
         }
