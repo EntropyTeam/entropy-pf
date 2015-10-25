@@ -1,5 +1,6 @@
 package backend.red;
 
+import backend.Seguridad.GestorSeguridadAutenticacion;
 import backend.auxiliares.Mensajes;
 import backend.examenes.Examen;
 import backend.gestores.GestorDePresentacion;
@@ -23,6 +24,7 @@ public class HiloSocketProfesorPorAlumno extends Thread {
     private boolean blnVive = true;
     private Socket socket;
     private GestorTomaExamen gestorTomaExamen;
+    private GestorSeguridadAutenticacion gestorSeguridadAutenticacion;
     private GestorDePresentacion gestorPresentacion;
     private ObjectInputStream objetoEntrante;
     private ObjectOutput objetoSaliente;
@@ -144,6 +146,11 @@ public class HiloSocketProfesorPorAlumno extends Thread {
                 break;
             // Mensaje del alumno con el codigo para validar, recibe un alumno con el codigo dentro
             case TipoMensaje.VALIDAR_ALUMNO:
+                Alumno alumnoMensaje = (Alumno) mensaje.getPayload();
+//                gestorTomaExamen.validarAlumno(alumnoMensaje);
+                System.out.println("Codigo del alumno en su hilo en particular " + this.alumno.getStrCodigo());
+                System.out.println("Codigo del alumno en el mensaje recibido: " + alumnoMensaje.getStrCodigo());
+                System.out.println("Alumno recibido: " );
                 break;
         }
     }

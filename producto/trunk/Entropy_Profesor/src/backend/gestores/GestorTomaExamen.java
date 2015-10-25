@@ -89,7 +89,8 @@ public class GestorTomaExamen {
         
         //Agrego el codigo unico al alumno que luego debe ser comunicado de nuevo al alumno.
         GestorSeguridadAutenticacion gestorSeguridadAutenticacion = new GestorSeguridadAutenticacion();
-        String codigo = gestorSeguridadAutenticacion.generarCodigoAlfNum();
+        //String codigo = gestorSeguridadAutenticacion.generarCodigoAlfNum();
+        String codigo = "Pelito papo";
         alumno.setStrCodigo(codigo);
         
         int indice = frmControlTomaExamen.agregarAlumno(alumno);
@@ -145,5 +146,17 @@ public class GestorTomaExamen {
 
     public void mostrarDatosAlumno(int intIndiceAlumno) {
         new DialogInfoUsuario(frmControlTomaExamen, true, colHilosSocketsAlumnos.get(intIndiceAlumno).getAlumno()).setVisible(true);
+    }
+
+    public boolean validarAlumno(Alumno alumno) {
+        boolean retorno = false;
+        for (HiloSocketProfesorPorAlumno alumnoARecorrer : colHilosSocketsAlumnos) {
+            if(alumno.getStrNombre().equals(alumnoARecorrer.getAlumno().getStrNombre()) && alumno.getStrCodigo().equals(alumnoARecorrer.getAlumno().getStrCodigo())){
+                retorno = true;
+            }else{
+                retorno = false;
+            }
+        }
+        return retorno;
     }
 }

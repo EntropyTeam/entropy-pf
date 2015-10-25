@@ -2,6 +2,7 @@ package frontend.examenes;
 
 import backend.auxiliares.Mensajes;
 import backend.gestores.GestorResolucionExamen;
+import backend.resoluciones.Alumno;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.inicio.VentanaPrincipal;
 import frontend.usuario.DialogInfoUsuario;
@@ -231,7 +232,9 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
     private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
         try {
             String codigo = this.txtCodigo.getText();
-            this.gestor.comenzarExamen(codigo);
+            Alumno alumno = this.gestor.getAlumno();
+            alumno.setStrCodigo(codigo);
+            this.gestor.comenzarExamen(alumno);
         } catch (IOException ioe) {
             Mensajes.mostrarError("Imposible avisar comienzo al profesor.");
         }
