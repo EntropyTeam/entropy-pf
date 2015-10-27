@@ -54,7 +54,7 @@ public class GestorResolucionExamen {
     private Timer timerEspera;
     private Alumno alumno;
     private Usuario profesor;
-    private boolean blnValidacion = true;
+    private boolean blnValidacion = false;
 
     public GestorResolucionExamen(String ipServidor, int intPuerto) throws IOException {
         this.ipServidor = ipServidor;
@@ -193,7 +193,7 @@ public class GestorResolucionExamen {
             Logger.getLogger(GestorResolucionExamen.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(this.blnValidacion);
-        if (this.blnValidacion) {
+        if (!this.blnValidacion) {JOptionPane.showMessageDialog(null, "Codigo erronoe"); return;}
 
             // Se avisa al servidor
             Mensaje mnsAvisarComienzo = new Mensaje(TipoMensaje.INICIAR_EXAMEN);
@@ -241,11 +241,6 @@ public class GestorResolucionExamen {
 
                 resolucion.setColRespuestas(colRespuestas);
             }
-        }
-        else{
-        JOptionPane.showInternalMessageDialog(null, "Codigo erronoe");
-        }
-
         mPadre.setTitle("Examen iniciado: " + getExamen().getStrNombre());
         PanelPregunta pnlPreguntas = new PanelPregunta(mPadre, this);
         pnlPreguntas.setName("Preguntas");
