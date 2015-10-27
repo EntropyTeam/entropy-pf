@@ -38,6 +38,7 @@ public class GestorPresentacion {
     private DialogPresentacion dialogPresentacion;
     private Timer timerEspera;
     private Usuario profesor;
+    private boolean blnEstaConectado = false;
 
 
     public GestorPresentacion(String ipServidor, int intPuerto) throws IOException {
@@ -71,6 +72,7 @@ public class GestorPresentacion {
     public void iniciarConexion() throws IOException {
         hiloSocketAlumno = new HiloSocketAlumno(ipServidor, intPuerto, this);
         hiloSocketAlumno.start();
+        blnEstaConectado = true;
     }
 
     public void avisarServidorCierre() throws IOException {
@@ -93,11 +95,10 @@ public class GestorPresentacion {
         try {
             ByteArrayInputStream bufferImg = new ByteArrayInputStream(bytesImg);
             BufferedImage imagen = ImageIO.read(bufferImg);
-            this.dialogPresentacion.setLblImagen(new ImageIcon(imagen));
-            this.dialogPresentacion.repaint();
-            if(!this.dialogPresentacion.isVisible())
-            {
-                this.dialogPresentacion.setVisible(true);
+            if(this.dialogPresentacion.isVisible()) {
+                this.dialogPresentacion.setLblImagen(new ImageIcon(imagen));
+            } else if (blnEstaConectado) {
+                new HiloDialogPresentacion().start();
             }
         } catch (IOException ex) {
             System.err.println(ex.toString());
@@ -141,5 +142,13 @@ public class GestorPresentacion {
     public void comenzarPresentacion() throws IOException {
         Mensaje mnsAvisarComienzoPresentacion = new Mensaje(TipoMensaje.INICIAR_PRESENTACION);
         hiloSocketAlumno.enviarMensaje(mnsAvisarComienzoPresentacion);
+    }
+    
+    public class HiloDialogPresentacion extends Thread {
+        
+        @Override
+        public synchronized void run() {
+            dialogPresentacion.setVisible(true);
+        }
     }
 }

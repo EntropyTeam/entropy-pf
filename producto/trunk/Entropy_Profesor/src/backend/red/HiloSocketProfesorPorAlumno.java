@@ -2,14 +2,12 @@ package backend.red;
 
 import backend.Seguridad.GestorSeguridadAutenticacion;
 import backend.auxiliares.Mensajes;
-import backend.examenes.Examen;
 import backend.gestores.GestorDePresentacion;
 import backend.gestores.GestorTomaExamen;
 import backend.resoluciones.Alumno;
 import backend.resoluciones.Resolucion;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -27,7 +25,7 @@ public class HiloSocketProfesorPorAlumno extends Thread {
     private GestorSeguridadAutenticacion gestorSeguridadAutenticacion;
     private GestorDePresentacion gestorPresentacion;
     private ObjectInputStream objetoEntrante;
-    private ObjectOutput objetoSaliente;
+    private ObjectOutputStream objetoSaliente;
     private int intIndice;
     private Alumno alumno;
 
@@ -168,7 +166,9 @@ public class HiloSocketProfesorPorAlumno extends Thread {
      * método.
      */
     public void enviarMensaje(Mensaje mensaje) throws IOException {
+        //objetoSaliente = new ObjectOutputStream(this.socket.getOutputStream());
         objetoSaliente.writeObject(mensaje);
+        //objetoSaliente.flush();
     }
 
     /**
@@ -211,6 +211,6 @@ public class HiloSocketProfesorPorAlumno extends Thread {
     }
 
     public Alumno getAlumno() {
-        return alumno;
+        return this.alumno;
     }
 }

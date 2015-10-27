@@ -18,7 +18,6 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -116,8 +115,13 @@ public class GestorDePresentacion {
 
     public void enviarImagenes(int intIndice) {
         try {
-            Mensaje mensaje = new Mensaje(TipoMensaje.ENVIAR_IMAGENES, capturarPantalla());
+            ByteArrayOutputStream imgSalida = new ByteArrayOutputStream();
+            BufferedImage image = capturarPantalla();
+            ImageIO.write(image, "png", imgSalida);
+            byte[] array = imgSalida.toByteArray();
+            Mensaje mensaje = new Mensaje(TipoMensaje.ENVIAR_IMAGENES, array);
             colHilosSocketsAlumnos.get(intIndice).enviarMensaje(mensaje);
+            imgSalida.flush();
         } catch (IOException e) {
             frmControlPresentacion.mostrarErrorAlEnviarPresentacion(intIndice);
             System.out.println(e.toString());
@@ -140,45 +144,34 @@ public class GestorDePresentacion {
         new DialogInfoUsuario(this.frmControlPresentacion, true, colHilosSocketsAlumnos.get(intIndice).getAlumno()).setVisible(true);
     }
 
-    private byte[] capturarPantalla() throws Exception {
-        ByteArrayOutputStream imgSalida = new ByteArrayOutputStream();
-        //obtener el tamaño de la pantalla
+    private BufferedImage capturarPantalla() throws Exception {
+        // Obtener el tamaño de la pantalla
         Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        //crear un objeto del tipo Rectangle con el tamaño obtenido
+        // Crear un objeto del tipo Rectangle con el tamaño obtenido
         Rectangle screenRectangle = new Rectangle(screenSize);
-        //inicializar un objeto robot
+        // Inicializar un objeto robot
         Robot r = new Robot();
-        //obtener una captura de pantalla del tamaño de la pantalla
+        // Obtener una captura de pantalla del tamaño de la pantalla
         BufferedImage image = r.createScreenCapture(screenRectangle);
-        
-        ImageIO.write(image, "jpeg", imgSalida);
-        
-        return imgSalida.toByteArray();
+            
+        return image;
     }
 
     private class HiloCapturarImagen extends Thread {
         
         int intIndice;
-        boolean bandera = true;
+        boolean blnEstaConectado;
         
         public HiloCapturarImagen(int intIndice) {
             this.intIndice = intIndice;
+            this.blnEstaConectado = true;
         }
 
         @Override
         public void run() {
-            while (bandera) {
-                try {
-                    enviarImagenes(this.intIndice);
-                    HiloCapturarImagen.sleep(500);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(GestorDePresentacion.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            while(this.blnEstaConectado) {
+                enviarImagenes(this.intIndice);
             }
-        }
-
-        public void detenerHilo() {
-            this.bandera = false;
         }
     }
 }
