@@ -12,8 +12,8 @@ import backend.red.ParsearRoute;
 import backend.red.TipoMensaje;
 import backend.resoluciones.Resolucion;
 import backend.usuarios.Usuario;
+import frontend.tomaexamenes.DialogInfoAlumno;
 import frontend.tomaexamenes.FrameControlTomaExamen;
-import frontend.usuario.DialogInfoUsuario;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -89,8 +89,7 @@ public class GestorTomaExamen {
         
         //Agrego el codigo unico al alumno que luego debe ser comunicado de nuevo al alumno.
         GestorSeguridadAutenticacion gestorSeguridadAutenticacion = new GestorSeguridadAutenticacion();
-        //String codigo = gestorSeguridadAutenticacion.generarCodigoAlfNum();
-        String codigo = "Pelito papo";
+        String codigo = gestorSeguridadAutenticacion.generarCodigoAlfNum();
         alumno.setStrCodigo(codigo);
         
         int indice = frmControlTomaExamen.agregarAlumno(alumno);
@@ -145,6 +144,6 @@ public class GestorTomaExamen {
     }
 
     public void mostrarDatosAlumno(int intIndiceAlumno) {
-        new DialogInfoUsuario(frmControlTomaExamen, true, colHilosSocketsAlumnos.get(intIndiceAlumno).getAlumno()).setVisible(true);
+        new DialogInfoAlumno(frmControlTomaExamen, true, colHilosSocketsAlumnos.get(intIndiceAlumno).getAlumno()).setVisible(true);
     }
 }
