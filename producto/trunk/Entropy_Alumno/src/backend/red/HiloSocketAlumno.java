@@ -4,15 +4,12 @@ import backend.examenes.Examen;
 import backend.gestores.GestorResolucionExamen;
 import backend.gestores.GestorPresentacion;
 import backend.usuarios.Usuario;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -90,6 +87,7 @@ public class HiloSocketAlumno extends Thread {
 
         while (!this.isInterrupted()) {
             try {
+                //this.objetoEntrante = new ObjectInputStream(socket.getInputStream());
                 Object objRecibido = this.objetoEntrante.readObject();
                 if (objRecibido instanceof Mensaje) {
                     Mensaje mensaje = (Mensaje) objRecibido;
