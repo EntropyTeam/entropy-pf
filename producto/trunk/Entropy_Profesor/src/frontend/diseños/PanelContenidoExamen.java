@@ -787,7 +787,8 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBajarPregunta1MouseExited
 
     private void btnBajarPregunta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajarPregunta1ActionPerformed
-        // TODO add your handling code here:
+        DialogImportarAdjuntos adjuntos = new DialogImportarAdjuntos(null, true, this);
+        adjuntos.setVisible(true);
     }//GEN-LAST:event_btnBajarPregunta1ActionPerformed
 
     private void keyReleasedCmbTema(KeyEvent evt) {

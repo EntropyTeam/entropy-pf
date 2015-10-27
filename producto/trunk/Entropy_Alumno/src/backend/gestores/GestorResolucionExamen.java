@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -51,13 +52,14 @@ public class GestorResolucionExamen {
     private Timer timerEspera;
     private Alumno alumno;
     private Usuario profesor;
+    private boolean blnValidacion = false;
 
     public GestorResolucionExamen(String ipServidor, int intPuerto) throws IOException {
         this.ipServidor = ipServidor;
         this.intPuerto = intPuerto;
         iniciarConexion();
     }
-    
+
     public GestorResolucionExamen(String ipServidor, int intPuerto, Resolucion resolucionRecuperar) throws IOException {
         this.ipServidor = ipServidor;
         this.intPuerto = intPuerto;
@@ -125,12 +127,12 @@ public class GestorResolucionExamen {
                 Mensajes.mostrarError("El examen recibido no coincide con el examen que desea reanudar.");
                 return;
             }
-            
+
             if (resolucionRecuperar.getAlumno().getIntNroDocumento() != alumno.getIntNroDocumento()) {
                 Mensajes.mostrarError("El alumno del examen a reanudar no coincide con el alumno de esta sesión.");
                 return;
             }
-            
+
             resolucion = resolucionRecuperar;
         }
         gestorPersistencia = new GestorPersistencia();
@@ -177,52 +179,63 @@ public class GestorResolucionExamen {
      * @throws IOException excepcion si es imposible comunicarse con el
      * profesor.
      */
-    public void comenzarExamen() throws IOException {
-        // Se avisa al servidor
-        Mensaje mnsAvisarComienzo = new Mensaje(TipoMensaje.INICIAR_EXAMEN);
-        hiloSocketAlumno.enviarMensaje(mnsAvisarComienzo);
-        
-        if (resolucionRecuperar == null) {
-            // Se crean los objetos que albergarán las respuestas.
-            ArrayList<Respuesta> colRespuestas = new ArrayList<>();
+    public void comenzarExamen(String codigo) throws IOException {
 
-            for (Pregunta pregunta : getExamen().getColPreguntas()) {
+        //valido el codigo con el servidor (MAndo mensajes de ida y vuelta)
+        Mensaje mnsValidarAlumno = new Mensaje(TipoMensaje.VALIDAR_ALUMNO, codigo);
+        hiloSocketAlumno.enviarMensaje(mnsValidarAlumno);
 
-                if (pregunta instanceof PreguntaMultipleOpcion) {
+        if (this.blnValidacion) {
 
-                    RespuestaPreguntaMultipleOpcion rtaPMO = new RespuestaPreguntaMultipleOpcion((PreguntaMultipleOpcion) pregunta);
-                    colRespuestas.add(rtaPMO);
+            // Se avisa al servidor
+            Mensaje mnsAvisarComienzo = new Mensaje(TipoMensaje.INICIAR_EXAMEN);
+            hiloSocketAlumno.enviarMensaje(mnsAvisarComienzo);
 
-                } else if (pregunta instanceof PreguntaNumerica) {
+            if (resolucionRecuperar == null) {
+                // Se crean los objetos que albergarán las respuestas.
+                ArrayList<Respuesta> colRespuestas = new ArrayList<>();
 
-                    RespuestaPreguntaNumerica rtaNum = new RespuestaPreguntaNumerica((PreguntaNumerica) pregunta);
-                    colRespuestas.add(rtaNum);
+                for (Pregunta pregunta : getExamen().getColPreguntas()) {
 
-                } else if (pregunta instanceof PreguntaRelacionColumnas) {
+                    if (pregunta instanceof PreguntaMultipleOpcion) {
 
-                    RespuestaPreguntaRelacionColumnas rtaCol = new RespuestaPreguntaRelacionColumnas((PreguntaRelacionColumnas) pregunta);
-                    colRespuestas.add(rtaCol);
+                        RespuestaPreguntaMultipleOpcion rtaPMO = new RespuestaPreguntaMultipleOpcion((PreguntaMultipleOpcion) pregunta);
+                        colRespuestas.add(rtaPMO);
 
-                } else if (pregunta instanceof PreguntaVerdaderoFalso) {
+                    } else if (pregunta instanceof PreguntaNumerica) {
 
-                    RespuestaPreguntaVerdaderoFalso rtaVF = new RespuestaPreguntaVerdaderoFalso((PreguntaVerdaderoFalso) pregunta);
-                    colRespuestas.add(rtaVF);
+                        RespuestaPreguntaNumerica rtaNum = new RespuestaPreguntaNumerica((PreguntaNumerica) pregunta);
+                        colRespuestas.add(rtaNum);
 
-                } else if (pregunta instanceof Pregunta) {
+                    } else if (pregunta instanceof PreguntaRelacionColumnas) {
 
-                    RespuestaDesarrollo rtaDesarrollo = new RespuestaDesarrollo(pregunta);
-                    colRespuestas.add(rtaDesarrollo);
+                        RespuestaPreguntaRelacionColumnas rtaCol = new RespuestaPreguntaRelacionColumnas((PreguntaRelacionColumnas) pregunta);
+                        colRespuestas.add(rtaCol);
 
+                    } else if (pregunta instanceof PreguntaVerdaderoFalso) {
+
+                        RespuestaPreguntaVerdaderoFalso rtaVF = new RespuestaPreguntaVerdaderoFalso((PreguntaVerdaderoFalso) pregunta);
+                        colRespuestas.add(rtaVF);
+
+                    } else if (pregunta instanceof Pregunta) {
+
+                        RespuestaDesarrollo rtaDesarrollo = new RespuestaDesarrollo(pregunta);
+                        colRespuestas.add(rtaDesarrollo);
+
+                    }
                 }
-            }
 
-            if (getExamen().getOrdenPresentacion().equals(Examen.OrdenLista.ALEATORIO)) {
-                aleatorizarColeccion(colRespuestas);
-            } else if (getExamen().getOrdenPresentacion().equals(Examen.OrdenLista.POR_TEMA)) {
-                ordenarPorTema(colRespuestas);
-            }
+                if (getExamen().getOrdenPresentacion().equals(Examen.OrdenLista.ALEATORIO)) {
+                    aleatorizarColeccion(colRespuestas);
+                } else if (getExamen().getOrdenPresentacion().equals(Examen.OrdenLista.POR_TEMA)) {
+                    ordenarPorTema(colRespuestas);
+                }
 
-            resolucion.setColRespuestas(colRespuestas);
+                resolucion.setColRespuestas(colRespuestas);
+            }
+        }
+        else{
+        JOptionPane.showInternalMessageDialog(null, "Codigo erronoe");
         }
 
         mPadre.setTitle("Examen iniciado: " + getExamen().getStrNombre());
@@ -427,8 +440,8 @@ public class GestorResolucionExamen {
             gestorSeguridad.habilitarExplorer();
             gestorSeguridad.habilitarTaskManager();
             this.dialogRealizarExamen.dispose();
-            this. volverPanelInicio();
-            Mensajes.mostrarAdvertencia("Su examen ha sido anulado por su instructor con el siguiente motivo:\n\n\""+strJustificacion+"\"\n\nConsulte con su instructor.");
+            this.volverPanelInicio();
+            Mensajes.mostrarAdvertencia("Su examen ha sido anulado por su instructor con el siguiente motivo:\n\n\"" + strJustificacion + "\"\n\nConsulte con su instructor.");
             this.resolucion.setStrJustificacionAnulacion(strJustificacion);
             Mensaje mnsResolucionAnulada = new Mensaje(TipoMensaje.ANULAR_RESOLUCION, resolucion);
             hiloSocketAlumno.enviarMensaje(mnsResolucionAnulada);
@@ -439,14 +452,22 @@ public class GestorResolucionExamen {
         } catch (IOException ex) {
             guardarCambiosADisco();
         }
-        
+
     }
 
     public void setProfesor(Usuario profesor) {
         this.profesor = profesor;
     }
-    
+
     public Usuario getProfesor() {
         return this.profesor;
+    }
+
+    public void setBlnValidacion(boolean blnValidacion) {
+        this.blnValidacion = blnValidacion;
+    }
+
+    public Alumno getAlumno() {
+        return alumno;
     }
 }

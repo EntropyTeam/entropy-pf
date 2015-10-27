@@ -1,5 +1,4 @@
 package frontend.tomaexamenes;
-
 import backend.auxiliares.Mensajes;
 import backend.examenes.EstadoTomaExamen;
 import backend.examenes.Examen;
@@ -184,7 +183,6 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
         scrTablaAlumnos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Panel de control", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_CURSIVA));
         scrTablaAlumnos.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrTablaAlumnos.setOpaque(true);
 
         tblAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
