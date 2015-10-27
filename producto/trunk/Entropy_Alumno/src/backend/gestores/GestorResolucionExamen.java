@@ -30,6 +30,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -52,7 +54,7 @@ public class GestorResolucionExamen {
     private Timer timerEspera;
     private Alumno alumno;
     private Usuario profesor;
-    private boolean blnValidacion = false;
+    private boolean blnValidacion = true;
 
     public GestorResolucionExamen(String ipServidor, int intPuerto) throws IOException {
         this.ipServidor = ipServidor;
@@ -184,7 +186,13 @@ public class GestorResolucionExamen {
         //valido el codigo con el servidor (MAndo mensajes de ida y vuelta)
         Mensaje mnsValidarAlumno = new Mensaje(TipoMensaje.VALIDAR_ALUMNO, codigo);
         hiloSocketAlumno.enviarMensaje(mnsValidarAlumno);
-
+        System.out.println(this.blnValidacion);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GestorResolucionExamen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(this.blnValidacion);
         if (this.blnValidacion) {
 
             // Se avisa al servidor

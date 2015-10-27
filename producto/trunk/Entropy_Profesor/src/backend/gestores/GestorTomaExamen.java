@@ -147,16 +147,4 @@ public class GestorTomaExamen {
     public void mostrarDatosAlumno(int intIndiceAlumno) {
         new DialogInfoUsuario(frmControlTomaExamen, true, colHilosSocketsAlumnos.get(intIndiceAlumno).getAlumno()).setVisible(true);
     }
-
-    public boolean validarAlumno(Alumno alumno) {
-        boolean retorno = false;
-        for (HiloSocketProfesorPorAlumno alumnoARecorrer : colHilosSocketsAlumnos) {
-            if(alumno.getStrNombre().equals(alumnoARecorrer.getAlumno().getStrNombre()) && alumno.getStrCodigo().equals(alumnoARecorrer.getAlumno().getStrCodigo())){
-                retorno = true;
-            }else{
-                retorno = false;
-            }
-        }
-        return retorno;
-    }
 }

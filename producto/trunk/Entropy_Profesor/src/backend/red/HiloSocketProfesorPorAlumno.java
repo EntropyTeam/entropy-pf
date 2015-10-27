@@ -49,9 +49,8 @@ public class HiloSocketProfesorPorAlumno extends Thread {
             Logger.getLogger(HiloSocketProfesorPorAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-        public HiloSocketProfesorPorAlumno(Socket socket, GestorDePresentacion gestorPresentacion) {
+
+    public HiloSocketProfesorPorAlumno(Socket socket, GestorDePresentacion gestorPresentacion) {
         this.socket = socket;
         this.gestorPresentacion = gestorPresentacion;
 
@@ -108,7 +107,7 @@ public class HiloSocketProfesorPorAlumno extends Thread {
                 alumno = (Alumno) mensaje.getPayload();
                 this.intIndice = gestorTomaExamen.agregarAlumno(alumno);
                 break;
- 
+
             case TipoMensaje.DESCONECTAR_CLIENTE:
                 gestorTomaExamen.desconectarAlumno(intIndice);
                 break;
@@ -130,27 +129,32 @@ public class HiloSocketProfesorPorAlumno extends Thread {
             case TipoMensaje.ANULAR_RESOLUCION:
                 gestorTomaExamen.confirmarAnulacionResolucion((Resolucion) mensaje.getPayload());
                 break;
-            
+
             // Tipos de mensajes de presentaciones
             case TipoMensaje.CONECTAR_CLIENTE_PRESENTACION:
                 alumno = (Alumno) mensaje.getPayload();
                 this.intIndice = gestorPresentacion.agregarAlumno(alumno);
                 break;
-                
+
             case TipoMensaje.INICIAR_PRESENTACION:;
                 gestorPresentacion.iniciarPresentacion(intIndice);
                 break;
-            
+
             // Tipos de mensajes generales
             case TipoMensaje.RESPONDER_SALUDO:
                 break;
             // Mensaje del alumno con el codigo para validar, recibe un alumno con el codigo dentro
             case TipoMensaje.VALIDAR_ALUMNO:
                 String codigoAlumnoValidar = (String) mensaje.getPayload();
-//                gestorTomaExamen.validarAlumno(alumnoMensaje);
-                System.out.println("Codigo del alumno en su hilo en particular " + this.alumno.getStrCodigo());
-                System.out.println("Codigo del alumno en el mensaje recibido: " + codigoAlumnoValidar);
-                System.out.println("Alumno recibido: " );
+                boolean validacion = codigoAlumnoValidar.equals(alumno.getStrCodigo());
+                Mensaje mensajeValidacion = new Mensaje(TipoMensaje.RESULTADO_VALIDACION, validacion);
+                 {
+                    try {
+                        enviarMensaje(mensajeValidacion);
+                    } catch (IOException ex) {
+                        Logger.getLogger(HiloSocketProfesorPorAlumno.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                 break;
         }
     }
@@ -205,7 +209,7 @@ public class HiloSocketProfesorPorAlumno extends Thread {
         }
         return true;
     }
-    
+
     public Alumno getAlumno() {
         return alumno;
     }
