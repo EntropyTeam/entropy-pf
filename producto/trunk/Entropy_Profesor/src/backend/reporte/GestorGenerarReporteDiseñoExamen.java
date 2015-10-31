@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class GestorGenerarReporteDiseñoExamen {
 
     private DiseñoExamen examenSeleccionado;
-    private String path;
+    private String path = "ReporteExamenPrueba.pdf";
 
     public GestorGenerarReporteDiseñoExamen(DiseñoExamen examenSeleccionado) {
         this.examenSeleccionado = examenSeleccionado;
@@ -46,7 +46,7 @@ public class GestorGenerarReporteDiseñoExamen {
 
         try {
             int contadorOrden = 1;
-            PdfWriter.getInstance(document, new FileOutputStream("ReporteExamenPrueba.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(path));
             document.open();
 
             //Titulo Encabezado
