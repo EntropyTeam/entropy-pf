@@ -21,6 +21,7 @@ import backend.resoluciones.RespuestaPreguntaRelacionColumnas;
 import backend.resoluciones.RespuestaPreguntaVerdaderoFalso;
 import backend.usuarios.Usuario;
 import frontend.examenes.DialogRealizarExamen;
+import frontend.examenes.DialogValidarCodigoAlumno;
 import frontend.examenes.PanelIniciarExamen;
 import frontend.examenes.PanelPregunta;
 import frontend.examenes.PanelRespuesta;
@@ -55,6 +56,10 @@ public class GestorResolucionExamen {
     private Alumno alumno;
     private Usuario profesor;
     private boolean blnValidacion = false;
+
+    public boolean isBlnValidacion() {
+        return blnValidacion;
+    }
 
     public GestorResolucionExamen(String ipServidor, int intPuerto) throws IOException {
         this.ipServidor = ipServidor;
@@ -187,60 +192,59 @@ public class GestorResolucionExamen {
         Mensaje mnsValidarAlumno = new Mensaje(TipoMensaje.VALIDAR_ALUMNO, codigo);
         hiloSocketAlumno.enviarMensaje(mnsValidarAlumno);
         System.out.println(this.blnValidacion);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(GestorResolucionExamen.class.getName()).log(Level.SEVERE, null, ex);
+        DialogValidarCodigoAlumno validarAlumno = new DialogValidarCodigoAlumno(mPadre, true, this);
+        validarAlumno.setVisible(true);
+        if (this.blnValidacion==false) {
+            return;
         }
         System.out.println(this.blnValidacion);
-        if (!this.blnValidacion) {JOptionPane.showMessageDialog(null, "Codigo erronoe"); return;}
 
-            // Se avisa al servidor
-            Mensaje mnsAvisarComienzo = new Mensaje(TipoMensaje.INICIAR_EXAMEN);
-            hiloSocketAlumno.enviarMensaje(mnsAvisarComienzo);
+        // Se avisa al servidor
+        Mensaje mnsAvisarComienzo = new Mensaje(TipoMensaje.INICIAR_EXAMEN);
+        hiloSocketAlumno.enviarMensaje(mnsAvisarComienzo);
 
-            if (resolucionRecuperar == null) {
-                // Se crean los objetos que albergarán las respuestas.
-                ArrayList<Respuesta> colRespuestas = new ArrayList<>();
+        if (resolucionRecuperar == null) {
+            // Se crean los objetos que albergarán las respuestas.
+            ArrayList<Respuesta> colRespuestas = new ArrayList<>();
 
-                for (Pregunta pregunta : getExamen().getColPreguntas()) {
+            for (Pregunta pregunta : getExamen().getColPreguntas()) {
 
-                    if (pregunta instanceof PreguntaMultipleOpcion) {
+                if (pregunta instanceof PreguntaMultipleOpcion) {
 
-                        RespuestaPreguntaMultipleOpcion rtaPMO = new RespuestaPreguntaMultipleOpcion((PreguntaMultipleOpcion) pregunta);
-                        colRespuestas.add(rtaPMO);
+                    RespuestaPreguntaMultipleOpcion rtaPMO = new RespuestaPreguntaMultipleOpcion((PreguntaMultipleOpcion) pregunta);
+                    colRespuestas.add(rtaPMO);
 
-                    } else if (pregunta instanceof PreguntaNumerica) {
+                } else if (pregunta instanceof PreguntaNumerica) {
 
-                        RespuestaPreguntaNumerica rtaNum = new RespuestaPreguntaNumerica((PreguntaNumerica) pregunta);
-                        colRespuestas.add(rtaNum);
+                    RespuestaPreguntaNumerica rtaNum = new RespuestaPreguntaNumerica((PreguntaNumerica) pregunta);
+                    colRespuestas.add(rtaNum);
 
-                    } else if (pregunta instanceof PreguntaRelacionColumnas) {
+                } else if (pregunta instanceof PreguntaRelacionColumnas) {
 
-                        RespuestaPreguntaRelacionColumnas rtaCol = new RespuestaPreguntaRelacionColumnas((PreguntaRelacionColumnas) pregunta);
-                        colRespuestas.add(rtaCol);
+                    RespuestaPreguntaRelacionColumnas rtaCol = new RespuestaPreguntaRelacionColumnas((PreguntaRelacionColumnas) pregunta);
+                    colRespuestas.add(rtaCol);
 
-                    } else if (pregunta instanceof PreguntaVerdaderoFalso) {
+                } else if (pregunta instanceof PreguntaVerdaderoFalso) {
 
-                        RespuestaPreguntaVerdaderoFalso rtaVF = new RespuestaPreguntaVerdaderoFalso((PreguntaVerdaderoFalso) pregunta);
-                        colRespuestas.add(rtaVF);
+                    RespuestaPreguntaVerdaderoFalso rtaVF = new RespuestaPreguntaVerdaderoFalso((PreguntaVerdaderoFalso) pregunta);
+                    colRespuestas.add(rtaVF);
 
-                    } else if (pregunta instanceof Pregunta) {
+                } else if (pregunta instanceof Pregunta) {
 
-                        RespuestaDesarrollo rtaDesarrollo = new RespuestaDesarrollo(pregunta);
-                        colRespuestas.add(rtaDesarrollo);
+                    RespuestaDesarrollo rtaDesarrollo = new RespuestaDesarrollo(pregunta);
+                    colRespuestas.add(rtaDesarrollo);
 
-                    }
                 }
-
-                if (getExamen().getOrdenPresentacion().equals(Examen.OrdenLista.ALEATORIO)) {
-                    aleatorizarColeccion(colRespuestas);
-                } else if (getExamen().getOrdenPresentacion().equals(Examen.OrdenLista.POR_TEMA)) {
-                    ordenarPorTema(colRespuestas);
-                }
-
-                resolucion.setColRespuestas(colRespuestas);
             }
+
+            if (getExamen().getOrdenPresentacion().equals(Examen.OrdenLista.ALEATORIO)) {
+                aleatorizarColeccion(colRespuestas);
+            } else if (getExamen().getOrdenPresentacion().equals(Examen.OrdenLista.POR_TEMA)) {
+                ordenarPorTema(colRespuestas);
+            }
+
+            resolucion.setColRespuestas(colRespuestas);
+        }
         mPadre.setTitle("Examen iniciado: " + getExamen().getStrNombre());
         PanelPregunta pnlPreguntas = new PanelPregunta(mPadre, this);
         pnlPreguntas.setName("Preguntas");
@@ -473,4 +477,6 @@ public class GestorResolucionExamen {
     public Alumno getAlumno() {
         return alumno;
     }
+    
+    
 }
