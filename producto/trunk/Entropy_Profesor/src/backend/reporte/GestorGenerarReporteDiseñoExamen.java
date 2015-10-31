@@ -33,6 +33,7 @@ import java.util.ArrayList;
 public class GestorGenerarReporteDiseñoExamen {
 
     private DiseñoExamen examenSeleccionado;
+    private String path;
 
     public GestorGenerarReporteDiseñoExamen(DiseñoExamen examenSeleccionado) {
         this.examenSeleccionado = examenSeleccionado;
@@ -181,4 +182,8 @@ public class GestorGenerarReporteDiseñoExamen {
         }
 
     }
+
+    public String getPath() {
+        return path;
+    }  
 }

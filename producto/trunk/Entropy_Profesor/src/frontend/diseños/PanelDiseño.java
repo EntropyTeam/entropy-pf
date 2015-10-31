@@ -3,11 +3,15 @@ package frontend.diseños;
 import backend.auxiliares.Mensajes;
 import backend.diseños.DiseñoExamen;
 import backend.gestores.GestorDiseñoExamen;
+import backend.reporte.GestorGenerarReporteDiseñoExamen;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.IValidarSalida;
 import frontend.inicio.VentanaPrincipal;
 import frontend.auxiliares.PanelDeslizante;
 import frontend.tomaexamenes.PanelTomaExamen;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -147,6 +151,11 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnImprimirMouseExited(evt);
+            }
+        });
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
             }
         });
         pnlBotones.add(btnImprimir);
@@ -303,6 +312,19 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
         tomarDiseño();
     }//GEN-LAST:event_btnTomarExamenActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+
+        GestorGenerarReporteDiseñoExamen gestorGenerarReporte = new GestorGenerarReporteDiseñoExamen(this.gestorDiseñoExamen.getDiseñoExamen());
+
+        try {
+            File path = new File(gestorGenerarReporte.getPath());
+            Desktop.getDesktop().open(path);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     public PanelDeslizante getPanelDeslizante() {
         return pnlAuxSlides;
     }
@@ -371,7 +393,7 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
 
     @Override
     public IValidarSalida.TipoAccion validarSalida() {
-        if (!blnEsGuardado ) {
+        if (!blnEsGuardado) {
             int intOpcionElegida = Mensajes.mostrarOpcion("Se perderán los cambios no guardados. ¿Desea guardar antes de salir?");
             if (intOpcionElegida == JOptionPane.CANCEL_OPTION) {
                 return IValidarSalida.TipoAccion.CANCELAR;
