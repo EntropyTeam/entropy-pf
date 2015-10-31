@@ -16,6 +16,7 @@ import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.inicio.VentanaPrincipal;
 import frontend.tomaexamenes.PanelTomaExamen;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,8 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JComponent;
@@ -77,7 +80,7 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
 
         this.pnlCentral.add(pnlInformacion);
         this.pnlInformacion.setVisible(false);
-        this.pnlInformacion.setPreferredSize(new Dimension (200, 80));
+        this.pnlInformacion.setPreferredSize(new Dimension(200, 80));
 
         this.gestorImportarPregunta = new GestorImportarPregunta();
         this.gestorEstados = new GestorBarrasDeEstado(lblActualizacionEstado, lblIconoEstado);
@@ -134,7 +137,7 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
         this.cmbInstitucion.setSelectedIndex(0);
         this.cmbCurso.addItem("No aplica");
         this.cmbCurso.setSelectedIndex(0);
-        
+
         this.setLocationRelativeTo(padre);
     }
 
@@ -186,7 +189,7 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
             } else {
                 pnlInformacion.setVisible(false);
             }
-            
+
             revalidate();
             repaint();
         }
@@ -685,7 +688,7 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
     public GestorBarrasDeEstado getGestorEstados() {
         return gestorEstados;
     }
-    
+
     /**
      * Funcionalidad para empezar a editar el diseño seleccionado luego de usar
      * el boton editar diseño examen.
@@ -771,8 +774,8 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
             Mensajes.mostrarError("Debe seleccionar un diseño de examen.");
         }
     }
-    
-    private void reportar(){
+
+    private void reportar() {
         //
         //
         //
@@ -783,9 +786,15 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
         //Corregir.
         //
         //
-        
+
         PanelDiseño pnlNuevoExamen = new PanelDiseño(mPadre, examenSeleccionado, true);
         GestorGenerarReporteDiseñoExamen gestorGenerarReporte = new GestorGenerarReporteDiseñoExamen(examenSeleccionado);
+        try {
+            File fPath = new File(gestorGenerarReporte.getPath());
+            Desktop.getDesktop().open(fPath);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         this.dispose();//Conviene poner dispose aca?, ver eso despues.
     }
 

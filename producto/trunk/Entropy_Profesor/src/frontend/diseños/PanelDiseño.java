@@ -315,10 +315,9 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
 
         GestorGenerarReporteDiseñoExamen gestorGenerarReporte = new GestorGenerarReporteDiseñoExamen(this.gestorDiseñoExamen.getDiseñoExamen());
-        String algo = gestorGenerarReporte.getPath();
         try {
-            File path = new File(gestorGenerarReporte.getPath());
-            Desktop.getDesktop().open(path);
+            File fPath = new File(gestorGenerarReporte.getPath());
+            Desktop.getDesktop().open(fPath);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
