@@ -44,9 +44,9 @@ public class DAOResolucion implements IDAOResolucion {
             psConsulta.execute();
 
             String strConsultaUltimoID = "SELECT last_insert_rowid();";
-            PreparedStatement psConsultaInstitucionId = conexion.prepareStatement(strConsultaUltimoID);
-            ResultSet rsConsultaInstitucionId = psConsultaInstitucionId.executeQuery();
-            int intIDAlumno = rsConsultaInstitucionId.getInt(1);
+            PreparedStatement psConsultaUltimoId = conexion.prepareStatement(strConsultaUltimoID);
+            ResultSet rsConsultaUltimoId = psConsultaUltimoId.executeQuery();
+            int intIDAlumno = rsConsultaUltimoId.getInt(1);
 
             strConsulta = "INSERT INTO " + EntropyDB.RES_TBL_RESOLUCION + " ("
                     + EntropyDB.RES_COL_RESOLUCION_EXAMEN_ID + ", "
@@ -54,7 +54,7 @@ public class DAOResolucion implements IDAOResolucion {
                     + EntropyDB.RES_COL_RESOLUCION_TIEMPO_EMPLEADO + ", "
                     + EntropyDB.RES_COL_RESOLUCION_ANULADA + ", "
                     + EntropyDB.RES_COL_RESOLUCION_MOTIVO_ANULACION + ") "
-                    + "VALUES(?,?,?)";
+                    + "VALUES(?,?,?,?,?)";
 
             psConsulta = conexion.prepareStatement(strConsulta);
             psConsulta.setInt(1, resolucion.getExamen().getIntExamenId());
@@ -63,9 +63,8 @@ public class DAOResolucion implements IDAOResolucion {
             psConsulta.setBoolean(4, resolucion.isBlnAnulada());
             psConsulta.setString(5, resolucion.getStrJustificacionAnulacion());
             psConsulta.execute();
-
+            
             psConsulta = conexion.prepareStatement(strConsultaUltimoID);
-
             ResultSet rsConsulta = psConsulta.executeQuery();
             int intIDResolucion = rsConsulta.getInt(1);
             resolucion.setIntID(intIDResolucion);
