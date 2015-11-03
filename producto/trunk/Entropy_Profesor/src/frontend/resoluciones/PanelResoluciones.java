@@ -4,11 +4,16 @@ import backend.auxiliares.Mensajes;
 import backend.gestores.GestorExamen;
 import backend.mail.Email;
 import backend.mail.GestorEnvioDeMail;
+import backend.reporte.*;
 import backend.resoluciones.Alumno;
 import backend.resoluciones.Resolucion;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.mail.EnvioMail;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -454,10 +459,21 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private void btnCompartirResolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompartirResolucionActionPerformed
         //Se le envia a una resolucion al alumno seleccionado
         if(lstResoluciones.getSelectedValue()!=null) {
+            try{
         Resolucion  resolucion  = (Resolucion)lstResoluciones.getSelectedValue();
         Alumno alumno = resolucion.getAlumno();
-        byte[] pdf=null; // Es el pdf que se creara. 
+        GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
+        gestorReporte.generarReporteResolucion();
+        String pathArchivo= gestorReporte.getResolucion();
+        Path path = Paths.get(pathArchivo);
+        byte[] pdf = Files.readAllBytes(path);
         EnvioMail nuevoMail = new EnvioMail(alumno, pdf);
+        nuevoMail.setVisible(true);
+        }
+            catch(Exception e)
+            {
+                System.err.println("Ocurrio una excepcion creando el pdf "+e.toString());
+            }
         }
         else //Si no se seleccionada a quien enviar se le enviara  todas las resoluciones
         {

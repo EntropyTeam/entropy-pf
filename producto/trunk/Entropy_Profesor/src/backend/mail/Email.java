@@ -88,13 +88,12 @@ public class Email {
     }
 
     public void setAdjunto(String nombreArchivo, byte[] bytes) {
-        BodyPart adjuntoBP = new MimeBodyPart();
         try {
             DataSource dataSource = new ByteArrayDataSource(bytes, "application/pdf");
             MimeBodyPart pdfBodyPart = new MimeBodyPart();
             pdfBodyPart.setDataHandler(new DataHandler(dataSource));
             pdfBodyPart.setFileName(nombreArchivo + ".pdf");
-            this.getMultiParte().addBodyPart(adjuntoBP);
+            this.getMultiParte().addBodyPart(pdfBodyPart);
         } catch (MessagingException e) {
             System.err.println("Ocurrio un error al crear la mutiparte del adjunto mensaje");
             System.err.println(e.toString());
