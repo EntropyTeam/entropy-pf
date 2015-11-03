@@ -2,17 +2,26 @@ package backend.reporte;
 
 import backend.resoluciones.Resolucion;
 import backend.resoluciones.Respuesta;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
 import frontend.auxiliares.LookAndFeelEntropy;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
+import javax.swing.ImageIcon;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.axis.CategoryAxis;
@@ -67,13 +76,60 @@ public class GestorGraficos {
     private boolean esProcesarSoloAprobadas = false;
     private boolean esProcesarSoloDesaprobadas = false;
 
+    private String[][] matResultados;
+
     public GestorGraficos(ArrayList<Resolucion> colResoluciones) {
         this.colResoluciones = colResoluciones;
         this.intTotalRespuestas = colResoluciones.get(0).getExamen().getColPreguntas().size();
-
+        matResultados = new String[colResoluciones.size()][intTotalRespuestas+2];
+        
         procesarResoluciones();
     }
+    
+    public Object[][] crearMatrizRespuestas(){
+        boolean blnAnulada;
+        for (int j = 0; j < colResoluciones.size(); j++) {
+            Resolucion resolucion = colResoluciones.get(j);
+            matResultados[j][0] = resolucion.getAlumno().toString();
+            matResultados[j][1] = resolucion.getPorcentajeAprobacion() + "%";
+            blnAnulada = resolucion.isBlnAnulada();
+            for (int i = 0; i < resolucion.getColRespuestas().size(); i++){
+                Respuesta respuesta = resolucion.getColRespuestas().get(i);
+                if (blnAnulada) {
+                    matResultados[j][i+2] = "Anulada";
+                } else {
+                    int esCorrecta = respuesta.esCorrecta();
+                    //Datos para filtros de tema
+                    switch (esCorrecta) {
+                        case 2: // Contestó bien la pregunta
+                            matResultados[j][i+2] = "Incompleta";
+                            break;
+                        case 1: // Contestó bien la pregunta
+                            matResultados[j][i+2] = "Correcta";
+                            break;
+                        case 0: // Contestó mal
+                            matResultados[j][i+2] = "Incorrecta";
+                            break;
+                        case -1: // No es corrección automática
+                            matResultados[j][i+2] = "Sin calificar";
+                            break;
+                    }
+                }
+            }
+        }
+        return matResultados;
+    }
 
+    public String[] getEncabezadoMatriz() {
+        String[] encabezados = new String[lstPreguntas.size() + 2];
+        encabezados[0] = "Alumnos";
+        encabezados[1] = "Calificación";
+        for (int i = 0; i < lstPreguntas.size(); i++){
+            encabezados[i + 2] = (i + 1) + " - " + lstPreguntas.get(i).nombre;
+        }
+        return encabezados;
+    }
+    
     private void procesarResoluciones() {
 
         this.lstPorcentajeCalificaciones = new ArrayList<>();
@@ -141,6 +197,7 @@ public class GestorGraficos {
                         pregunta.cantNoRespondidas++;
                         continue;
                     }
+                    
                     int esCorrecta = respuesta.esCorrecta();
                     //Datos para filtros de tema
                     switch (esCorrecta) {
@@ -154,31 +211,12 @@ public class GestorGraficos {
                             dificultad.cantIncorrectas++;
                             pregunta.cantIncorrectas++;
                             break;
-                        case -1: // No es corrección automática
-                            tema.cantDesarrollo++;
-                            dificultad.cantDesarrollo++;
-                            pregunta.cantDesarrollo++;
+                        case 2: // Pregunta de desarrollo incompleta
+                            tema.cantIncompletas++;
+                            dificultad.cantIncompletas++;
+                            pregunta.cantIncompletas++;
                             break;
                     }
-
-//                    String dif = respuesta.getPregunta().getStrNivel();
-//                    switch (dif) {
-//                        case "Muy Fácil":
-//                            dificultad.cantMuyFacil++;
-//                            break;
-//                        case "Fácil":
-//                            dificultad.cantFacil++;
-//                            break;
-//                        case "Normal":
-//                            dificultad.cantNormal++;
-//                            break;
-//                        case "Difícil":
-//                            dificultad.cantDificil++;
-//                            break;
-//                        case "Experto":
-//                            dificultad.cantExperto++;
-//                            break;
-//                    }
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -208,7 +246,18 @@ public class GestorGraficos {
         return preguntas;
     }
     
+    public BufferedImage getUltimoGrafico(int anchoImagen, int altoImagen){
+        return this.lastChart.createBufferedImage(anchoImagen, altoImagen);
+    }
     
+    public void guardarUltimoGrafico(File filename, int anchoImagen, int altoImagen) throws DocumentException, FileNotFoundException, BadElementException, IOException{
+        Document document = new Document();
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filename));
+        document.open();
+        com.itextpdf.text.Image img = com.itextpdf.text.Image.getInstance(new ImageIcon(this.lastChart.createBufferedImage(anchoImagen, altoImagen)).getImage(), null);
+        document.add(img);
+        document.close();
+    }
     /**
      * Estadísticas del examen.
      */
@@ -262,10 +311,10 @@ public class GestorGraficos {
                         new double[]{
                             porcentaje ? (double) pregunta.cantCorrectas / intTotalRespuestas : pregunta.cantCorrectas,
                             porcentaje ? (double) pregunta.cantIncorrectas / intTotalRespuestas : pregunta.cantIncorrectas,
-                            porcentaje ? (double) pregunta.cantDesarrollo / intTotalRespuestas : pregunta.cantDesarrollo,
+                            porcentaje ? (double) pregunta.cantIncompletas / intTotalRespuestas : pregunta.cantIncompletas,
                             porcentaje ? (double) pregunta.cantNoRespondidas / intTotalRespuestas : pregunta.cantNoRespondidas
                         },
-                        new String[]{"Correctas", "Incorrectas", "De desarrollo", "No respondidas"})
+                        new String[]{"Correctas", "Incorrectas", "Incompletas", "No respondidas"})
             );
         }
 
@@ -296,13 +345,13 @@ public class GestorGraficos {
             preguntas[i] = (i + 1) + "";
             correctas[i] = porcentaje ? (double) lstPreguntas.get(i).cantCorrectas / intTotalRespuestas : lstPreguntas.get(i).cantCorrectas;
             incorrectas[i] = porcentaje ? (double) lstPreguntas.get(i).cantIncorrectas / intTotalRespuestas : lstPreguntas.get(i).cantIncorrectas;
-            desarrollo[i] = porcentaje ? (double) lstPreguntas.get(i).cantDesarrollo / intTotalRespuestas : lstPreguntas.get(i).cantDesarrollo;
+            desarrollo[i] = porcentaje ? (double) lstPreguntas.get(i).cantIncompletas / intTotalRespuestas : lstPreguntas.get(i).cantIncompletas;
             noRespondidas[i] = porcentaje ? (double) lstPreguntas.get(i).cantNoRespondidas / intTotalRespuestas : lstPreguntas.get(i).cantNoRespondidas;
         }
 
         series.add(new Serie("Correctas", correctas, preguntas));
         series.add(new Serie("Incorrectas", incorrectas, preguntas));
-        series.add(new Serie("De desarrollo", desarrollo, preguntas));
+        series.add(new Serie("Incompletas", desarrollo, preguntas));
         series.add(new Serie("No respondidas", noRespondidas, preguntas));
         
         return generarGraficoBarras(
@@ -324,7 +373,7 @@ public class GestorGraficos {
         for (int i = 0; i < lstPreguntas.size(); i++) {
             Categoria pregunta = lstPreguntas.get(i);
             int total = pregunta.cantCorrectas;
-            preguntas[i] = i + "";
+            preguntas[i] = "Pregunta " + (i + 1);
             cantRespuestasPorPregunta[i] = total;
         }
 
@@ -377,10 +426,10 @@ public class GestorGraficos {
                             new double[]{
                                 porcentaje ? (double) dificultad.cantCorrectas / intTotalRespuestas : dificultad.cantCorrectas,
                                 porcentaje ? (double) dificultad.cantIncorrectas / intTotalRespuestas : dificultad.cantIncorrectas,
-                                porcentaje ? (double) dificultad.cantDesarrollo / intTotalRespuestas : dificultad.cantDesarrollo,
+                                porcentaje ? (double) dificultad.cantIncompletas / intTotalRespuestas : dificultad.cantIncompletas,
                                 porcentaje ? (double) dificultad.cantNoRespondidas / intTotalRespuestas : dificultad.cantNoRespondidas
                             },
-                            new String[]{"Correctas", "Incorrectas", "De desarrollo", "No respondidas"})
+                            new String[]{"Correctas", "Incorrectas", "Incompletas", "No respondidas"})
             );
         }
 
@@ -409,13 +458,13 @@ public class GestorGraficos {
             dificultades[i] = lstDificultad.get(i).nombre;            
             correctas[i] = porcentaje ? (double) lstDificultad.get(i).cantCorrectas / intTotalRespuestas : lstDificultad.get(i).cantCorrectas;
             incorrectas[i] = porcentaje ? (double) lstDificultad.get(i).cantIncorrectas / intTotalRespuestas : lstDificultad.get(i).cantIncorrectas;
-            desarrollo[i] = porcentaje ? (double) lstDificultad.get(i).cantDesarrollo / intTotalRespuestas : lstDificultad.get(i).cantDesarrollo;
+            desarrollo[i] = porcentaje ? (double) lstDificultad.get(i).cantIncompletas / intTotalRespuestas : lstDificultad.get(i).cantIncompletas;
             noRespondidas[i] = porcentaje ? (double) lstDificultad.get(i).cantNoRespondidas / intTotalRespuestas : lstDificultad.get(i).cantNoRespondidas;
         }
 
         series.add(new Serie("Correctas", correctas, dificultades));
         series.add(new Serie("Incorrectas", incorrectas, dificultades));
-        series.add(new Serie("De desarrollo", desarrollo, dificultades));
+        series.add(new Serie("Incompletas", desarrollo, dificultades));
         series.add(new Serie("No respondidas", noRespondidas, dificultades));
 
         return generarGraficoBarras(
@@ -467,10 +516,10 @@ public class GestorGraficos {
                             new double[]{
                                 porcentaje ? (double) tema.cantCorrectas / intTotalRespuestas : tema.cantCorrectas,
                                 porcentaje ? (double) tema.cantIncorrectas / intTotalRespuestas : tema.cantIncorrectas,
-                                porcentaje ? (double) tema.cantDesarrollo / intTotalRespuestas : tema.cantDesarrollo,
+                                porcentaje ? (double) tema.cantIncompletas / intTotalRespuestas : tema.cantIncompletas,
                                 porcentaje ? (double) tema.cantNoRespondidas / intTotalRespuestas : tema.cantNoRespondidas
                             },
-                            new String[]{"Correctas", "Incorrectas", "De desarrollo", "No respondidas"})
+                            new String[]{"Correctas", "Incorrectas", "Incompletas", "No respondidas"})
             );
         }
 
@@ -499,13 +548,13 @@ public class GestorGraficos {
             temas[i] = lstTemas.get(i).nombre;
             correctas[i] = porcentaje ? (double) lstTemas.get(i).cantCorrectas / intTotalRespuestas : lstTemas.get(i).cantCorrectas;
             incorrectas[i] = porcentaje ? (double) lstTemas.get(i).cantIncorrectas / intTotalRespuestas : lstTemas.get(i).cantIncorrectas;
-            desarrollo[i] = porcentaje ? (double) lstTemas.get(i).cantDesarrollo / intTotalRespuestas : lstTemas.get(i).cantDesarrollo;
+            desarrollo[i] = porcentaje ? (double) lstTemas.get(i).cantIncompletas / intTotalRespuestas : lstTemas.get(i).cantIncompletas;
             noRespondidas[i] = porcentaje ? (double) lstTemas.get(i).cantNoRespondidas / intTotalRespuestas : lstTemas.get(i).cantNoRespondidas;
         }
 
         series.add(new Serie("Correctas", correctas, temas));
         series.add(new Serie("Incorrectas", incorrectas, temas));
-        series.add(new Serie("De desarrollo", desarrollo, temas));
+        series.add(new Serie("Incompletas", desarrollo, temas));
         series.add(new Serie("No respondidas", noRespondidas, temas));
 
         return generarGraficoBarras(
@@ -979,7 +1028,7 @@ public class GestorGraficos {
         // Respecto a las preguntas
         private int cantCorrectas;
         private int cantIncorrectas;
-        private int cantDesarrollo;
+        private int cantIncompletas;
         private int cantNoRespondidas;
         //Respecto a los niveles
         private int cantMuyFacil;
