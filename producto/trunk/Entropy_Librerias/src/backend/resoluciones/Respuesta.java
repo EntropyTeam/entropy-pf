@@ -109,12 +109,20 @@ public abstract class Respuesta implements Serializable {
 
     /**
      * 
-     * @return 1 si es correcta, 0 si es incorrecta, -1 si es de desarrollo.
+     * @return 
+     *      2 si está incompleta,
+     *      1 si es correcta,
+     *      0 si es incorrecta,
+     *     -1 si no ha sido calificada aún..
      */
     public int esCorrecta() {
-        if (!esCorreccionAutomatica()) return -1;
-        if (getCalificacion() < getPregunta().getDblPuntaje()) return 0;
-        return 1;
+        double dblCalificacion = getCalificacion();
+        double dblPuntajeMaximo = getPregunta().getDblPuntaje();
+        
+        if (dblCalificacion < 0) return -1;
+        else if (dblCalificacion == 0) return 0;
+        else if (dblCalificacion == dblPuntajeMaximo) return 1;
+        else return 2;
     }
 
 }

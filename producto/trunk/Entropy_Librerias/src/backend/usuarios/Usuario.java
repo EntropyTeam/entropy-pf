@@ -133,7 +133,11 @@ public class Usuario implements Serializable  {
 
     @Override
     public String toString() {
-        return strApellido.toUpperCase() + ", " + strNombre + " - " + strTipoDocumento + " " + intNroDocumento + ((strLegajo == null) ? "" : strLegajo);
+        return ((strApellido == null) ? "" :  strApellido.toUpperCase())
+                + ((strApellido != null && strNombre != null) ? ", " : "")
+                + ((strNombre == null) ? "" : strNombre)
+                + ((strTipoDocumento == null && intNroDocumento == -1) ? "" :  " - " + strTipoDocumento + " " + intNroDocumento )
+                + ((strLegajo == null) ? "" : " - " + strLegajo);
     }
 
 }
