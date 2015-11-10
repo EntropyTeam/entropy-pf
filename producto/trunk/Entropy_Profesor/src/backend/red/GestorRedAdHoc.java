@@ -1,11 +1,14 @@
 package backend.red;
 
 import backend.auxiliares.Mensajes;
-import frontend.tomaexamenes.PanelTomarExamenDatosRed;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 
 /**
@@ -69,13 +72,21 @@ public class GestorRedAdHoc {
     }
 
     public String getIP() {
-        return ParsearRoute.getInstance().getLocalIPAddress();
+        //return ParsearRoute.getInstance().getLocalIPAddress;
+        String retorno = "";
+        try {
+            retorno = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(GestorRedAdHoc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
     }
 
     public void redAdHoc(String ssid, String pass1, String pass2) {//Activar la creacion de la red adhoc
         if (!pass1.equals(pass2) || pass1.length() < 8) {
             Mensajes.mostrarError("Las contraseñas no concuerdan o tienen menos de 8 caracteres");
         } else {
+            System.out.println(getIP());
             this.crearRed(ssid, pass1);
             pnlHijo.setIpAddress("Espere mientras se crea la red...");
             timer = new Timer(500, new ActionListener() {

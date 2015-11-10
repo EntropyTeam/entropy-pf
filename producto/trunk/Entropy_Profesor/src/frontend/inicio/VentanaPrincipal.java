@@ -80,6 +80,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Administración de Entornos Educativos");
         setMinimumSize(new java.awt.Dimension(500, 200));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         pnlBackground.setImagen(GestorImagenes.crearImage("/frontend/imagenes/main_background.jpg"));
         pnlBackground.setLayout(new javax.swing.BoxLayout(pnlBackground, javax.swing.BoxLayout.LINE_AXIS));
@@ -264,6 +269,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         dlgSeleccionarExamenes.getGestorEstados().setNuevoEstadoImportante("Seleccione un examen para trabajar... Utilice doble click o el botón correspondiente.");
         dlgSeleccionarExamenes.setVisible(true);
     }//GEN-LAST:event_mniAdministrarExamenesActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblSeparador;
