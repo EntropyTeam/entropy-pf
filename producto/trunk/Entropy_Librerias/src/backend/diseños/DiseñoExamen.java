@@ -96,6 +96,15 @@ public class DiseñoExamen implements Serializable {
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
+    
+    //Devuelve true si el diseño e examen no tiene preguntas, es decir es nuevo.
+    public boolean isNuevoExamen(){
+        boolean blnRetorno = true;
+        if(this.colPreguntas.size() > 0){
+            blnRetorno = false;
+        }
+        return blnRetorno;
+    }
 
     @Override
     public String toString() {

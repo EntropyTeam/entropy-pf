@@ -295,10 +295,10 @@ public class GestorDiseñoExamen {
     public void setColPreguntas(ArrayList<Pregunta> colPreguntas) {
         this.colPreguntas = colPreguntas;
         this.diseñoExamen.setColPreguntas(colPreguntas);
-        
+
         for (Pregunta pregunta : colPreguntas) {
             for (Tema tema : colTemas) {
-                if(pregunta.getTema() != null && pregunta.getTema().getIntTemaId() == tema.getIntTemaId()){
+                if (pregunta.getTema() != null && pregunta.getTema().getIntTemaId() == tema.getIntTemaId()) {
                     pregunta.setTema(tema);
                 }
             }
@@ -348,6 +348,10 @@ public class GestorDiseñoExamen {
             }
         }
         return true;
+    }
+
+    public boolean isNuevoExamen() {
+        return this.diseñoExamen.isNuevoExamen();
     }
 
 }
