@@ -1,6 +1,7 @@
 package backend.dao.diseños;
 
 import backend.dao.DAOConexion;
+import backend.dao.EntropyDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,14 +25,14 @@ public class DAOTag implements IDAOTag {
         try {
                 conexion = DAOConexion.conectarBaseDatos();
                 
-                String strConsulta = "SELECT tagId FROM tag WHERE tagId";
+                String strConsulta = "SELECT " + EntropyDB.DIS_COL_TAG_ID + " FROM " + EntropyDB.DIS_TBL_TAG;
                 psConsulta = conexion.prepareStatement(strConsulta);
                 
                 psConsulta.executeQuery();
                 rsResultado = psConsulta.getResultSet();
                 while(rsResultado.next())
                 {
-                    colTags.add(rsResultado.getString("tagId"));
+                    colTags.add(rsResultado.getString(EntropyDB.DIS_COL_TAG_ID));
                 }
                 
         } catch (SQLException e) {
@@ -49,16 +50,17 @@ public class DAOTag implements IDAOTag {
         try {
                 conexion = DAOConexion.conectarBaseDatos();
                                 
-                String strConsulta = "SELECT tagId FROM tag WHERE tagId LIKE (?) LIMIT 10";
+                String strConsulta = "SELECT " + EntropyDB.DIS_COL_TAG_ID + " "
+                        + "FROM " + EntropyDB.DIS_TBL_TAG + " "
+                        + "WHERE " + EntropyDB.DIS_COL_TAG_ID + " LIKE (?) LIMIT 10";
                 psConsulta = conexion.prepareStatement(strConsulta);
                 
                 psConsulta.setString(1, cadena.trim().toLowerCase()+"%");
                 
-                
                 rsResultado = psConsulta.executeQuery();
                 while(rsResultado.next())
                 {
-                    colTags.add(rsResultado.getString("tagId"));
+                    colTags.add(rsResultado.getString(EntropyDB.DIS_COL_TAG_ID));
                 }
                 rsResultado.close();
                 
@@ -71,7 +73,9 @@ public class DAOTag implements IDAOTag {
     @Override
     public void guardarTags(ArrayList<String> tags, Connection conexion) throws SQLException{
         for(String tag : tags) {
-            String strConsulta = "INSERT INTO tag(tagId) VALUES (?)";
+            String strConsulta = "INSERT INTO " + EntropyDB.DIS_TBL_TAG + " ("
+                    + EntropyDB.DIS_COL_TAG_ID
+                    + ") VALUES (?)";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
 
             psConsulta.setString(1, tag.trim().toLowerCase());
@@ -79,7 +83,7 @@ public class DAOTag implements IDAOTag {
             // Siempre intento guardar, total si es clave duplicada en la BD es mas rápido que consultar y guardar
             try {
                 psConsulta.execute();
-            } catch (SQLException e) {
+            } catch (SQLException e) {;
             }
         }
     }
