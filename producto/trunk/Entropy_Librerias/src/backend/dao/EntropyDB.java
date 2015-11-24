@@ -231,7 +231,11 @@ public class EntropyDB {
     
     public static final String PRE_TBL_PRESENTACION = "pre_presentacion";
     public static final String PRE_COL_PRESENTACION_ID = "presentacionId";
+    public static final String PRE_COL_PRESENTACION_CURSO_ID = "cursoId";
+    public static final String PRE_COL_PRESENTACION_NOMBRE = "nombre";
+    public static final String PRE_COL_PRESENTACION_DESCRIPCION = "descripcion";
     public static final String PRE_COL_PRESENTACION_FECHA = "fecha";
+    
     
     public static final String PRE_TBL_ASISTENCIA = "pre_asistencia";
     public static final String PRE_COL_ASISTENCIA_ID = "asistenciaId";
