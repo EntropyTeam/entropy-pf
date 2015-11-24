@@ -27,23 +27,39 @@ public class DialogValidarCodigoAlumno extends javax.swing.JDialog {
         this.gestor=gestor;
     }
 
-    private void validarAlumno(GestorResolucionExamen gestor) {
-        try {
-            Thread.sleep(5000);
-            if(gestor.isBlnValidacion())
+    private void validarAlumno(final GestorResolucionExamen gestor) {
+      Runnable miRunnable = new Runnable()
+      {
+         public void run()
+         {
+            try
             {
+             lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/cargador2.gif")));
+             pack();
+             Thread.sleep(5000);
+             if(gestor.isBlnValidacion())
+            {
+                lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_mensajes_exito.png")));
                 lblValidacion.setText("CODIGO CORRECTO");
                 lblValidacion.setForeground(Color.GREEN);
             }
             else
             {
+                lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_mensajes_error.png")));
                 lblValidacion.setText("CODIGO INCORRECTO");
                 lblValidacion.setForeground(Color.RED);
             }
-          btnAceptar.setEnabled(true);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(GestorResolucionExamen.class.getName()).log(Level.SEVERE, null, ex);
-        }
+   
+            }
+            catch (Exception e)
+            {
+               e.printStackTrace();
+            }
+         }
+      };
+      Thread hilo = new Thread (miRunnable);
+      hilo.start();
+    
     }
 
     /**
@@ -66,10 +82,10 @@ public class DialogValidarCodigoAlumno extends javax.swing.JDialog {
             }
         });
 
-        lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/cargador.gif"))); // NOI18N
+        lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/cargador2.gif"))); // NOI18N
 
         lblValidacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblValidacion.setText("Validando Alumno");
+        lblValidacion.setText("Validando Alumno...");
 
         btnAceptar.setText("Aceptar");
         btnAceptar.setEnabled(false);
@@ -84,17 +100,16 @@ public class DialogValidarCodigoAlumno extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(lblValidacion, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(143, 143, 143)
-                        .addComponent(lblFoto)))
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addComponent(lblValidacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(73, Short.MAX_VALUE)
+                .addComponent(lblFoto)
+                .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,7 +118,7 @@ public class DialogValidarCodigoAlumno extends javax.swing.JDialog {
                 .addComponent(lblFoto)
                 .addGap(48, 48, 48)
                 .addComponent(lblValidacion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAceptar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

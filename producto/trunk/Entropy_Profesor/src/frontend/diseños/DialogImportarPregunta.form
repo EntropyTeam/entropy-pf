@@ -46,10 +46,10 @@
               <Component id="pnlFiltros" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="pnlResultado" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btnImportar" pref="38" max="32767" attributes="0"/>
-                  <Component id="pnlEstado" max="32767" attributes="0"/>
+                  <Component id="btnImportar" max="32767" attributes="0"/>
+                  <Component id="pnlEstado" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -80,8 +80,10 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="lblActualizacionEstado" alignment="1" max="32767" attributes="0"/>
-              <Component id="lblIconoEstado" alignment="0" max="32767" attributes="0"/>
+              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                  <Component id="lblIconoEstado" alignment="3" pref="34" max="32767" attributes="0"/>
+                  <Component id="lblActualizacionEstado" alignment="3" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -127,7 +129,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="lblNombreInstitucion" alignment="0" max="32767" attributes="0"/>
@@ -174,7 +176,7 @@
                       </Group>
                       <Component id="btnBuscar" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="25" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -326,12 +328,20 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="scrOpciones" alignment="0" pref="619" max="32767" attributes="0"/>
+              <Component id="scrOpciones" pref="619" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Component id="cbSeleccionarDeseleccionarTodasLasPreguntas" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="scrOpciones" alignment="0" pref="172" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="scrOpciones" pref="150" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="cbSeleccionarDeseleccionarTodasLasPreguntas" min="-2" pref="16" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -401,6 +411,14 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JCheckBox" name="cbSeleccionarDeseleccionarTodasLasPreguntas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Seleecionar Todos/Deseleccionar Todos"/>
+          </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbSeleccionarDeseleccionarTodasLasPreguntasItemStateChanged"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JButton" name="btnImportar">

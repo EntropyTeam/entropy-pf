@@ -117,6 +117,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
         pnlFondo = new frontend.auxiliares.PanelConFondo();
         pnlBotones = new javax.swing.JPanel();
+        btnCancelar1 = new javax.swing.JButton();
         btnModificarTiempo = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         scrTablaAlumnos = new javax.swing.JScrollPane();
@@ -129,6 +130,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(769, 370));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -136,8 +138,30 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         });
 
         pnlFondo.setImagen(GestorImagenes.crearImage("/frontend/imagenes/bg_gris.jpg"));
+        pnlFondo.setPreferredSize(new java.awt.Dimension(200, 400));
 
         pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
+
+        btnCancelar1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_mensajes_exito.png"))); // NOI18N
+        btnCancelar1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnCancelar1.setContentAreaFilled(false);
+        btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar1.setIconTextGap(10);
+        btnCancelar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCancelar1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCancelar1MouseExited(evt);
+            }
+        });
+        btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar1ActionPerformed(evt);
+            }
+        });
+        pnlBotones.add(btnCancelar1);
 
         btnModificarTiempo.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnModificarTiempo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_tiempo.png"))); // NOI18N
@@ -244,15 +268,16 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         pnlFondo.setLayout(pnlFondoLayout);
         pnlFondoLayout.setHorizontalGroup(
             pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFondoLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFondoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrTablaAlumnos, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
-                    .addComponent(pnlEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlFondoLayout.createSequentialGroup()
+                .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(scrTablaAlumnos)
+                    .addComponent(pnlEstado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlFondoLayout.createSequentialGroup()
                         .addComponent(lblsPorcentajeTerminados)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPorcentajeTerminados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lblPorcentajeTerminados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(507, 507, 507)))
                 .addContainerGap())
             .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlFondoLayout.createSequentialGroup()
@@ -263,8 +288,8 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         pnlFondoLayout.setVerticalGroup(
             pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFondoLayout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(scrTablaAlumnos, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                .addGap(86, 86, 86)
+                .addComponent(scrTablaAlumnos, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblsPorcentajeTerminados)
@@ -283,11 +308,11 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
         );
 
         pack();
@@ -327,6 +352,21 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.terminarTomaDeExamen(false);
     }//GEN-LAST:event_formWindowClosing
+
+    private void btnCancelar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelar1MouseEntered
+        this.gestorEstados.setEstadoInstantaneo("Termina la toma de examen.");
+        repaint();
+    }//GEN-LAST:event_btnCancelar1MouseEntered
+
+    private void btnCancelar1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelar1MouseExited
+        this.gestorEstados.volverAEstadoImportante();
+        repaint(); 
+    }//GEN-LAST:event_btnCancelar1MouseExited
+
+    private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
+         this.gestorEstados.setEstadoInstantaneo("Termina examen");
+        repaint();
+    }//GEN-LAST:event_btnCancelar1ActionPerformed
 
     /**
      * Anula el examen del alumno en cuestión.
@@ -427,6 +467,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCancelar1;
     private javax.swing.JButton btnModificarTiempo;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblIconoEstado;
@@ -446,7 +487,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
      * ha terminado la toma.
      */
     private void terminarTomaDeExamen(boolean blnEsCancelacion) {
-        if (Mensajes.mostrarConfirmacion("Está a punto de terminar el examen. ¿Realmente desea continuar?")) {
+        if (Mensajes.mostrarConfirmacion("Está a punto de cancelar el examen. ¿Realmente desea continuar?")) {
             if (blnEsCancelacion && tblAlumnos.getModel().getRowCount() > 0) {
                 DialogCancelarExamen dlgCancelar = new DialogCancelarExamen(this, true);
                 dlgCancelar.setVisible(true);

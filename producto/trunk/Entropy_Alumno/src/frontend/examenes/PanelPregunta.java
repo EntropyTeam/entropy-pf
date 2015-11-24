@@ -114,7 +114,8 @@ public class PanelPregunta extends javax.swing.JPanel {
         pnlContenidoPregunta = new javax.swing.JPanel();
         lblSiguiente = new javax.swing.JLabel();
 
-        lblTiempo.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
+        lblTiempo.setBackground(new java.awt.Color(255, 255, 204));
+        lblTiempo.setFont(new java.awt.Font("DejaVu Sans", 3, 12)); // NOI18N
         lblTiempo.setForeground(new java.awt.Color(204, 102, 0));
         lblTiempo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTiempo.setText("Hora");
@@ -299,14 +300,14 @@ public class PanelPregunta extends javax.swing.JPanel {
                         .addComponent(pnlCasillas, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnTerminar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblTiempo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblTiempo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTiempo)
+                .addComponent(lblTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
