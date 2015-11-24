@@ -5,7 +5,7 @@ import backend.diseños.Curso;
 import backend.diseños.DiseñoExamen;
 import backend.diseños.Institucion;
 import backend.gestores.GestorDiseñoExamen;
-import backend.reporte.GestorGenerarReporteDiseñoExamen;
+import backend.reporte.GestorGenerarReporteDisenoExamen;
 import backend.gestores.GestorImportarPregunta;
 import frontend.auxiliares.CeldaListaRendererEntropy;
 import frontend.auxiliares.ComponentMover;
@@ -788,7 +788,7 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
         //
 
         PanelDiseño pnlNuevoExamen = new PanelDiseño(mPadre, examenSeleccionado, true);
-        GestorGenerarReporteDiseñoExamen gestorGenerarReporte = new GestorGenerarReporteDiseñoExamen(examenSeleccionado);
+        GestorGenerarReporteDisenoExamen gestorGenerarReporte = new GestorGenerarReporteDisenoExamen(examenSeleccionado);
         try {
             File fPath = new File(gestorGenerarReporte.getPath());
             Desktop.getDesktop().open(fPath);

@@ -1,5 +1,6 @@
 package frontend.inicio;
 
+import backend.red.GestorRedAdHoc;
 import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.auxiliares.PanelDeslizante;
@@ -271,7 +272,8 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     }//GEN-LAST:event_mniAdministrarExamenesActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        
+        GestorRedAdHoc gestorRedAdHoc = new GestorRedAdHoc();
+        gestorRedAdHoc.desconectar();
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

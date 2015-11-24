@@ -3,7 +3,7 @@ package frontend.diseños;
 import backend.auxiliares.Mensajes;
 import backend.diseños.DiseñoExamen;
 import backend.gestores.GestorDiseñoExamen;
-import backend.reporte.GestorGenerarReporteDiseñoExamen;
+import backend.reporte.GestorGenerarReporteDisenoExamen;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.IValidarSalida;
 import frontend.inicio.VentanaPrincipal;
@@ -315,7 +315,7 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
 
         if (!this.gestorDiseñoExamen.isNuevoExamen()) {
-            GestorGenerarReporteDiseñoExamen gestorGenerarReporte = new GestorGenerarReporteDiseñoExamen(this.gestorDiseñoExamen.getDiseñoExamen());
+            GestorGenerarReporteDisenoExamen gestorGenerarReporte = new GestorGenerarReporteDisenoExamen(this.gestorDiseñoExamen.getDiseñoExamen());
             try {
                 File fPath = new File(gestorGenerarReporte.getPath());
                 Desktop.getDesktop().open(fPath);

@@ -9,6 +9,7 @@ import backend.examenes.Examen;
 import backend.gestores.GestorCursosEInstituciones;
 import backend.gestores.GestorDiseñoExamen;
 import backend.gestores.GestorExamen;
+import backend.red.GestorRedAdHoc;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.auxiliares.PanelDeslizante;
@@ -176,6 +177,8 @@ public class PanelTomaExamen extends javax.swing.JPanel {
     private void btnVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverInicioActionPerformed
         mPadre.getPanelDeslizante().setPanelMostrado(mPadre.getPnlInicio());
         mPadre.setTitle("Sistema de Administración de Entornos Educativos");
+        GestorRedAdHoc gestorRedAdHoc = new GestorRedAdHoc();
+        gestorRedAdHoc.desconectar();
     }//GEN-LAST:event_btnVolverInicioActionPerformed
 
     private void btnPublicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPublicarActionPerformed

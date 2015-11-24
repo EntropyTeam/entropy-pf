@@ -9,6 +9,9 @@ import backend.diseños.PreguntaNumerica;
 import backend.diseños.PreguntaRelacionColumnas;
 import backend.diseños.PreguntaVerdaderoFalso;
 import backend.diseños.TipoPregunta;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -21,26 +24,30 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Desktop;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author gaston
  */
-public class GestorGenerarReporteDiseñoExamen {
+public class GestorGenerarReporteDisenoExamen {
 
     private DiseñoExamen examenSeleccionado;
     private String path = "ReporteExamenPrueba.pdf";
 
-    public GestorGenerarReporteDiseñoExamen(DiseñoExamen examenSeleccionado) {
+    public GestorGenerarReporteDisenoExamen(DiseñoExamen examenSeleccionado){
         this.examenSeleccionado = examenSeleccionado;
         generarReporteDiseñoExamen();
     }
 
-    public void generarReporteDiseñoExamen() {
+    public void generarReporteDiseñoExamen(){
 
         Document document = new Document();
 
@@ -49,14 +56,34 @@ public class GestorGenerarReporteDiseñoExamen {
             PdfWriter.getInstance(document, new FileOutputStream(path));
             document.open();
 
+            
+            //Tabla Encabezado Encabezado
+            PdfPTable tablaEncabezado = new PdfPTable(2); // 2 columns.
+            
             //Titulo Encabezado
-            Paragraph paragraph = new Paragraph(this.examenSeleccionado.getStrNombre());
-            paragraph.setSpacingAfter(25);
-            paragraph.setSpacingBefore(25);
-            paragraph.setAlignment(Element.ALIGN_CENTER);
-            paragraph.setIndentationLeft(50);
-            paragraph.setIndentationRight(50);
-            document.add(paragraph);
+            PdfPCell cell2 = new PdfPCell(new Paragraph(this.examenSeleccionado.getStrNombre()));
+            //cell2.setBorder(Rectangle.NO_BORDER);
+            
+            //Imagen encabezado          
+            byte[] bytesImagen = (byte[]) this.examenSeleccionado.getCurso().getInstitucion().getImgLogo();            
+            Image imagenLogoCurso = null;
+            try {
+                imagenLogoCurso = Image.getInstance(bytesImagen);
+            } catch (BadElementException ex) {
+                Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            imagenLogoCurso.scaleAbsolute(50f, 50f);
+            PdfPCell cell1 = new PdfPCell(new Paragraph(new Chunk(imagenLogoCurso, 0, 0)));
+            cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell1.setHorizontalAlignment(Element.ALIGN_MIDDLE);
+            //cell1.setBorder(Rectangle.NO_BORDER);
+            
+            tablaEncabezado.addCell(cell1);
+            tablaEncabezado.addCell(cell2);
+            tablaEncabezado.setSpacingAfter(25);
+            document.add(tablaEncabezado);
 
             for (Pregunta pregunta : this.examenSeleccionado.getColPreguntas()) {
 
