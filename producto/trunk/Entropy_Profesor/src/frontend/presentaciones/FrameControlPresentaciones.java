@@ -107,6 +107,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
         pnlFondo = new frontend.auxiliares.PanelConFondo();
         pnlBotones = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
+        btnGuardarAsistencia = new javax.swing.JButton();
         scrTablaAlumnos = new javax.swing.JScrollPane();
         tblAlumnos = new javax.swing.JTable();
         pnlEstado = new javax.swing.JPanel();
@@ -147,6 +148,27 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
             }
         });
         pnlBotones.add(btnCancelar);
+
+        btnGuardarAsistencia.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnGuardarAsistencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_guardar.png"))); // NOI18N
+        btnGuardarAsistencia.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnGuardarAsistencia.setContentAreaFilled(false);
+        btnGuardarAsistencia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardarAsistencia.setIconTextGap(10);
+        btnGuardarAsistencia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGuardarAsistenciaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGuardarAsistenciaMouseExited(evt);
+            }
+        });
+        btnGuardarAsistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarAsistenciaActionPerformed(evt);
+            }
+        });
+        pnlBotones.add(btnGuardarAsistencia);
 
         scrTablaAlumnos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Panel de control", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_CURSIVA));
         scrTablaAlumnos.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -278,6 +300,19 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
         this.terminarPresentacion(false);
     }//GEN-LAST:event_formWindowClosing
 
+    private void btnGuardarAsistenciaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarAsistenciaMouseEntered
+
+    private void btnGuardarAsistenciaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarAsistenciaMouseExited
+
+    private void btnGuardarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaActionPerformed
+        DialogGuardarAsistencia dialogGuardarClase = new DialogGuardarAsistencia(this, true);
+        dialogGuardarClase.setVisible(true);
+    }//GEN-LAST:event_btnGuardarAsistenciaActionPerformed
+
     /**
      * Anula el examen del alumno en cuestión.
      *
@@ -339,6 +374,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardarAsistencia;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblIconoEstado;
     private javax.swing.JLabel lblPorcentajeTerminados;

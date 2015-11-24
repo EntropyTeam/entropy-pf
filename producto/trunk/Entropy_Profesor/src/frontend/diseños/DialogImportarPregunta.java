@@ -320,6 +320,18 @@ public class DialogImportarPregunta extends javax.swing.JDialog {
         
         return colResultado;
     }
+    
+    
+    
+    private void seleccionarDeseleccionar(boolean valor)
+    {
+        DefaultTableModel modelo = (DefaultTableModel) this.tblPreguntas.getModel();
+        int cantFilas = modelo.getRowCount();
+        for (int i = 0; i < cantFilas; i++) {
+            this.tblPreguntas.getModel().setValueAt(valor, i, 1);
+        }
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -347,6 +359,7 @@ public class DialogImportarPregunta extends javax.swing.JDialog {
         pnlResultado = new javax.swing.JPanel();
         scrOpciones = new javax.swing.JScrollPane();
         tblPreguntas = new javax.swing.JTable();
+        cbSeleccionarDeseleccionarTodasLasPreguntas = new javax.swing.JCheckBox();
         btnImportar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -376,8 +389,9 @@ public class DialogImportarPregunta extends javax.swing.JDialog {
         );
         pnlEstadoLayout.setVerticalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblIconoEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(lblIconoEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnlFiltros.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtrar por", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
@@ -497,7 +511,7 @@ public class DialogImportarPregunta extends javax.swing.JDialog {
                             .addComponent(cmbExamen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblNombreExamen, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pnlResultado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resultado de búsqueda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
@@ -535,15 +549,28 @@ public class DialogImportarPregunta extends javax.swing.JDialog {
             tblPreguntas.getColumnModel().getColumn(0).setResizable(false);
         }
 
+        cbSeleccionarDeseleccionarTodasLasPreguntas.setText("Seleecionar Todos/Deseleccionar Todos");
+        cbSeleccionarDeseleccionarTodasLasPreguntas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbSeleccionarDeseleccionarTodasLasPreguntasItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlResultadoLayout = new javax.swing.GroupLayout(pnlResultado);
         pnlResultado.setLayout(pnlResultadoLayout);
         pnlResultadoLayout.setHorizontalGroup(
             pnlResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scrOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+            .addGroup(pnlResultadoLayout.createSequentialGroup()
+                .addComponent(cbSeleccionarDeseleccionarTodasLasPreguntas)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         pnlResultadoLayout.setVerticalGroup(
             pnlResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+            .addGroup(pnlResultadoLayout.createSequentialGroup()
+                .addComponent(scrOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbSeleccionarDeseleccionarTodasLasPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         btnImportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_nuevo_25x25.png"))); // NOI18N
@@ -587,10 +614,10 @@ public class DialogImportarPregunta extends javax.swing.JDialog {
                 .addComponent(pnlFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlResultado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnImportar, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(pnlEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnImportar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -680,9 +707,19 @@ public class DialogImportarPregunta extends javax.swing.JDialog {
         this.ultimoComboActivo = evt.getComponent();
     }//GEN-LAST:event_cmbExamenFocusGained
 
+    private void cbSeleccionarDeseleccionarTodasLasPreguntasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSeleccionarDeseleccionarTodasLasPreguntasItemStateChanged
+        if(cbSeleccionarDeseleccionarTodasLasPreguntas.isSelected()){
+            seleccionarDeseleccionar(true);
+        }
+        else{
+            seleccionarDeseleccionar(false);
+        }  
+    }//GEN-LAST:event_cbSeleccionarDeseleccionarTodasLasPreguntasItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnImportar;
+    private javax.swing.JCheckBox cbSeleccionarDeseleccionarTodasLasPreguntas;
     private javax.swing.JComboBox cmbCurso;
     private javax.swing.JComboBox cmbExamen;
     private javax.swing.JComboBox cmbInstitucion;
