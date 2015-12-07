@@ -84,6 +84,21 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="mncPresentacion">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Clases"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mniAdministrarClasesDictadas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Administrar Clases Dictadas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniAdministrarClasesDictadasActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="mncHerramientas">
           <Properties>
             <Property name="text" type="java.lang.String" value="Herramientas"/>

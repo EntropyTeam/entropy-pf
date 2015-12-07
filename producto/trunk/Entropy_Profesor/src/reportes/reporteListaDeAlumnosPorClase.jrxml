@@ -7,7 +7,7 @@
 	<parameter name="parametroCurso" class="java.lang.String"/>
 	<parameter name="parametroFecha" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM CURSO]]>
+		<![CDATA[]]>
 	</queryString>
 	<field name="cursoId" class="java.lang.Object"/>
 	<field name="nombre" class="java.lang.Object"/>

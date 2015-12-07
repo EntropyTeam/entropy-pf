@@ -6,6 +6,7 @@
 package backend.dao.presentacion;
 
 import backend.Presentacion.Presentacion;
+import backend.usuarios.Alumno;
 import java.util.ArrayList;
 import java.util.Date;
 

@@ -5,16 +5,20 @@
  */
 package backend.dao.presentacion;
 
+import backend.Asistencia.Asistencia;
 import backend.Presentacion.Presentacion;
 import backend.dao.DAOConexion;
 import backend.dao.EntropyDB;
 import backend.gestores.GestorConexion;
+import backend.usuarios.Alumno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -119,15 +123,28 @@ public class DAOPresentacion implements IDAOPresentacion {
     @Override
     public boolean guardarPresentacion(Presentacion presentacion) {
         Connection conexion = DAOConexion.conectarBaseDatos();
+        
         boolean retorno=true;
-        String consulta = "INSERT INTO("+EntropyDB.PRE_COL_PRESENTACION_CURSO_ID+","+EntropyDB.PRE_COL_PRESENTACION_NOMBRE+","+EntropyDB.PRE_COL_PRESENTACION_FECHA+","+EntropyDB.PRE_COL_PRESENTACION_DESCRIPCION+") VALUES(?,?,?,?)";
+        String consulta = "INSERT "+EntropyDB.PRE_TBL_PRESENTACION +" INTO("+EntropyDB.PRE_COL_PRESENTACION_CURSO_ID+","+EntropyDB.PRE_COL_PRESENTACION_NOMBRE+","+EntropyDB.PRE_COL_PRESENTACION_FECHA+","+EntropyDB.PRE_COL_PRESENTACION_DESCRIPCION+") VALUES(?,?,?,?)";
         Object[] parametros = {presentacion.getIntIdCurso(), presentacion.getStrNombre(), presentacion.getDteFecha().getTime(), presentacion.getStrDescripcion()};
         try {
+            conexion.setAutoCommit(false);
             PreparedStatement ps = GestorConexion.armarPreparedStatement(conexion, consulta, parametros);
             ps.execute();
+            for (Asistencia asistencia : presentacion.getAsistencia()) {
+                String consultaDos= "INSERT "+EntropyDB.PRE_TBL_ASISTENCIA+" INTO ("+EntropyDB.PRE_COL_PRESENTACION_CURSO_ID+","+EntropyDB.PRE_COL_ASISTENCIA_ALUMNO_ID+") VALUES(?,?)";
+                Object[] parametrosDos = {presentacion.getIntIdCurso(), asistencia.getAlumno().getIntAlumnoId(), asistencia.isBlnAnulada(), asistencia.getStrMotivoAnulacion(), asistencia.getStrIp()}; 
+                PreparedStatement psDos = GestorConexion.armarPreparedStatement(conexion, consultaDos, parametrosDos);
+                psDos.execute();
+            }
         } catch (SQLException e) {
+            try {
+           conexion.rollback();
             retorno=false;
             System.err.println("OCURRIO UN ERROR AL TRATAR DE EJECUTAR LA CONSULTA");
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOPresentacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } finally {
             DAOConexion.desconectarBaseDatos();
         }
