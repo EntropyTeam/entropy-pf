@@ -11,14 +11,16 @@ public class EntropyDB {
     /************ TABLAS GENERALES *************/
     /*******************************************/
     
-    public static final String GRL_TBL_PERFIL_USUARIO = "grl_perfilusuario";
-    public static final String GRL_COL_PERFIL_USUARIO_TIPO_DOCUMENTO = "tipoDocumento";
-    public static final String GRL_COL_PERFIL_USUARIO_DOCUMENTO = "documento";
-    public static final String GRL_COL_PERFIL_USUARIO_NOMBRE = "nombre";
-    public static final String GRL_COL_PERFIL_USUARIO_APELLIDO = "apellido";
-    public static final String GRL_COL_PERFIL_USUARIO_EMAIL = "email";
-    public static final String GRL_COL_PERFIL_USUARIO_CONTRASEÑA = "contrasea";
-    public static final String GRL_COL_PERFIL_USUARIO_ID = "perfilUsuarioId";
+    public static final String GRL_TBL_USUARIO = "grl_usuario";
+    public static final String GRL_COL_USUARIO_ID = "usuarioId";
+    public static final String GRL_COL_USUARIO_NOMBRE = "nombre";
+    public static final String GRL_COL_USUARIO_APELLIDO = "apellido";
+    public static final String GRL_COL_USUARIO_TIPO_DOCUMENTO = "tipoDocumento";
+    public static final String GRL_COL_USUARIO_DOCUMENTO = "documento";
+    public static final String GRL_COL_USUARIO_LEGAJO = "legajo";
+    public static final String GRL_COL_USUARIO_EMAIL = "email";
+    public static final String GRL_COL_USUARIO_DESCRIPCION = "descripcion";
+    public static final String GRL_COL_USUARIO_FOTO = "foto";
     
     public static final String GRL_TBL_INSTITUCION = "grl_institucion";
     public static final String GRL_COL_INSTITUCION_ID = "institucionId";
@@ -32,6 +34,15 @@ public class EntropyDB {
     public static final String GRL_COL_CURSO_DESCRIPCION = "descripcion";
     public static final String GRL_COL_CURSO_INSTITUCION_ID = "institucionId";
     
+    public static final String GRL_TBL_ALUMNO = "grl_alumno";
+    public static final String GRL_COL_ALUMNO_ID = "alumnoId";
+    public static final String GRL_COL_ALUMNO_NOMBRE = "nombre";
+    public static final String GRL_COL_ALUMNO_APELLIDO = "apellido";
+    public static final String GRL_COL_ALUMNO_TIPO_DOCUMENTO = "tipoDocumento";
+    public static final String GRL_COL_ALUMNO_DOCUMENTO = "documento";
+    public static final String GRL_COL_ALUMNO_LEGAJO = "legajo";
+    public static final String GRL_COL_ALUMNO_EMAIL = "email";
+    
     public static final String GRL_TBL_TIPO_PREGUNTA = "grl_tipopregunta";
     public static final String GRL_COL_TIPO_PREGUNTA_ID = "tipoPreguntaId";
     public static final String GRL_COL_TIPO_PREGUNTA_NOMBRE = "nombre";
@@ -41,16 +52,16 @@ public class EntropyDB {
     /******* TABLAS DISEÑOS DE EXAMENES ********/
     /*******************************************/
     
-    public static final String DIS_TBL_DISEÑO_EXAMEN = "dis_diseñoexamen";
-    public static final String DIS_COL_DISEÑO_EXAMEN_ID = "diseñoExamenId";
+    public static final String DIS_TBL_DISEÑO_EXAMEN = "dis_disenoexamen";
+    public static final String DIS_COL_DISEÑO_EXAMEN_ID = "disenoExamenId";
     public static final String DIS_COL_DISEÑO_EXAMEN_CURSO_ID = "cursoId";
     public static final String DIS_COL_DISEÑO_EXAMEN_NOMBRE = "nombre";
     public static final String DIS_COL_DISEÑO_EXAMEN_DESCRIPCION = "descripcion";
-    public static final String DIS_COL_DISEÑO_EXAMEN_PERFIL_USUARIO_ID = "perfilUsuarioId";
+    public static final String DIS_COL_DISEÑO_EXAMEN_USUARIO_ID = "usuarioId";
     
     public static final String DIS_TBL_PREGUNTA = "dis_pregunta";
     public static final String DIS_COL_PREGUNTA_ID = "preguntaId";
-    public static final String DIS_COL_PREGUNTA_DISEÑO_EXAMEN_ID = "diseñoExamenId";
+    public static final String DIS_COL_PREGUNTA_DISEÑO_EXAMEN_ID = "disenoExamenId";
     public static final String DIS_COL_PREGUNTA_ORDEN = "orden";
     public static final String DIS_COL_PREGUNTA_TEMA_ID = "temaId";
     public static final String DIS_COL_PREGUNTA_TIPO_PREGUNTA_ID = "tipoPreguntaId";
@@ -87,11 +98,11 @@ public class EntropyDB {
     public static final String DIS_TBL_TAG = "dis_tag";
     public static final String DIS_COL_TAG_ID = "tagId";
     
-    public static final String DIS_TBL_TAG_POR_PREGUNTA = "dis_tagxpregunta";
+    public static final String DIS_TBL_TAG_POR_PREGUNTA = "dis_tagporpregunta";
     public static final String DIS_COL_TAG_POR_PREGUNTA_TAG_ID = "tagId";
     public static final String DIS_COL_TAG_POR_PREGUNTA_PREGUNTA_ID = "preguntaId";
     
-    public static final String DIS_TBL_TEMA = "tema";
+    public static final String DIS_TBL_TEMA = "dis_tema";
     public static final String DIS_COL_TEMA_ID = "temaId";
     public static final String DIS_COL_TEMA_DISEÑO_EXAMEN_ID = "disenoExamenId";
     public static final String DIS_COL_TEMA_NOMBRE = "nombre";
@@ -168,13 +179,6 @@ public class EntropyDB {
     /*********** TABLAS RESOLUCIONES ***********/
     /*******************************************/
     
-    public static final String RES_TBL_ALUMNO = "res_alumno";
-    public static final String RES_COL_ALUMNO_ID = "alumnoId";
-    public static final String RES_COL_ALUMNO_NOMBRE = "nombre";
-    public static final String RES_COL_ALUMNO_LEGAJO = "legajo";
-    public static final String RES_COL_ALUMNO_CODIGO = "codigo";
-    public static final String RES_COL_ALUMNO_IP = "ip";
-    
     public static final String RES_TBL_RESOLUCION = "res_resolucion";
     public static final String RES_COL_RESOLUCION_ID = "resolucionId";
     public static final String RES_COL_RESOLUCION_EXAMEN_ID = "examenId";
@@ -182,6 +186,8 @@ public class EntropyDB {
     public static final String RES_COL_RESOLUCION_TIEMPO_EMPLEADO = "tiempoEmpleado";
     public static final String RES_COL_RESOLUCION_ANULADA = "anulada";
     public static final String RES_COL_RESOLUCION_MOTIVO_ANULACION = "motivoAnulacion";
+    public static final String RES_COL_RESOLUCION_IP = "ip";
+    public static final String RES_COL_RESOLUCION_CODIGO = "codigo";
     
     public static final String RES_TBL_RESPUESTA = "res_respuesta";
     public static final String RES_COL_RESPUESTA_ID = "respuestaId";
@@ -218,4 +224,25 @@ public class EntropyDB {
     public static final String RES_COL_RESPUESTA_VF_SELECCIONO_FALSO = "seleccionoFalso";
     public static final String RES_COL_RESPUESTA_VF_JUSTIFICACION = "justificacion";
     public static final String RES_COL_RESPUESTA_VF_CALIFICACION = "calificacion";
+    
+    
+    /*******************************************/
+    /*********** TABLAS PRESENTACIONES ***********/
+    /*******************************************/
+    
+    public static final String PRE_TBL_PRESENTACION = "pre_presentacion";
+    public static final String PRE_COL_PRESENTACION_ID = "presentacionId";
+    public static final String PRE_COL_PRESENTACION_CURSO_ID = "cursoId";
+    public static final String PRE_COL_PRESENTACION_NOMBRE = "nombre";
+    public static final String PRE_COL_PRESENTACION_DESCRIPCION = "descripcion";
+    public static final String PRE_COL_PRESENTACION_FECHA = "fecha";
+    
+    
+    public static final String PRE_TBL_ASISTENCIA = "pre_asistencia";
+    public static final String PRE_COL_ASISTENCIA_ID = "asistenciaId";
+    public static final String PRE_COL_ASISTENCIA_PRESENTACION_ID = "presentacionId";
+    public static final String PRE_COL_ASISTENCIA_ALUMNO_ID = "alumnoId";
+    public static final String PRE_COL_ASISTENCIA_ANULADA = "anulada";
+    public static final String PRE_COL_ASISTENCIA_MOTIVO_ANULACION = "motivoAnulacion";
+    public static final String PRE_COL_ASISTENCIA_IP = "ip";
 }

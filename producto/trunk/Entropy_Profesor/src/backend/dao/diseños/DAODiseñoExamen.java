@@ -1,10 +1,13 @@
 package backend.dao.diseños;
 
 import backend.dao.DAOConexion;
+import backend.dao.EntropyDB;
+import backend.dao.usuarios.DAOUsuario;
 import backend.diseños.Curso;
 import backend.diseños.DiseñoExamen;
 import backend.diseños.Institucion;
 import backend.diseños.Pregunta;
+import backend.usuarios.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,14 +29,17 @@ public class DAODiseñoExamen implements IDAODiseñoExamen {
         Connection conexion = DAOConexion.conectarBaseDatos();
 
         try {
-            String strConsulta = "SELECT DE.disenoExamenId, DE.nombre, DE.descripcion FROM disenoExamen DE";
+            String strConsulta = "SELECT " + EntropyDB.DIS_COL_DISEÑO_EXAMEN_ID + ", "
+                    + EntropyDB.DIS_COL_DISEÑO_EXAMEN_NOMBRE + ", "
+                    + EntropyDB.DIS_COL_DISEÑO_EXAMEN_DESCRIPCION + " "
+                    + "FROM " + EntropyDB.DIS_TBL_DISEÑO_EXAMEN;
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             ResultSet rsConsulta = psConsulta.executeQuery();
 
             while (rsConsulta.next()) {
-                int intDiseñoExamenId = rsConsulta.getInt(1);
-                String strTitulo = rsConsulta.getString(2);
-                String strDescripcion = rsConsulta.getString(3);
+                int intDiseñoExamenId = rsConsulta.getInt(EntropyDB.DIS_COL_DISEÑO_EXAMEN_ID);
+                String strTitulo = rsConsulta.getString(EntropyDB.DIS_COL_DISEÑO_EXAMEN_NOMBRE);
+                String strDescripcion = rsConsulta.getString(EntropyDB.DIS_COL_DISEÑO_EXAMEN_DESCRIPCION);
 
                 DiseñoExamen diseñoExamen = new DiseñoExamen(intDiseñoExamenId, strTitulo);
                 diseñoExamen.setStrDescripcion(strDescripcion);
@@ -72,21 +78,26 @@ public class DAODiseñoExamen implements IDAODiseñoExamen {
         Connection conexion = DAOConexion.conectarBaseDatos();
 
         try {
-            String strConsulta = "SELECT DE.disenoExamenId, DE.nombre, DE.descripcion FROM disenoExamen DE, curso C WHERE DE.cursoId = C.cursoId AND C.cursoId = ?";
+            String strConsulta = "SELECT DE." + EntropyDB.DIS_COL_DISEÑO_EXAMEN_ID + ", "
+                    + "DE." + EntropyDB.DIS_COL_DISEÑO_EXAMEN_NOMBRE + ", "
+                    + "DE." + EntropyDB.DIS_COL_DISEÑO_EXAMEN_DESCRIPCION + " "
+                    + "FROM " + EntropyDB.DIS_TBL_DISEÑO_EXAMEN + " DE,"
+                    + EntropyDB.GRL_TBL_CURSO + " C "
+                    + "WHERE DE." + EntropyDB.DIS_COL_DISEÑO_EXAMEN_CURSO_ID + " = C." + EntropyDB.GRL_COL_CURSO_ID + " "
+                    + "AND C." + EntropyDB.GRL_COL_CURSO_ID + " = ?";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             psConsulta.setInt(1, curso.getIntCursoId());
             ResultSet rsConsulta = psConsulta.executeQuery();
 
             while (rsConsulta.next()) {
-                int intDiseñoExamenId = rsConsulta.getInt(1);
-                String strTitulo = rsConsulta.getString(2);
-                String strDescripcion = rsConsulta.getString(3);
+                int intDiseñoExamenId = rsConsulta.getInt(EntropyDB.DIS_COL_DISEÑO_EXAMEN_ID);
+                String strTitulo = rsConsulta.getString(EntropyDB.DIS_COL_DISEÑO_EXAMEN_NOMBRE);
+                String strDescripcion = rsConsulta.getString(EntropyDB.DIS_COL_DISEÑO_EXAMEN_DESCRIPCION);
 
                 DiseñoExamen diseñoExamen = new DiseñoExamen(intDiseñoExamenId, strTitulo);
                 diseñoExamen.setStrDescripcion(strDescripcion);
                 colDiseñoExamen.add(diseñoExamen);
             }
-
         } catch (SQLException ex) {
             System.err.println(ex);
         }
@@ -99,20 +110,23 @@ public class DAODiseñoExamen implements IDAODiseñoExamen {
         Connection conexion = DAOConexion.conectarBaseDatos();
 
         try {
-            String strConsulta = "SELECT DE.disenoExamenId, DE.nombre, DE.descripcion FROM DisenoExamen DE WHERE DE.cursoId IS NULL"; //or de.cursoId=-1";
+            String strConsulta = "SELECT " + EntropyDB.DIS_COL_DISEÑO_EXAMEN_ID + ", "
+                    + EntropyDB.DIS_COL_DISEÑO_EXAMEN_NOMBRE + ", "
+                    + EntropyDB.DIS_COL_DISEÑO_EXAMEN_DESCRIPCION + " "
+                    + "FROM " + EntropyDB.DIS_TBL_DISEÑO_EXAMEN + " "
+                    + "WHERE " + EntropyDB.DIS_COL_DISEÑO_EXAMEN_CURSO_ID + " IS NULL";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             ResultSet rsConsulta = psConsulta.executeQuery();
 
             while (rsConsulta.next()) {
-                int intDiseñoExamenId = rsConsulta.getInt(1);
-                String strTitulo = rsConsulta.getString(2);
-                String strDescripcion = rsConsulta.getString(3);
+                int intDiseñoExamenId = rsConsulta.getInt(EntropyDB.DIS_COL_DISEÑO_EXAMEN_ID);
+                String strTitulo = rsConsulta.getString(EntropyDB.DIS_COL_DISEÑO_EXAMEN_NOMBRE);
+                String strDescripcion = rsConsulta.getString(EntropyDB.DIS_COL_DISEÑO_EXAMEN_DESCRIPCION);
 
                 DiseñoExamen diseñoExamen = new DiseñoExamen(intDiseñoExamenId, strTitulo);
                 diseñoExamen.setStrDescripcion(strDescripcion);
                 colDiseñoExamen.add(diseñoExamen);
             }
-
         } catch (SQLException ex) {
             System.err.println(ex);
         }
@@ -132,7 +146,12 @@ public class DAODiseñoExamen implements IDAODiseñoExamen {
             conexion.setAutoCommit(false);
 
             // Guardar el diseño de examen
-            String strConsulta = "INSERT INTO disenoExamen(cursoId, nombre, descripcion, perfilUsuarioId) VALUES(?,?,?,?)";
+            String strConsulta = "INSERT INTO " + EntropyDB.DIS_TBL_DISEÑO_EXAMEN + " ("
+                    + EntropyDB.DIS_COL_DISEÑO_EXAMEN_CURSO_ID + ", "
+                    + EntropyDB.DIS_COL_DISEÑO_EXAMEN_NOMBRE + ", "
+                    + EntropyDB.DIS_COL_DISEÑO_EXAMEN_DESCRIPCION + ", "
+                    + EntropyDB.DIS_COL_DISEÑO_EXAMEN_USUARIO_ID
+                    + ") VALUES (?,?,?,?)";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
 
             if (diseñoExamen.getCurso() == null) {
@@ -149,7 +168,7 @@ public class DAODiseñoExamen implements IDAODiseñoExamen {
                         DAOInstitucion daoInstitucion = new DAOInstitucion();
                         daoInstitucion.guardarInstitucionTransaccion(diseñoExamen.getCurso().getInstitucion(), conexion);
 
-                        // Obtener el ID del curso
+                        // Obtener el ID de la institucion
                         String strConsultaInstitucionId = "SELECT last_insert_rowid();";
                         PreparedStatement psConsultaInstitucionId = conexion.prepareStatement(strConsultaInstitucionId);
 
@@ -176,7 +195,9 @@ public class DAODiseñoExamen implements IDAODiseñoExamen {
 
             psConsulta.setString(2, diseñoExamen.getStrNombre());
             psConsulta.setString(3, diseñoExamen.getStrDescripcion());
-            psConsulta.setString(4, "admin"); // Modificar cuando usuario este logueado
+            
+            Usuario usuario = new DAOUsuario().getUsuario();
+            psConsulta.setInt(4, usuario.getIntNroDocumento());
 
             psConsulta.execute();
 
@@ -222,7 +243,11 @@ public class DAODiseñoExamen implements IDAODiseñoExamen {
             new DAOTema().eliminarTemas(diseñoExamen, conexion);
 
             // Guardar el diseño de examen
-            String strConsulta = "UPDATE DisenoExamen SET cursoId = ?, nombre = ?, descripcion = ?, perfilUsuarioId = ? WHERE disenoExamenId = ?";
+            String strConsulta = "UPDATE " + EntropyDB.DIS_TBL_DISEÑO_EXAMEN + " "
+                    + "SET " + EntropyDB.DIS_COL_DISEÑO_EXAMEN_CURSO_ID + " = ?, "
+                    + EntropyDB.DIS_COL_DISEÑO_EXAMEN_NOMBRE + " = ?, "
+                    + EntropyDB.DIS_COL_DISEÑO_EXAMEN_DESCRIPCION + " = ? "
+                    + "WHERE " + EntropyDB.DIS_COL_DISEÑO_EXAMEN_ID + " = ?";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
 
             if (diseñoExamen.getCurso() == null) {
@@ -266,8 +291,7 @@ public class DAODiseñoExamen implements IDAODiseñoExamen {
 
             psConsulta.setString(2, diseñoExamen.getStrNombre());
             psConsulta.setString(3, diseñoExamen.getStrDescripcion());
-            psConsulta.setString(4, "admin"); // Modificar cuando usuario este logueado
-            psConsulta.setInt(5, diseñoExamen.getIntDiseñoExamenId());
+            psConsulta.setInt(4, diseñoExamen.getIntDiseñoExamenId());
 
             psConsulta.execute();
 
@@ -280,7 +304,6 @@ public class DAODiseñoExamen implements IDAODiseñoExamen {
             }
 
             conexion.commit();
-
         } catch (Exception e) {
             System.err.println(e.getMessage());
             try {
@@ -301,11 +324,11 @@ public class DAODiseñoExamen implements IDAODiseñoExamen {
         try {
             Connection conexion = DAOConexion.conectarBaseDatos();
             //conexion.setAutoCommit(false);
-            String strConsulta = "DELETE FROM disenoexamen WHERE disenoExamenId=?";
+            String strConsulta = "DELETE FROM " + EntropyDB.DIS_TBL_DISEÑO_EXAMEN + " "
+                    + "WHERE " + EntropyDB.DIS_COL_DISEÑO_EXAMEN_ID + " = ?";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             psConsulta.setInt(1, diseñoExamenId);
             psConsulta.execute();
-            //Borrar Cursos asociados a la institucion    
         } catch (SQLException e) {
             System.err.println("Ha ocurrido un error mientras se guardaba la institución en la BD: " + e.toString());
         } finally {

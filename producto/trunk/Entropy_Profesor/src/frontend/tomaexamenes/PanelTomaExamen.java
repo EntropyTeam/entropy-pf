@@ -253,8 +253,9 @@ public class PanelTomaExamen extends javax.swing.JPanel {
     }
 
     private void cargarCombos(int idDiseno) {
-        Institucion institucion = gestorDiseñoExamen.buscarInstitucion(idDiseno);
         Curso curso = gestorDiseñoExamen.buscarCurso(idDiseno);
+        Institucion institucion = null;
+        if (curso != null) institucion = gestorDiseñoExamen.buscarInstitucion(curso.getIntCursoId());
         this.pnlDatosExtras.cargarCombos(institucion, curso);
     }
 

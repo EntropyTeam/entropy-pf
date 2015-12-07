@@ -483,7 +483,8 @@ public class PanelCabeceraExamen extends javax.swing.JPanel {
         //Id Curso
         Curso curso = mPadre.getGestorDiseñoExamen().buscarCurso(mPadre.getGestorDiseñoExamen().getDiseñoExamen().getIntDiseñoExamenId());
         //Id institucion
-        Institucion institucion = mPadre.getGestorDiseñoExamen().buscarInstitucion(mPadre.getGestorDiseñoExamen().getDiseñoExamen().getIntDiseñoExamenId());
+        Institucion institucion = null;
+        if (curso != null) institucion = mPadre.getGestorDiseñoExamen().buscarInstitucion(curso.getIntCursoId());
         if (institucion != null) {
             if ((institucion.getImgLogo()) != null) {
                 bytesImagen = (byte[]) institucion.getImgLogo();

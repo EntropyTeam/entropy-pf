@@ -10,7 +10,7 @@ import backend.red.HiloSocketProfesorPorAlumno;
 import backend.red.Mensaje;
 import backend.red.ParsearRoute;
 import backend.red.TipoMensaje;
-import backend.resoluciones.Alumno;
+import backend.usuarios.Alumno;
 import backend.usuarios.Usuario;
 import frontend.presentaciones.FrameControlPresentaciones;
 import frontend.usuario.DialogInfoUsuario;

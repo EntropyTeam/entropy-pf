@@ -11,7 +11,7 @@ import backend.persistencia.GestorPersistencia;
 import backend.red.HiloSocketAlumno;
 import backend.red.Mensaje;
 import backend.red.TipoMensaje;
-import backend.resoluciones.Alumno;
+import backend.usuarios.Alumno;
 import backend.resoluciones.Resolucion;
 import backend.resoluciones.Respuesta;
 import backend.resoluciones.RespuestaDesarrollo;

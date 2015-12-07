@@ -35,14 +35,16 @@ public class DAOTema implements IDAOTema {
             String strConsulta;
 
             {
-                strConsulta = "SELECT * FROM Tema t WHERE disenoExamenId=? ";
+                strConsulta = "SELECT * "
+                        + "FROM " + EntropyDB.DIS_TBL_TEMA + " "
+                        + "WHERE " + EntropyDB.DIS_COL_TEMA_DISEÑO_EXAMEN_ID + " = ?";
                 PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
                 psConsulta.setInt(1, intDiseñoExamenId);
                 ResultSet rsConsulta = psConsulta.executeQuery();
                 while (rsConsulta.next()) {
-                    int temaId = rsConsulta.getInt(1);
-                    String nombreTema = rsConsulta.getString(3);
-                    Tema tema = new Tema(temaId, nombreTema);
+                    int intTemaId = rsConsulta.getInt(EntropyDB.DIS_COL_TEMA_ID);
+                    String strNombre = rsConsulta.getString(EntropyDB.DIS_COL_TEMA_NOMBRE);
+                    Tema tema = new Tema(intTemaId, strNombre);
                     temas.add(tema);
                 }
             }
@@ -65,7 +67,8 @@ public class DAOTema implements IDAOTema {
         PreparedStatement psConsulta;
         String strConsulta = "INSERT INTO " + EntropyDB.DIS_TBL_TEMA + " ("
                 + EntropyDB.DIS_COL_TEMA_DISEÑO_EXAMEN_ID + ", "
-                + EntropyDB.DIS_COL_TEMA_NOMBRE + ") VALUES(?,?)";
+                + EntropyDB.DIS_COL_TEMA_NOMBRE + 
+                ") VALUES(?,?)";
         psConsulta = conexion.prepareStatement(strConsulta);
         psConsulta.setInt(1, intDiseñoExamenId);
         psConsulta.setString(2, tema.getStrNombre());
@@ -82,21 +85,22 @@ public class DAOTema implements IDAOTema {
     @Override
     public void eliminarTemas(DiseñoExamen diseño, Connection conexion) throws SQLException {
         PreparedStatement psConsulta;
-        String strConsulta = "DELETE FROM tema WHERE disenoExamenId = ?";
+        String strConsulta = "DELETE FROM " + EntropyDB.DIS_TBL_TEMA + " "
+                + "WHERE " + EntropyDB.DIS_COL_TEMA_DISEÑO_EXAMEN_ID + " = ?";
         psConsulta = conexion.prepareStatement(strConsulta);
         psConsulta.setInt(1, diseño.getIntDiseñoExamenId());
         psConsulta.execute();
     }
 
     @Override
-    public int getIDsiExiste(int idDiseño, String strTema, Connection conexion) throws SQLException {
+    public int getIDsiExiste(int intDiseñoExamenId, String strTema, Connection conexion) throws SQLException {
         int intID = 0;
-        String strConsultaTemaId = "SELECT "+EntropyDB.DIS_COL_TEMA_ID
-                + " FROM " + EntropyDB.DIS_TBL_TEMA 
-                + " WHERE " + EntropyDB.DIS_COL_TEMA_DISEÑO_EXAMEN_ID + " = ? "
-                + " AND " + EntropyDB.DIS_COL_TEMA_NOMBRE + " = ?";
+        String strConsultaTemaId = "SELECT " + EntropyDB.DIS_COL_TEMA_ID + " "
+                + "FROM " + EntropyDB.DIS_TBL_TEMA + " "
+                + "WHERE " + EntropyDB.DIS_COL_TEMA_DISEÑO_EXAMEN_ID + " = ? "
+                + "AND " + EntropyDB.DIS_COL_TEMA_NOMBRE + " = ?";
         PreparedStatement psConsultaTemaId = conexion.prepareStatement(strConsultaTemaId);
-        psConsultaTemaId.setInt(1, idDiseño);
+        psConsultaTemaId.setInt(1, intDiseñoExamenId);
         psConsultaTemaId.setString(2, strTema);
         ResultSet rsConsultaTemaId = psConsultaTemaId.executeQuery();
         if (rsConsultaTemaId.next())

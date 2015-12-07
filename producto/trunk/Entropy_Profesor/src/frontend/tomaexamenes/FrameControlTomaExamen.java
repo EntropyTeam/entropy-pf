@@ -5,7 +5,7 @@ import backend.examenes.Examen;
 import backend.gestores.GestorExamen;
 import backend.gestores.GestorTomaExamen;
 import backend.red.GestorRedAdHoc;
-import backend.resoluciones.Alumno;
+import backend.usuarios.Alumno;
 import frontend.auxiliares.CeldaBotonRendererEntropy;
 import frontend.auxiliares.CeldaHeaderMultiLineRenderer;
 import frontend.auxiliares.GestorBarrasDeEstado;
