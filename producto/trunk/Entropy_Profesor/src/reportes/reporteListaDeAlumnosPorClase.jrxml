@@ -7,7 +7,7 @@
 	<parameter name="parametroCurso" class="java.lang.String"/>
 	<parameter name="parametroFecha" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[SELECT * FROM grl_curso]]>
 	</queryString>
 	<field name="cursoId" class="java.lang.Object"/>
 	<field name="nombre" class="java.lang.Object"/>
@@ -47,7 +47,7 @@
 				<text><![CDATA[Fecha:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="71" y="20" width="304" height="20" uuid="ff204077-0385-4917-b743-8dd62e072a5a"/>
+				<reportElement x="84" y="20" width="304" height="20" uuid="ff204077-0385-4917-b743-8dd62e072a5a"/>
 				<textFieldExpression><![CDATA[$P{parametroInstitucion}]]></textFieldExpression>
 			</textField>
 			<textField>
