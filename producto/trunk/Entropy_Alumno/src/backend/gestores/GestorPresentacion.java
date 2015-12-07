@@ -41,7 +41,7 @@ public class GestorPresentacion {
     private boolean blnEstaConectado = false;
 
 
-    public GestorPresentacion(String ipServidor, int intPuerto) throws IOException {
+    public GestorPresentacion(String ipServidor, int intPuerto) throws Exception {
         this.ipServidor = ipServidor;
         this.intPuerto = intPuerto;
         this.dialogPresentacion = new DialogPresentacion(mPadre,true);
@@ -69,7 +69,7 @@ public class GestorPresentacion {
         this.mPadre = mPadre;
     }
 
-    public void iniciarConexion() throws IOException {
+    public void iniciarConexion() throws IOException, Exception {
         hiloSocketAlumno = new HiloSocketAlumno(ipServidor, intPuerto, this);
         hiloSocketAlumno.start();
         blnEstaConectado = true;

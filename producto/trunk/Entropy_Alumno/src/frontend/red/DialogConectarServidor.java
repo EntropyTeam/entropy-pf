@@ -404,9 +404,7 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                         public void run() {
                             try {
                                 blnConectando = true;
-
                                 btnConectar.setText("Intentando conectar...");
-
                                 String nombre = txtNombre.getText();
                                 String legajo = txtLegajo.getText();
                                 String strIPServidor = txtIPServidor.getText();
@@ -421,13 +419,19 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                                     alumno.setStrDescripcion(usuario.getStrDescripcion());
                                     alumno.setStrIP(strIPCliente);
                                 }
-
+                                
                                 if (accion == DialogConectarServidor.TipoAccion.EXAMEN) {
                                     if (resolucionRecuperar == null) {
-                                        gestorResolucionExamen = new GestorResolucionExamen(strIPServidor, VariablesRed.puertoTCP);
+                                        try {
+                                            gestorResolucionExamen = new GestorResolucionExamen(strIPServidor, VariablesRed.puertoTCP);
+                                        } catch (Exception ex) {
+                                          //  Logger.getLogger(DialogConectarServidor.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                        
                                     } else {
                                         gestorResolucionExamen = new GestorResolucionExamen(strIPServidor, VariablesRed.puertoTCP, resolucionRecuperar);
                                     }
+                                    
                                     gestorResolucionExamen.conectarAlumno(alumno);
                                     gestorResolucionExamen.setmPadre(mPadre);
 
@@ -460,8 +464,8 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                                     dispose();
                                 }
 
-                            } catch (IOException ex) {
-                                Logger.getLogger(DialogConectarServidor.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                //Logger.getLogger(DialogConectarServidor.class.getName()).log(Level.SEVERE, null, ex);
                                 String error = "Error al conectar.";
                                 if (ex instanceof ConnectException) {
                                     error = "Tiempo excedido. Imposible hallar la máquina Entropy Profesor.";
@@ -474,7 +478,7 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                             try {
                                 this.finalize();
                             } catch (Throwable ex) {
-                                Logger.getLogger(DialogConectarServidor.class.getName()).log(Level.SEVERE, null, ex);
+                               // Logger.getLogger(DialogConectarServidor.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                     });

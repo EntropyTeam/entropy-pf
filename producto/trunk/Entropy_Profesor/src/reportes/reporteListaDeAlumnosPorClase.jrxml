@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1fdee0f6-3b28-4ab5-8949-ebec4c0e3046">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="parametroInstitucion" class="java.lang.String"/>
+	<parameter name="parametroCurso" class="java.lang.String"/>
+	<parameter name="parametroFecha" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM CURSO]]>
+	</queryString>
+	<field name="cursoId" class="java.lang.Object"/>
+	<field name="nombre" class="java.lang.Object"/>
+	<field name="descripcion" class="java.lang.Object"/>
+	<field name="institucionId" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="106" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="3e785e57-2327-4417-890a-221317872023"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de alumnos por clase]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="71" height="20" uuid="62bd2ff0-2bea-4e90-9139-9ac6abd25d7d"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Institucion: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="66" height="20" uuid="7a939edc-360c-48fd-a702-38f48c2d33fa"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="66" height="20" uuid="d252f48e-9cb4-4708-b1ec-8f5d1d5e453c"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="71" y="20" width="304" height="20" uuid="ff204077-0385-4917-b743-8dd62e072a5a"/>
+				<textFieldExpression><![CDATA[$P{parametroInstitucion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="50" width="304" height="20" uuid="4b837124-432c-4e5f-a6aa-b92b43e311c7"/>
+				<textFieldExpression><![CDATA[$P{parametroCurso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="80" width="304" height="20" uuid="0c7fa519-5b3b-4074-b875-5882f57af177"/>
+				<textFieldExpression><![CDATA[$P{parametroFecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="69"/>
+	</detail>
+</jasperReport>

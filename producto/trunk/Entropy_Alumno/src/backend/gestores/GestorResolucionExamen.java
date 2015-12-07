@@ -61,13 +61,13 @@ public class GestorResolucionExamen {
         return blnValidacion;
     }
 
-    public GestorResolucionExamen(String ipServidor, int intPuerto) throws IOException {
+    public GestorResolucionExamen(String ipServidor, int intPuerto) throws  Exception {
         this.ipServidor = ipServidor;
         this.intPuerto = intPuerto;
         iniciarConexion();
     }
 
-    public GestorResolucionExamen(String ipServidor, int intPuerto, Resolucion resolucionRecuperar) throws IOException {
+    public GestorResolucionExamen(String ipServidor, int intPuerto, Resolucion resolucionRecuperar) throws Exception {
         this.ipServidor = ipServidor;
         this.intPuerto = intPuerto;
         this.resolucionRecuperar = resolucionRecuperar;
@@ -94,9 +94,12 @@ public class GestorResolucionExamen {
         this.mPadre = mPadre;
     }
 
-    public void iniciarConexion() throws IOException {
+    public void iniciarConexion() throws Exception {
         hiloSocketAlumno = new HiloSocketAlumno(ipServidor, intPuerto, this);
-        hiloSocketAlumno.start();
+        if(hiloSocketAlumno.getSocket()!=null)
+        {
+            hiloSocketAlumno.start();
+        }  
     }
 
     public void avisarServidorCierre() throws IOException {
@@ -476,6 +479,10 @@ public class GestorResolucionExamen {
 
     public Alumno getAlumno() {
         return alumno;
+    }
+
+    public HiloSocketAlumno getHiloSocketAlumno() {
+        return hiloSocketAlumno;
     }
     
     

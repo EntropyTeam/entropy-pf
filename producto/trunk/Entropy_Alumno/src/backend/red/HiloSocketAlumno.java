@@ -7,6 +7,7 @@ import backend.usuarios.Usuario;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,27 +24,19 @@ public class HiloSocketAlumno extends Thread {
     private GestorResolucionExamen gestorResolucionExamen;
     private GestorPresentacion gestorPresentacion;
 
-    public HiloSocketAlumno(String strIP, int intPuerto, GestorResolucionExamen gestorResolucionExamen) {
+    public HiloSocketAlumno(String strIP, int intPuerto, GestorResolucionExamen gestorResolucionExamen) throws Exception {
         this.gestorResolucionExamen = gestorResolucionExamen;
-
-        try {
             this.socket = new Socket(strIP, intPuerto);
             this.objetoSaliente = new ObjectOutputStream(socket.getOutputStream());
             this.objetoEntrante = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException ex) {
-            Logger.getLogger(HiloSocketAlumno.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
-    public HiloSocketAlumno(String strIP, int intPuerto, GestorPresentacion gestorPresentacion) {
+    public HiloSocketAlumno(String strIP, int intPuerto, GestorPresentacion gestorPresentacion) throws Exception {
         this.gestorPresentacion = gestorPresentacion;
-        try {
+
             this.socket = new Socket(strIP, intPuerto);
             this.objetoSaliente = new ObjectOutputStream(socket.getOutputStream());
             this.objetoEntrante = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException ex) {
-            Logger.getLogger(HiloSocketAlumno.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public Socket getSocket() {
@@ -103,7 +96,7 @@ public class HiloSocketAlumno extends Thread {
             } catch (ClassNotFoundException e) {
                 System.out.println("Error de ClassNotFoundException al leer el mensaje.");
                 e.printStackTrace();
-            }
+            } 
         }
     }
 }

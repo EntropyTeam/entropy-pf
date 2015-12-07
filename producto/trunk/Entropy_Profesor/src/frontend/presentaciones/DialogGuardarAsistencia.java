@@ -5,9 +5,14 @@
  */
 package frontend.presentaciones;
 
+import backend.auxiliares.Mensajes;
+import backend.dao.diseños.DAOCurso;
+import backend.dao.diseños.DAOInstitucion;
 import backend.diseños.Curso;
 import backend.diseños.Institucion;
+import backend.red.Mensaje;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -16,6 +21,8 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class DialogGuardarAsistencia extends javax.swing.JDialog {
    private final FrameControlPresentaciones mPadre;
+   private DAOInstitucion daoInstitucion = new DAOInstitucion();
+   private DAOCurso daoCurso = new DAOCurso();
     /**
      * Creates new form DialogGuardarAsistencia
      */
@@ -25,11 +32,14 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
         this.mPadre = (FrameControlPresentaciones) mPadre;
         setLocationRelativeTo(null);
         cargarComboInstituciones();
+        cargarComboCursos(((Institucion)cbInstitucion.getSelectedItem()).getIntInstitucionId());
     }
     
     private void cargarComboInstituciones()
     {
-        ArrayList<Institucion>listaInstituciones = new ArrayList<Institucion>();
+        DAOInstitucion daoInstitucion = new DAOInstitucion();
+        ArrayList<Institucion>listaInstituciones = daoInstitucion.recuperarTodasLasInstituciones("");
+        
         DefaultComboBoxModel modeloCombo= new DefaultComboBoxModel();
         for (Institucion institucion : listaInstituciones) 
         {
@@ -38,17 +48,40 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
         }
        cbInstitucion.setModel(modeloCombo);
     }
-        private void cargarComboCursos(int idInstitucion)
+    private void cargarComboCursos(int idInstitucion)
     {
-        ArrayList<Curso>listacurso = new ArrayList<Curso>();
+        DAOCurso daoCurso= new DAOCurso();
+        Institucion institucion = daoInstitucion.recuperarInstitucion(idInstitucion);
+        ArrayList<Curso>listacurso = daoCurso.recuperarTodosLosCursos(institucion,"");
         DefaultComboBoxModel modeloCombo= new DefaultComboBoxModel();
         for (Curso curso : listacurso) 
         {
             modeloCombo.addElement(curso);
             
         }
-       cbInstitucion.setModel(modeloCombo);
+       cbCurso.setModel(modeloCombo);
     }
+        
+        
+       /* private boolean guardarClase()
+        {
+            Presentacion presentacion= new Presentacion();
+            presentacion.setDateFecha(new Date().getTime());
+            presentacion.setIntIdCurso(((Curso)cbCurso.getSelectedItem()).getIntCursoId());
+            presentacion.setStrNombre(txtNombreClase.getText())
+            prsentacion.setStrDecripcion(txtDescripcion.getText());
+            return DAOPresentacion.guardarClase(presentacion);
+        }
+        */
+        private boolean validarCampos()
+        {
+            if(txtNombreClase.equals(""))
+            {
+                Mensajes.mostrarAdvertencia("La clase necesita un nombre");
+                return false;
+            }
+            return true;
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,34 +93,44 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
     private void initComponents() {
 
         jpDatosDeLaClase = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblInstitucion = new javax.swing.JLabel();
+        lblCurso = new javax.swing.JLabel();
         cbInstitucion = new javax.swing.JComboBox();
         cbCurso = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
+        lblNombreClase = new javax.swing.JLabel();
         txtNombreClase = new javax.swing.JTextField();
-        btnGuardarAsistencia = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
+        lblDescripcion = new javax.swing.JLabel();
+        btnRegresar = new javax.swing.JButton();
         btnGuardarAsistencia1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Insitutucion:");
+        lblInstitucion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblInstitucion.setText("Insitutucion:");
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Curso:");
+        lblCurso.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCurso.setText("Curso:");
 
         cbInstitucion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cbCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbCurso.addItemListener(new java.awt.event.ItemListener() {
+        cbInstitucion.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbCursoItemStateChanged(evt);
+                cbInstitucionItemStateChanged(evt);
             }
         });
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Nombre de la clase:");
+        cbCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblNombreClase.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblNombreClase.setText("Nombre de la clase:");
+
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtDescripcion);
+
+        lblDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblDescripcion.setText("Descripcion:");
 
         javax.swing.GroupLayout jpDatosDeLaClaseLayout = new javax.swing.GroupLayout(jpDatosDeLaClase);
         jpDatosDeLaClase.setLayout(jpDatosDeLaClaseLayout);
@@ -95,12 +138,15 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
             jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpDatosDeLaClaseLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblNombreClase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblInstitucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addComponent(cbInstitucion, 0, 348, Short.MAX_VALUE)
                     .addComponent(cbCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtNombreClase))
@@ -111,36 +157,40 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
             .addGroup(jpDatosDeLaClaseLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(lblInstitucion)
                     .addComponent(cbInstitucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblCurso)
                     .addComponent(cbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
+                    .addComponent(lblNombreClase)
                     .addComponent(txtNombreClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDescripcion))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnGuardarAsistencia.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnGuardarAsistencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
-        btnGuardarAsistencia.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnGuardarAsistencia.setContentAreaFilled(false);
-        btnGuardarAsistencia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarAsistencia.setIconTextGap(10);
-        btnGuardarAsistencia.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnRegresar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
+        btnRegresar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnRegresar.setContentAreaFilled(false);
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.setIconTextGap(10);
+        btnRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGuardarAsistenciaMouseEntered(evt);
+                btnRegresarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGuardarAsistenciaMouseExited(evt);
+                btnRegresarMouseExited(evt);
             }
         });
-        btnGuardarAsistencia.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarAsistenciaActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -170,109 +220,78 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jpDatosDeLaClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnGuardarAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGuardarAsistencia1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardarAsistencia1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jpDatosDeLaClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jpDatosDeLaClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnGuardarAsistencia1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGuardarAsistencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGuardarAsistencia1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnRegresar)
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGuardarAsistenciaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaMouseEntered
+    private void btnRegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistenciaMouseEntered
+    }//GEN-LAST:event_btnRegresarMouseEntered
 
-    private void btnGuardarAsistenciaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaMouseExited
+    private void btnRegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistenciaMouseExited
+    }//GEN-LAST:event_btnRegresarMouseExited
 
-    private void btnGuardarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         dispose();
-    }//GEN-LAST:event_btnGuardarAsistenciaActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnGuardarAsistencia1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistencia1MouseEntered
+    private void btnGuardarAsistencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1ActionPerformed
+        if(validarCampos())
+        {
+            //guardarClase();
+        }
+    }//GEN-LAST:event_btnGuardarAsistencia1ActionPerformed
 
     private void btnGuardarAsistencia1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarAsistencia1MouseExited
 
-    private void btnGuardarAsistencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1ActionPerformed
+    private void btnGuardarAsistencia1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1MouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistencia1ActionPerformed
+    }//GEN-LAST:event_btnGuardarAsistencia1MouseEntered
 
-    private void cbCursoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCursoItemStateChanged
-        cargarComboCursos(1);
-    }//GEN-LAST:event_cbCursoItemStateChanged
+    private void cbInstitucionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbInstitucionItemStateChanged
+        cargarComboCursos(((Institucion)cbInstitucion.getSelectedItem()).getIntInstitucionId());
+    }//GEN-LAST:event_cbInstitucionItemStateChanged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogGuardarAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogGuardarAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogGuardarAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogGuardarAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogGuardarAsistencia dialog = new DialogGuardarAsistencia(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardarAsistencia;
     private javax.swing.JButton btnGuardarAsistencia1;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox cbCurso;
     private javax.swing.JComboBox cbInstitucion;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpDatosDeLaClase;
+    private javax.swing.JLabel lblCurso;
+    private javax.swing.JLabel lblDescripcion;
+    private javax.swing.JLabel lblInstitucion;
+    private javax.swing.JLabel lblNombreClase;
+    private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombreClase;
     // End of variables declaration//GEN-END:variables
 }
