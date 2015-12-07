@@ -4,7 +4,7 @@ import backend.Seguridad.GestorSeguridadAutenticacion;
 import backend.auxiliares.Mensajes;
 import backend.gestores.GestorDePresentacion;
 import backend.gestores.GestorTomaExamen;
-import backend.resoluciones.Alumno;
+import backend.usuarios.Alumno;
 import backend.resoluciones.Resolucion;
 import java.io.IOException;
 import java.io.ObjectInputStream;

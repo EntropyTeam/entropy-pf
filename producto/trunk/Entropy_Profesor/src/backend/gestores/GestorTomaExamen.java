@@ -3,8 +3,9 @@ package backend.gestores;
 import backend.Seguridad.GestorSeguridadAutenticacion;
 import backend.auxiliares.Mensajes;
 import backend.dao.resoluciones.DAOResolucion;
+import backend.dao.usuarios.DAOAlumno;
 import backend.examenes.Examen;
-import backend.resoluciones.Alumno;
+import backend.usuarios.Alumno;
 import backend.red.HiloSocketProfesorPorAlumno;
 import backend.red.HiloSocketProfesorConexion;
 import backend.red.Mensaje;
@@ -92,6 +93,9 @@ public class GestorTomaExamen {
         String codigo = gestorSeguridadAutenticacion.generarCodigoAlfNum();
         alumno.setStrCodigo(codigo);
         
+        // Le asignamos el ID
+        alumno.setIntAlumnoId(new DAOAlumno().getAlumnoId(alumno));
+        
         int indice = frmControlTomaExamen.agregarAlumno(alumno);
         try {
             Usuario profesor = GestorConfiguracion.getInstancia().getIDAOUsuarios().getUsuario();
@@ -120,6 +124,7 @@ public class GestorTomaExamen {
 
     public void finalizarExamenAlumno(int intIndice, Resolucion resolucion) {
         frmControlTomaExamen.finalizarExamenAlumno(intIndice);
+        resolucion.setAlumno(colHilosSocketsAlumnos.get(intIndice).getAlumno());
         if (!(new DAOResolucion().guardarResolucion(resolucion))) {
             System.err.println("PROBLEMAS AL GUARDAR LA RESOLUCIÓN.");
         }

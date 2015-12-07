@@ -1,6 +1,6 @@
 package frontend.tomaexamenes;
 
-import backend.resoluciones.Alumno;
+import backend.usuarios.Alumno;
 import backend.usuarios.Usuario;
 import frontend.auxiliares.ComponentMover;
 import frontend.auxiliares.LookAndFeelEntropy;

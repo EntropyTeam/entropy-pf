@@ -1,6 +1,7 @@
 package backend.dao.diseños;
 
 import backend.dao.DAOConexion;
+import backend.dao.EntropyDB;
 import backend.diseños.Curso;
 import backend.diseños.DiseñoExamen;
 import backend.diseños.Institucion;
@@ -35,30 +36,35 @@ public class DAOCurso implements IDAOCurso {
         Connection conexion = DAOConexion.conectarBaseDatos();
         try {
             String strConsulta;
-            if (strNombre.equals(""))//Devuelve todos los cursos para una institucion en caso que no se haya realiza una busqueda especifica
-            {
-                strConsulta = "SELECT * FROM curso WHERE institucionId=?";
+            if (strNombre.equals("")) {
+                // Devuelve todos los cursos para una institucion en caso que no se haya realiza una busqueda especifica
+                strConsulta = "SELECT * "
+                        + "FROM " + EntropyDB.GRL_TBL_CURSO + " "
+                        + "WHERE " + EntropyDB.GRL_COL_CURSO_INSTITUCION_ID + " = ?";
                 PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
                 psConsulta.setInt(1, institucion.getIntInstitucionId());
                 ResultSet rsConsulta = psConsulta.executeQuery();
                 while (rsConsulta.next()) {
-                    int cursoId = rsConsulta.getInt(1);
-                    String nombre = rsConsulta.getString(2);
-                    String descripcion = rsConsulta.getString(3);
+                    int cursoId = rsConsulta.getInt(EntropyDB.GRL_COL_CURSO_ID);
+                    String nombre = rsConsulta.getString(EntropyDB.GRL_COL_CURSO_NOMBRE);
+                    String descripcion = rsConsulta.getString(EntropyDB.GRL_COL_CURSO_DESCRIPCION);
                     Curso curso = new Curso(cursoId, nombre, descripcion, institucion);
                     cursos.add(curso);
                 }
-            } else // Devuelve un curso o mas  segun coincidan con la busqueda del nombre y la institucion seleccionada
-            {
-                strConsulta = "SELECT * FROM curso WHERE institucionId=? AND nombre LIKE (?)";
+            } else {
+                // Devuelve un curso o mas  segun coincidan con la busqueda del nombre y la institucion seleccionada
+                strConsulta = "SELECT * "
+                        + "FROM " + EntropyDB.GRL_TBL_CURSO + " "
+                        + "WHERE " + EntropyDB.GRL_COL_CURSO_INSTITUCION_ID + " = ? "
+                        + "AND " + EntropyDB.GRL_COL_CURSO_NOMBRE + " LIKE (?)";
                 PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
                 psConsulta.setInt(1, institucion.getIntInstitucionId());
                 psConsulta.setString(2, "%" + strNombre + "%");
                 ResultSet rsConsulta = psConsulta.executeQuery();
                 while (rsConsulta.next()) {
-                    int cursoId = rsConsulta.getInt(1);
-                    String nombre = rsConsulta.getString(2);
-                    String descripcion = rsConsulta.getString(3);
+                    int cursoId = rsConsulta.getInt(EntropyDB.GRL_COL_CURSO_ID);
+                    String nombre = rsConsulta.getString(EntropyDB.GRL_COL_CURSO_NOMBRE);
+                    String descripcion = rsConsulta.getString(EntropyDB.GRL_COL_CURSO_DESCRIPCION);
                     Curso curso = new Curso(cursoId, nombre, descripcion, institucion);
                     cursos.add(curso);
                 }
@@ -77,29 +83,39 @@ public class DAOCurso implements IDAOCurso {
             Connection conexion = DAOConexion.conectarBaseDatos();
             PreparedStatement psConsulta;
             if (!editar) {
-                String strConsulta = "INSERT INTO curso(nombre, descripcion, institucionId) VALUES(?,?,?)";
+                String strConsulta = "INSERT INTO " + EntropyDB.GRL_TBL_CURSO + " ("
+                        + EntropyDB.GRL_COL_CURSO_NOMBRE + ", "
+                        + EntropyDB.GRL_COL_CURSO_DESCRIPCION + ", "
+                        + EntropyDB.GRL_COL_CURSO_INSTITUCION_ID
+                        + ") VALUES(?,?,?)";
                 psConsulta = conexion.prepareStatement(strConsulta);
                 psConsulta.setString(1, curso.getStrNombre());
                 psConsulta.setObject(2, curso.getStrDescripcion());
                 psConsulta.setObject(3, institucion.getIntInstitucionId());
             } else {
-                String strConsulta = "UPDATE Curso SET nombre=?, descripcion=? WHERE cursoId = ? ";
+                String strConsulta = "UPDATE " + EntropyDB.GRL_TBL_CURSO + " "
+                        + "SET " + EntropyDB.GRL_COL_CURSO_NOMBRE + " = ?, "
+                        + EntropyDB.GRL_COL_CURSO_DESCRIPCION + " = ? "
+                        + "WHERE " + EntropyDB.GRL_COL_CURSO_ID + " = ?";
                 psConsulta = conexion.prepareStatement(strConsulta);
                 psConsulta.setString(1, curso.getStrNombre());
                 psConsulta.setObject(2, curso.getStrDescripcion());
                 psConsulta.setInt(3, curso.getIntCursoId());
             }
             psConsulta.execute();
-
         } catch (SQLException e) {
-            System.err.println("Ha ocurrido un error mientras se guardaba la institucion en la BD " + e.toString());
+            System.err.println("Ha ocurrido un error mientras se guardaba el curso en la BD " + e.toString());
         } finally {
             DAOConexion.desconectarBaseDatos();
         }
     }
     
     public void guardarCurso(Curso curso, Connection conexion) throws SQLException{
-        String strConsulta = "INSERT INTO curso(nombre, descripcion, institucionId) VALUES(?,?,?)";
+        String strConsulta = "INSERT INTO " + EntropyDB.GRL_TBL_CURSO + " ("
+                        + EntropyDB.GRL_COL_CURSO_NOMBRE + ", "
+                        + EntropyDB.GRL_COL_CURSO_DESCRIPCION + ", "
+                        + EntropyDB.GRL_COL_CURSO_INSTITUCION_ID
+                        + ") VALUES(?,?,?)";
         PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
         psConsulta.setString(1, curso.getStrNombre());
         psConsulta.setObject(2, curso.getStrDescripcion());
@@ -112,7 +128,8 @@ public class DAOCurso implements IDAOCurso {
         int idUltimoCurso = 0;
         try {
             Connection conexion = DAOConexion.conectarBaseDatos();
-            String strConsulta = "SELECT  MAX (cursoId) FROM curso";
+            String strConsulta = "SELECT  MAX (" + EntropyDB.GRL_COL_CURSO_ID + ") "
+                    + "FROM " + EntropyDB.GRL_TBL_CURSO;
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             ResultSet rsConsulta = psConsulta.executeQuery();
             idUltimoCurso = rsConsulta.getInt(1);
@@ -128,7 +145,9 @@ public class DAOCurso implements IDAOCurso {
     public void borrarCurso(int intIdCurso, int intInstitucionId) {
         try {
             Connection conexion = DAOConexion.conectarBaseDatos();
-            String strConsulta = "DELETE FROM curso WHERE cursoId=? AND institucionId=?";
+            String strConsulta = "DELETE FROM " + EntropyDB.GRL_TBL_CURSO + " "
+                    + "WHERE " + EntropyDB.GRL_COL_CURSO_ID + " = ? "
+                    + "AND " + EntropyDB.GRL_COL_CURSO_INSTITUCION_ID + " = ?";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             psConsulta.setInt(1, intIdCurso);
             psConsulta.setInt(2, intInstitucionId);
@@ -146,44 +165,39 @@ public class DAOCurso implements IDAOCurso {
     * @return el curso encontrado en la consulta 
     */
     
-       public Curso buscarCurso(int idDiseño) {
-        Curso curso = new Curso();
+    public Curso buscarCurso(int idDiseño) {
+        Curso curso = null;
         Connection conexion = DAOConexion.conectarBaseDatos();
         try {
             String strConsulta;
-            strConsulta = "SELECT * FROM disenoexamen WHERE disenoexamenId=?";
+            strConsulta = "SELECT " + EntropyDB.DIS_COL_DISEÑO_EXAMEN_CURSO_ID + " "
+                    + "FROM " + EntropyDB.DIS_TBL_DISEÑO_EXAMEN + " "
+                    + "WHERE " + EntropyDB.DIS_COL_DISEÑO_EXAMEN_ID + " = ?";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             psConsulta.setInt(1, idDiseño);
             ResultSet rsConsulta = psConsulta.executeQuery();
 
-            DiseñoExamen diseño = new DiseñoExamen();
-            diseño.setIntDiseñoExamenId(idDiseño);
-            diseño.setStrDescripcion(rsConsulta.getString(4));
-            diseño.setStrNombre(rsConsulta.getString(3));
-
-            int id = diseño.getIntDiseñoExamenId();
-            strConsulta = "SELECT c.cursoId, c.nombre, c.descripcion FROM curso C, disenoexamen DE WHERE de.cursoID=c.cursoID and de.disenoexamenId=?";
-            psConsulta = conexion.prepareStatement(strConsulta);
-            psConsulta.setInt(1, id);
-            rsConsulta = psConsulta.executeQuery();
-            if (rsConsulta.next()) {
-                int cursoId = rsConsulta.getInt(1);
-                String nombre = rsConsulta.getString(2);
-                String descripcion = rsConsulta.getString(3);
-                curso.setIntCursoId(cursoId);
-                curso.setStrNombre(nombre);
-                curso.setStrDescripcion(descripcion);
-                return curso;
+            int cursoId = rsConsulta.getInt(EntropyDB.DIS_COL_DISEÑO_EXAMEN_CURSO_ID);
+            if (!rsConsulta.wasNull()) {
+                strConsulta = "SELECT * "
+                        + "FROM " + EntropyDB.GRL_TBL_CURSO + " "
+                        + "WHERE " + EntropyDB.GRL_COL_CURSO_ID + " = ?";
+                psConsulta = conexion.prepareStatement(strConsulta);
+                psConsulta.setInt(1, cursoId);
+                rsConsulta = psConsulta.executeQuery();
+                if (rsConsulta.next()) {
+                    curso = new Curso();
+                    curso.setIntCursoId(rsConsulta.getInt(EntropyDB.GRL_COL_CURSO_ID));
+                    curso.setStrNombre(rsConsulta.getString(EntropyDB.GRL_COL_CURSO_NOMBRE));
+                    curso.setStrDescripcion(rsConsulta.getString(EntropyDB.GRL_COL_CURSO_DESCRIPCION));
+                }
             }
-            return null;
-
         } catch (SQLException e) {
-            System.err.println("pelitoOcurrio un error mientras se recuperaba un curso " + e.toString());
+            System.err.println("Ocurrio un error mientras se recuperaba un curso " + e.toString());
         } finally {
             DAOConexion.desconectarBaseDatos();
-
         }
         
-         return curso;
+        return curso;
     }    
 }

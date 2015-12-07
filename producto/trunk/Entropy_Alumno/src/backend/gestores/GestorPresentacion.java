@@ -8,7 +8,7 @@ package backend.gestores;
 import backend.red.HiloSocketAlumno;
 import backend.red.Mensaje;
 import backend.red.TipoMensaje;
-import backend.resoluciones.Alumno;
+import backend.usuarios.Alumno;
 import backend.usuarios.Usuario;
 import frontend.inicio.VentanaPrincipal;
 import frontend.presentacion.DialogPresentacion;
@@ -41,7 +41,7 @@ public class GestorPresentacion {
     private boolean blnEstaConectado = false;
 
 
-    public GestorPresentacion(String ipServidor, int intPuerto) throws IOException {
+    public GestorPresentacion(String ipServidor, int intPuerto) throws Exception {
         this.ipServidor = ipServidor;
         this.intPuerto = intPuerto;
         this.dialogPresentacion = new DialogPresentacion(mPadre,true);
@@ -69,7 +69,7 @@ public class GestorPresentacion {
         this.mPadre = mPadre;
     }
 
-    public void iniciarConexion() throws IOException {
+    public void iniciarConexion() throws IOException, Exception {
         hiloSocketAlumno = new HiloSocketAlumno(ipServidor, intPuerto, this);
         hiloSocketAlumno.start();
         blnEstaConectado = true;

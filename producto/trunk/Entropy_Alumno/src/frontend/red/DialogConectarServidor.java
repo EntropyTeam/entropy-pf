@@ -6,7 +6,7 @@ import backend.gestores.GestorResolucionExamen;
 import backend.gestores.GestorPresentacion;
 import backend.red.ParsearRoute;
 import backend.red.VariablesRed;
-import backend.resoluciones.Alumno;
+import backend.usuarios.Alumno;
 import backend.resoluciones.Resolucion;
 import backend.usuarios.Usuario;
 import frontend.auxiliares.ComponentMover;
@@ -86,13 +86,10 @@ public class DialogConectarServidor extends javax.swing.JDialog {
         cr.registerComponent(this);
 
         usuario = GestorConfiguracion.getInstancia().getIDAOUsuarios().getUsuario();
-        if (usuario != null) {
-            txtNombre.setText(usuario.getStrNombre() + " " + usuario.getStrApellido());
-            txtLegajo.setText(usuario.getStrLegajo());
-            txtNombre.setEditable(false);
-            txtLegajo.setEditable(false);
-        }
-
+        txtNombre.setText(usuario.getStrNombre() + " " + usuario.getStrApellido());
+        txtLegajo.setText(usuario.getStrLegajo());
+        txtNombre.setEditable(false);
+        txtLegajo.setEditable(false);
     }
 
     /**
@@ -404,30 +401,32 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                         public void run() {
                             try {
                                 blnConectando = true;
-
                                 btnConectar.setText("Intentando conectar...");
 
-                                String nombre = txtNombre.getText();
-                                String legajo = txtLegajo.getText();
                                 String strIPServidor = txtIPServidor.getText();
                                 String strIPCliente = ParsearRoute.getInstance().getLocalIPAddress();
 
-                                Alumno alumno;
-                                if (usuario == null) {
-                                    alumno = new Alumno(nombre, legajo, strIPCliente);
-                                } else {
-                                    alumno = new Alumno(usuario.getStrNombre(), usuario.getStrApellido(), usuario.getStrTipoDocumento(), usuario.getIntNroDocumento(), usuario.getStrEmail(), legajo, txtCodigo.getText(), strIPCliente);
-                                    alumno.setImgFoto(usuario.getImgFoto());
-                                    alumno.setStrDescripcion(usuario.getStrDescripcion());
-                                    alumno.setStrIP(strIPCliente);
-                                }
+                                Alumno alumno = new Alumno(usuario.getStrNombre(), 
+                                        usuario.getStrApellido(), 
+                                        usuario.getStrTipoDocumento(), 
+                                        usuario.getIntNroDocumento(), 
+                                        usuario.getStrEmail(),
+                                        usuario.getStrLegajo(),
+                                        usuario.getStrDescripcion(),
+                                        usuario.getImgFoto(),
+                                        strIPCliente);
 
                                 if (accion == DialogConectarServidor.TipoAccion.EXAMEN) {
                                     if (resolucionRecuperar == null) {
-                                        gestorResolucionExamen = new GestorResolucionExamen(strIPServidor, VariablesRed.puertoTCP);
+                                        try {
+                                            gestorResolucionExamen = new GestorResolucionExamen(strIPServidor, VariablesRed.puertoTCP);
+                                        } catch (Exception ex) {
+                                          //  Logger.getLogger(DialogConectarServidor.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
                                     } else {
                                         gestorResolucionExamen = new GestorResolucionExamen(strIPServidor, VariablesRed.puertoTCP, resolucionRecuperar);
                                     }
+                                    
                                     gestorResolucionExamen.conectarAlumno(alumno);
                                     gestorResolucionExamen.setmPadre(mPadre);
 
@@ -460,8 +459,8 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                                     dispose();
                                 }
 
-                            } catch (IOException ex) {
-                                Logger.getLogger(DialogConectarServidor.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                //Logger.getLogger(DialogConectarServidor.class.getName()).log(Level.SEVERE, null, ex);
                                 String error = "Error al conectar.";
                                 if (ex instanceof ConnectException) {
                                     error = "Tiempo excedido. Imposible hallar la máquina Entropy Profesor.";
@@ -474,7 +473,7 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                             try {
                                 this.finalize();
                             } catch (Throwable ex) {
-                                Logger.getLogger(DialogConectarServidor.class.getName()).log(Level.SEVERE, null, ex);
+                               // Logger.getLogger(DialogConectarServidor.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                     });
