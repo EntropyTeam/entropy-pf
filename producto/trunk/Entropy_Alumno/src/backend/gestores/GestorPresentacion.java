@@ -8,7 +8,7 @@ package backend.gestores;
 import backend.red.HiloSocketAlumno;
 import backend.red.Mensaje;
 import backend.red.TipoMensaje;
-import backend.resoluciones.Alumno;
+import backend.usuarios.Alumno;
 import backend.usuarios.Usuario;
 import frontend.inicio.VentanaPrincipal;
 import frontend.presentacion.DialogPresentacion;

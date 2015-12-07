@@ -1,5 +1,6 @@
 package backend.resoluciones;
 
+import backend.usuarios.Alumno;
 import backend.examenes.Examen;
 import java.io.Serializable;
 import java.util.ArrayList;

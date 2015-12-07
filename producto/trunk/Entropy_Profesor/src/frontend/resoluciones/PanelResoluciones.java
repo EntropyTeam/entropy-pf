@@ -5,7 +5,7 @@ import backend.gestores.GestorExamen;
 import backend.mail.Email;
 import backend.mail.GestorEnvioDeMail;
 import backend.reporte.*;
-import backend.resoluciones.Alumno;
+import backend.usuarios.Alumno;
 import backend.resoluciones.Resolucion;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.LookAndFeelEntropy;

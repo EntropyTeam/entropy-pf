@@ -2,7 +2,7 @@ package frontend.examenes;
 
 import backend.auxiliares.Mensajes;
 import backend.gestores.GestorResolucionExamen;
-import backend.resoluciones.Alumno;
+import backend.usuarios.Alumno;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.inicio.VentanaPrincipal;
 import frontend.usuario.DialogInfoUsuario;

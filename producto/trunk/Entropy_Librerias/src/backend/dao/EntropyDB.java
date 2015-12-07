@@ -40,6 +40,7 @@ public class EntropyDB {
     public static final String GRL_COL_ALUMNO_APELLIDO = "apellido";
     public static final String GRL_COL_ALUMNO_TIPO_DOCUMENTO = "tipoDocumento";
     public static final String GRL_COL_ALUMNO_DOCUMENTO = "documento";
+    public static final String GRL_COL_ALUMNO_LEGAJO = "legajo";
     public static final String GRL_COL_ALUMNO_EMAIL = "email";
     
     public static final String GRL_TBL_TIPO_PREGUNTA = "grl_tipopregunta";

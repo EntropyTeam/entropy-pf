@@ -196,7 +196,7 @@ public class DAOInstitucion implements IDAOInstitucion {
             psConsulta.setInt(1, idCurso);
             ResultSet rsConsulta = psConsulta.executeQuery();
             
-            int institucionId = rsConsulta.getInt(EntropyDB.DIS_COL_DISEÑO_EXAMEN_CURSO_ID);
+            int institucionId = rsConsulta.getInt(EntropyDB.GRL_COL_CURSO_INSTITUCION_ID);
             if (!rsConsulta.wasNull()) {
                 strConsulta = "SELECT * "
                         + "FROM " + EntropyDB.GRL_TBL_INSTITUCION + " "

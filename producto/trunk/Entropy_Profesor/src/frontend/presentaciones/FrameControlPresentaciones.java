@@ -4,7 +4,7 @@ import backend.examenes.EstadoTomaExamen;
 import backend.presentaciones.EstadoPresentacion;
 import backend.gestores.GestorDePresentacion;
 import backend.red.GestorRedAdHoc;
-import backend.resoluciones.Alumno;
+import backend.usuarios.Alumno;
 import frontend.auxiliares.CeldaBotonRendererEntropy;
 import frontend.auxiliares.CeldaHeaderMultiLineRenderer;
 import frontend.auxiliares.GestorBarrasDeEstado;
