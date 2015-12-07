@@ -246,7 +246,7 @@ public class DAODiseñoExamen implements IDAODiseñoExamen {
             String strConsulta = "UPDATE " + EntropyDB.DIS_TBL_DISEÑO_EXAMEN + " "
                     + "SET " + EntropyDB.DIS_COL_DISEÑO_EXAMEN_CURSO_ID + " = ?, "
                     + EntropyDB.DIS_COL_DISEÑO_EXAMEN_NOMBRE + " = ?, "
-                    + EntropyDB.DIS_COL_DISEÑO_EXAMEN_DESCRIPCION + " = ?, "
+                    + EntropyDB.DIS_COL_DISEÑO_EXAMEN_DESCRIPCION + " = ? "
                     + "WHERE " + EntropyDB.DIS_COL_DISEÑO_EXAMEN_ID + " = ?";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
 

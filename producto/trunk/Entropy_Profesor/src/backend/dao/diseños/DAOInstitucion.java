@@ -218,6 +218,6 @@ public class DAOInstitucion implements IDAOInstitucion {
             DAOConexion.desconectarBaseDatos();
 
         }
-        return null;
+        return institucion;
 }
 }
