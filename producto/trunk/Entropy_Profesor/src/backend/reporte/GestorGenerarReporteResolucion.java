@@ -61,72 +61,73 @@ public class GestorGenerarReporteResolucion {
             PdfWriter.getInstance(document, new FileOutputStream(strFilePath));
             document.open();
 
-            //Tabla Encabezado Encabezado
-            PdfPTable tablaEncabezado = new PdfPTable(2); // 2 columns.
-            float[] columnWidths = {10f, 100f};
-            tablaEncabezado.setWidths(columnWidths);
-
-            //Contenido Encabezado
-            PdfPTable contenidoEncabezado = new PdfPTable(1);
-            contenidoEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-
-            PdfPCell cellTitulo = new PdfPCell(new Paragraph(this.resolucionExamen.getExamen().getStrNombre()));
-            cellTitulo.setBorder(Rectangle.NO_BORDER);
-            cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
-            contenidoEncabezado.addCell(cellTitulo);
-
-            PdfPTable contenidoEncabezadoInstFecha = new PdfPTable(2);
-            PdfPCell cellInst = new PdfPCell(new Paragraph(this.resolucionExamen.getExamen().getCurso().getInstitucion().getStrNombre()));
-            cellInst.setBorder(Rectangle.NO_BORDER);
-            PdfPCell cellFecha = new PdfPCell(new Paragraph(this.resolucionExamen.getExamen().getDteFecha().toString()));
-            cellFecha.setBorder(Rectangle.NO_BORDER);
-            cellFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            contenidoEncabezadoInstFecha.addCell(cellInst);
-            contenidoEncabezadoInstFecha.addCell(cellFecha);
-            contenidoEncabezado.addCell(contenidoEncabezadoInstFecha);
-            contenidoEncabezadoInstFecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-
-            PdfPTable contenidoEncabezadoNombreNota = new PdfPTable(2);
-            PdfPCell cellNombre = new PdfPCell(new Paragraph("Alumno: " + this.resolucionExamen.getAlumno().getStrApellido() + " " + this.resolucionExamen.getAlumno().getStrLegajo()));
-            cellNombre.setBorder(Rectangle.NO_BORDER);
-            PdfPCell cellNota = new PdfPCell(new Paragraph(this.getNota()));
-            cellNota.setBorder(Rectangle.NO_BORDER);
-            cellNota.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            contenidoEncabezadoNombreNota.addCell(cellNombre);
-            contenidoEncabezadoNombreNota.addCell(cellNota);
-            contenidoEncabezado.addCell(contenidoEncabezadoNombreNota);
-            contenidoEncabezadoNombreNota.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-
-            //Imagen encabezado 
-            Image imagenLogoCurso = null;
-            byte[] bytesImagen = (byte[]) this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo();
-            if (this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo() == null) {
-
-                try {
-                    imagenLogoCurso = Image.getInstance(getClass().getResource("/frontend/imagenes/ic_examen_default.png"));
-                } catch (IOException ex) {
-                    Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else {
-                try {
-                    imagenLogoCurso = Image.getInstance(bytesImagen);
-                } catch (BadElementException ex) {
-                    Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            PdfPCell cellLogo = new PdfPCell(imagenLogoCurso, true);//Con el True en este metodo y sin setear un tamaño para la imagen esta ocupa toda la celda, ver que pasa cuando la celda se hace mas grande por las columnas del lado
-            cellLogo.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cellLogo.setBorder(Rectangle.NO_BORDER);
-
-            tablaEncabezado.addCell(cellLogo);
-            tablaEncabezado.addCell(contenidoEncabezado);
-            tablaEncabezado.setSpacingAfter(25);
-            tablaEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-            document.add(tablaEncabezado);
+//            //Tabla Encabezado Encabezado
+//            PdfPTable tablaEncabezado = new PdfPTable(2); // 2 columns.
+//            float[] columnWidths = {10f, 100f};
+//            tablaEncabezado.setWidths(columnWidths);
+//
+//            //Contenido Encabezado
+//            PdfPTable contenidoEncabezado = new PdfPTable(1);
+//            contenidoEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+//
+//            PdfPCell cellTitulo = new PdfPCell(new Paragraph(this.resolucionExamen.getExamen().getStrNombre()));
+//            cellTitulo.setBorder(Rectangle.NO_BORDER);
+//            cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            contenidoEncabezado.addCell(cellTitulo);
+//
+//            PdfPTable contenidoEncabezadoInstFecha = new PdfPTable(2);
+//            PdfPCell cellInst = new PdfPCell(new Paragraph(this.resolucionExamen.getExamen().getCurso().getInstitucion().getStrNombre()));
+//            cellInst.setBorder(Rectangle.NO_BORDER);
+//            PdfPCell cellFecha = new PdfPCell(new Paragraph(this.resolucionExamen.getExamen().getDteFecha().toString()));
+//            cellFecha.setBorder(Rectangle.NO_BORDER);
+//            cellFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//            contenidoEncabezadoInstFecha.addCell(cellInst);
+//            contenidoEncabezadoInstFecha.addCell(cellFecha);
+//            contenidoEncabezado.addCell(contenidoEncabezadoInstFecha);
+//            contenidoEncabezadoInstFecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+//
+//            PdfPTable contenidoEncabezadoNombreNota = new PdfPTable(2);
+//            PdfPCell cellNombre = new PdfPCell(new Paragraph("Alumno: " + this.resolucionExamen.getAlumno().getStrApellido() + " " + this.resolucionExamen.getAlumno().getStrLegajo()));
+//            cellNombre.setBorder(Rectangle.NO_BORDER);
+//            PdfPCell cellNota = new PdfPCell(new Paragraph(this.getNota()));
+//            cellNota.setBorder(Rectangle.NO_BORDER);
+//            cellNota.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//            contenidoEncabezadoNombreNota.addCell(cellNombre);
+//            contenidoEncabezadoNombreNota.addCell(cellNota);
+//            contenidoEncabezado.addCell(contenidoEncabezadoNombreNota);
+//            contenidoEncabezadoNombreNota.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+//
+//            //Imagen encabezado 
+//            Image imagenLogoCurso = null;
+//            byte[] bytesImagen = (byte[]) this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo();
+//            if (this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo() == null) {
+//
+//                try {
+//                    imagenLogoCurso = Image.getInstance(getClass().getResource("/frontend/imagenes/ic_examen_default.png"));
+//                } catch (IOException ex) {
+//                    Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//
+//            } else {
+//                try {
+//                    imagenLogoCurso = Image.getInstance(bytesImagen);
+//                } catch (BadElementException ex) {
+//                    Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//
+//            PdfPCell cellLogo = new PdfPCell(imagenLogoCurso, true);//Con el True en este metodo y sin setear un tamaño para la imagen esta ocupa toda la celda, ver que pasa cuando la celda se hace mas grande por las columnas del lado
+//            cellLogo.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            cellLogo.setBorder(Rectangle.NO_BORDER);
+//
+//            tablaEncabezado.addCell(cellLogo);
+//            tablaEncabezado.addCell(contenidoEncabezado);
+//            tablaEncabezado.setSpacingAfter(25);
+//            tablaEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+//            document.add(tablaEncabezado);
+//  
             
             for (Respuesta respuesta : this.resolucionExamen.getColRespuestas()) {
 
@@ -215,18 +216,20 @@ public class GestorGenerarReporteResolucion {
 
                         String columnaIzquierdaRC = "";
                         String columnaDerechaRC = "";
+                        String columnaCentral = "";
 
                         //Armado de columnas
                         for (RespuestaCombinacionRelacionColumnas elementoColumna : respuestaPreguntaRelacionColumnas.getColCombinaciones()) {
                             columnaIzquierdaRC = columnaIzquierdaRC + "#" + elementoColumna.getStrColumnaIzquierda() + "\n\n";
                             columnaDerechaRC = columnaDerechaRC + "#" + elementoColumna.getStrColumnaDerecha() + "\n\n";
+                            columnaCentral = columnaCentral + "----------------" + "\n\n";
                         }
 
                         //Armado de la tabla
                         PdfPCell cell1RC = new PdfPCell(new Paragraph(columnaIzquierdaRC));
                         cell1RC.setHorizontalAlignment(Element.ALIGN_CENTER);
                         cell1RC.setBorder(Rectangle.NO_BORDER);
-                        PdfPCell cell2RC = new PdfPCell(new Paragraph("       "));
+                        PdfPCell cell2RC = new PdfPCell(new Paragraph(columnaCentral));
                         cell2RC.setHorizontalAlignment(Element.ALIGN_CENTER);
                         cell2RC.setBorder(Rectangle.NO_BORDER);
                         PdfPCell cell3RC = new PdfPCell(new Paragraph(columnaDerechaRC));
@@ -254,30 +257,31 @@ public class GestorGenerarReporteResolucion {
                         //parrafoPreguntaVerdaderoFalso.setSpacingBefore(30);
                         document.add(parrafoPreguntaVerdaderoFalso);
 
-//                        PdfPTable tableVerdaderoFalso = new PdfPTable(3);
-//
-//                        float[] columnWidthsVF = {2.5f, 1f, 2.5f};
-//                        tableVerdaderoFalso.setWidths(columnWidthsVF);
-//                        
-//                        String columnaIzquierdaVF = "[ ] ☐ Verdadero";
-//                        String columnaDerechaVF = "[ ] ☐ Falso";
-//                        
-//
-//                        //Armado de la tabla
-//                        PdfPCell cell1VF = new PdfPCell(new Paragraph(columnaIzquierdaVF));
-//                        cell1VF.setHorizontalAlignment(Element.ALIGN_CENTER);
-//                        cell1VF.setBorder(Rectangle.NO_BORDER);
-//                        PdfPCell cell2VF = new PdfPCell(new Paragraph("       "));
-//                        cell2VF.setHorizontalAlignment(Element.ALIGN_CENTER);
-//                        cell2VF.setBorder(Rectangle.NO_BORDER);
-//                        PdfPCell cell3VF = new PdfPCell(new Paragraph(columnaDerechaVF));
-//                        cell3VF.setHorizontalAlignment(Element.ALIGN_CENTER);
-//                        cell3VF.setBorder(Rectangle.NO_BORDER);
-//
-//                        tableVerdaderoFalso.addCell(cell1VF);
-//                        tableVerdaderoFalso.addCell(cell2VF);
-//                        tableVerdaderoFalso.addCell(cell3VF);
-//                        document.add(tableVerdaderoFalso);
+                        PdfPTable tableVerdaderoFalso = new PdfPTable(3);
+
+                        float[] columnWidthsVF = {2.5f, 1f, 2.5f};
+                        tableVerdaderoFalso.setWidths(columnWidthsVF);
+                        
+                        String columnaIzquierdaVF = "[ ] ☐ Verdadero";
+                        String columnaDerechaVF = "[ ] ☐ Falso";
+                        
+
+                        //Armado de la tabla
+                        PdfPCell cell1VF = new PdfPCell(new Paragraph(columnaIzquierdaVF));
+                        cell1VF.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        cell1VF.setBorder(Rectangle.NO_BORDER);
+                        PdfPCell cell2VF = new PdfPCell(new Paragraph("       "));
+                        cell2VF.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        cell2VF.setBorder(Rectangle.NO_BORDER);
+                        PdfPCell cell3VF = new PdfPCell(new Paragraph(columnaDerechaVF));
+                        cell3VF.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        cell3VF.setBorder(Rectangle.NO_BORDER);
+
+                        tableVerdaderoFalso.addCell(cell1VF);
+                        tableVerdaderoFalso.addCell(cell2VF);
+                        tableVerdaderoFalso.addCell(cell3VF);
+                        document.add(tableVerdaderoFalso);
+                        
                         Paragraph parrafoCalificacionComentarioVF = new Paragraph(13, "Calificacion: " + respuestaPreguntaVerdaderoFalso.getCalificacion() + "\n");
                         parrafoCalificacionComentarioVF.add("Comentario Docente: " + respuestaPreguntaVerdaderoFalso.getStrComentario());
                         parrafoCalificacionComentarioVF.setSpacingAfter(15);
