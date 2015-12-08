@@ -37,6 +37,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
     public DialogAdministrarClasesDictadas(java.awt.Frame parent, boolean modal) {
         super(parent, false);
         initComponents();
+        setLocationRelativeTo(null);
         cargarComboInstituciones();
         cargarComboCursos(((Institucion) cbInstitucion.getSelectedItem()).getIntInstitucionId());
     }
@@ -66,7 +67,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
     private void buscarListaDeClasesDictadas() {
         IDAOPresentacion daoPresentacion = new DAOPresentacion();
         ArrayList<Presentacion> presentaciones = daoPresentacion.recuperarPresentaciones(((Curso) cbCurso.getSelectedItem()).getIntCursoId(), dcFechaDesde.getDate(), dcFechaHasta.getDate());
-        if(presentaciones.size()==0)
+        if(presentaciones==null)
         {
             Mensajes.mostrarError("No se encontraron resultados para la busqueda realizada");
             return;

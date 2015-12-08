@@ -87,6 +87,9 @@
         <Menu class="javax.swing.JMenu" name="mncPresentacion">
           <Properties>
             <Property name="text" type="java.lang.String" value="Clases"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mniAdministrarClasesDictadas">

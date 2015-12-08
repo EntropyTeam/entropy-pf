@@ -198,6 +198,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         mnbMenuBar.add(mncExámenes);
 
         mncPresentacion.setText("Clases");
+        mncPresentacion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
 
         mniAdministrarClasesDictadas.setText("Administrar Clases Dictadas");
         mniAdministrarClasesDictadas.addActionListener(new java.awt.event.ActionListener() {
