@@ -5,9 +5,12 @@
  */
 package frontend.presentaciones;
 
+import backend.Presentacion.Presentacion;
 import backend.auxiliares.Mensajes;
 import backend.dao.diseños.DAOCurso;
 import backend.dao.diseños.DAOInstitucion;
+import backend.dao.presentacion.DAOPresentacion;
+import backend.dao.presentacion.IDAOPresentacion;
 import backend.diseños.Curso;
 import backend.diseños.Institucion;
 import backend.reporte.GestorGenerarReportePresentacionesRealizadas;
@@ -16,6 +19,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import net.sf.jasperreports.engine.JRException;
 
 /**
@@ -33,6 +37,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
     public DialogAdministrarClasesDictadas(java.awt.Frame parent, boolean modal) {
         super(parent, false);
         initComponents();
+        setLocationRelativeTo(null);
         cargarComboInstituciones();
         cargarComboCursos(((Institucion) cbInstitucion.getSelectedItem()).getIntInstitucionId());
     }
@@ -57,6 +62,22 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
 
         }
         cbCurso.setModel(modeloCombo);
+    }
+
+    private void buscarListaDeClasesDictadas() {
+        IDAOPresentacion daoPresentacion = new DAOPresentacion();
+        ArrayList<Presentacion> presentaciones = daoPresentacion.recuperarPresentaciones(((Curso) cbCurso.getSelectedItem()).getIntCursoId(), dcFechaDesde.getDate(), dcFechaHasta.getDate());
+        if(presentaciones==null)
+        {
+            Mensajes.mostrarError("No se encontraron resultados para la busqueda realizada");
+            return;
+        }
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Presentacion presentacion : presentaciones) {
+            modeloLista.addElement(presentacion);
+
+        }
+        lsClasesDictadas.setModel(modeloLista);
     }
 
     /**
@@ -239,10 +260,9 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnGuardarAsistencia1MouseExited
 
     private void btnGuardarAsistencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1ActionPerformed
-      if(validarFechas())
-      {
-          //buscarClasesDictadas();
-      }
+        if (validarFechas()) {
+            buscarListaDeClasesDictadas();
+        }
     }//GEN-LAST:event_btnGuardarAsistencia1ActionPerformed
 
     private void btnGuardarAsistencia2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia2MouseEntered
@@ -253,50 +273,38 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarAsistencia2MouseExited
 
-    
     /*private ArrayList<Presentacion> buscarClasesDictadas()
-    {
+     {
      return null;
-    }*/
-    
-    private boolean validarSeleccion()
-    {
-        if(lsClasesDictadas.getSelectedValue()!=null)
-        {
+     }*/
+    private boolean validarSeleccion() {
+        if (lsClasesDictadas.getSelectedValue() != null) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
-    
-    private boolean validarFechas()
-    {
-        if(dcFechaDesde==null)
-        {
+
+    private boolean validarFechas() {
+        if (dcFechaDesde == null) {
             Mensajes.mostrarError("Debe elegir una Fecha desde valida");
             return false;
         }
-        if(dcFechaHasta==null)
-        {
+        if (dcFechaHasta == null) {
             Mensajes.mostrarError("Debe elegir una fecha hasta valida");
             return false;
         }
         return true;
     }
-    
+
     private void btnGuardarAsistencia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia2ActionPerformed
         try {
-            if(!validarSeleccion())
-            {
-             String institucion = ((Institucion)cbInstitucion.getSelectedItem()).getStrNombre();
-             String curso = ((Curso)cbCurso.getSelectedItem()).getStrNombre();
-            //Presentacion presentacion = new Presentacion();    
-            GestorGenerarReportePresentacionesRealizadas.reportePresentacionRealizada(institucion, curso);
-            }
-            else
-            {
+            if (!validarSeleccion()) {
+                String institucion = ((Institucion) cbInstitucion.getSelectedItem()).getStrNombre();
+                String curso = ((Curso) cbCurso.getSelectedItem()).getStrNombre();
+                //Presentacion presentacion = new Presentacion();    
+                GestorGenerarReportePresentacionesRealizadas.reportePresentacionRealizada(institucion, curso);
+            } else {
                 Mensajes.mostrarError("Debe seleccionar algun clase dictada de la ");
             }
         } catch (JRException ex) {
@@ -304,47 +312,6 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnGuardarAsistencia2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogAdministrarClasesDictadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogAdministrarClasesDictadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogAdministrarClasesDictadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogAdministrarClasesDictadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogAdministrarClasesDictadas dialog = new DialogAdministrarClasesDictadas(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarAsistencia1;

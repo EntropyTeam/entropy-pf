@@ -6,6 +6,7 @@
 package backend.dao.presentacion;
 
 import backend.Presentacion.Presentacion;
+import backend.usuarios.Alumno;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,6 +20,8 @@ public interface IDAOPresentacion {
     public ArrayList<Presentacion> recuperarPresentaciones(int idCurso);
     
     public ArrayList<Presentacion> recuperarPresentaciones(int idCurso, Date date);
+    
+    public ArrayList<Presentacion> recuperarPresentaciones(int idCurso, Date desde, Date hasta);
     
     public void modificarPresentacion(int idPresentacion);
     

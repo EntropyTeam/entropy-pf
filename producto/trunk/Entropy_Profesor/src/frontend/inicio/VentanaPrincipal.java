@@ -8,6 +8,7 @@ import frontend.auxiliares.PanelConMenu;
 import frontend.diseños.DialogAdministrarDiseñoExamen;
 import frontend.diseños.PanelDiseño;
 import frontend.examenes.DialogAdministrarExamen;
+import frontend.presentaciones.DialogAdministrarClasesDictadas;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -72,6 +73,8 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         mncExámenes = new javax.swing.JMenu();
         mniTomarExamen = new javax.swing.JMenuItem();
         mniAdministrarExamenes = new javax.swing.JMenuItem();
+        mncPresentacion = new javax.swing.JMenu();
+        mniAdministrarClasesDictadas = new javax.swing.JMenuItem();
         mncHerramientas = new javax.swing.JMenu();
         mncVentana = new javax.swing.JMenu();
         mncAyuda = new javax.swing.JMenu();
@@ -194,6 +197,19 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
 
         mnbMenuBar.add(mncExámenes);
 
+        mncPresentacion.setText("Clases");
+        mncPresentacion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+
+        mniAdministrarClasesDictadas.setText("Administrar Clases Dictadas");
+        mniAdministrarClasesDictadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAdministrarClasesDictadasActionPerformed(evt);
+            }
+        });
+        mncPresentacion.add(mniAdministrarClasesDictadas);
+
+        mnbMenuBar.add(mncPresentacion);
+
         mncHerramientas.setText("Herramientas");
         mncHerramientas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         mnbMenuBar.add(mncHerramientas);
@@ -276,6 +292,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         gestorRedAdHoc.desconectar();
     }//GEN-LAST:event_formWindowClosing
 
+    private void mniAdministrarClasesDictadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAdministrarClasesDictadasActionPerformed
+        DialogAdministrarClasesDictadas presentacionesRealizadas = new DialogAdministrarClasesDictadas(this, true);
+        presentacionesRealizadas.setVisible(true);
+    }//GEN-LAST:event_mniAdministrarClasesDictadasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblSeparador;
     private javax.swing.JMenuBar mnbMenuBar;
@@ -283,8 +304,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     private javax.swing.JMenu mncDiseños;
     private javax.swing.JMenu mncExámenes;
     private javax.swing.JMenu mncHerramientas;
+    private javax.swing.JMenu mncPresentacion;
     private javax.swing.JMenu mncVentana;
     private javax.swing.JMenuItem mniAcercaDe;
+    private javax.swing.JMenuItem mniAdministrarClasesDictadas;
     private javax.swing.JMenuItem mniAdministrarDiseños;
     private javax.swing.JMenuItem mniAdministrarExamenes;
     private javax.swing.JMenuItem mniAyuda;
