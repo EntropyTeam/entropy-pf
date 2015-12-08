@@ -5,6 +5,12 @@
  */
 package backend.gestores;
 
+import backend.Asistencia.Asistencia;
+import backend.Presentacion.Presentacion;
+import backend.Seguridad.GestorSeguridadAutenticacion;
+import backend.dao.presentacion.DAOPresentacion;
+import backend.dao.presentacion.IDAOPresentacion;
+import backend.dao.usuarios.DAOAlumno;
 import backend.red.HiloSocketProfesorConexion;
 import backend.red.HiloSocketProfesorPorAlumno;
 import backend.red.Mensaje;
@@ -86,6 +92,14 @@ public class GestorDePresentacion {
      * la tabla de control de examen.
      */
     public int agregarAlumno(Alumno alumno) {
+        
+         //Agrego el codigo unico al alumno que luego debe ser comunicado de nuevo al alumno.
+        GestorSeguridadAutenticacion gestorSeguridadAutenticacion = new GestorSeguridadAutenticacion();
+        String codigo = gestorSeguridadAutenticacion.generarCodigoAlfNum();
+        alumno.setStrCodigo(codigo);
+        
+        // Le asignamos el ID
+        alumno.setIntAlumnoId(new DAOAlumno().getAlumnoId(alumno));
         int indice = frmControlPresentacion.agregarAlumno(alumno);
         try {
             Usuario profesor = GestorConfiguracion.getInstancia().getIDAOUsuarios().getUsuario();
@@ -100,7 +114,7 @@ public class GestorDePresentacion {
         }
         return indice;
     }
-    
+
     public void anularPresentacion(int intIndice) {
         try {
             Mensaje mensaje = new Mensaje(TipoMensaje.DESCONECTAR_PRESENTACION);
@@ -144,6 +158,20 @@ public class GestorDePresentacion {
         new DialogInfoUsuario(this.frmControlPresentacion, true, colHilosSocketsAlumnos.get(intIndice).getAlumno()).setVisible(true);
     }
 
+    public boolean guardarPresentacion(Presentacion presentacion) {
+        IDAOPresentacion daoPresentacion = new DAOPresentacion();
+        ArrayList<Asistencia> asistencias = new ArrayList<Asistencia>();
+        for (HiloSocketProfesorPorAlumno colHilosSocketsAlumno : colHilosSocketsAlumnos) {
+            Asistencia asistencia = new Asistencia();
+            Alumno alumno = colHilosSocketsAlumno.getAlumno(); 
+            asistencia.setAlumno(alumno);
+            asistencia.setStrIp(alumno.getStrIP());
+            asistencias.add(asistencia);
+        }
+        presentacion.setAsistencia(asistencias);
+        return daoPresentacion.guardarPresentacion(presentacion);
+    }
+
     private BufferedImage capturarPantalla() throws Exception {
         // Obtener el tamaño de la pantalla
         Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -153,15 +181,15 @@ public class GestorDePresentacion {
         Robot r = new Robot();
         // Obtener una captura de pantalla del tamaño de la pantalla
         BufferedImage image = r.createScreenCapture(screenRectangle);
-            
+
         return image;
     }
 
     private class HiloCapturarImagen extends Thread {
-        
+
         int intIndice;
         boolean blnEstaConectado;
-        
+
         public HiloCapturarImagen(int intIndice) {
             this.intIndice = intIndice;
             this.blnEstaConectado = true;
@@ -169,9 +197,10 @@ public class GestorDePresentacion {
 
         @Override
         public void run() {
-            while(this.blnEstaConectado) {
+            while (this.blnEstaConectado) {
                 enviarImagenes(this.intIndice);
             }
         }
     }
+
 }

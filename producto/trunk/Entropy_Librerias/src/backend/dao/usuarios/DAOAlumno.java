@@ -80,4 +80,44 @@ public class DAOAlumno implements IDAOAlumno {
         else return this.guardarAlumno(alumno);
     }
     
+    
+    @Override
+    public Alumno getAlumno(int idAlumno) {
+        Connection conexion = DAOConexion.conectarBaseDatos();
+        Alumno alumno = null;
+        
+        try {
+            String strConsulta = "SELECT * "
+                    + "FROM " + EntropyDB.GRL_TBL_ALUMNO + " "
+                    + "WHERE " + EntropyDB.GRL_COL_ALUMNO_ID + " = ? ";
+            PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
+            psConsulta.setInt(1,idAlumno);
+            ResultSet rsContulta = psConsulta.executeQuery();
+            if(rsContulta.next()) {
+                alumno = new Alumno();
+                int intIDAlumno = rsContulta.getInt(EntropyDB.GRL_COL_ALUMNO_ID);
+                String strNombre = rsContulta.getString(EntropyDB.GRL_COL_ALUMNO_NOMBRE);
+                String strApellido = rsContulta.getString(EntropyDB.GRL_COL_ALUMNO_APELLIDO);
+                int intTipoDocumento = rsContulta.getInt(EntropyDB.GRL_COL_ALUMNO_TIPO_DOCUMENTO);
+                String strDocumento = rsContulta.getString(EntropyDB.GRL_COL_ALUMNO_DOCUMENTO);
+                String strLegajo = rsContulta.getString(EntropyDB.GRL_COL_ALUMNO_LEGAJO);
+                String strEmail = rsContulta.getString(EntropyDB.GRL_COL_ALUMNO_EMAIL);
+                alumno.setIntAlumnoId(intIDAlumno);
+                alumno.setStrNombre(strNombre);
+                alumno.setStrApellido(strApellido);
+                alumno.setIntNroDocumento(intTipoDocumento);
+                alumno.setStrTipoDocumento(strDocumento);
+                alumno.setStrLegajo(strLegajo);
+                alumno.setStrEmail(strEmail);
+            }
+        } catch (Exception e) {
+            System.err.println("Problemas al obtener el usuario de la BD: " + e.getMessage());
+        }
+        finally
+        {
+            DAOConexion.desconectarBaseDatos();
+        }
+        return alumno;
+    }
+    
 }

@@ -24,4 +24,11 @@ public interface IDAOAlumno {
      */
     public int getAlumnoId(Alumno alumno);
     
+    
+    /**
+     * @param idAlumno 
+     * @return el objeto alumno
+     */
+    public Alumno getAlumno(int idAlumno);
+    
 }
