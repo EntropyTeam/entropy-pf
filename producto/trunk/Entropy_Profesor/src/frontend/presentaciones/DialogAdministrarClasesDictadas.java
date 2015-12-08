@@ -14,6 +14,7 @@ import backend.dao.presentacion.IDAOPresentacion;
 import backend.diseños.Curso;
 import backend.diseños.Institucion;
 import backend.reporte.GestorGenerarReportePresentacionesRealizadas;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -67,8 +68,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
     private void buscarListaDeClasesDictadas() {
         IDAOPresentacion daoPresentacion = new DAOPresentacion();
         ArrayList<Presentacion> presentaciones = daoPresentacion.recuperarPresentaciones(((Curso) cbCurso.getSelectedItem()).getIntCursoId(), dcFechaDesde.getDate(), dcFechaHasta.getDate());
-        if(presentaciones==null)
-        {
+        if (presentaciones == null) {
             Mensajes.mostrarError("No se encontraron resultados para la busqueda realizada");
             return;
         }
@@ -135,6 +135,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         lblFecha.setText("Fecha desde:");
         jPanel1.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 70, -1));
 
+        lsClasesDictadas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(lsClasesDictadas);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 470, 280));
@@ -299,11 +300,12 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
 
     private void btnGuardarAsistencia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia2ActionPerformed
         try {
-            if (!validarSeleccion()) {
+            if (validarSeleccion()) {
                 String institucion = ((Institucion) cbInstitucion.getSelectedItem()).getStrNombre();
                 String curso = ((Curso) cbCurso.getSelectedItem()).getStrNombre();
-                //Presentacion presentacion = new Presentacion();    
-                GestorGenerarReportePresentacionesRealizadas.reportePresentacionRealizada(institucion, curso);
+                Presentacion presentacion = (Presentacion)lsClasesDictadas.getSelectedValue();
+                String fechaString = new SimpleDateFormat("yyyy-MM-dd").format(presentacion.getDteFecha()); 
+                GestorGenerarReportePresentacionesRealizadas.reportePresentacionRealizada(institucion, curso, fechaString, presentacion.getIntIdCurso(), presentacion.getDteFecha().getTime());
             } else {
                 Mensajes.mostrarError("Debe seleccionar algun clase dictada de la ");
             }

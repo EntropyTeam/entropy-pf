@@ -5,11 +5,16 @@
  */
 package frontend.presentaciones;
 
+import backend.Asistencia.Asistencia;
+import backend.Presentacion.Presentacion;
 import backend.auxiliares.Mensajes;
 import backend.dao.diseños.DAOCurso;
 import backend.dao.diseños.DAOInstitucion;
+import backend.dao.presentacion.DAOPresentacion;
+import backend.dao.presentacion.IDAOPresentacion;
 import backend.diseños.Curso;
 import backend.diseños.Institucion;
+import backend.gestores.GestorDePresentacion;
 import backend.red.Mensaje;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,68 +25,66 @@ import javax.swing.DefaultComboBoxModel;
  * @author Jose
  */
 public class DialogGuardarAsistencia extends javax.swing.JDialog {
-   private final FrameControlPresentaciones mPadre;
-   private DAOInstitucion daoInstitucion = new DAOInstitucion();
-   private DAOCurso daoCurso = new DAOCurso();
+
+    private final FrameControlPresentaciones mPadre;
+    private DAOInstitucion daoInstitucion = new DAOInstitucion();
+    private DAOCurso daoCurso = new DAOCurso();
+    private GestorDePresentacion gestorPresentacion;
+
     /**
      * Creates new form DialogGuardarAsistencia
      */
-    public DialogGuardarAsistencia(java.awt.Frame mPadre, boolean modal) {
+    public DialogGuardarAsistencia(java.awt.Frame mPadre, boolean modal, GestorDePresentacion gestorPresentacion) {
         super(mPadre, modal);
         initComponents();
         this.mPadre = (FrameControlPresentaciones) mPadre;
+        this.gestorPresentacion = gestorPresentacion;
         setLocationRelativeTo(null);
         cargarComboInstituciones();
-        cargarComboCursos(((Institucion)cbInstitucion.getSelectedItem()).getIntInstitucionId());
+        cargarComboCursos(((Institucion) cbInstitucion.getSelectedItem()).getIntInstitucionId());
     }
     
-    private void cargarComboInstituciones()
-    {
+    private void cargarComboInstituciones() {
         DAOInstitucion daoInstitucion = new DAOInstitucion();
-        ArrayList<Institucion>listaInstituciones = daoInstitucion.recuperarTodasLasInstituciones("");
+        ArrayList<Institucion> listaInstituciones = daoInstitucion.recuperarTodasLasInstituciones("");
         
-        DefaultComboBoxModel modeloCombo= new DefaultComboBoxModel();
-        for (Institucion institucion : listaInstituciones) 
-        {
+        DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
+        for (Institucion institucion : listaInstituciones) {
             modeloCombo.addElement(institucion);
             
         }
-       cbInstitucion.setModel(modeloCombo);
+        cbInstitucion.setModel(modeloCombo);
     }
-    private void cargarComboCursos(int idInstitucion)
-    {
-        DAOCurso daoCurso= new DAOCurso();
+
+    private void cargarComboCursos(int idInstitucion) {
+        DAOCurso daoCurso = new DAOCurso();
         Institucion institucion = daoInstitucion.recuperarInstitucion(idInstitucion);
-        ArrayList<Curso>listacurso = daoCurso.recuperarTodosLosCursos(institucion,"");
-        DefaultComboBoxModel modeloCombo= new DefaultComboBoxModel();
-        for (Curso curso : listacurso) 
-        {
+        ArrayList<Curso> listacurso = daoCurso.recuperarTodosLosCursos(institucion, "");
+        DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
+        for (Curso curso : listacurso) {
             modeloCombo.addElement(curso);
             
         }
-       cbCurso.setModel(modeloCombo);
+        cbCurso.setModel(modeloCombo);
     }
-        
-        
-       /* private boolean guardarClase()
-        {
-            Presentacion presentacion= new Presentacion();
-            presentacion.setDateFecha(new Date().getTime());
-            presentacion.setIntIdCurso(((Curso)cbCurso.getSelectedItem()).getIntCursoId());
-            presentacion.setStrNombre(txtNombreClase.getText())
-            prsentacion.setStrDecripcion(txtDescripcion.getText());
-            return DAOPresentacion.guardarClase(presentacion);
+
+    /* private boolean guardarClase()
+     {
+     Presentacion presentacion= new Presentacion();
+     presentacion.setDateFecha(new Date().getTime());
+     presentacion.setIntIdCurso(((Curso)cbCurso.getSelectedItem()).getIntCursoId());
+     presentacion.setStrNombre(txtNombreClase.getText())
+     prsentacion.setStrDecripcion(txtDescripcion.getText());
+     return DAOPresentacion.guardarClase(presentacion);
+     }
+     */
+    private boolean validarCampos() {
+        if (txtNombreClase.getText().equals("")) {
+            Mensajes.mostrarAdvertencia("La clase necesita un nombre");
+            return false;
         }
-        */
-        private boolean validarCampos()
-        {
-            if(txtNombreClase.equals(""))
-            {
-                Mensajes.mostrarAdvertencia("La clase necesita un nombre");
-                return false;
-            }
-            return true;
-        }
+        return true;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -260,9 +263,18 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarAsistencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1ActionPerformed
-        if(validarCampos())
-        {
-            //guardarClase();
+        if (validarCampos()) {
+            Presentacion presentacion = new Presentacion();
+            presentacion.setDteFecha(new Date());
+            presentacion.setIntIdCurso(((Curso) cbCurso.getSelectedItem()).getIntCursoId());
+            presentacion.setStrDescripcion(txtDescripcion.getText());
+            presentacion.setStrNombre(txtNombreClase.getText());
+            if (this.gestorPresentacion.guardarPresentacion(presentacion)) {
+                Mensajes.mostrarExito("La clase se guardo exitosamente");
+                this.dispose();
+            } else {
+                Mensajes.mostrarError("La clase no se pudo guardar");
+            }
         }
     }//GEN-LAST:event_btnGuardarAsistencia1ActionPerformed
 
@@ -275,9 +287,8 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
     }//GEN-LAST:event_btnGuardarAsistencia1MouseEntered
 
     private void cbInstitucionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbInstitucionItemStateChanged
-        cargarComboCursos(((Institucion)cbInstitucion.getSelectedItem()).getIntInstitucionId());
+        cargarComboCursos(((Institucion) cbInstitucion.getSelectedItem()).getIntInstitucionId());
     }//GEN-LAST:event_cbInstitucionItemStateChanged
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

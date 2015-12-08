@@ -23,13 +23,15 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class GestorGenerarReportePresentacionesRealizadas {
     
-    public static void  reportePresentacionRealizada(String institucion, String curso) throws JRException
+    public static void  reportePresentacionRealizada(String institucion, String curso, String fecha, int idCurso, Long longFecha) throws JRException
     {
         Connection conexion = DAOConexion.conectarBaseDatos();
         Map parametros = new HashMap();
         parametros.put("parametroInstitucion", institucion);
         parametros.put("parametroCurso",  curso);
-        parametros.put("parametroFecha", "aaa");
+        parametros.put("parametroFecha", fecha);
+        parametros.put("parametroCursoId", idCurso);
+        parametros.put("parametroFechaLong", longFecha);
         JasperReport reporte=null;
         reporte= (JasperReport)JRLoader.loadObjectFromFile("."+ File.separator +"src"+File.separator+"reportes"+File.separator+"reporteListaDeAlumnosPorClase.jasper");
         JasperPrint print = JasperFillManager.fillReport(reporte, parametros, conexion);

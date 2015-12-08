@@ -17,7 +17,6 @@ public class GestorConexion {
 
         try {
             statement = armarPreparedStatement(conexion, consulta, parametros);
-
             resultSet = statement.executeQuery();
         } catch (SQLException e) {
             System.out.println("Se produjo el siguiente error: " + e.getMessage());

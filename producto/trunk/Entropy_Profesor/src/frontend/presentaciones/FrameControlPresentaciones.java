@@ -309,7 +309,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarAsistenciaMouseExited
 
     private void btnGuardarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaActionPerformed
-        DialogGuardarAsistencia dialogGuardarClase = new DialogGuardarAsistencia(this, true);
+        DialogGuardarAsistencia dialogGuardarClase = new DialogGuardarAsistencia(this, true, gestorDePresentacion);
         dialogGuardarClase.setVisible(true);
     }//GEN-LAST:event_btnGuardarAsistenciaActionPerformed
 

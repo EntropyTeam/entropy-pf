@@ -73,7 +73,7 @@ public class DAOPresentacion implements IDAOPresentacion {
     public ArrayList<Presentacion> recuperarPresentaciones(int idCurso) {
         Connection conexion = DAOConexion.conectarBaseDatos();
         ArrayList<Presentacion> presentaciones = null;
-        Presentacion presentacion=null;
+        Presentacion presentacion = null;
         String consulta = "SELECT * FROM " + EntropyDB.PRE_TBL_PRESENTACION + " WHERE " + EntropyDB.PRE_COL_PRESENTACION_CURSO_ID + "=?";
         Object[] parametros = {idCurso};
         ResultSet rs = GestorConexion.getResultSet(conexion, consulta, parametros);
@@ -85,7 +85,7 @@ public class DAOPresentacion implements IDAOPresentacion {
                 presentacion.setStrNombre(rs.getString(EntropyDB.PRE_COL_PRESENTACION_NOMBRE));
                 presentacion.setDteFecha(new Date(rs.getLong(EntropyDB.PRE_COL_PRESENTACION_FECHA)));
                 presentacion.setStrDescripcion(rs.getString(EntropyDB.PRE_COL_PRESENTACION_DESCRIPCION));
-                
+
                 String consultaDos = "SELECT * FROM " + EntropyDB.PRE_TBL_ASISTENCIA + " WHERE " + EntropyDB.PRE_COL_ASISTENCIA_PRESENTACION_ID + "=?";
                 Object[] parametrosDos = {rs.getInt(EntropyDB.PRE_COL_PRESENTACION_ID)};
                 ResultSet rsDos = GestorConexion.getResultSet(conexion, consultaDos, parametrosDos);
@@ -93,7 +93,7 @@ public class DAOPresentacion implements IDAOPresentacion {
                 while (rsDos.next()) {
                     Asistencia asistencia = new Asistencia();
                     IDAOAlumno daoAlumno = new DAOAlumno();
-                    Alumno alumno = null; //daoAlumno.getAlumno(rs.getInt(EntropyDB.PRE_COL_ASISTENCIA_ALUMNO_ID));
+                    Alumno alumno = daoAlumno.getAlumno(rs.getInt(EntropyDB.PRE_COL_ASISTENCIA_ALUMNO_ID));
                     asistencia.setAlumno(alumno);
                     asistencia.setBlnAnulada(rs.getBoolean(EntropyDB.PRE_COL_ASISTENCIA_ANULADA));
                     asistencia.setIntIdAsistencia(rs.getInt(EntropyDB.PRE_COL_ASISTENCIA_ID));
@@ -105,7 +105,7 @@ public class DAOPresentacion implements IDAOPresentacion {
                 presentacion.setAsistencia(asistencias);
                 presentaciones.add(presentacion);
             }
-            
+
         } catch (SQLException e) {
             System.err.println("OCURRIO UN ERROR AL TRATAR DE EJECUTAR LA CONSULTA");
         } finally {
@@ -118,7 +118,7 @@ public class DAOPresentacion implements IDAOPresentacion {
     public ArrayList<Presentacion> recuperarPresentaciones(int idCurso, Date date) {
         Connection conexion = DAOConexion.conectarBaseDatos();
         ArrayList<Presentacion> presentaciones = null;
-        Presentacion presentacion =null;
+        Presentacion presentacion = null;
         String consulta = "SELECT * FROM " + EntropyDB.PRE_TBL_PRESENTACION + " WHERE " + EntropyDB.PRE_COL_PRESENTACION_CURSO_ID + "=? AND " + EntropyDB.PRE_COL_PRESENTACION_FECHA + "=?";
         Object[] parametros = {idCurso, date.getTime()};
         ResultSet rs = GestorConexion.getResultSet(conexion, consulta, parametros);
@@ -130,7 +130,7 @@ public class DAOPresentacion implements IDAOPresentacion {
                 presentacion.setStrNombre(rs.getString(EntropyDB.PRE_COL_PRESENTACION_NOMBRE));
                 presentacion.setDteFecha(new Date(rs.getLong(EntropyDB.PRE_COL_PRESENTACION_FECHA)));
                 presentacion.setStrDescripcion(rs.getString(EntropyDB.PRE_COL_PRESENTACION_DESCRIPCION));
-                
+
                 String consultaDos = "SELECT * FROM " + EntropyDB.PRE_TBL_ASISTENCIA + " WHERE " + EntropyDB.PRE_COL_ASISTENCIA_PRESENTACION_ID + "=?";
                 Object[] parametrosDos = {rs.getInt(EntropyDB.PRE_COL_PRESENTACION_ID)};
                 ResultSet rsDos = GestorConexion.getResultSet(conexion, consultaDos, parametrosDos);
@@ -138,7 +138,7 @@ public class DAOPresentacion implements IDAOPresentacion {
                 while (rsDos.next()) {
                     Asistencia asistencia = new Asistencia();
                     IDAOAlumno daoAlumno = new DAOAlumno();
-                    Alumno alumno = null; //daoAlumno.getAlumno(rs.getInt(EntropyDB.PRE_COL_ASISTENCIA_ALUMNO_ID));
+                    Alumno alumno = daoAlumno.getAlumno(rs.getInt(EntropyDB.PRE_COL_ASISTENCIA_ALUMNO_ID));
                     asistencia.setAlumno(alumno);
                     asistencia.setBlnAnulada(rs.getBoolean(EntropyDB.PRE_COL_ASISTENCIA_ANULADA));
                     asistencia.setIntIdAsistencia(rs.getInt(EntropyDB.PRE_COL_ASISTENCIA_ID));
@@ -150,7 +150,7 @@ public class DAOPresentacion implements IDAOPresentacion {
                 presentacion.setAsistencia(asistencias);
                 presentaciones.add(presentacion);
             }
-            
+
         } catch (SQLException e) {
             System.err.println("OCURRIO UN ERROR AL TRATAR DE EJECUTAR LA CONSULTA");
         } finally {
@@ -162,8 +162,8 @@ public class DAOPresentacion implements IDAOPresentacion {
     @Override
     public ArrayList<Presentacion> recuperarPresentaciones(int idCurso, Date fechaDesde, Date fechaHasta) {
         Connection conexion = DAOConexion.conectarBaseDatos();
-        ArrayList<Presentacion> presentaciones = null;
-        Presentacion presentacion =null;
+        ArrayList<Presentacion> presentaciones = new ArrayList<Presentacion>();
+        Presentacion presentacion = null;
         String consulta = "SELECT * FROM " + EntropyDB.PRE_TBL_PRESENTACION + " WHERE " + EntropyDB.PRE_COL_PRESENTACION_CURSO_ID + "=? AND " + EntropyDB.PRE_COL_PRESENTACION_FECHA + " BETWEEN ? AND ?";
         Object[] parametros = {idCurso, fechaDesde.getTime(), fechaHasta.getTime()};
         ResultSet rs = GestorConexion.getResultSet(conexion, consulta, parametros);
@@ -175,15 +175,14 @@ public class DAOPresentacion implements IDAOPresentacion {
                 presentacion.setStrNombre(rs.getString(EntropyDB.PRE_COL_PRESENTACION_NOMBRE));
                 presentacion.setDteFecha(new Date(rs.getLong(EntropyDB.PRE_COL_PRESENTACION_FECHA)));
                 presentacion.setStrDescripcion(rs.getString(EntropyDB.PRE_COL_PRESENTACION_DESCRIPCION));
-                
-                String consultaDos = "SELECT * FROM " + EntropyDB.PRE_TBL_ASISTENCIA + " WHERE " + EntropyDB.PRE_COL_ASISTENCIA_PRESENTACION_ID + "=?";
+                /*String consultaDos = "SELECT * FROM " + EntropyDB.PRE_TBL_ASISTENCIA + " WHERE " + EntropyDB.PRE_COL_ASISTENCIA_PRESENTACION_ID + "=?";
                 Object[] parametrosDos = {rs.getInt(EntropyDB.PRE_COL_PRESENTACION_ID)};
                 ResultSet rsDos = GestorConexion.getResultSet(conexion, consultaDos, parametrosDos);
                 ArrayList<Asistencia> asistencias = new ArrayList<Asistencia>();
                 while (rsDos.next()) {
                     Asistencia asistencia = new Asistencia();
                     IDAOAlumno daoAlumno = new DAOAlumno();
-                    Alumno alumno = null; //daoAlumno.getAlumno(rs.getInt(EntropyDB.PRE_COL_ASISTENCIA_ALUMNO_ID));
+                    Alumno alumno = daoAlumno.getAlumno(rs.getInt(EntropyDB.PRE_COL_ASISTENCIA_ALUMNO_ID));
                     asistencia.setAlumno(alumno);
                     asistencia.setBlnAnulada(rs.getBoolean(EntropyDB.PRE_COL_ASISTENCIA_ANULADA));
                     asistencia.setIntIdAsistencia(rs.getInt(EntropyDB.PRE_COL_ASISTENCIA_ID));
@@ -192,10 +191,10 @@ public class DAOPresentacion implements IDAOPresentacion {
                     asistencia.setStrIp(rs.getString(EntropyDB.PRE_COL_ASISTENCIA_IP));
                     asistencias.add(asistencia);
                 }
-                presentacion.setAsistencia(asistencias);
+                presentacion.setAsistencia(asistencias);*/
                 presentaciones.add(presentacion);
             }
-            
+
         } catch (SQLException e) {
             System.err.println("OCURRIO UN ERROR AL TRATAR DE EJECUTAR LA CONSULTA");
         } finally {
@@ -211,14 +210,24 @@ public class DAOPresentacion implements IDAOPresentacion {
     @Override
     public void borarPresentacion(int idPresentacion) {
         Connection conexion = DAOConexion.conectarBaseDatos();
-        String consulta = "DELETE FROM " + EntropyDB.PRE_TBL_PRESENTACION + " WHERE " + EntropyDB.PRE_COL_PRESENTACION_ID + "=?";
-        Object[] parametros = {idPresentacion};
         try {
+            String consulta = "DELETE FROM " + EntropyDB.PRE_TBL_PRESENTACION + " WHERE " + EntropyDB.PRE_COL_PRESENTACION_ID + "=?";
+            Object[] parametros = {idPresentacion};
+            conexion.setAutoCommit(false);
             PreparedStatement ps = GestorConexion.armarPreparedStatement(conexion, consulta, parametros);
-
             ps.execute();
+            String consultaDos = "DELETE FROM " + EntropyDB.PRE_TBL_ASISTENCIA + " WHERE " + EntropyDB.PRE_COL_ASISTENCIA_ID + "=?";
+            Object[] parametrosDos = {idPresentacion};
+            PreparedStatement psDos = GestorConexion.armarPreparedStatement(conexion, consultaDos, parametrosDos);
+            psDos.execute();
+            conexion.commit();
         } catch (SQLException e) {
-            System.err.println("OCURRIO UN ERROR AL TRATAR DE EJECUTAR LA CONSULTA");
+            try {
+                conexion.rollback();
+            } catch (SQLException ex) {
+                System.err.println("OCURRIO UN ERROR AL TRATAR DE REALIZAR EL ROLLBACK");
+            }
+            System.err.println("OCURRIO UN ERROR AL TRATAR DE BORAR LA PRESENTACION");
         } finally {
             DAOConexion.desconectarBaseDatos();
         }
@@ -227,26 +236,31 @@ public class DAOPresentacion implements IDAOPresentacion {
     @Override
     public boolean guardarPresentacion(Presentacion presentacion) {
         Connection conexion = DAOConexion.conectarBaseDatos();
-
         boolean retorno = true;
-        String consulta = "INSERT " + EntropyDB.PRE_TBL_PRESENTACION + " INTO(" + EntropyDB.PRE_COL_PRESENTACION_CURSO_ID + "," + EntropyDB.PRE_COL_PRESENTACION_NOMBRE + "," + EntropyDB.PRE_COL_PRESENTACION_FECHA + "," + EntropyDB.PRE_COL_PRESENTACION_DESCRIPCION + ") VALUES(?,?,?,?)";
+        String consulta = "INSERT INTO " + EntropyDB.PRE_TBL_PRESENTACION + " (" + EntropyDB.PRE_COL_PRESENTACION_CURSO_ID + "," + EntropyDB.PRE_COL_PRESENTACION_NOMBRE + "," + EntropyDB.PRE_COL_PRESENTACION_FECHA + "," + EntropyDB.PRE_COL_PRESENTACION_DESCRIPCION + ") VALUES(?,?,?,?)";
         Object[] parametros = {presentacion.getIntIdCurso(), presentacion.getStrNombre(), presentacion.getDteFecha().getTime(), presentacion.getStrDescripcion()};
         try {
             conexion.setAutoCommit(false);
             PreparedStatement ps = GestorConexion.armarPreparedStatement(conexion, consulta, parametros);
             ps.execute();
+            String strConsultaUltimoID = "SELECT last_insert_rowid();";
+            PreparedStatement psConsultaUltimoId = conexion.prepareStatement(strConsultaUltimoID);
+            ResultSet rsConsultaUltimoId = psConsultaUltimoId.executeQuery();
+            int idPresentacion = rsConsultaUltimoId.getInt(1);
             for (Asistencia asistencia : presentacion.getAsistencia()) {
-                String consultaDos = "INSERT " + EntropyDB.PRE_TBL_ASISTENCIA + " INTO (" + EntropyDB.PRE_COL_PRESENTACION_CURSO_ID + "," + EntropyDB.PRE_COL_ASISTENCIA_ALUMNO_ID + ") VALUES(?,?)";
-                Object[] parametrosDos = {presentacion.getIntIdCurso(), asistencia.getAlumno().getIntAlumnoId(), asistencia.isBlnAnulada(), asistencia.getStrMotivoAnulacion(), asistencia.getStrIp()};
+                String consultaDos = "INSERT INTO " + EntropyDB.PRE_TBL_ASISTENCIA + "("+EntropyDB.PRE_COL_ASISTENCIA_PRESENTACION_ID+","+EntropyDB.PRE_COL_ASISTENCIA_ALUMNO_ID+","+EntropyDB.PRE_COL_ASISTENCIA_ANULADA+","+EntropyDB.PRE_COL_ASISTENCIA_MOTIVO_ANULACION+","+EntropyDB.PRE_COL_ASISTENCIA_IP+") VALUES(?,?,?,?,?)";
+                Object[] parametrosDos = {idPresentacion, asistencia.getAlumno().getIntAlumnoId(), asistencia.isBlnAnulada(), asistencia.getStrMotivoAnulacion(), asistencia.getStrIp()};
                 PreparedStatement psDos = GestorConexion.armarPreparedStatement(conexion, consultaDos, parametrosDos);
-                psDos.execute();
+                psDos.execute();   
             }
+            conexion.commit();
         } catch (SQLException e) {
             try {
                 conexion.rollback();
                 retorno = false;
-                System.err.println("OCURRIO UN ERROR AL TRATAR DE EJECUTAR LA CONSULTA");
+                System.err.println("OCURRIO UN ERROR AL TRATAR DE EJECUTAR LA inserccion: "+e.toString());
             } catch (SQLException ex) {
+                System.err.println("OCURRIO UN ERROR AL TRATAR DE EJECUTAR LA inserccion: "+e.toString());
                 Logger.getLogger(DAOPresentacion.class.getName()).log(Level.SEVERE, null, ex);
             }
         } finally {

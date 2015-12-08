@@ -7,6 +7,7 @@ package backend.Presentacion;
 
 import backend.Asistencia.Asistencia;
 import backend.usuarios.Alumno;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -74,7 +75,8 @@ public class Presentacion {
 
     public String toString()
     {
-        return "Nombre: "+this.strNombre+"- Fecha: ";
+        String fechaString = new SimpleDateFormat("yyyy-MM-dd").format(this.getDteFecha()); 
+        return "Nombre: "+this.strNombre+"- Fecha: "+fechaString;
     }
     
     
