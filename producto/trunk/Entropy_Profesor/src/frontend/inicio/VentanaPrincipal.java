@@ -1,6 +1,7 @@
 package frontend.inicio;
 
 import backend.red.GestorRedAdHoc;
+import frontend.alumnos.DialogSelectorAlumno;
 import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.auxiliares.PanelDeslizante;
@@ -64,7 +65,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         pnlMargen = new javax.swing.JPanel();
         lblSeparador = new javax.swing.JLabel();
         pnlSlides = new frontend.auxiliares.PanelDeslizante();
-        mnbMenuBar = new javax.swing.JMenuBar();
+        Alumnos = new javax.swing.JMenuBar();
         mncDiseños = new javax.swing.JMenu();
         mniNuevoExamen = new javax.swing.JMenuItem();
         mniEditarExamen = new javax.swing.JMenuItem();
@@ -72,6 +73,8 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         mncExámenes = new javax.swing.JMenu();
         mniTomarExamen = new javax.swing.JMenuItem();
         mniAdministrarExamenes = new javax.swing.JMenuItem();
+        mncAlumnos = new javax.swing.JMenu();
+        mniBuscarAlumno = new javax.swing.JMenuItem();
         mncHerramientas = new javax.swing.JMenu();
         mncVentana = new javax.swing.JMenu();
         mncAyuda = new javax.swing.JMenu();
@@ -137,7 +140,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         );
         pnlConMenu.setLayer(pnlBackground, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        mnbMenuBar.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        Alumnos.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
 
         mncDiseños.setText("Diseños");
         mncDiseños.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
@@ -169,7 +172,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         });
         mncDiseños.add(mniAdministrarDiseños);
 
-        mnbMenuBar.add(mncDiseños);
+        Alumnos.add(mncDiseños);
 
         mncExámenes.setText("Exámenes");
         mncExámenes.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
@@ -192,15 +195,29 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         });
         mncExámenes.add(mniAdministrarExamenes);
 
-        mnbMenuBar.add(mncExámenes);
+        Alumnos.add(mncExámenes);
+
+        mncAlumnos.setText("Alumnos");
+        mncAlumnos.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+
+        mniBuscarAlumno.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        mniBuscarAlumno.setText("Buscar...");
+        mniBuscarAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniBuscarAlumnoActionPerformed(evt);
+            }
+        });
+        mncAlumnos.add(mniBuscarAlumno);
+
+        Alumnos.add(mncAlumnos);
 
         mncHerramientas.setText("Herramientas");
         mncHerramientas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        mnbMenuBar.add(mncHerramientas);
+        Alumnos.add(mncHerramientas);
 
         mncVentana.setText("Ventana");
         mncVentana.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        mnbMenuBar.add(mncVentana);
+        Alumnos.add(mncVentana);
 
         mncAyuda.setText("Ayuda");
         mncAyuda.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
@@ -213,9 +230,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         mniAcercaDe.setText("Acerca de...");
         mncAyuda.add(mniAcercaDe);
 
-        mnbMenuBar.add(mncAyuda);
+        Alumnos.add(mncAyuda);
 
-        setJMenuBar(mnbMenuBar);
+        setJMenuBar(Alumnos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,9 +293,17 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         gestorRedAdHoc.desconectar();
     }//GEN-LAST:event_formWindowClosing
 
+    private void mniBuscarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniBuscarAlumnoActionPerformed
+        ocultarMenu();
+        DialogSelectorAlumno dlgSeleccionarAlumno = new DialogSelectorAlumno(this, true);
+        dlgSeleccionarAlumno.getGestorEstados().setNuevoEstadoImportante("Realice doble clic sobre el alumno para ver sus estadísticas.");
+        dlgSeleccionarAlumno.setVisible(true);
+    }//GEN-LAST:event_mniBuscarAlumnoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar Alumnos;
     private javax.swing.JLabel lblSeparador;
-    private javax.swing.JMenuBar mnbMenuBar;
+    private javax.swing.JMenu mncAlumnos;
     private javax.swing.JMenu mncAyuda;
     private javax.swing.JMenu mncDiseños;
     private javax.swing.JMenu mncExámenes;
@@ -288,6 +313,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     private javax.swing.JMenuItem mniAdministrarDiseños;
     private javax.swing.JMenuItem mniAdministrarExamenes;
     private javax.swing.JMenuItem mniAyuda;
+    private javax.swing.JMenuItem mniBuscarAlumno;
     private javax.swing.JMenuItem mniEditarExamen;
     private javax.swing.JMenuItem mniNuevoExamen;
     private javax.swing.JMenuItem mniTomarExamen;
