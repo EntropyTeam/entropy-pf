@@ -5,8 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
@@ -72,14 +76,23 @@ public class GestorRedAdHoc {
     }
 
     public String getIP() {
-        //return ParsearRoute.getInstance().getLocalIPAddress;
-        String retorno = "";
         try {
-            retorno = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(GestorRedAdHoc.class.getName()).log(Level.SEVERE, null, ex);
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                if (!intf.isLoopback() && !intf.isVirtual() && intf.isUp()) {                
+                    for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                        InetAddress iaddr = enumIpAddr.nextElement();
+                        if (iaddr instanceof Inet4Address) {
+                            return iaddr.getHostAddress();
+                        }
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            System.out.println("Error retrieving network interface list");
         }
-        return retorno;
+        
+        return "No estas conectado a ninguna red";
     }
 
     public void redAdHoc(String ssid, String pass1, String pass2) {//Activar la creacion de la red adhoc

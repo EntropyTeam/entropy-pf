@@ -117,7 +117,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
         pnlFondo = new frontend.auxiliares.PanelConFondo();
         pnlBotones = new javax.swing.JPanel();
-        btnCancelar1 = new javax.swing.JButton();
+        btnFinalizar = new javax.swing.JButton();
         btnModificarTiempo = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         scrTablaAlumnos = new javax.swing.JScrollPane();
@@ -130,7 +130,6 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(769, 370));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -142,26 +141,26 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
         pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
 
-        btnCancelar1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_mensajes_exito.png"))); // NOI18N
-        btnCancelar1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnCancelar1.setContentAreaFilled(false);
-        btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelar1.setIconTextGap(10);
-        btnCancelar1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnFinalizar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_tiempo_terminado_35x35.png"))); // NOI18N
+        btnFinalizar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnFinalizar.setContentAreaFilled(false);
+        btnFinalizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFinalizar.setIconTextGap(10);
+        btnFinalizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCancelar1MouseEntered(evt);
+                btnFinalizarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCancelar1MouseExited(evt);
+                btnFinalizarMouseExited(evt);
             }
         });
-        btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelar1ActionPerformed(evt);
+                btnFinalizarActionPerformed(evt);
             }
         });
-        pnlBotones.add(btnCancelar1);
+        pnlBotones.add(btnFinalizar);
 
         btnModificarTiempo.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnModificarTiempo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_tiempo.png"))); // NOI18N
@@ -170,11 +169,11 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         btnModificarTiempo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnModificarTiempo.setIconTextGap(10);
         btnModificarTiempo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnModificarTiempoMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnModificarTiempoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnModificarTiempoMouseExited(evt);
             }
         });
         btnModificarTiempo.addActionListener(new java.awt.event.ActionListener() {
@@ -308,7 +307,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
+            .addComponent(pnlFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 769, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,20 +352,20 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         this.terminarTomaDeExamen(false);
     }//GEN-LAST:event_formWindowClosing
 
-    private void btnCancelar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelar1MouseEntered
+    private void btnFinalizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarMouseEntered
         this.gestorEstados.setEstadoInstantaneo("Termina la toma de examen.");
         repaint();
-    }//GEN-LAST:event_btnCancelar1MouseEntered
+    }//GEN-LAST:event_btnFinalizarMouseEntered
 
-    private void btnCancelar1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelar1MouseExited
+    private void btnFinalizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarMouseExited
         this.gestorEstados.volverAEstadoImportante();
         repaint(); 
-    }//GEN-LAST:event_btnCancelar1MouseExited
+    }//GEN-LAST:event_btnFinalizarMouseExited
 
-    private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
          this.gestorEstados.setEstadoInstantaneo("Termina examen");
         repaint();
-    }//GEN-LAST:event_btnCancelar1ActionPerformed
+    }//GEN-LAST:event_btnFinalizarActionPerformed
 
     /**
      * Anula el examen del alumno en cuestión.
@@ -426,7 +425,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
             GestorExamen.getInstancia().guardarExamen(examenTomar);
         }
         String nombre = alumno.getStrNombre();
-        String estado = EstadoTomaExamen.AUTENTICADO.toString();
+        String estado = EstadoTomaExamen.NO_AUTENTICADO.toString();
         defaultTblAlumnos.addRow(new Object[]{nombre, estado, "-", "-", 0 + "/" + gestorTomaExamen.getExamenResolver().getColPreguntas().size()});
         return tblAlumnos.getRowCount() - 1;
     }
@@ -467,7 +466,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnCancelar1;
+    private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnModificarTiempo;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblIconoEstado;
@@ -505,6 +504,10 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
             gestorRedAdHoc.desconectar();
             throw new UnsupportedOperationException("Falta cerrar los hilos y todo el lío.");
         }
+    }
+
+    public void notificarAutenticacionExitosa(int intIndice) {
+        defaultTblAlumnos.setValueAt(EstadoTomaExamen.AUTENTICADO, intIndice, 1);
     }
 
     /**

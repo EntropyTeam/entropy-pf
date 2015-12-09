@@ -71,7 +71,6 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
         pnlBotones = new javax.swing.JPanel();
         btnGuardarExamen = new javax.swing.JButton();
         btnTomarExamen = new javax.swing.JButton();
-        btnVistaPrevia = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
         btnVolverInicio = new javax.swing.JButton();
         pnlSlides = new javax.swing.JPanel();
@@ -122,22 +121,6 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
             }
         });
         pnlBotones.add(btnTomarExamen);
-
-        btnVistaPrevia.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnVistaPrevia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_vista_previa.png"))); // NOI18N
-        btnVistaPrevia.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnVistaPrevia.setContentAreaFilled(false);
-        btnVistaPrevia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVistaPrevia.setIconTextGap(10);
-        btnVistaPrevia.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnVistaPreviaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnVistaPreviaMouseExited(evt);
-            }
-        });
-        pnlBotones.add(btnVistaPrevia);
 
         btnImprimir.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_imprimir.png"))); // NOI18N
@@ -272,10 +255,6 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
         this.gestorEstados.volverAEstadoImportante();
     }//GEN-LAST:event_btnGuardarExamenMouseExited
 
-    private void btnVistaPreviaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVistaPreviaMouseExited
-        this.gestorEstados.volverAEstadoImportante();
-    }//GEN-LAST:event_btnVistaPreviaMouseExited
-
     private void btnImprimirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseExited
         this.gestorEstados.volverAEstadoImportante();
     }//GEN-LAST:event_btnImprimirMouseExited
@@ -287,10 +266,6 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
     private void btnGuardarExamenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarExamenMouseEntered
         this.gestorEstados.setEstadoInstantaneo("Guardar este diseño de examen en la base de datos.");
     }//GEN-LAST:event_btnGuardarExamenMouseEntered
-
-    private void btnVistaPreviaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVistaPreviaMouseEntered
-        this.gestorEstados.setEstadoInstantaneo("Visualizar una vista previa del examen impreso.");
-    }//GEN-LAST:event_btnVistaPreviaMouseEntered
 
     private void btnImprimirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseEntered
         this.gestorEstados.setEstadoInstantaneo("Imprimir este diseño de examen.");
@@ -357,7 +332,6 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
     private javax.swing.JButton btnGuardarExamen;
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnTomarExamen;
-    private javax.swing.JButton btnVistaPrevia;
     private javax.swing.JButton btnVolverInicio;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblIconoEstado;

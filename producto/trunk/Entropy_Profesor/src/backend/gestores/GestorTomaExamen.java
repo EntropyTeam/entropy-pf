@@ -151,4 +151,8 @@ public class GestorTomaExamen {
     public void mostrarDatosAlumno(int intIndiceAlumno) {
         new DialogInfoAlumno(frmControlTomaExamen, true, colHilosSocketsAlumnos.get(intIndiceAlumno).getAlumno()).setVisible(true);
     }
+
+    public void notificarAutenticacionExitosa(int intIndice) {
+        frmControlTomaExamen.notificarAutenticacionExitosa(intIndice);
+    }
 }
