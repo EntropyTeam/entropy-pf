@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package frontend.presentaciones;
 
 import backend.Presentacion.Presentacion;
@@ -16,6 +11,7 @@ import backend.diseños.Institucion;
 import backend.reporte.GestorGenerarReportePresentacionesRealizadas;
 import frontend.auxiliares.CeldaListaRendererEntropy;
 import frontend.auxiliares.LookAndFeelEntropy;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -41,7 +37,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Administrar presentaciones");
-        lsClasesDictadas.setCellRenderer(new CeldaListaRendererEntropy());
+        lstClasesDictadas.setCellRenderer(new CeldaListaRendererEntropy());
         cargarComboInstituciones();
         cargarComboCursos(((Institucion) cmbInstitucion.getSelectedItem()).getIntInstitucionId());
     }
@@ -71,9 +67,8 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
     private void buscarListaDeClasesDictadas() {
         IDAOPresentacion daoPresentacion = new DAOPresentacion();
         ArrayList<Presentacion> presentaciones = daoPresentacion.recuperarPresentaciones(((Curso) cmbCurso.getSelectedItem()).getIntCursoId(), dcFechaDesde.getDate(), dcFechaHasta.getDate());
-        if(presentaciones==null)
-        {
-            Mensajes.mostrarError("No se encontraron resultados para la busqueda realizada");
+        if (presentaciones == null) {
+            Mensajes.mostrarInformacion("No se encontraron resultados para la búsqueda realizada.");
             return;
         }
         DefaultListModel modeloLista = new DefaultListModel();
@@ -81,7 +76,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
             modeloLista.addElement(presentacion);
 
         }
-        lsClasesDictadas.setModel(modeloLista);
+        lstClasesDictadas.setModel(modeloLista);
     }
 
     /**
@@ -98,16 +93,16 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         lblCurso1 = new javax.swing.JLabel();
         pnlBotones = new javax.swing.JPanel();
         btnVolver = new javax.swing.JButton();
-        btnGuardarAsistencia1 = new javax.swing.JButton();
-        btnGuardarAsistencia2 = new javax.swing.JButton();
+        btnVistaPrevia = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
         lblNombreClase = new javax.swing.JLabel();
         lblDescripcion = new javax.swing.JLabel();
         cmbInstitucion = new javax.swing.JComboBox();
         cmbCurso = new javax.swing.JComboBox();
         dcFechaDesde = new com.toedter.calendar.JDateChooser();
         dcFechaHasta = new com.toedter.calendar.JDateChooser();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lsClasesDictadas = new javax.swing.JList();
+        scrClases = new javax.swing.JScrollPane();
+        lstClasesDictadas = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -121,7 +116,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         lblCurso1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         lblCurso1.setText("Curso:");
 
-        pnlBotones.setLayout(new java.awt.GridLayout());
+        pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
 
         btnVolver.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
@@ -136,47 +131,47 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         });
         pnlBotones.add(btnVolver);
 
-        btnGuardarAsistencia1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnGuardarAsistencia1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_examinar_25x25.png"))); // NOI18N
-        btnGuardarAsistencia1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnGuardarAsistencia1.setContentAreaFilled(false);
-        btnGuardarAsistencia1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarAsistencia1.setIconTextGap(10);
-        btnGuardarAsistencia1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnVistaPrevia.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnVistaPrevia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_examinar_25x25.png"))); // NOI18N
+        btnVistaPrevia.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnVistaPrevia.setContentAreaFilled(false);
+        btnVistaPrevia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVistaPrevia.setIconTextGap(10);
+        btnVistaPrevia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGuardarAsistencia1MouseEntered(evt);
+                btnVistaPreviaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGuardarAsistencia1MouseExited(evt);
+                btnVistaPreviaMouseExited(evt);
             }
         });
-        btnGuardarAsistencia1.addActionListener(new java.awt.event.ActionListener() {
+        btnVistaPrevia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarAsistencia1ActionPerformed(evt);
+                btnVistaPreviaActionPerformed(evt);
             }
         });
-        pnlBotones.add(btnGuardarAsistencia1);
+        pnlBotones.add(btnVistaPrevia);
 
-        btnGuardarAsistencia2.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnGuardarAsistencia2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_imprimir.png"))); // NOI18N
-        btnGuardarAsistencia2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnGuardarAsistencia2.setContentAreaFilled(false);
-        btnGuardarAsistencia2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarAsistencia2.setIconTextGap(10);
-        btnGuardarAsistencia2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnImprimir.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_imprimir.png"))); // NOI18N
+        btnImprimir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnImprimir.setContentAreaFilled(false);
+        btnImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImprimir.setIconTextGap(10);
+        btnImprimir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGuardarAsistencia2MouseEntered(evt);
+                btnImprimirMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGuardarAsistencia2MouseExited(evt);
+                btnImprimirMouseExited(evt);
             }
         });
-        btnGuardarAsistencia2.addActionListener(new java.awt.event.ActionListener() {
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarAsistencia2ActionPerformed(evt);
+                btnImprimirActionPerformed(evt);
             }
         });
-        pnlBotones.add(btnGuardarAsistencia2);
+        pnlBotones.add(btnImprimir);
 
         lblNombreClase.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblNombreClase.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -203,7 +198,8 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         dcFechaHasta.setDate(new Date());
         dcFechaHasta.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
 
-        jScrollPane1.setViewportView(lsClasesDictadas);
+        lstClasesDictadas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scrClases.setViewportView(lstClasesDictadas);
 
         javax.swing.GroupLayout pnlDatosClaseLayout = new javax.swing.GroupLayout(pnlDatosClase);
         pnlDatosClase.setLayout(pnlDatosClaseLayout);
@@ -213,7 +209,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                    .addComponent(scrClases, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
                     .addGroup(pnlDatosClaseLayout.createSequentialGroup()
                         .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -250,7 +246,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dcFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addComponent(scrClases, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -276,34 +272,34 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGuardarAsistencia1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1MouseEntered
+    private void btnVistaPreviaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVistaPreviaMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistencia1MouseEntered
+    }//GEN-LAST:event_btnVistaPreviaMouseEntered
 
-    private void btnGuardarAsistencia1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1MouseExited
+    private void btnVistaPreviaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVistaPreviaMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistencia1MouseExited
+    }//GEN-LAST:event_btnVistaPreviaMouseExited
 
-    private void btnGuardarAsistencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1ActionPerformed
+    private void btnVistaPreviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVistaPreviaActionPerformed
         if (validarFechas()) {
             buscarListaDeClasesDictadas();
         }
-    }//GEN-LAST:event_btnGuardarAsistencia1ActionPerformed
+    }//GEN-LAST:event_btnVistaPreviaActionPerformed
 
-    private void btnGuardarAsistencia2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia2MouseEntered
+    private void btnImprimirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistencia2MouseEntered
+    }//GEN-LAST:event_btnImprimirMouseEntered
 
-    private void btnGuardarAsistencia2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia2MouseExited
+    private void btnImprimirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistencia2MouseExited
+    }//GEN-LAST:event_btnImprimirMouseExited
 
     /*private ArrayList<Presentacion> buscarClasesDictadas()
      {
      return null;
      }*/
     private boolean validarSeleccion() {
-        if (lsClasesDictadas.getSelectedValue() != null) {
+        if (lstClasesDictadas.getSelectedValue() != null) {
             return true;
         } else {
             return false;
@@ -322,20 +318,21 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         return true;
     }
 
-    private void btnGuardarAsistencia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia2ActionPerformed
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         try {
-            if (!validarSeleccion()) {
+            if (validarSeleccion()) {
                 String institucion = ((Institucion) cmbInstitucion.getSelectedItem()).getStrNombre();
                 String curso = ((Curso) cmbCurso.getSelectedItem()).getStrNombre();
-                //Presentacion presentacion = new Presentacion();    
-                GestorGenerarReportePresentacionesRealizadas.reportePresentacionRealizada(institucion, curso);
+                Presentacion presentacion = (Presentacion)lstClasesDictadas.getSelectedValue();
+                String fechaString = new SimpleDateFormat("yyyy-MM-dd").format(presentacion.getDteFecha()); 
+                GestorGenerarReportePresentacionesRealizadas.reportePresentacionRealizada(institucion, curso, fechaString, presentacion.getIntIdCurso(), presentacion.getDteFecha().getTime());
             } else {
                 Mensajes.mostrarError("Debe seleccionar algun clase dictada de la ");
             }
         } catch (JRException ex) {
             Logger.getLogger(DialogAdministrarClasesDictadas.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnGuardarAsistencia2ActionPerformed
+    }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         dispose();
@@ -347,20 +344,20 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardarAsistencia1;
-    private javax.swing.JButton btnGuardarAsistencia2;
+    private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnVistaPrevia;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox cmbCurso;
     private javax.swing.JComboBox cmbInstitucion;
     private com.toedter.calendar.JDateChooser dcFechaDesde;
     private com.toedter.calendar.JDateChooser dcFechaHasta;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCurso1;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblInstitucion1;
     private javax.swing.JLabel lblNombreClase;
-    private javax.swing.JList lsClasesDictadas;
+    private javax.swing.JList lstClasesDictadas;
     private javax.swing.JPanel pnlBotones;
     private javax.swing.JPanel pnlDatosClase;
+    private javax.swing.JScrollPane scrClases;
     // End of variables declaration//GEN-END:variables
 }

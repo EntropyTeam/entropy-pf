@@ -5,6 +5,10 @@
  */
 package backend.Presentacion;
 
+import backend.Asistencia.Asistencia;
+import backend.usuarios.Alumno;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -12,19 +16,13 @@ import java.util.Date;
  * @author Jose
  */
 public class Presentacion {
-    
-    /*    public static final String PRE_TBL_PRESENTACION = "pre_presentacion";
-    public static final String PRE_COL_PRESENTACION_ID = "presentacionId";
-    public static final String PRE_COL_PRESENTACION_CURSO_ID = "cursoId";
-    public static final String PRE_COL_PRESENTACION_NOMBRE = "nombre";
-    public static final String PRE_COL_PRESENTACION_DESCRIPCION = "descripcion";
-    public static final String PRE_COL_PRESENTACION_FECHA = "fecha";*/
-    
+
     private int intIdPresentacion;
     private int  intIdCurso;
     private String strNombre;
     private String strDescripcion;
     private Date dteFecha;
+    private ArrayList<Asistencia> asistencia;
 
     public int getIntIdPresentacion() {
         return intIdPresentacion;
@@ -66,8 +64,20 @@ public class Presentacion {
         this.dteFecha = dteFecha;
     }
 
+    public ArrayList<Asistencia> getAsistencia() {
+        return asistencia;
+    }
+
+    public void setAsistencia(ArrayList<Asistencia> asistencia) {
+        this.asistencia = asistencia;
+    }
+
+
     public String toString()
     {
-        return this.strNombre;
+        String fechaString = new SimpleDateFormat("yyyy-MM-dd").format(this.getDteFecha()); 
+        return "Nombre: "+this.strNombre+"- Fecha: "+fechaString;
     }
+    
+    
 }
