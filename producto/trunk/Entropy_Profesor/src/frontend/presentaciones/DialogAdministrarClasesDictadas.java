@@ -35,7 +35,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
     public DialogAdministrarClasesDictadas(java.awt.Frame parent, boolean modal) {
         super(parent, false);
         initComponents();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(parent);
         setTitle("Administrar presentaciones");
         lstClasesDictadas.setCellRenderer(new CeldaListaRendererEntropy());
         cargarComboInstituciones();

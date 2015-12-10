@@ -325,7 +325,6 @@ public class PanelPregunta extends javax.swing.JPanel {
             if (!pnlPreguntaSeleccionada.seModifico()) {
                 colCasillas[intIDSeleccionada].setBackground(Color.LIGHT_GRAY);
             }
-
             int intPreguntasRespondidas = gestor.getRespuestas().size();
             for (JLabel lblCasilla : colCasillas) {
                 if (lblCasilla.getBackground().equals(Color.LIGHT_GRAY)) {
@@ -334,6 +333,9 @@ public class PanelPregunta extends javax.swing.JPanel {
             }
             if (!pnlPreguntaSeleccionada.seModifico()) {
                 intPreguntasRespondidas--;
+            }
+            if (intPreguntasRespondidas < 0) {
+                intPreguntasRespondidas = 0;
             }
             gestor.notificarProgreso(intPreguntasRespondidas);
 

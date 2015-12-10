@@ -75,6 +75,7 @@ public class HiloSocketAlumno extends Thread {
             case TipoMensaje.RESULTADO_VALIDACION:
                 boolean blnValidacion = (boolean) mensaje.getPayload();
                 gestorResolucionExamen.setBlnValidacion(blnValidacion);
+                gestorResolucionExamen.setFueValidado(true);
                 break;
         }
     }
