@@ -21,7 +21,7 @@ import backend.resoluciones.RespuestaPreguntaRelacionColumnas;
 import backend.resoluciones.RespuestaPreguntaVerdaderoFalso;
 import backend.usuarios.Usuario;
 import frontend.examenes.DialogRealizarExamen;
-import frontend.examenes.DialogValidarCodigoAlumno;
+import frontend.examenes.DialogValidarCodigo;
 import frontend.examenes.PanelIniciarExamen;
 import frontend.examenes.PanelPregunta;
 import frontend.examenes.PanelRespuesta;
@@ -31,10 +31,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -56,10 +53,7 @@ public class GestorResolucionExamen {
     private Alumno alumno;
     private Usuario profesor;
     private boolean blnValidacion = false;
-
-    public boolean isBlnValidacion() {
-        return blnValidacion;
-    }
+    private boolean blnFueValidado;
 
     public GestorResolucionExamen(String ipServidor, int intPuerto) throws  Exception {
         this.ipServidor = ipServidor;
@@ -194,13 +188,11 @@ public class GestorResolucionExamen {
         //valido el codigo con el servidor (MAndo mensajes de ida y vuelta)
         Mensaje mnsValidarAlumno = new Mensaje(TipoMensaje.VALIDAR_ALUMNO, codigo);
         hiloSocketAlumno.enviarMensaje(mnsValidarAlumno);
-        System.out.println(this.blnValidacion);
-        DialogValidarCodigoAlumno validarAlumno = new DialogValidarCodigoAlumno(mPadre, true, this);
+        DialogValidarCodigo validarAlumno = new DialogValidarCodigo(mPadre, this);
         validarAlumno.setVisible(true);
-        if (this.blnValidacion==false) {
+        if (this.blnValidacion == false) {
             return;
         }
-        System.out.println(this.blnValidacion);
 
         // Se avisa al servidor
         Mensaje mnsAvisarComienzo = new Mensaje(TipoMensaje.INICIAR_EXAMEN);
@@ -472,9 +464,25 @@ public class GestorResolucionExamen {
     public Usuario getProfesor() {
         return this.profesor;
     }
-
+    
+    // Resultado de la validación
+    
     public void setBlnValidacion(boolean blnValidacion) {
         this.blnValidacion = blnValidacion;
+    }
+    
+    public boolean isBlnValidacion() {
+        return blnValidacion;
+    }
+    
+    // ¿Finalizó el proceso de validación?
+    
+    public void setFueValidado(boolean blnFueValidado) {
+        this.blnFueValidado = blnFueValidado;
+    }
+    
+    public boolean fueValidado() {
+        return this.blnFueValidado;
     }
 
     public Alumno getAlumno() {

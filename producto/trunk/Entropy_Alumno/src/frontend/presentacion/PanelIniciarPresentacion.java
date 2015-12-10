@@ -123,10 +123,7 @@ public class PanelIniciarPresentacion extends javax.swing.JPanel {
         pnlDatosProfesor.setLayout(pnlDatosProfesorLayout);
         pnlDatosProfesorLayout.setHorizontalGroup(
             pnlDatosProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDatosProfesorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+            .addComponent(btnComenzar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
         );
         pnlDatosProfesorLayout.setVerticalGroup(
             pnlDatosProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,14 +142,14 @@ public class PanelIniciarPresentacion extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -166,7 +163,7 @@ public class PanelIniciarPresentacion extends javax.swing.JPanel {
     }//GEN-LAST:event_btnComenzarActionPerformed
 
     private void btnVerDatosProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDatosProfesorActionPerformed
-
+        new DialogInfoUsuario(VentanaPrincipal.getInstancia(), true, this.gestor.getProfesor()).setVisible(true);
     }//GEN-LAST:event_btnVerDatosProfesorActionPerformed
 
     private void btnComenzarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComenzarMouseEntered
