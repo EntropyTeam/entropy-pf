@@ -1,21 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package frontend.presentaciones;
 
-import backend.Asistencia.Asistencia;
 import backend.Presentacion.Presentacion;
 import backend.auxiliares.Mensajes;
 import backend.dao.diseños.DAOCurso;
 import backend.dao.diseños.DAOInstitucion;
-import backend.dao.presentacion.DAOPresentacion;
-import backend.dao.presentacion.IDAOPresentacion;
 import backend.diseños.Curso;
 import backend.diseños.Institucion;
 import backend.gestores.GestorDePresentacion;
-import backend.red.Mensaje;
+import frontend.auxiliares.LookAndFeelEntropy;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
@@ -40,8 +32,9 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
         this.mPadre = (FrameControlPresentaciones) mPadre;
         this.gestorPresentacion = gestorPresentacion;
         setLocationRelativeTo(null);
+        setTitle("Guardar presentación");
         cargarComboInstituciones();
-        cargarComboCursos(((Institucion) cbInstitucion.getSelectedItem()).getIntInstitucionId());
+        cargarComboCursos(((Institucion)cmbInstitucion.getSelectedItem()).getIntInstitucionId());
     }
     
     private void cargarComboInstituciones() {
@@ -53,7 +46,7 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
             modeloCombo.addElement(institucion);
             
         }
-        cbInstitucion.setModel(modeloCombo);
+       cmbInstitucion.setModel(modeloCombo);
     }
 
     private void cargarComboCursos(int idInstitucion) {
@@ -65,22 +58,12 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
             modeloCombo.addElement(curso);
             
         }
-        cbCurso.setModel(modeloCombo);
+       cmbCurso.setModel(modeloCombo);
     }
 
-    /* private boolean guardarClase()
-     {
-     Presentacion presentacion= new Presentacion();
-     presentacion.setDateFecha(new Date().getTime());
-     presentacion.setIntIdCurso(((Curso)cbCurso.getSelectedItem()).getIntCursoId());
-     presentacion.setStrNombre(txtNombreClase.getText())
-     prsentacion.setStrDecripcion(txtDescripcion.getText());
-     return DAOPresentacion.guardarClase(presentacion);
-     }
-     */
     private boolean validarCampos() {
         if (txtNombreClase.getText().equals("")) {
-            Mensajes.mostrarAdvertencia("La clase necesita un nombre");
+            Mensajes.mostrarAdvertencia("La clase necesita un título.");
             return false;
         }
         return true;
@@ -95,87 +78,33 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jpDatosDeLaClase = new javax.swing.JPanel();
+        pnlDatosClase = new javax.swing.JPanel();
         lblInstitucion = new javax.swing.JLabel();
         lblCurso = new javax.swing.JLabel();
-        cbInstitucion = new javax.swing.JComboBox();
-        cbCurso = new javax.swing.JComboBox();
-        lblNombreClase = new javax.swing.JLabel();
-        txtNombreClase = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtDescripcion = new javax.swing.JTextArea();
-        lblDescripcion = new javax.swing.JLabel();
+        pnlBotones = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
-        btnGuardarAsistencia1 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        lblNombreClase = new javax.swing.JLabel();
+        lblDescripcion = new javax.swing.JLabel();
+        txtNombreClase = new frontend.auxiliares.TextFieldEntropy();
+        cmbInstitucion = new javax.swing.JComboBox();
+        cmbCurso = new javax.swing.JComboBox();
+        scrDescripcion = new javax.swing.JScrollPane();
+        txaDescripcion = new frontend.auxiliares.TextAreaEntropy();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblInstitucion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblInstitucion.setText("Insitutucion:");
+        pnlDatosClase.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos de la presentación", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
+        pnlDatosClase.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        pnlDatosClase.setMinimumSize(pnlDatosClase.getPreferredSize());
 
-        lblCurso.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblInstitucion.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblInstitucion.setText("Institución:");
+
+        lblCurso.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         lblCurso.setText("Curso:");
 
-        cbInstitucion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbInstitucion.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbInstitucionItemStateChanged(evt);
-            }
-        });
-
-        cbCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        lblNombreClase.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblNombreClase.setText("Nombre de la clase:");
-
-        txtDescripcion.setColumns(20);
-        txtDescripcion.setRows(5);
-        jScrollPane1.setViewportView(txtDescripcion);
-
-        lblDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblDescripcion.setText("Descripcion:");
-
-        javax.swing.GroupLayout jpDatosDeLaClaseLayout = new javax.swing.GroupLayout(jpDatosDeLaClase);
-        jpDatosDeLaClase.setLayout(jpDatosDeLaClaseLayout);
-        jpDatosDeLaClaseLayout.setHorizontalGroup(
-            jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpDatosDeLaClaseLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblNombreClase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblInstitucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(lblDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(cbInstitucion, 0, 348, Short.MAX_VALUE)
-                    .addComponent(cbCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNombreClase))
-                .addContainerGap())
-        );
-        jpDatosDeLaClaseLayout.setVerticalGroup(
-            jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpDatosDeLaClaseLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblInstitucion)
-                    .addComponent(cbInstitucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCurso)
-                    .addComponent(cbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblNombreClase)
-                    .addComponent(txtNombreClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jpDatosDeLaClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDescripcion))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
 
         btnRegresar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
@@ -183,126 +112,161 @@ public class DialogGuardarAsistencia extends javax.swing.JDialog {
         btnRegresar.setContentAreaFilled(false);
         btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegresar.setIconTextGap(10);
-        btnRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnRegresarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnRegresarMouseExited(evt);
-            }
-        });
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
             }
         });
+        pnlBotones.add(btnRegresar);
 
-        btnGuardarAsistencia1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnGuardarAsistencia1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_guardar.png"))); // NOI18N
-        btnGuardarAsistencia1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnGuardarAsistencia1.setContentAreaFilled(false);
-        btnGuardarAsistencia1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarAsistencia1.setIconTextGap(10);
-        btnGuardarAsistencia1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGuardarAsistencia1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGuardarAsistencia1MouseExited(evt);
-            }
-        });
-        btnGuardarAsistencia1.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_guardar.png"))); // NOI18N
+        btnGuardar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnGuardar.setContentAreaFilled(false);
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.setIconTextGap(10);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarAsistencia1ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
+        pnlBotones.add(btnGuardar);
+
+        lblNombreClase.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblNombreClase.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblNombreClase.setText("Título de la clase:");
+
+        lblDescripcion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblDescripcion.setText("Descripción:");
+
+        txtNombreClase.setTextoPorDefecto("Ingrese un título...");
+        txtNombreClase.mostrarTextoPorDefecto();
+
+        cmbInstitucion.setBackground(new java.awt.Color(255, 204, 102));
+        cmbInstitucion.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        cmbInstitucion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbInstitucionItemStateChanged(evt);
+            }
+        });
+
+        cmbCurso.setBackground(new java.awt.Color(255, 204, 102));
+        cmbCurso.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+
+        scrDescripcion.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        txaDescripcion.setTextoPorDefecto("Ingrese una descripción...");
+        txaDescripcion.mostrarTextoPorDefecto();
+        txaDescripcion.setColumns(20);
+        txaDescripcion.setRows(2);
+        scrDescripcion.setViewportView(txaDescripcion);
+
+        javax.swing.GroupLayout pnlDatosClaseLayout = new javax.swing.GroupLayout(pnlDatosClase);
+        pnlDatosClase.setLayout(pnlDatosClaseLayout);
+        pnlDatosClaseLayout.setHorizontalGroup(
+            pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosClaseLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlDatosClaseLayout.createSequentialGroup()
+                        .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblInstitucion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNombreClase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombreClase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbInstitucion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(scrDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        pnlDatosClaseLayout.setVerticalGroup(
+            pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosClaseLayout.createSequentialGroup()
+                .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblInstitucion)
+                    .addComponent(cmbInstitucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCurso)
+                    .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombreClase)
+                    .addComponent(txtNombreClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDatosClaseLayout.createSequentialGroup()
+                        .addComponent(lblDescripcion)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(scrDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardarAsistencia1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jpDatosDeLaClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap()
+                .addComponent(pnlDatosClase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jpDatosDeLaClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGuardarAsistencia1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnRegresar)
-                        .addContainerGap())))
+                .addContainerGap()
+                .addComponent(pnlDatosClase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegresarMouseEntered
-
-    private void btnRegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegresarMouseExited
-
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnGuardarAsistencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1ActionPerformed
+    private void cmbInstitucionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbInstitucionItemStateChanged
+        cargarComboCursos(((Institucion) cmbInstitucion.getSelectedItem()).getIntInstitucionId());
+    }//GEN-LAST:event_cmbInstitucionItemStateChanged
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {                                                      
         if (validarCampos()) {
             Presentacion presentacion = new Presentacion();
             presentacion.setDteFecha(new Date());
-            presentacion.setIntIdCurso(((Curso) cbCurso.getSelectedItem()).getIntCursoId());
-            presentacion.setStrDescripcion(txtDescripcion.getText());
+            presentacion.setIntIdCurso(((Curso) cmbCurso.getSelectedItem()).getIntCursoId());
+            presentacion.setStrDescripcion(txaDescripcion.getText());
             presentacion.setStrNombre(txtNombreClase.getText());
             if (this.gestorPresentacion.guardarPresentacion(presentacion)) {
-                Mensajes.mostrarExito("La clase se guardo exitosamente");
+                Mensajes.mostrarExito("La clase se guardó exitosamente.");
                 this.dispose();
             } else {
-                Mensajes.mostrarError("La clase no se pudo guardar");
+                Mensajes.mostrarError("La clase no pudo ser guardada.");
             }
         }
-    }//GEN-LAST:event_btnGuardarAsistencia1ActionPerformed
-
-    private void btnGuardarAsistencia1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistencia1MouseExited
-
-    private void btnGuardarAsistencia1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistencia1MouseEntered
-
-    private void cbInstitucionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbInstitucionItemStateChanged
-        cargarComboCursos(((Institucion) cbInstitucion.getSelectedItem()).getIntInstitucionId());
-    }//GEN-LAST:event_cbInstitucionItemStateChanged
+    }                            
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardarAsistencia1;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JComboBox cbCurso;
-    private javax.swing.JComboBox cbInstitucion;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel jpDatosDeLaClase;
+    private javax.swing.JComboBox cmbCurso;
+    private javax.swing.JComboBox cmbInstitucion;
     private javax.swing.JLabel lblCurso;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblInstitucion;
     private javax.swing.JLabel lblNombreClase;
-    private javax.swing.JTextArea txtDescripcion;
-    private javax.swing.JTextField txtNombreClase;
+    private javax.swing.JPanel pnlBotones;
+    private javax.swing.JPanel pnlDatosClase;
+    private javax.swing.JScrollPane scrDescripcion;
+    private frontend.auxiliares.TextAreaEntropy txaDescripcion;
+    private frontend.auxiliares.TextFieldEntropy txtNombreClase;
     // End of variables declaration//GEN-END:variables
 }

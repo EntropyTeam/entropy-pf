@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package frontend.presentaciones;
 
 import backend.Presentacion.Presentacion;
@@ -14,6 +9,8 @@ import backend.dao.presentacion.IDAOPresentacion;
 import backend.diseños.Curso;
 import backend.diseños.Institucion;
 import backend.reporte.GestorGenerarReportePresentacionesRealizadas;
+import frontend.auxiliares.CeldaListaRendererEntropy;
+import frontend.auxiliares.LookAndFeelEntropy;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,8 +36,10 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         super(parent, false);
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Administrar presentaciones");
+        lstClasesDictadas.setCellRenderer(new CeldaListaRendererEntropy());
         cargarComboInstituciones();
-        cargarComboCursos(((Institucion) cbInstitucion.getSelectedItem()).getIntInstitucionId());
+        cargarComboCursos(((Institucion) cmbInstitucion.getSelectedItem()).getIntInstitucionId());
     }
 
     private void cargarComboInstituciones() {
@@ -50,7 +49,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         for (Institucion institucion : listaInstituciones) {
             modeloCombo.addElement(institucion);
         }
-        cbInstitucion.setModel(modeloCombo);
+        cmbInstitucion.setModel(modeloCombo);
     }
 
     private void cargarComboCursos(int idInstitucion) {
@@ -62,14 +61,14 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
             modeloCombo.addElement(curso);
 
         }
-        cbCurso.setModel(modeloCombo);
+        cmbCurso.setModel(modeloCombo);
     }
 
     private void buscarListaDeClasesDictadas() {
         IDAOPresentacion daoPresentacion = new DAOPresentacion();
-        ArrayList<Presentacion> presentaciones = daoPresentacion.recuperarPresentaciones(((Curso) cbCurso.getSelectedItem()).getIntCursoId(), dcFechaDesde.getDate(), dcFechaHasta.getDate());
+        ArrayList<Presentacion> presentaciones = daoPresentacion.recuperarPresentaciones(((Curso) cmbCurso.getSelectedItem()).getIntCursoId(), dcFechaDesde.getDate(), dcFechaHasta.getDate());
         if (presentaciones == null) {
-            Mensajes.mostrarError("No se encontraron resultados para la busqueda realizada");
+            Mensajes.mostrarInformacion("No se encontraron resultados para la búsqueda realizada.");
             return;
         }
         DefaultListModel modeloLista = new DefaultListModel();
@@ -77,7 +76,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
             modeloLista.addElement(presentacion);
 
         }
-        lsClasesDictadas.setModel(modeloLista);
+        lstClasesDictadas.setModel(modeloLista);
     }
 
     /**
@@ -89,124 +88,169 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        cbCurso = new javax.swing.JComboBox();
-        cbInstitucion = new javax.swing.JComboBox();
-        lblInstitucion = new javax.swing.JLabel();
-        lblCurso = new javax.swing.JLabel();
+        pnlDatosClase = new javax.swing.JPanel();
+        lblInstitucion1 = new javax.swing.JLabel();
+        lblCurso1 = new javax.swing.JLabel();
+        pnlBotones = new javax.swing.JPanel();
+        btnVolver = new javax.swing.JButton();
+        btnVistaPrevia = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
+        lblNombreClase = new javax.swing.JLabel();
+        lblDescripcion = new javax.swing.JLabel();
+        cmbInstitucion = new javax.swing.JComboBox();
+        cmbCurso = new javax.swing.JComboBox();
         dcFechaDesde = new com.toedter.calendar.JDateChooser();
-        lblFecha = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lsClasesDictadas = new javax.swing.JList();
-        btnGuardarAsistencia1 = new javax.swing.JButton();
         dcFechaHasta = new com.toedter.calendar.JDateChooser();
-        lblFecha1 = new javax.swing.JLabel();
-        btnRegresar = new javax.swing.JButton();
-        btnGuardarAsistencia2 = new javax.swing.JButton();
+        scrClases = new javax.swing.JScrollPane();
+        lstClasesDictadas = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Clases Dictadas"));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlDatosClase.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clases dictadas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
+        pnlDatosClase.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        pnlDatosClase.setMinimumSize(pnlDatosClase.getPreferredSize());
 
-        cbCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 65, 350, -1));
+        lblInstitucion1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblInstitucion1.setText("Institución:");
 
-        cbInstitucion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbInstitucion.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbInstitucionItemStateChanged(evt);
+        lblCurso1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblCurso1.setText("Curso:");
+
+        pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
+
+        btnVolver.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
+        btnVolver.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnVolver.setContentAreaFilled(false);
+        btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolver.setIconTextGap(10);
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(cbInstitucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 27, 350, -1));
+        pnlBotones.add(btnVolver);
 
-        lblInstitucion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblInstitucion.setText("Insitutucion:");
-        jPanel1.add(lblInstitucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 30, 70, -1));
+        btnVistaPrevia.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnVistaPrevia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_examinar_25x25.png"))); // NOI18N
+        btnVistaPrevia.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnVistaPrevia.setContentAreaFilled(false);
+        btnVistaPrevia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVistaPrevia.setIconTextGap(10);
+        btnVistaPrevia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVistaPreviaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVistaPreviaMouseExited(evt);
+            }
+        });
+        btnVistaPrevia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVistaPreviaActionPerformed(evt);
+            }
+        });
+        pnlBotones.add(btnVistaPrevia);
 
-        lblCurso.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCurso.setText("Curso:");
-        jPanel1.add(lblCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 68, 70, -1));
+        btnImprimir.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_imprimir.png"))); // NOI18N
+        btnImprimir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnImprimir.setContentAreaFilled(false);
+        btnImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImprimir.setIconTextGap(10);
+        btnImprimir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnImprimirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnImprimirMouseExited(evt);
+            }
+        });
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        pnlBotones.add(btnImprimir);
+
+        lblNombreClase.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblNombreClase.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblNombreClase.setText("Desde:");
+
+        lblDescripcion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblDescripcion.setText("Hasta:");
+
+        cmbInstitucion.setBackground(new java.awt.Color(255, 204, 102));
+        cmbInstitucion.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        cmbInstitucion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbInstitucionItemStateChanged(evt);
+            }
+        });
+
+        cmbCurso.setBackground(new java.awt.Color(255, 204, 102));
+        cmbCurso.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
 
         dcFechaDesde.setDate(new Date());
-        jPanel1.add(dcFechaDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 130, -1));
-
-        lblFecha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblFecha.setText("Fecha desde:");
-        jPanel1.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 70, -1));
-
-        lsClasesDictadas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(lsClasesDictadas);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 470, 280));
-
-        btnGuardarAsistencia1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnGuardarAsistencia1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_examinar_25x25.png"))); // NOI18N
-        btnGuardarAsistencia1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnGuardarAsistencia1.setContentAreaFilled(false);
-        btnGuardarAsistencia1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarAsistencia1.setIconTextGap(10);
-        btnGuardarAsistencia1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGuardarAsistencia1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGuardarAsistencia1MouseExited(evt);
-            }
-        });
-        btnGuardarAsistencia1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarAsistencia1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnGuardarAsistencia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 197, -1));
+        dcFechaDesde.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
 
         dcFechaHasta.setDate(new Date());
-        jPanel1.add(dcFechaHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 130, -1));
+        dcFechaHasta.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
 
-        lblFecha1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblFecha1.setText("Fecha hasta:");
-        jPanel1.add(lblFecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 90, -1));
+        lstClasesDictadas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scrClases.setViewportView(lstClasesDictadas);
 
-        btnRegresar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
-        btnRegresar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnRegresar.setContentAreaFilled(false);
-        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegresar.setIconTextGap(10);
-        btnRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnRegresarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnRegresarMouseExited(evt);
-            }
-        });
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-
-        btnGuardarAsistencia2.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnGuardarAsistencia2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_imprimir_25x25.png"))); // NOI18N
-        btnGuardarAsistencia2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnGuardarAsistencia2.setContentAreaFilled(false);
-        btnGuardarAsistencia2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarAsistencia2.setIconTextGap(10);
-        btnGuardarAsistencia2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGuardarAsistencia2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGuardarAsistencia2MouseExited(evt);
-            }
-        });
-        btnGuardarAsistencia2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarAsistencia2ActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout pnlDatosClaseLayout = new javax.swing.GroupLayout(pnlDatosClase);
+        pnlDatosClase.setLayout(pnlDatosClaseLayout);
+        pnlDatosClaseLayout.setHorizontalGroup(
+            pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosClaseLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrClases, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                    .addGroup(pnlDatosClaseLayout.createSequentialGroup()
+                        .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblCurso1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblInstitucion1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNombreClase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbInstitucion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dcFechaDesde, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dcFechaHasta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        pnlDatosClaseLayout.setVerticalGroup(
+            pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosClaseLayout.createSequentialGroup()
+                .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblInstitucion1)
+                    .addComponent(cmbInstitucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCurso1)
+                    .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosClaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDatosClaseLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lblNombreClase)
+                        .addGap(16, 16, 16)
+                        .addComponent(lblDescripcion))
+                    .addGroup(pnlDatosClaseLayout.createSequentialGroup()
+                        .addComponent(dcFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dcFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(scrClases, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -214,72 +258,48 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardarAsistencia2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(pnlDatosClase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGuardarAsistencia2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                .addContainerGap()
+                .addComponent(pnlDatosClase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbInstitucionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbInstitucionItemStateChanged
-        cargarComboCursos(((Institucion) cbInstitucion.getSelectedItem()).getIntInstitucionId());
-    }//GEN-LAST:event_cbInstitucionItemStateChanged
-
-    private void btnRegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseEntered
+    private void btnVistaPreviaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVistaPreviaMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegresarMouseEntered
+    }//GEN-LAST:event_btnVistaPreviaMouseEntered
 
-    private void btnRegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseExited
+    private void btnVistaPreviaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVistaPreviaMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegresarMouseExited
+    }//GEN-LAST:event_btnVistaPreviaMouseExited
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void btnGuardarAsistencia1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistencia1MouseEntered
-
-    private void btnGuardarAsistencia1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistencia1MouseExited
-
-    private void btnGuardarAsistencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia1ActionPerformed
+    private void btnVistaPreviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVistaPreviaActionPerformed
         if (validarFechas()) {
             buscarListaDeClasesDictadas();
         }
-    }//GEN-LAST:event_btnGuardarAsistencia1ActionPerformed
+    }//GEN-LAST:event_btnVistaPreviaActionPerformed
 
-    private void btnGuardarAsistencia2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia2MouseEntered
+    private void btnImprimirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistencia2MouseEntered
+    }//GEN-LAST:event_btnImprimirMouseEntered
 
-    private void btnGuardarAsistencia2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia2MouseExited
+    private void btnImprimirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarAsistencia2MouseExited
+    }//GEN-LAST:event_btnImprimirMouseExited
 
     /*private ArrayList<Presentacion> buscarClasesDictadas()
      {
      return null;
      }*/
     private boolean validarSeleccion() {
-        if (lsClasesDictadas.getSelectedValue() != null) {
+        if (lstClasesDictadas.getSelectedValue() != null) {
             return true;
         } else {
             return false;
@@ -298,12 +318,12 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         return true;
     }
 
-    private void btnGuardarAsistencia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistencia2ActionPerformed
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         try {
             if (validarSeleccion()) {
-                String institucion = ((Institucion) cbInstitucion.getSelectedItem()).getStrNombre();
-                String curso = ((Curso) cbCurso.getSelectedItem()).getStrNombre();
-                Presentacion presentacion = (Presentacion)lsClasesDictadas.getSelectedValue();
+                String institucion = ((Institucion) cmbInstitucion.getSelectedItem()).getStrNombre();
+                String curso = ((Curso) cmbCurso.getSelectedItem()).getStrNombre();
+                Presentacion presentacion = (Presentacion)lstClasesDictadas.getSelectedValue();
                 String fechaString = new SimpleDateFormat("yyyy-MM-dd").format(presentacion.getDteFecha()); 
                 GestorGenerarReportePresentacionesRealizadas.reportePresentacionRealizada(institucion, curso, fechaString, presentacion.getIntIdCurso(), presentacion.getDteFecha().getTime());
             } else {
@@ -312,23 +332,32 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         } catch (JRException ex) {
             Logger.getLogger(DialogAdministrarClasesDictadas.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnGuardarAsistencia2ActionPerformed
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void cmbInstitucionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbInstitucionItemStateChanged
+        cargarComboCursos(((Institucion)cmbInstitucion.getSelectedItem()).getIntInstitucionId());
+    }//GEN-LAST:event_cmbInstitucionItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardarAsistencia1;
-    private javax.swing.JButton btnGuardarAsistencia2;
-    private javax.swing.JButton btnRegresar;
-    private javax.swing.JComboBox cbCurso;
-    private javax.swing.JComboBox cbInstitucion;
+    private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnVistaPrevia;
+    private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox cmbCurso;
+    private javax.swing.JComboBox cmbInstitucion;
     private com.toedter.calendar.JDateChooser dcFechaDesde;
     private com.toedter.calendar.JDateChooser dcFechaHasta;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblCurso;
-    private javax.swing.JLabel lblFecha;
-    private javax.swing.JLabel lblFecha1;
-    private javax.swing.JLabel lblInstitucion;
-    private javax.swing.JList lsClasesDictadas;
+    private javax.swing.JLabel lblCurso1;
+    private javax.swing.JLabel lblDescripcion;
+    private javax.swing.JLabel lblInstitucion1;
+    private javax.swing.JLabel lblNombreClase;
+    private javax.swing.JList lstClasesDictadas;
+    private javax.swing.JPanel pnlBotones;
+    private javax.swing.JPanel pnlDatosClase;
+    private javax.swing.JScrollPane scrClases;
     // End of variables declaration//GEN-END:variables
 }

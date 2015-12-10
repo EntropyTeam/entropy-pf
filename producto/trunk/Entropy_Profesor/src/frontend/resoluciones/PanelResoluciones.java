@@ -2,15 +2,12 @@ package frontend.resoluciones;
 
 import backend.auxiliares.Mensajes;
 import backend.gestores.GestorExamen;
-import backend.mail.Email;
-import backend.mail.GestorEnvioDeMail;
 import backend.reporte.*;
 import backend.usuarios.Alumno;
 import backend.resoluciones.Resolucion;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.mail.EnvioMail;
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -472,12 +469,12 @@ public class PanelResoluciones extends javax.swing.JPanel {
         }
             catch(Exception e)
             {
-                System.err.println("Ocurrio una excepcion creando el pdf "+e.toString());
+                System.err.println("Ocurrió una excepción creando el PDF:  "+e.toString());
             }
         }
         else //Si no se seleccionada a quien enviar se le enviara  todas las resoluciones
         {
-           if( Mensajes.mostrarConfirmacion("Esta seguro que desea sus resoluciones a todos los alumnos"))
+           if( Mensajes.mostrarConfirmacion("¿Está seguro que desea enviar las resoluciones a todos los alumnos?"))
            {
             ArrayList alumnos = recuperarTodoslosAlumnos(this.lstResoluciones);
             ArrayList<byte[]> pdfs = null; // Son el array de los pdfs que se crearan

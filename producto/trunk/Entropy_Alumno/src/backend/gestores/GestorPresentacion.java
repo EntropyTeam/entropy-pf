@@ -128,9 +128,9 @@ public class GestorPresentacion {
     private void mostrarPanelInicio() {
         timerEspera.stop();
         PanelIniciarPresentacion pnlIniciarPresentacion = new PanelIniciarPresentacion(this);
-        pnlIniciarPresentacion.setName("Iniciar Presentacion");
+        pnlIniciarPresentacion.setName("Iniciar presentación");
         mPadre.getPanelDeslizante().setPanelMostrado(pnlIniciarPresentacion);
-        mPadre.setTitle("Iniciar Presentacion");
+        mPadre.setTitle("Iniciar presentación");
         if (mPadre.getExtendedState() != JFrame.MAXIMIZED_BOTH) {
             mPadre.pack();
         }
@@ -142,6 +142,10 @@ public class GestorPresentacion {
     public void comenzarPresentacion() throws IOException {
         Mensaje mnsAvisarComienzoPresentacion = new Mensaje(TipoMensaje.INICIAR_PRESENTACION);
         hiloSocketAlumno.enviarMensaje(mnsAvisarComienzoPresentacion);
+    }
+
+    public Usuario getProfesor() {
+        return this.profesor;
     }
     
     public class HiloDialogPresentacion extends Thread {

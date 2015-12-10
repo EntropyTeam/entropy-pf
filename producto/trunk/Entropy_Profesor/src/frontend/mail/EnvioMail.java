@@ -239,15 +239,15 @@ public class EnvioMail extends javax.swing.JFrame {
         try {
             if (alumnos == null) {
                 enviarMailUnicoDestinatario(alumno, pdf);
-                Mensajes.mostrarConfirmacion("El Email fue enviado correctamente");
+                Mensajes.mostrarConfirmacion("El correo fue enviado correctamente.");
                 this.dispose();
             } else {
                 enviarMailMultiplesDestinatarios(this.alumnos, this.pdfs);
-                Mensajes.mostrarConfirmacion("Los Emails fueron enviados correctamente");
+                Mensajes.mostrarConfirmacion("Los correos fueron enviados correctamente.");
                 this.dispose();
             }
         } catch (Exception e) {
-            Mensajes.mostrarError("Imposible enviar el Email");
+            Mensajes.mostrarError("Imposible enviar el mensaje. Intente nuevamente.");
             System.err.printf(e.toString());
         }
     }

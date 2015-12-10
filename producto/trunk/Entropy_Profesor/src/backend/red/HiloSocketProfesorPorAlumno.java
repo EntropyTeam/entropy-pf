@@ -144,7 +144,10 @@ public class HiloSocketProfesorPorAlumno extends Thread {
             // Mensaje del alumno con el codigo para validar, recibe un alumno con el codigo dentro
             case TipoMensaje.VALIDAR_ALUMNO:
                 String codigoAlumnoValidar = (String) mensaje.getPayload();
-                boolean validacion = codigoAlumnoValidar.equals(alumno.getStrCodigo());
+                boolean validacion = codigoAlumnoValidar.equalsIgnoreCase(alumno.getStrCodigo());
+                if (validacion) {
+                    gestorTomaExamen.notificarAutenticacionExitosa(this.intIndice);
+                }
                 Mensaje mensajeValidacion = new Mensaje(TipoMensaje.RESULTADO_VALIDACION, validacion);
                  {
                     try {

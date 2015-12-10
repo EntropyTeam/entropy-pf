@@ -9,7 +9,7 @@ import frontend.usuario.DialogInfoUsuario;
 import java.io.IOException;
 
 /**
- * Clase que representa al panel que anuncia la recepción del objeto examen y
+ * Clase que representa al panel que anuncia la recepci�n del objeto examen y
  * permite al alumno dar comienzo al mismo.
  *
  * @author Denise
@@ -21,7 +21,7 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
     /**
      * Constructor de la clase.
      *
-     * @param gestor gestor de la toma de exámenes que maneja el proceso.
+     * @param gestor gestor de la toma de ex�menes que maneja el proceso.
      */
     public PanelIniciarExamen(GestorResolucionExamen gestor) {
         initComponents();
@@ -60,7 +60,8 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
         lblDuracion = new javax.swing.JLabel();
         pnlCodigo = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
+        pnlTxtCodigo = new javax.swing.JPanel();
+        txtCodigo = new frontend.auxiliares.TextFieldEntropy();
         jPanel1 = new javax.swing.JPanel();
         btnComenzar = new javax.swing.JButton();
         pnlDatosProfesor = new javax.swing.JPanel();
@@ -121,19 +122,33 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
 
         pnlDatosExamen.add(pnlDuracion);
 
-        pnlCodigo.setLayout(new java.awt.GridLayout());
+        pnlCodigo.setLayout(new java.awt.GridLayout(1, 0));
 
+        lblCodigo.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblCodigo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCodigo.setText("Codigo:     ");
+        lblCodigo.setText("Código:     ");
         pnlCodigo.add(lblCodigo);
 
-        txtCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoActionPerformed(evt);
-            }
-        });
-        pnlCodigo.add(txtCodigo);
+        txtCodigo.setTextoPorDefecto("Ingrese el código...");
+        txtCodigo.mostrarTextoPorDefecto();
+
+        javax.swing.GroupLayout pnlTxtCodigoLayout = new javax.swing.GroupLayout(pnlTxtCodigo);
+        pnlTxtCodigo.setLayout(pnlTxtCodigoLayout);
+        pnlTxtCodigoLayout.setHorizontalGroup(
+            pnlTxtCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTxtCodigoLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        pnlTxtCodigoLayout.setVerticalGroup(
+            pnlTxtCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTxtCodigoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+        );
+
+        pnlCodigo.add(pnlTxtCodigo);
 
         pnlDatosExamen.add(pnlCodigo);
 
@@ -197,7 +212,7 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
             pnlDatosProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDatosProfesorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnVerDatosProfesor, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+                .addComponent(btnVerDatosProfesor, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlDatosProfesorLayout.setVerticalGroup(
@@ -224,7 +239,7 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -250,10 +265,6 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
         btnComenzar.setText("<html>Comenzar</html>");
     }//GEN-LAST:event_btnComenzarMouseExited
 
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComenzar;
@@ -275,6 +286,7 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
     private javax.swing.JPanel pnlFondo;
     private javax.swing.JPanel pnlNombre;
     private javax.swing.JPanel pnlSuperior;
-    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JPanel pnlTxtCodigo;
+    private frontend.auxiliares.TextFieldEntropy txtCodigo;
     // End of variables declaration//GEN-END:variables
 }

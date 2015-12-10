@@ -44,7 +44,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
         this.mPadre = mPadre;
         setLocationRelativeTo(null);
         this.setIconImage(this.getIconImage());
-        setTitle("Presentacion");
+        setTitle("Presentación en tiempo real");
         this.gestorEstados = new GestorBarrasDeEstado(lblActualizacionEstado, lblIconoEstado);
         this.gestorEstados.setNuevoEstadoImportante("¡Bienvenido al panel de control de presentaciones!");
 
@@ -113,8 +113,6 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
         pnlEstado = new javax.swing.JPanel();
         lblActualizacionEstado = new javax.swing.JLabel();
         lblIconoEstado = new javax.swing.JLabel();
-        lblsPorcentajeTerminados = new javax.swing.JLabel();
-        lblPorcentajeTerminados = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -223,12 +221,6 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
                     .addComponent(lblIconoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        lblsPorcentajeTerminados.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        lblsPorcentajeTerminados.setText("Porcentaje de alumnos que han terminado:");
-
-        lblPorcentajeTerminados.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        lblPorcentajeTerminados.setText("0%");
-
         javax.swing.GroupLayout pnlFondoLayout = new javax.swing.GroupLayout(pnlFondo);
         pnlFondo.setLayout(pnlFondoLayout);
         pnlFondoLayout.setHorizontalGroup(
@@ -237,11 +229,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrTablaAlumnos, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
-                    .addComponent(pnlEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlFondoLayout.createSequentialGroup()
-                        .addComponent(lblsPorcentajeTerminados)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPorcentajeTerminados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(pnlEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlFondoLayout.createSequentialGroup()
@@ -253,11 +241,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
             pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFondoLayout.createSequentialGroup()
                 .addGap(57, 57, 57)
-                .addComponent(scrTablaAlumnos, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblsPorcentajeTerminados)
-                    .addComponent(lblPorcentajeTerminados))
+                .addComponent(scrTablaAlumnos, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -377,8 +361,6 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarAsistencia;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblIconoEstado;
-    private javax.swing.JLabel lblPorcentajeTerminados;
-    private javax.swing.JLabel lblsPorcentajeTerminados;
     private javax.swing.JPanel pnlBotones;
     private javax.swing.JPanel pnlEstado;
     private frontend.auxiliares.PanelConFondo pnlFondo;
