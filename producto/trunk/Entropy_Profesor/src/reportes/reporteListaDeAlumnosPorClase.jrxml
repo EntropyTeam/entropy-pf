@@ -61,7 +61,7 @@ WHERE PP.presentacionId=PA.presentacionId AND PA.AlumnoId=GA.alumnoId AND PP.fec
 				<textFieldExpression><![CDATA[$P{parametroFecha}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="-47" y="131" width="170" height="20" uuid="13f0836d-b53b-4b94-a31f-cfaa314116dc"/>
+				<reportElement x="-7" y="131" width="115" height="20" uuid="13f0836d-b53b-4b94-a31f-cfaa314116dc"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -70,9 +70,9 @@ WHERE PP.presentacionId=PA.presentacionId AND PA.AlumnoId=GA.alumnoId AND PP.fec
 		</band>
 	</title>
 	<detail>
-		<band height="444">
+		<band height="25">
 			<textField>
-				<reportElement x="22" y="11" width="285" height="20" uuid="daae85d5-7386-4fd5-aee6-75ddde382ffb"/>
+				<reportElement x="108" y="5" width="285" height="20" uuid="daae85d5-7386-4fd5-aee6-75ddde382ffb"/>
 				<textFieldExpression><![CDATA[""+$F{apellido}+ ", "+$F{nombre}]]></textFieldExpression>
 			</textField>
 		</band>

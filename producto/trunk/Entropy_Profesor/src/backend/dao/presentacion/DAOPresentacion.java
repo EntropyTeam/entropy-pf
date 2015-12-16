@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -164,8 +165,12 @@ public class DAOPresentacion implements IDAOPresentacion {
         Connection conexion = DAOConexion.conectarBaseDatos();
         ArrayList<Presentacion> presentaciones = new ArrayList<Presentacion>();
         Presentacion presentacion = null;
-        String consulta = "SELECT * FROM " + EntropyDB.PRE_TBL_PRESENTACION + " WHERE " + EntropyDB.PRE_COL_PRESENTACION_CURSO_ID + "=? AND " + EntropyDB.PRE_COL_PRESENTACION_FECHA + " BETWEEN ? AND ?";
-        Object[] parametros = {idCurso, fechaDesde.getTime(), fechaHasta.getTime()};
+        Calendar calendarDesde = Calendar.getInstance();
+        calendarDesde.setTime(fechaDesde);
+        calendarDesde.add(Calendar.HOUR, -24);
+        Long fechaDesdeRestada = calendarDesde.getTimeInMillis();
+        String consulta = "SELECT * FROM " + EntropyDB.PRE_TBL_PRESENTACION + " WHERE " + EntropyDB.PRE_COL_PRESENTACION_CURSO_ID + "=? AND (" + EntropyDB.PRE_COL_PRESENTACION_FECHA + " >= ?  AND " + EntropyDB.PRE_COL_PRESENTACION_FECHA + " <=?)";
+        Object[] parametros = {idCurso, fechaDesdeRestada, fechaHasta.getTime()};
         ResultSet rs = GestorConexion.getResultSet(conexion, consulta, parametros);
         try {
             while (rs.next()) {

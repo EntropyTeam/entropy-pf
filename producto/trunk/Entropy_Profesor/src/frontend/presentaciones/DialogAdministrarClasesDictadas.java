@@ -63,12 +63,18 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         }
         cmbCurso.setModel(modeloCombo);
     }
+    
+    private void limpiarListaDeClases() {
+        DefaultListModel modeloLista = new DefaultListModel();
+        lstClasesDictadas.setModel(modeloLista);
+    }
 
     private void buscarListaDeClasesDictadas() {
         IDAOPresentacion daoPresentacion = new DAOPresentacion();
         ArrayList<Presentacion> presentaciones = daoPresentacion.recuperarPresentaciones(((Curso) cmbCurso.getSelectedItem()).getIntCursoId(), dcFechaDesde.getDate(), dcFechaHasta.getDate());
-        if (presentaciones == null) {
+        if (presentaciones.size()==0) {
             Mensajes.mostrarInformacion("No se encontraron resultados para la búsqueda realizada.");
+            limpiarListaDeClases();
             return;
         }
         DefaultListModel modeloLista = new DefaultListModel();

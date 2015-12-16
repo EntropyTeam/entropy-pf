@@ -13,11 +13,15 @@ import backend.usuarios.Usuario;
 import frontend.inicio.VentanaPrincipal;
 import frontend.presentacion.DialogPresentacion;
 import frontend.presentacion.PanelIniciarPresentacion;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import javafx.scene.transform.Scale;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -39,16 +43,26 @@ public class GestorPresentacion {
     private Timer timerEspera;
     private Usuario profesor;
     private boolean blnEstaConectado = false;
+    private Dimension screenSize;
+    
 
 
     public GestorPresentacion(String ipServidor, int intPuerto) throws Exception {
         this.ipServidor = ipServidor;
         this.intPuerto = intPuerto;
         this.dialogPresentacion = new DialogPresentacion(mPadre,true);
+        this.dialogPresentacion.setSize(obtenerResolucionActual());
+        this.dialogPresentacion.getLblImagen().setSize(obtenerResolucionActual());
         iniciarConexion();
     }
     
 
+    public Dimension obtenerResolucionActual()
+    {   Toolkit toolkit = Toolkit.getDefaultToolkit();
+        this.screenSize = toolkit.getDefaultToolkit().getScreenSize();
+        return screenSize;
+    }
+    
     public String getIpServidor() {
         return ipServidor;
     }
@@ -95,6 +109,7 @@ public class GestorPresentacion {
         try {
             ByteArrayInputStream bufferImg = new ByteArrayInputStream(bytesImg);
             BufferedImage imagen = ImageIO.read(bufferImg);
+            imagen.getScaledInstance(screenSize.width, screenSize.height, Image.SCALE_DEFAULT);
             if(this.dialogPresentacion.isVisible()) {
                 this.dialogPresentacion.setLblImagen(new ImageIcon(imagen));
             } else if (blnEstaConectado) {

@@ -7,6 +7,7 @@
 package frontend.presentacion;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -26,6 +27,11 @@ public class DialogPresentacion extends javax.swing.JDialog {
     {
         this.lblImagen.setIcon(imagen);
     }
+     
+     public JLabel getLblImagen()
+     {
+         return this.lblImagen;
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
