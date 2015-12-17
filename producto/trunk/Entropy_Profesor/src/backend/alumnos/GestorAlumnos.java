@@ -1,6 +1,6 @@
 package backend.alumnos;
 
-import backend.dao.alumnos.DAOAlumno;
+import backend.dao.usuarios.DAOAlumno;
 import backend.diseños.Curso;
 import backend.diseños.Institucion;
 import backend.usuarios.Alumno;
@@ -32,6 +32,6 @@ public class GestorAlumnos {
     public ArrayList<Alumno> buscarAlumnos(String strNombre, String strApellido, 
             String strDocumento, String strLegajo, Institucion institucion, 
             Curso curso){
-        return new DAOAlumno().buscarAlumnos(strNombre, strApellido, strDocumento, strLegajo, institucion, curso);
+        return new DAOAlumno().getAlumnosBy(strNombre, strApellido, strDocumento, strLegajo, institucion, curso);
     }
 }

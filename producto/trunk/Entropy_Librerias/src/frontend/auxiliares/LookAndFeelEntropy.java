@@ -13,6 +13,7 @@ import javax.swing.border.LineBorder;
 public class LookAndFeelEntropy {
 
     public final static Font FUENTE_REGULAR = new Font("Calibri", 0, 12);
+    public final static Font FUENTE_NEGRITA = new Font("Calibri", Font.BOLD, 12);
     public final static Font FUENTE_CURSIVA = new Font("Calibri", Font.ITALIC, 12);
     public final static Font FUENTE_TITULO = new Font("Calibri", Font.BOLD, 14);
     public final static Font FUENTE_TITULO_GRANDE = new Font("Calibri", Font.BOLD, 20);

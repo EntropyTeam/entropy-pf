@@ -763,9 +763,7 @@ public class DialogAdministrarExamen extends javax.swing.JDialog {
             if (this.cmbCurso.getSelectedIndex() > 0) { //Seleccionó un curso.
                 this.cargarArbol((Curso) this.cmbCurso.getSelectedItem());
             } else if (this.cmbCurso.getSelectedItem().toString().equals("Todos")) {
-                ArrayList<Institucion> colInstituciones = new ArrayList<>();
-                colInstituciones.add((Institucion) this.cmbInstitucion.getSelectedItem());
-                this.cargarArbol(colInstituciones);
+                cmbInstitucionItemStateChanged(evt);
             }
         }
         this.repaint();
@@ -790,8 +788,9 @@ public class DialogAdministrarExamen extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCorregirFaltantesMouseExited
 
     private void btnCorregirFaltantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorregirFaltantesActionPerformed
-        GestorExamen.getInstancia().calificarRespuestasSinCalificacion(null, examenSeleccionado);
-        this.dispose();
+        if (GestorExamen.getInstancia().calificarRespuestasSinCalificacion(null, examenSeleccionado)) {
+            this.dispose();
+        }
     }//GEN-LAST:event_btnCorregirFaltantesActionPerformed
 
     public GestorBarrasDeEstado getGestorEstados() {

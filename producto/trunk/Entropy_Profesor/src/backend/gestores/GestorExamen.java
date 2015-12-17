@@ -1,10 +1,12 @@
 package backend.gestores;
 
 import backend.auxiliares.Mensajes;
+import backend.dao.diseños.DAOCurso;
 import backend.dao.examenes.DAOExamen;
 import backend.dao.examenes.DAOPreguntaExamen;
 import backend.dao.resoluciones.DAOResolucion;
 import backend.dao.resoluciones.DAORespuesta;
+import backend.dao.usuarios.DAOAlumno;
 import backend.diseños.Curso;
 import backend.examenes.EstadoExamen;
 import backend.examenes.Examen;
@@ -83,6 +85,15 @@ public class GestorExamen {
     }
 
     public void verRespuestas(PanelResoluciones pnlPadre, Resolucion resolucion) {
+        try {
+            if (resolucion.getExamen().getCurso().getStrNombre() == null) {
+                resolucion.getExamen().setCurso(new DAOCurso().recuperarCurso(resolucion.getExamen().getCurso().getIntCursoId()));
+            }
+            
+        } catch (Exception e){
+            System.err.println("El curso asociado a la resolución es null.");
+        }
+        resolucion.setAlumno(new DAOAlumno().getAlumnoByResolucion(resolucion.getIntID()));
         PanelRespuesta pnlRespuestas = new PanelRespuesta(pnlPadre, resolucion);
         pnlRespuestas.setName("Ver respuestas");
         VentanaPrincipal.getInstancia().ocultarMenu();
@@ -129,12 +140,13 @@ public class GestorExamen {
      *
      * @param pnlPadre panel al cual retornar luego.
      * @param examen  examen cuyas respuestas se quieren corregir.
+     * @return false si no existen respuestas por corregir, true de lo contrario.
      */
-    public void calificarRespuestasSinCalificacion(JPanel pnlPadre, Examen examen) {
+    public boolean calificarRespuestasSinCalificacion(JPanel pnlPadre, Examen examen) {
         ArrayList<Respuesta> colRespuestas = new DAORespuesta().getRespuestasNoCalificadas(examen.getIntExamenId());
         if (colRespuestas.isEmpty()) {
             Mensajes.mostrarInformacion("El examen no posee respuestas sin corregir.");
-            return;
+            return false;
         }
         PanelRespuesta pnlRespuestas = new PanelRespuesta(pnlPadre, colRespuestas, examen);
         pnlRespuestas.setName("Ver respuestas");
@@ -144,6 +156,7 @@ public class GestorExamen {
         if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
             VentanaPrincipal.getInstancia().pack();
         }
+        return true;
     }
 
     public boolean verEstadisticas(Examen examenSeleccionado) {

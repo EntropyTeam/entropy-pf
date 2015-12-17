@@ -60,6 +60,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         this.tblAlumnos.setBackground(new Color(255, 255, 255, 123));
         this.scrTablaAlumnos.setBackground(new Color(255, 255, 255, 123));
         this.scrTablaAlumnos.getViewport().setOpaque(false);
+        this.pnlDatosExamen.setBackground(new Color(255, 255, 255, 123));
 
         //Configuración de la tabla.
         tblAlumnos.setDefaultRenderer(Object.class, new CeldaTomarExamenRenderer());
@@ -73,6 +74,16 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
         // Seteo el examen
         this.examenTomar = examenTomar;
+        lblExamen.setText(examenTomar.getStrNombre());
+        lblCurso.setText(examenTomar.getCurso().getStrNombre());
+        lblInstitucion.setText(examenTomar.getCurso().getInstitucion().getStrNombre());
+        if (examenTomar.getStrDescripcion().isEmpty()){
+            lblsDescripcion.setVisible(false);
+            lblDescripcion.setVisible(false);
+        } else {
+            lblDescripcion.setText(examenTomar.getStrDescripcion());
+            lblDescripcion.setToolTipText(examenTomar.getStrDescripcion());
+        }
 
         //Creo el gestor de Toma de Examen
         gestorTomaExamen = new GestorTomaExamen(this, examenTomar);
@@ -127,6 +138,15 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         lblIconoEstado = new javax.swing.JLabel();
         lblsPorcentajeTerminados = new javax.swing.JLabel();
         lblPorcentajeTerminados = new javax.swing.JLabel();
+        pnlDatosExamen = new javax.swing.JPanel();
+        lblsExamen = new javax.swing.JLabel();
+        lblsCurso = new javax.swing.JLabel();
+        lblsInstitucion = new javax.swing.JLabel();
+        lblsDescripcion = new javax.swing.JLabel();
+        lblExamen = new javax.swing.JLabel();
+        lblCurso = new javax.swing.JLabel();
+        lblInstitucion = new javax.swing.JLabel();
+        lblDescripcion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -163,7 +183,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         pnlBotones.add(btnFinalizar);
 
         btnModificarTiempo.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnModificarTiempo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_tiempo.png"))); // NOI18N
+        btnModificarTiempo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_tiempo_multicolor.png"))); // NOI18N
         btnModificarTiempo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnModificarTiempo.setContentAreaFilled(false);
         btnModificarTiempo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -263,20 +283,96 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         lblPorcentajeTerminados.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblPorcentajeTerminados.setText("0%");
 
+        pnlDatosExamen.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Examen en curso", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_CURSIVA, LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL));
+
+        lblsExamen.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsExamen.setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+        lblsExamen.setText("Examen:");
+
+        lblsCurso.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsCurso.setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+        lblsCurso.setText("Curso:");
+
+        lblsInstitucion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsInstitucion.setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+        lblsInstitucion.setText("Institución:");
+
+        lblsDescripcion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsDescripcion.setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+        lblsDescripcion.setText("Descripción:");
+
+        lblExamen.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
+        lblExamen.setText("Examen");
+
+        lblCurso.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblCurso.setText("Curso");
+
+        lblInstitucion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblInstitucion.setText("Institución");
+
+        lblDescripcion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblDescripcion.setText("Descripción");
+
+        javax.swing.GroupLayout pnlDatosExamenLayout = new javax.swing.GroupLayout(pnlDatosExamen);
+        pnlDatosExamen.setLayout(pnlDatosExamenLayout);
+        pnlDatosExamenLayout.setHorizontalGroup(
+            pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosExamenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDatosExamenLayout.createSequentialGroup()
+                        .addComponent(lblsDescripcion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlDatosExamenLayout.createSequentialGroup()
+                        .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblsInstitucion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                            .addComponent(lblsExamen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblsCurso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblInstitucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        pnlDatosExamenLayout.setVerticalGroup(
+            pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosExamenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblsExamen)
+                    .addComponent(lblExamen))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblsCurso)
+                    .addComponent(lblCurso))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblsInstitucion)
+                    .addComponent(lblInstitucion))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblsDescripcion)
+                    .addComponent(lblDescripcion))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout pnlFondoLayout = new javax.swing.GroupLayout(pnlFondo);
         pnlFondo.setLayout(pnlFondoLayout);
         pnlFondoLayout.setHorizontalGroup(
             pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFondoLayout.createSequentialGroup()
+            .addGroup(pnlFondoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlFondoLayout.createSequentialGroup()
+                .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFondoLayout.createSequentialGroup()
                         .addComponent(lblsPorcentajeTerminados)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblPorcentajeTerminados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(513, 513, 513))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlFondoLayout.createSequentialGroup()
+                    .addGroup(pnlFondoLayout.createSequentialGroup()
                         .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(pnlDatosExamen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(pnlEstado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(scrTablaAlumnos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -289,8 +385,10 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         pnlFondoLayout.setVerticalGroup(
             pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFondoLayout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
-                .addComponent(scrTablaAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(pnlDatosExamen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrTablaAlumnos, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblsPorcentajeTerminados)
@@ -313,7 +411,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+            .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
         );
 
         pack();
@@ -471,10 +569,19 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
     private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnModificarTiempo;
     private javax.swing.JLabel lblActualizacionEstado;
+    private javax.swing.JLabel lblCurso;
+    private javax.swing.JLabel lblDescripcion;
+    private javax.swing.JLabel lblExamen;
     private javax.swing.JLabel lblIconoEstado;
+    private javax.swing.JLabel lblInstitucion;
     private javax.swing.JLabel lblPorcentajeTerminados;
+    private javax.swing.JLabel lblsCurso;
+    private javax.swing.JLabel lblsDescripcion;
+    private javax.swing.JLabel lblsExamen;
+    private javax.swing.JLabel lblsInstitucion;
     private javax.swing.JLabel lblsPorcentajeTerminados;
     private javax.swing.JPanel pnlBotones;
+    private javax.swing.JPanel pnlDatosExamen;
     private javax.swing.JPanel pnlEstado;
     private frontend.auxiliares.PanelConFondo pnlFondo;
     private javax.swing.JScrollPane scrTablaAlumnos;

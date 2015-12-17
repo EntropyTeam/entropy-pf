@@ -63,20 +63,11 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
         this.gestorImportarPregunta = new GestorImportarPregunta();
         this.gestorEstados = new GestorBarrasDeEstado(lblActualizacionEstado, lblIconoEstado);
 
-        this.pnlCentral.add(pnlInformacion);
-        this.pnlInformacion.setVisible(false);
-        this.pnlInformacion.setPreferredSize(new Dimension(250, 80));
-
         //Fondo translúcido.
         this.pnlEstado.setBackground(new Color(255, 255, 255, 123));
         this.lstAlumnos.setBackground(new Color(255, 255, 255, 123));
         this.scrAlumnos.getViewport().setOpaque(false);
-        this.scrDescripcion.getViewport().setOpaque(false);
-        this.tpnDescripcion.setHighlighter(null);
-        this.pnlInformacion.setBackground(new Color(240, 230, 210));
-        this.scrDescripcion.setOpaque(false);
         this.scrAlumnos.setOpaque(false);
-        this.pnlDatos.setOpaque(false);
 
         //Para que el undecorated dialog pueda moverse y ajustarse en tamaño.
         ComponentMover cm = new ComponentMover(JDialog.class, lblBarraTitulo);
@@ -103,15 +94,11 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
     }
 
     private void verResoluciones() {
-        if (GestorExamen.getInstancia().verResolucion(this.examenSeleccionado)) {
-            this.dispose();
-        }
+        
     }
 
     private void verEstadisticas() {
-        if (GestorExamen.getInstancia().verEstadisticas(this.examenSeleccionado)) {
-            this.dispose();
-        }
+        
     }
 
     /**
@@ -123,21 +110,6 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlInformacion = new javax.swing.JPanel();
-        pnlDatos = new javax.swing.JPanel();
-        lblsNombre = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JLabel();
-        lblsFecha = new javax.swing.JLabel();
-        lblFecha = new javax.swing.JLabel();
-        lblsEstado = new javax.swing.JLabel();
-        lblEstado = new javax.swing.JLabel();
-        scrDescripcion = new javax.swing.JScrollPane();
-        tpnDescripcion = new javax.swing.JTextPane();
-        pnlBotones = new javax.swing.JPanel();
-        btnVerResoluciones = new javax.swing.JButton();
-        btnCorregirFaltantes = new javax.swing.JButton();
-        btnEstadisticas = new javax.swing.JButton();
-        btnCompartir = new javax.swing.JButton();
         pnlFondo = new frontend.auxiliares.PanelConFondo();
         lblBarraTitulo = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
@@ -160,193 +132,6 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
         pnlCentral = new javax.swing.JPanel();
         scrAlumnos = new javax.swing.JScrollPane();
         lstAlumnos = new javax.swing.JList();
-
-        pnlInformacion.setMaximumSize(new java.awt.Dimension(150, 32793));
-        pnlInformacion.setMinimumSize(new java.awt.Dimension(132, 54));
-        pnlInformacion.setPreferredSize(new java.awt.Dimension(132, 132));
-        pnlInformacion.setLayout(new javax.swing.BoxLayout(pnlInformacion, javax.swing.BoxLayout.Y_AXIS));
-
-        pnlDatos.setMaximumSize(new java.awt.Dimension(32767, 80));
-        pnlDatos.setMinimumSize(new java.awt.Dimension(100, 80));
-
-        lblsNombre.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        lblsNombre.setText("<html>Nombre:</html>");
-        lblsNombre.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        lblNombre.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        lblNombre.setText("Nombre");
-        lblNombre.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        lblNombre.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-
-        lblsFecha.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        lblsFecha.setText("Fecha:");
-
-        lblFecha.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        lblFecha.setText("01/01/01");
-
-        lblsEstado.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        lblsEstado.setText("Estado:");
-
-        lblEstado.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        lblEstado.setText("Corregido");
-
-        javax.swing.GroupLayout pnlDatosLayout = new javax.swing.GroupLayout(pnlDatos);
-        pnlDatos.setLayout(pnlDatosLayout);
-        pnlDatosLayout.setHorizontalGroup(
-            pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDatosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblsEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblsFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblsNombre, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                    .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        pnlDatosLayout.setVerticalGroup(
-            pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDatosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblsNombre))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblsFecha)
-                    .addComponent(lblFecha))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblsEstado)
-                    .addComponent(lblEstado))
-                .addContainerGap())
-        );
-
-        pnlInformacion.add(pnlDatos);
-
-        scrDescripcion.setBackground(new java.awt.Color(204, 204, 204));
-        scrDescripcion.setBorder(null);
-
-        tpnDescripcion.setEditable(false);
-        tpnDescripcion.setBackground(new java.awt.Color(204, 204, 204));
-        tpnDescripcion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Descripción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR));
-        tpnDescripcion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        tpnDescripcion.setMaximumSize(new java.awt.Dimension(2147483647, 60));
-        tpnDescripcion.setMinimumSize(new java.awt.Dimension(2147483647, 60));
-        tpnDescripcion.setOpaque(false);
-        tpnDescripcion.setPreferredSize(new java.awt.Dimension(28, 60));
-        scrDescripcion.setViewportView(tpnDescripcion);
-
-        pnlInformacion.add(scrDescripcion);
-
-        pnlBotones.setMaximumSize(new java.awt.Dimension(32767, 33));
-        pnlBotones.setPreferredSize(new java.awt.Dimension(259, 33));
-        pnlBotones.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
-
-        btnVerResoluciones.setBackground(new java.awt.Color(244, 225, 200));
-        btnVerResoluciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_examinar_25x25.png"))); // NOI18N
-        btnVerResoluciones.setToolTipText("");
-        btnVerResoluciones.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 1, true));
-        btnVerResoluciones.setContentAreaFilled(false);
-        btnVerResoluciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVerResoluciones.setMaximumSize(new java.awt.Dimension(2345, 33));
-        btnVerResoluciones.setMinimumSize(new java.awt.Dimension(33, 33));
-        btnVerResoluciones.setOpaque(true);
-        btnVerResoluciones.setPreferredSize(new java.awt.Dimension(33, 33));
-        btnVerResoluciones.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnVerResolucionesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnVerResolucionesMouseExited(evt);
-            }
-        });
-        btnVerResoluciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVerResolucionesActionPerformed(evt);
-            }
-        });
-        pnlBotones.add(btnVerResoluciones);
-
-        btnCorregirFaltantes.setBackground(new java.awt.Color(244, 225, 200));
-        btnCorregirFaltantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_mano_25x25.png"))); // NOI18N
-        btnCorregirFaltantes.setToolTipText("");
-        btnCorregirFaltantes.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 1, true));
-        btnCorregirFaltantes.setContentAreaFilled(false);
-        btnCorregirFaltantes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCorregirFaltantes.setMaximumSize(new java.awt.Dimension(2345, 33));
-        btnCorregirFaltantes.setMinimumSize(new java.awt.Dimension(33, 33));
-        btnCorregirFaltantes.setOpaque(true);
-        btnCorregirFaltantes.setPreferredSize(new java.awt.Dimension(33, 33));
-        btnCorregirFaltantes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCorregirFaltantesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCorregirFaltantesMouseExited(evt);
-            }
-        });
-        btnCorregirFaltantes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCorregirFaltantesActionPerformed(evt);
-            }
-        });
-        pnlBotones.add(btnCorregirFaltantes);
-
-        btnEstadisticas.setBackground(new java.awt.Color(244, 225, 200));
-        btnEstadisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_estadisticas_25x25.png"))); // NOI18N
-        btnEstadisticas.setToolTipText("");
-        btnEstadisticas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 1, true));
-        btnEstadisticas.setContentAreaFilled(false);
-        btnEstadisticas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEstadisticas.setMaximumSize(new java.awt.Dimension(2345, 33));
-        btnEstadisticas.setMinimumSize(new java.awt.Dimension(33, 33));
-        btnEstadisticas.setOpaque(true);
-        btnEstadisticas.setPreferredSize(new java.awt.Dimension(33, 33));
-        btnEstadisticas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnEstadisticasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnEstadisticasMouseExited(evt);
-            }
-        });
-        btnEstadisticas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEstadisticasActionPerformed(evt);
-            }
-        });
-        pnlBotones.add(btnEstadisticas);
-
-        btnCompartir.setBackground(new java.awt.Color(244, 225, 200));
-        btnCompartir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_compartir_25x25.png"))); // NOI18N
-        btnCompartir.setToolTipText("");
-        btnCompartir.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 1, true));
-        btnCompartir.setContentAreaFilled(false);
-        btnCompartir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCompartir.setMaximumSize(new java.awt.Dimension(2345, 33));
-        btnCompartir.setMinimumSize(new java.awt.Dimension(33, 33));
-        btnCompartir.setOpaque(true);
-        btnCompartir.setPreferredSize(new java.awt.Dimension(33, 33));
-        btnCompartir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCompartirMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCompartirMouseExited(evt);
-            }
-        });
-        btnCompartir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCompartirActionPerformed(evt);
-            }
-        });
-        pnlBotones.add(btnCompartir);
-
-        pnlInformacion.add(pnlBotones);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -487,9 +272,8 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
                     .addGroup(pnlFiltrosLayout.createSequentialGroup()
                         .addGroup(pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                                .addComponent(lblLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblApellido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblDocumento))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -591,72 +375,7 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnVerResolucionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerResolucionesMouseEntered
-        this.gestorEstados.setEstadoInstantaneo("Ver resoluciones de los alumnos.");
-        this.repaint();
-    }//GEN-LAST:event_btnVerResolucionesMouseEntered
-
-    private void btnVerResolucionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerResolucionesMouseExited
-        this.gestorEstados.volverAEstadoImportante();
-        this.repaint();
-    }//GEN-LAST:event_btnVerResolucionesMouseExited
-
-    private void btnVerResolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerResolucionesActionPerformed
-        verResoluciones();
-    }//GEN-LAST:event_btnVerResolucionesActionPerformed
-
-    private void btnEstadisticasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEstadisticasMouseEntered
-        this.gestorEstados.setEstadoInstantaneo("Ver estadísticas del examen.");
-        this.repaint();
-    }//GEN-LAST:event_btnEstadisticasMouseEntered
-
-    private void btnEstadisticasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEstadisticasMouseExited
-        this.gestorEstados.volverAEstadoImportante();
-        this.repaint();
-    }//GEN-LAST:event_btnEstadisticasMouseExited
-
-    private void btnEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadisticasActionPerformed
-        this.verEstadisticas();
-    }//GEN-LAST:event_btnEstadisticasActionPerformed
-
-    private void btnCompartirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCompartirMouseEntered
-        this.gestorEstados.setEstadoInstantaneo("Compartir este examen.");
-        this.repaint();
-    }//GEN-LAST:event_btnCompartirMouseEntered
-
-    private void btnCompartirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCompartirMouseExited
-        this.gestorEstados.volverAEstadoImportante();
-        this.repaint();
-    }//GEN-LAST:event_btnCompartirMouseExited
-
-    private void btnCompartirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompartirActionPerformed
-        System.err.println("FALTA IMPLEMENTAR COMPARTIR");
-
-        //Codigo mio para probar, esta mal.
-        ArrayList<Resolucion> colResoluciones = new DAOResolucion().getResoluciones(examenSeleccionado);
-        if (colResoluciones.isEmpty()) {
-            Mensajes.mostrarInformacion("El examen no posee resoluciones.");
-        } else {
-            for (Resolucion resolucion : colResoluciones) {
-                resolucion.setExamen(examenSeleccionado);
-            }
-        }
-        GestorGenerarReporteResolucion gestorGenerarReporteResolucion = new GestorGenerarReporteResolucion(colResoluciones.get(0));
-        gestorGenerarReporteResolucion.generarReporteResolucion();
-        gestorGenerarReporteResolucion.borrarResolucionDeDisco();
-
-        enviarMail("Se le envia el examen a los alumnos", new ArrayList<String>());
-    }//GEN-LAST:event_btnCompartirActionPerformed
-    private void enviarMail(String cuerpoDelMensaje, ArrayList<String> destinarios) {
-        GestorEnvioDeMail gestorEnvioDeMail = new GestorEnvioDeMail();
-        Email nuevoMail = new Email();
-        nuevoMail.setMessage(cuerpoDelMensaje);
-        byte[] bytes = null;
-        nuevoMail.setAdjunto(cuerpoDelMensaje, bytes);
-        gestorEnvioDeMail.enviarMuchosDestinatarios(nuevoMail, destinarios);
-
-    }
+    
     private void cmbInstitucionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbInstitucionItemStateChanged
         if (ultimoComboActivo == evt.getSource()) {
             int intIndexSeleccionado = this.cmbInstitucion.getSelectedIndex();
@@ -698,21 +417,6 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void btnCorregirFaltantesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCorregirFaltantesMouseEntered
-        gestorEstados.setEstadoInstantaneo("Corregir todas las preguntas aún sin calificación de este examen.");
-        this.repaint();
-    }//GEN-LAST:event_btnCorregirFaltantesMouseEntered
-
-    private void btnCorregirFaltantesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCorregirFaltantesMouseExited
-        gestorEstados.volverAEstadoImportante();
-        this.repaint();
-    }//GEN-LAST:event_btnCorregirFaltantesMouseExited
-
-    private void btnCorregirFaltantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorregirFaltantesActionPerformed
-        GestorExamen.getInstancia().calificarRespuestasSinCalificacion(null, examenSeleccionado);
-        this.dispose();
-    }//GEN-LAST:event_btnCorregirFaltantesActionPerformed
-
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         this.strNombre = txtNombre.getText();
         this.buscarAlumnos(strNombre, strApellido, strDocumento, strLegajo, institucion, curso);
@@ -740,10 +444,6 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton btnCompartir;
-    private javax.swing.JButton btnCorregirFaltantes;
-    private javax.swing.JButton btnEstadisticas;
-    private javax.swing.JButton btnVerResoluciones;
     private javax.swing.JComboBox cmbCurso;
     private javax.swing.JComboBox cmbInstitucion;
     private javax.swing.JLabel lblActualizacionEstado;
@@ -751,27 +451,16 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
     private javax.swing.JLabel lblBarraTitulo;
     private javax.swing.JLabel lblCurso;
     private javax.swing.JLabel lblDocumento;
-    private javax.swing.JLabel lblEstado;
-    private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblIconoEstado;
     private javax.swing.JLabel lblLegajo;
-    private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNombre1;
     private javax.swing.JLabel lblNombreInstitucion;
-    private javax.swing.JLabel lblsEstado;
-    private javax.swing.JLabel lblsFecha;
-    private javax.swing.JLabel lblsNombre;
     private javax.swing.JList lstAlumnos;
-    private javax.swing.JPanel pnlBotones;
     private javax.swing.JPanel pnlCentral;
-    private javax.swing.JPanel pnlDatos;
     private javax.swing.JPanel pnlEstado;
     private javax.swing.JPanel pnlFiltros;
     private frontend.auxiliares.PanelConFondo pnlFondo;
-    private javax.swing.JPanel pnlInformacion;
     private javax.swing.JScrollPane scrAlumnos;
-    private javax.swing.JScrollPane scrDescripcion;
-    private javax.swing.JTextPane tpnDescripcion;
     private frontend.auxiliares.TextFieldEntropy txtApellido;
     private frontend.auxiliares.TextFieldEntropy txtDocumento;
     private frontend.auxiliares.TextFieldEntropy txtLegajo;

@@ -603,10 +603,13 @@ public class PanelRespuesta extends javax.swing.JPanel {
         lblSiguiente.setVisible(true);
         lblAnterior.setVisible(true);
 
-        if (intIDSeleccionada == colCasillas.length - 1) {
+        if (colCasillas.length == 1) {
+            lblAnterior.setVisible(false);
             lblSiguiente.setVisible(false);
         } else if (intIDSeleccionada == 0) {
             lblAnterior.setVisible(false);
+        } else if (intIDSeleccionada == colCasillas.length - 1) {
+            lblSiguiente.setVisible(false);
         }
 
         JPanel pnl = colPaneles[idRespuesta];

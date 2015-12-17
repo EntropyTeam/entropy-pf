@@ -12,9 +12,11 @@ public class Alumno extends Usuario implements Serializable {
     private String strCodigo;
 
     public Alumno() {
+        this.intAlumnoId = -1;
     }
 
     public Alumno(String strNombre, String strApellido, String strTipoDocumento, int intNroDocumento, String strEmail, String strLegajo, String strDescripcion, Object imgFoto, String strIP) {
+        this.intAlumnoId = -1;
         this.strNombre = strNombre;
         this.strApellido = strApellido;
         this.strTipoDocumento = strTipoDocumento;

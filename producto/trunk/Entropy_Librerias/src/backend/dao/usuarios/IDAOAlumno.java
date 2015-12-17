@@ -1,6 +1,9 @@
 package backend.dao.usuarios;
 
+import backend.diseños.Curso;
+import backend.diseños.Institucion;
 import backend.usuarios.Alumno;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,4 +34,11 @@ public interface IDAOAlumno {
      */
     public Alumno getAlumno(int idAlumno);
     
+    public ArrayList<Alumno> getAlumnosBy(String strNombre, String strApellido, 
+        String strDocumento, String strLegajo, Institucion institucion, 
+        Curso curso);
+        
+    public Alumno getAlumnoByResolucion(int intResolucionID);
+    
+    public Alumno getAlumnoByRespuesta(int intRespuestaID);
 }

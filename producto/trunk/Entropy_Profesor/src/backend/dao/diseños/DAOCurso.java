@@ -23,9 +23,37 @@ public class DAOCurso implements IDAOCurso {
         Curso curso = null;
         Connection conexion = DAOConexion.conectarBaseDatos();
         try {
-
+            String strConsulta = "SELECT "
+                    + "C." + EntropyDB.GRL_COL_CURSO_NOMBRE + ","
+                    + "C." + EntropyDB.GRL_COL_CURSO_DESCRIPCION + ", "
+                    + "I." + EntropyDB.GRL_COL_INSTITUCION_ID + ", "
+                    + "I." + EntropyDB.GRL_COL_INSTITUCION_NOMBRE + ", "
+                    + "I." + EntropyDB.GRL_COL_INSTITUCION_DESCRIPCION + ", "
+                    + "I." + EntropyDB.GRL_COL_INSTITUCION_LOGO + " "
+                    + "FROM " + EntropyDB.GRL_TBL_CURSO + " C JOIN "
+                    + EntropyDB.GRL_TBL_INSTITUCION + " I ON C." 
+                    + EntropyDB.GRL_COL_CURSO_INSTITUCION_ID + " = "
+                    + "I." + EntropyDB.GRL_COL_INSTITUCION_ID + " "
+                    + "WHERE C." + EntropyDB.GRL_COL_CURSO_ID + " = ?";
+            PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
+            psConsulta.setInt(1, intCursoId);
+            ResultSet rsConsulta = psConsulta.executeQuery();
+            while (rsConsulta.next()) {
+                curso = new Curso();
+                curso.setIntCursoId(intCursoId);
+                curso.setStrNombre(rsConsulta.getString(1));
+                curso.setStrDescripcion(rsConsulta.getString(2));
+                
+                Institucion institucion = new Institucion();
+                institucion.setIntInstitucionId(rsConsulta.getInt(3));
+                institucion.setStrNombre(rsConsulta.getString(4));
+                institucion.setStrDescripcion(rsConsulta.getString(5));
+                institucion.setImgLogo(rsConsulta.getObject(6));
+                
+                curso.setInstitucion(institucion);                
+            }
         } catch (Exception e) {
-            System.err.println("Ocurrio un error mientras se recuperaba una institucion " + e.toString());
+            System.err.println("Ocurrió un error mientras se recuperaba el curso: " + e.toString());
         }
         return curso;
     }

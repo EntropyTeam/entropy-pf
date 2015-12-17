@@ -456,19 +456,18 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private void btnCompartirResolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompartirResolucionActionPerformed
         //Se le envia a una resolucion al alumno seleccionado
         if(lstResoluciones.getSelectedValue()!=null) {
-            try{
-        Resolucion  resolucion  = (Resolucion)lstResoluciones.getSelectedValue();
-        Alumno alumno = resolucion.getAlumno();
-        GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
-        gestorReporte.generarReporteResolucion();
-        String pathArchivo= gestorReporte.getResolucion();
-        Path path = Paths.get(pathArchivo);
-        byte[] pdf = Files.readAllBytes(path);
-        EnvioMail nuevoMail = new EnvioMail(alumno, pdf);
-        nuevoMail.setVisible(true);
-        }
-            catch(Exception e)
-            {
+            try {
+                Resolucion  resolucion  = (Resolucion)lstResoluciones.getSelectedValue();
+                Alumno alumno = resolucion.getAlumno();
+                GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
+                gestorReporte.generarReporteResolucion();
+                String pathArchivo= gestorReporte.getResolucion();
+                Path path = Paths.get(pathArchivo);
+                byte[] pdf = Files.readAllBytes(path);
+                EnvioMail nuevoMail = new EnvioMail(alumno, pdf);
+                nuevoMail.setVisible(true);
+            }
+            catch(Exception e) {
                 System.err.println("Ocurrió una excepción creando el PDF:  "+e.toString());
             }
         }
@@ -476,9 +475,9 @@ public class PanelResoluciones extends javax.swing.JPanel {
         {
            if( Mensajes.mostrarConfirmacion("¿Está seguro que desea enviar las resoluciones a todos los alumnos?"))
            {
-            ArrayList alumnos = recuperarTodoslosAlumnos(this.lstResoluciones);
-            ArrayList<byte[]> pdfs = null; // Son el array de los pdfs que se crearan
-            EnvioMail nuevoMail = new EnvioMail(alumnos, pdfs);
+                ArrayList alumnos = recuperarTodoslosAlumnos(this.lstResoluciones);
+                ArrayList<byte[]> pdfs = null; // Son el array de los pdfs que se crearan
+                EnvioMail nuevoMail = new EnvioMail(alumnos, pdfs);
            }
            
         }
