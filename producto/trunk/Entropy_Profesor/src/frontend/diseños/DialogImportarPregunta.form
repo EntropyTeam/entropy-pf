@@ -413,7 +413,10 @@
         </Container>
         <Component class="javax.swing.JCheckBox" name="cbSeleccionarDeseleccionarTodasLasPreguntas">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Seleecionar Todos/Deseleccionar Todos"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Seleccionar todas/Deseleccionar todas"/>
           </Properties>
           <Events>
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbSeleccionarDeseleccionarTodasLasPreguntasItemStateChanged"/>

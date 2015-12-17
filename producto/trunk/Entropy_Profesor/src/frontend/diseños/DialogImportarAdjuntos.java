@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package frontend.diseños;
 
 import backend.diseños.Pregunta;
@@ -25,20 +20,22 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
 
     /**
      * Creates new form DialogImportarAdjuntos
+     * @param parent
+     * @param modal
+     * @param mPadre
      */
-    public DialogImportarAdjuntos(java.awt.Frame parent, boolean modal, PanelContenidoExamen mPadre ) {
+    public DialogImportarAdjuntos(java.awt.Frame parent, boolean modal, PanelContenidoExamen mPadre) {
         super(parent, modal);
-        this.mPadre=mPadre;
+        this.mPadre = mPadre;
+        this.setLocationRelativeTo(parent);
         initComponents();
         validarImagen();
     }
-    
-    private void validarImagen()
-    {
+
+    private void validarImagen() {
         Pregunta pregunta = mPadre.getPreguntaSeleccionada();
-        if(pregunta.getColAdjuntos()==null)
-        {
-            
+        if (pregunta.getColAdjuntos() == null) {
+
         }
     }
 
@@ -55,11 +52,10 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
         }
         return bytes;
     }
-    
-    private void guardarAdjuntoEnPregunta(Object imagen)
-    {
+
+    private void guardarAdjuntoEnPregunta(Object imagen) {
         Pregunta pregunta = mPadre.getPreguntaSeleccionada();
-        ArrayList<Object> adjuntos = new ArrayList<Object> ();
+        ArrayList<Object> adjuntos = new ArrayList<>();
         adjuntos.add(imagen);
         pregunta.setColAdjuntos(adjuntos);
     }
@@ -70,13 +66,15 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
 
         btnBorrarImagen = new javax.swing.JButton();
         btnCargaImagen = new javax.swing.JButton();
-        btnAgregarImagen = new javax.swing.JButton();
-        btnVolverDiseno = new javax.swing.JButton();
-        lblEstadoInstitucion = new javax.swing.JLabel();
         pnlmagen = new frontend.auxiliares.PanelConFondo();
         lblImagenMuestra = new javax.swing.JLabel();
+        pnlBotones = new javax.swing.JPanel();
+        btnVolverDiseno = new javax.swing.JButton();
+        btnAgregarImagen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Importar adjuntos...");
+        setResizable(false);
 
         btnBorrarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_papelera25x25.png"))); // NOI18N
         btnBorrarImagen.setToolTipText("");
@@ -100,37 +98,6 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
             }
         });
 
-        btnAgregarImagen.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnAgregarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_guardar.png"))); // NOI18N
-        btnAgregarImagen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnAgregarImagen.setContentAreaFilled(false);
-        btnAgregarImagen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAgregarImagen.setIconTextGap(10);
-        btnAgregarImagen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarImagenActionPerformed(evt);
-            }
-        });
-
-        btnVolverDiseno.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnVolverDiseno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
-        btnVolverDiseno.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnVolverDiseno.setContentAreaFilled(false);
-        btnVolverDiseno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVolverDiseno.setIconTextGap(10);
-        btnVolverDiseno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverDisenoActionPerformed(evt);
-            }
-        });
-
-        lblEstadoInstitucion.setFont(new java.awt.Font("Calibri", 2, 12)); // NOI18N
-        lblEstadoInstitucion.setForeground(new java.awt.Color(102, 102, 102));
-        lblEstadoInstitucion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblEstadoInstitucion.setText("Acá se escriben estados...");
-        lblEstadoInstitucion.setAlignmentX(0.5F);
-        lblEstadoInstitucion.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-
         pnlmagen.setPreferredSize(new java.awt.Dimension(155, 155));
 
         lblImagenMuestra.setBackground(new java.awt.Color(248, 246, 246));
@@ -138,7 +105,7 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
         lblImagenMuestra.setForeground(new java.awt.Color(102, 102, 102));
         lblImagenMuestra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImagenMuestra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_camara.png"))); // NOI18N
-        lblImagenMuestra.setText("Sin imagen");
+        lblImagenMuestra.setText("Vista previa");
         lblImagenMuestra.setToolTipText("Imagen");
         lblImagenMuestra.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblImagenMuestra.setOpaque(true);
@@ -165,52 +132,68 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
                     .addContainerGap()))
         );
 
+        pnlBotones.setLayout(new java.awt.GridLayout());
+
+        btnVolverDiseno.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnVolverDiseno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
+        btnVolverDiseno.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnVolverDiseno.setContentAreaFilled(false);
+        btnVolverDiseno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolverDiseno.setIconTextGap(10);
+        btnVolverDiseno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverDisenoActionPerformed(evt);
+            }
+        });
+        pnlBotones.add(btnVolverDiseno);
+
+        btnAgregarImagen.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnAgregarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_guardar.png"))); // NOI18N
+        btnAgregarImagen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnAgregarImagen.setContentAreaFilled(false);
+        btnAgregarImagen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarImagen.setIconTextGap(10);
+        btnAgregarImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarImagenActionPerformed(evt);
+            }
+        });
+        pnlBotones.add(btnAgregarImagen);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlmagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(btnVolverDiseno, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(btnAgregarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(115, 115, 115)
-                                .addComponent(pnlmagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnBorrarImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnCargaImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 58, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblEstadoInstitucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(btnBorrarImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCargaImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(16, Short.MAX_VALUE)
-                        .addComponent(pnlmagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(btnCargaImagen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBorrarImagen)
-                        .addGap(31, 31, 31)))
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnVolverDiseno, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(lblEstadoInstitucion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCargaImagen)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBorrarImagen))
+                    .addComponent(pnlmagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(73, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(273, Short.MAX_VALUE)
+                    .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
         pack();
@@ -243,15 +226,11 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
                 this.pnlmagen.setImagen(imgSeleccionada);
                 this.lblImagenMuestra.setVisible(false);
                 bytesImagen = guardarParametrosDeImagen(strRutaAbsoluta);
+            } else {
+                System.out.println("OCurrio un error al querer cargar la foto");
             }
-            else
-            {
-                 System.out.println("OCurrio un error al querer cargar la foto");
-            }
-            
-        }
-        else
-        {
+
+        } else {
             System.out.println("OCurrio un error al querer cargar la foto");
         }
     }//GEN-LAST:event_btnCargaImagenActionPerformed
@@ -271,8 +250,8 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
     private javax.swing.JButton btnBorrarImagen;
     private javax.swing.JButton btnCargaImagen;
     private javax.swing.JButton btnVolverDiseno;
-    private javax.swing.JLabel lblEstadoInstitucion;
     private javax.swing.JLabel lblImagenMuestra;
+    private javax.swing.JPanel pnlBotones;
     private frontend.auxiliares.PanelConFondo pnlmagen;
     // End of variables declaration//GEN-END:variables
 }

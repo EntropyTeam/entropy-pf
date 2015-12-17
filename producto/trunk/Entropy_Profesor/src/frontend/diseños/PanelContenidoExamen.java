@@ -13,6 +13,7 @@ import frontend.auxiliares.FiltroTexto;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.auxiliares.TextAreaTags;
+import frontend.inicio.VentanaPrincipal;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.KeyAdapter;
@@ -787,7 +788,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBajarPregunta1MouseExited
 
     private void btnBajarPregunta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajarPregunta1ActionPerformed
-        DialogImportarAdjuntos adjuntos = new DialogImportarAdjuntos(null, true, this);
+        DialogImportarAdjuntos adjuntos = new DialogImportarAdjuntos(VentanaPrincipal.getInstancia(), true, this);
         adjuntos.setVisible(true);
     }//GEN-LAST:event_btnBajarPregunta1ActionPerformed
 

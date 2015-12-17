@@ -549,7 +549,8 @@ public class DialogImportarPregunta extends javax.swing.JDialog {
             tblPreguntas.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        cbSeleccionarDeseleccionarTodasLasPreguntas.setText("Seleecionar Todos/Deseleccionar Todos");
+        cbSeleccionarDeseleccionarTodasLasPreguntas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        cbSeleccionarDeseleccionarTodasLasPreguntas.setText("Seleccionar todas/Deseleccionar todas");
         cbSeleccionarDeseleccionarTodasLasPreguntas.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbSeleccionarDeseleccionarTodasLasPreguntasItemStateChanged(evt);
