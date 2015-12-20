@@ -2,6 +2,8 @@ package frontend.diseños;
 
 import backend.diseños.Pregunta;
 import frontend.auxiliares.GestorImagenes;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,8 +36,12 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
 
     private void validarImagen() {
         Pregunta pregunta = mPadre.getPreguntaSeleccionada();
-        if (pregunta.getColAdjuntos() == null) {
-
+        if (pregunta.getColAdjuntos() !=null && pregunta.getColAdjuntos().size()>0) {
+                this.bytesImagen =  (byte[]) pregunta.getColAdjuntos().get(0);
+                Image img = Toolkit.getDefaultToolkit().createImage(bytesImagen);
+                img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+                this.lblImagenMuestra.setVisible(false);
+                this.pnlmagen.setImagen(img); 
         }
     }
 
