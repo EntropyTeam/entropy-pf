@@ -64,6 +64,7 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
         ArrayList<Object> adjuntos = new ArrayList<>();
         adjuntos.add(imagen);
         pregunta.setColAdjuntos(adjuntos);
+        this.mPadre.getRutaAdjunto().setText("Se ha cargado una imagen");
     }
 
     @SuppressWarnings("unchecked")

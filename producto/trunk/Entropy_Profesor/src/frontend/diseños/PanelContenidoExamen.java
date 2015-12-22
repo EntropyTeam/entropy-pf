@@ -20,6 +20,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 
 /**
  * Clase que representa al panel de contenido de examen.
@@ -723,6 +724,15 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
                     btnBajarPregunta.setEnabled(true);
                 }
             }
+             if(preguntaSeleccionada.getColAdjuntos()!=null && preguntaSeleccionada.getColAdjuntos().size()>0)
+            {
+                this.lblRutaAdjunto.setText("Se ha cargado una imagen");
+            }
+            else
+            {
+                this.lblRutaAdjunto.setText("Seleccione un archivo a cargar...");
+                
+            }
         }
     }//GEN-LAST:event_lstPreguntasValueChanged
 
@@ -1163,6 +1173,11 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
     public Pregunta getPreguntaSeleccionada()
     {
         return this.preguntaSeleccionada;
+    }
+    
+    public JLabel getRutaAdjunto()
+    {
+        return this.lblRutaAdjunto;
     }
 
 }

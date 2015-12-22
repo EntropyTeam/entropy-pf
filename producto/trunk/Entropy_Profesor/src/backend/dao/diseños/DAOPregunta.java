@@ -76,11 +76,19 @@ public class DAOPregunta implements IDAOPregunta {
 
         ResultSet rsConsulta = psConsulta.executeQuery();
         int intUltimoId = rsConsulta.getInt(1);
+        
+        
+        //Guardar Adjuntos
+        if(pregunta.getColAdjuntos()!=null && pregunta.getColAdjuntos().size()>0)
+        {
+            DAOAdjunto daoAdjunto= new DAOAdjunto();
+            daoAdjunto.guardarAdjunto(intUltimoId, pregunta.getColAdjuntos(), conexion);  
+        }
 
         // Guardar Tags
         DAOTag daoTag = new DAOTag();
         daoTag.guardarTags(pregunta.getColTags(), conexion);
-
+        
         // Guardar TagsXPreguntas
         for (String tag : pregunta.getColTags()) {
             strConsulta = "INSERT INTO " + EntropyDB.DIS_TBL_TAG_POR_PREGUNTA + " ("
