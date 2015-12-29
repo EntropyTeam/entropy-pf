@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package frontend.presentacion;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -22,16 +23,15 @@ public class DialogPresentacion extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    
-     public void setLblImagen(ImageIcon imagen)
-    {
-        this.lblImagen.setIcon(imagen);
+
+    public void setLblImagen(Image imagen) {
+        imagen = imagen.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT);
+        this.lblImagen.setIcon(new ImageIcon(imagen));
     }
-     
-     public JLabel getLblImagen()
-     {
-         return this.lblImagen;
-     }
+
+    public JLabel getLblImagen() {
+        return this.lblImagen;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,7 +71,6 @@ public class DialogPresentacion extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

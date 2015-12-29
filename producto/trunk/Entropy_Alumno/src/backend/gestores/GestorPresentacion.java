@@ -50,16 +50,7 @@ public class GestorPresentacion {
         this.ipServidor = ipServidor;
         this.intPuerto = intPuerto;
         this.dialogPresentacion = new DialogPresentacion(mPadre,true);
-        this.dialogPresentacion.setSize(obtenerResolucionActual());
-        this.dialogPresentacion.getLblImagen().setSize(obtenerResolucionActual());
         iniciarConexion();
-    }
-    
-
-    public Dimension obtenerResolucionActual()
-    {   Toolkit toolkit = Toolkit.getDefaultToolkit();
-        this.screenSize = toolkit.getDefaultToolkit().getScreenSize();
-        return screenSize;
     }
     
     public String getIpServidor() {
@@ -108,9 +99,8 @@ public class GestorPresentacion {
         try {
             ByteArrayInputStream bufferImg = new ByteArrayInputStream(bytesImg);
             BufferedImage imagen = ImageIO.read(bufferImg);
-            imagen.getScaledInstance(screenSize.width, screenSize.height, Image.SCALE_DEFAULT);
             if(this.dialogPresentacion.isVisible()) {
-                this.dialogPresentacion.setLblImagen(new ImageIcon(imagen));
+                this.dialogPresentacion.setLblImagen(imagen);
             } else if (blnEstaConectado) {
                 new HiloDialogPresentacion().start();
             }
