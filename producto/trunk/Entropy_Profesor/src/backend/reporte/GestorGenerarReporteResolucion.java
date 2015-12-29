@@ -1,9 +1,6 @@
 package backend.reporte;
 
-import backend.dao.diseños.DAOCurso;
 import backend.dao.diseños.DAOInstitucion;
-import backend.dao.diseños.DAOPregunta;
-import backend.dao.examenes.DAOExamen;
 import backend.dao.examenes.DAOPreguntaExamen;
 import backend.diseños.OpcionMultipleOpcion;
 import backend.diseños.Pregunta;
@@ -31,7 +28,6 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.font.TextAttribute;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -56,7 +52,7 @@ public class GestorGenerarReporteResolucion {
     public static final Font BLUE = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.BLUE);
     public static final Font GREEN = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.GREEN);
     public static final Font TITULO = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.BLACK);
-    public static final Font COMENTARIO = new Font(Font.FontFamily.HELVETICA, 11, Font.NORMAL, BaseColor.BLACK);
+    public static final Font COMENTARIO = new Font(Font.FontFamily.HELVETICA, 11, Font.NORMAL, BaseColor.DARK_GRAY);
 
     public GestorGenerarReporteResolucion(Resolucion resolucionExamen) {
         this.resolucionExamen = resolucionExamen;
@@ -155,14 +151,19 @@ public class GestorGenerarReporteResolucion {
                     case "RespuestaDesarrollo":
                         RespuestaDesarrollo respuestaDesarrollo = (RespuestaDesarrollo) respuesta;
                         Paragraph parrafoRespuestaDesarrollar = new Paragraph(13, contadorOrden + ") " + respuesta.getPregunta().getStrEnunciado() + "\n\n");
-                        parrafoRespuestaDesarrollar.add("   " + respuestaDesarrollo.getStrRespuesta() + "\n");
+                        parrafoRespuestaDesarrollar.add("   " + respuestaDesarrollo.getStrRespuesta() + "\n\n");
                         parrafoRespuestaDesarrollar.add(new Chunk("Calificacion: " + respuestaDesarrollo.getCalificacion() + "\n", BLUE));
                         if (respuestaDesarrollo.getStrComentario() != null) {
                             parrafoRespuestaDesarrollar.add(new Chunk("Comentario Docente: " + respuestaDesarrollo.getStrComentario(), COMENTARIO));
                         }
+                        contadorOrden++;
+                        if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
+                            parrafoRespuestaDesarrollar.setSpacingAfter(15);
+                        }
+                        parrafoRespuestaDesarrollar.setSpacingAfter(15);
                         parrafoRespuestaDesarrollar.setSpacingBefore(30);
                         document.add(parrafoRespuestaDesarrollar);
-                        contadorOrden++;
+
                         break;
 
                     case "RespuestaPreguntaMultipleOpcion":
@@ -196,14 +197,15 @@ public class GestorGenerarReporteResolucion {
                         document.add(orderedList);
 
                         Paragraph parrafoCalificacionComentarioMultipleOpcion = new Paragraph(13, "Calificacion: " + respuestaPreguntaMultipleOpcion.getCalificacion() + "\n", BLUE);
-                           if (respuestaPreguntaMultipleOpcion.getStrComentario() != null) {
+                        if (respuestaPreguntaMultipleOpcion.getStrComentario() != null) {
                             parrafoCalificacionComentarioMultipleOpcion.add(new Chunk("Comentario Docente: " + respuestaPreguntaMultipleOpcion.getStrComentario(), COMENTARIO));
                         }
-                        parrafoCalificacionComentarioMultipleOpcion.setSpacingAfter(15);
+                        contadorOrden++;
+                        if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
+                            parrafoCalificacionComentarioMultipleOpcion.setSpacingAfter(15);
+                        }
                         parrafoCalificacionComentarioMultipleOpcion.setSpacingBefore(30);
                         document.add(parrafoCalificacionComentarioMultipleOpcion);
-
-                        contadorOrden++;
                         break;
 
                     case "RespuestaPreguntaNumerica":
@@ -214,14 +216,15 @@ public class GestorGenerarReporteResolucion {
                         document.add(parrafoPreguntaNumerica);
 
                         Paragraph parrafoCalificacionComentarioNumerico = new Paragraph(13, "Calificacion: " + respuestaPreguntaNumerica.getCalificacion() + "\n", BLUE);
-                         if (respuestaPreguntaNumerica.getStrComentario() != null) {
+                        if (respuestaPreguntaNumerica.getStrComentario() != null) {
                             parrafoPreguntaNumerica.add(new Chunk("Comentario Docente: " + respuestaPreguntaNumerica.getStrComentario(), COMENTARIO));
                         }
-                        parrafoCalificacionComentarioNumerico.setSpacingAfter(15);
+                        contadorOrden++;
+                        if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
+                            parrafoCalificacionComentarioNumerico.setSpacingAfter(15);
+                        }
                         parrafoCalificacionComentarioNumerico.setSpacingBefore(30);
                         document.add(parrafoCalificacionComentarioNumerico);
-
-                        contadorOrden++;
                         break;
 
                     case "RespuestaPreguntaRelacionColumnas":
@@ -267,12 +270,13 @@ public class GestorGenerarReporteResolucion {
                         if (respuestaPreguntaRelacionColumnas.getStrComentario() != null) {
                             parrafoCalificacionComentarioRelacionColumnas.add(new Chunk("Comentario Docente: " + respuestaPreguntaRelacionColumnas.getStrComentario(), COMENTARIO));
                         }
-                        parrafoCalificacionComentarioRelacionColumnas.add("Comentario Docente: " + respuestaPreguntaRelacionColumnas.getStrComentario());
-                        parrafoCalificacionComentarioRelacionColumnas.setSpacingAfter(15);
+                        contadorOrden++;
+                        if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
+                            parrafoCalificacionComentarioRelacionColumnas.setSpacingAfter(15);
+                        }
                         parrafoCalificacionComentarioRelacionColumnas.setSpacingBefore(30);
                         document.add(parrafoCalificacionComentarioRelacionColumnas);
 
-                        contadorOrden++;
                         break;
 
                     case "RespuestaPreguntaVerdaderoFalso":
@@ -286,7 +290,7 @@ public class GestorGenerarReporteResolucion {
 
                         float[] columnWidthsVF = {2.5f, 1f, 2.5f};
                         tableVerdaderoFalso.setWidths(columnWidthsVF);
-                        
+
                         String columnaIzquierdaVF = "[X] Verdadero";
                         String columnaDerechaVF = "[X] Falso";
 
@@ -318,12 +322,12 @@ public class GestorGenerarReporteResolucion {
                         if (respuestaPreguntaVerdaderoFalso.getStrComentario() != null) {
                             parrafoCalificacionComentarioVF.add(new Chunk("Comentario Docente: " + respuestaPreguntaVerdaderoFalso.getStrComentario(), COMENTARIO));
                         }
-                        parrafoCalificacionComentarioVF.add("Comentario Docente: " + respuestaPreguntaVerdaderoFalso.getStrComentario());
-                        parrafoCalificacionComentarioVF.setSpacingAfter(15);
+                        contadorOrden++;
+                        if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
+                            parrafoCalificacionComentarioVF.setSpacingAfter(15);
+                        }
                         parrafoCalificacionComentarioVF.setSpacingBefore(30);
                         document.add(parrafoCalificacionComentarioVF);
-
-                        contadorOrden++;
                         break;
                 }
             }
