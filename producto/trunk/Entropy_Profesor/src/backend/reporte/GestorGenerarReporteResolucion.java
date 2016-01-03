@@ -152,16 +152,17 @@ public class GestorGenerarReporteResolucion {
                         RespuestaDesarrollo respuestaDesarrollo = (RespuestaDesarrollo) respuesta;
                         Paragraph parrafoRespuestaDesarrollar = new Paragraph(13, contadorOrden + ") " + respuesta.getPregunta().getStrEnunciado() + "\n\n");
                         parrafoRespuestaDesarrollar.add("   " + respuestaDesarrollo.getStrRespuesta() + "\n\n");
-                        parrafoRespuestaDesarrollar.add(new Chunk("Calificacion: " + respuestaDesarrollo.getCalificacion() + "\n", BLUE));
+                        parrafoRespuestaDesarrollar.add(new Chunk("\n" + "Calificacion: " + respuestaDesarrollo.getCalificacion() + "\n", BLUE));
                         if (respuestaDesarrollo.getStrComentario() != null) {
-                            parrafoRespuestaDesarrollar.add(new Chunk("Comentario Docente: " + respuestaDesarrollo.getStrComentario(), COMENTARIO));
+                            parrafoRespuestaDesarrollar.add(new Chunk("Comentario Docente: " + respuestaDesarrollo.getStrComentario() + "\n", COMENTARIO));
                         }
                         contadorOrden++;
                         if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
                             parrafoRespuestaDesarrollar.setSpacingAfter(15);
+                            Chunk lineSeparator = new Chunk ("______________________________________________________________________________", COMENTARIO);
+                            parrafoRespuestaDesarrollar.add(lineSeparator);
                         }
                         parrafoRespuestaDesarrollar.setSpacingAfter(15);
-                        parrafoRespuestaDesarrollar.setSpacingBefore(30);
                         document.add(parrafoRespuestaDesarrollar);
 
                         break;
@@ -170,7 +171,6 @@ public class GestorGenerarReporteResolucion {
                         RespuestaPreguntaMultipleOpcion respuestaPreguntaMultipleOpcion = (RespuestaPreguntaMultipleOpcion) respuesta;
                         Paragraph parrafoPreguntaMultipleOpcion = new Paragraph(13, contadorOrden + ") " + respuestaPreguntaMultipleOpcion.getPregunta().getStrEnunciado() + "\n\n");
                         parrafoPreguntaMultipleOpcion.setSpacingAfter(15);
-                        //parrafoPreguntaMultipleOpcion.setSpacingBefore(30);
                         document.add(parrafoPreguntaMultipleOpcion);
                         ArrayList<OpcionMultipleOpcion> colOpcionMultipleOpcionCorrectas = new ArrayList<>();
 
@@ -196,15 +196,16 @@ public class GestorGenerarReporteResolucion {
                         }
                         document.add(orderedList);
 
-                        Paragraph parrafoCalificacionComentarioMultipleOpcion = new Paragraph(13, "Calificacion: " + respuestaPreguntaMultipleOpcion.getCalificacion() + "\n", BLUE);
+                        Paragraph parrafoCalificacionComentarioMultipleOpcion = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaMultipleOpcion.getCalificacion() + "\n", BLUE);
                         if (respuestaPreguntaMultipleOpcion.getStrComentario() != null) {
-                            parrafoCalificacionComentarioMultipleOpcion.add(new Chunk("Comentario Docente: " + respuestaPreguntaMultipleOpcion.getStrComentario(), COMENTARIO));
+                            parrafoCalificacionComentarioMultipleOpcion.add(new Chunk("Comentario Docente: " + respuestaPreguntaMultipleOpcion.getStrComentario() + "\n", COMENTARIO));
                         }
                         contadorOrden++;
                         if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
                             parrafoCalificacionComentarioMultipleOpcion.setSpacingAfter(15);
+                            Chunk lineSeparator = new Chunk ("______________________________________________________________________________", COMENTARIO);
+                            parrafoCalificacionComentarioMultipleOpcion.add(lineSeparator);
                         }
-                        parrafoCalificacionComentarioMultipleOpcion.setSpacingBefore(30);
                         document.add(parrafoCalificacionComentarioMultipleOpcion);
                         break;
 
@@ -215,15 +216,16 @@ public class GestorGenerarReporteResolucion {
                         //parrafoPreguntaNumerica.setSpacingBefore(30);
                         document.add(parrafoPreguntaNumerica);
 
-                        Paragraph parrafoCalificacionComentarioNumerico = new Paragraph(13, "Calificacion: " + respuestaPreguntaNumerica.getCalificacion() + "\n", BLUE);
+                        Paragraph parrafoCalificacionComentarioNumerico = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaNumerica.getCalificacion() + "\n", BLUE);
                         if (respuestaPreguntaNumerica.getStrComentario() != null) {
-                            parrafoPreguntaNumerica.add(new Chunk("Comentario Docente: " + respuestaPreguntaNumerica.getStrComentario(), COMENTARIO));
+                            parrafoPreguntaNumerica.add(new Chunk("Comentario Docente: " + respuestaPreguntaNumerica.getStrComentario() + "\n", COMENTARIO));
                         }
                         contadorOrden++;
                         if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
                             parrafoCalificacionComentarioNumerico.setSpacingAfter(15);
+                            Chunk lineSeparator = new Chunk ("______________________________________________________________________________", COMENTARIO);
+                            parrafoCalificacionComentarioNumerico.add(lineSeparator);
                         }
-                        parrafoCalificacionComentarioNumerico.setSpacingBefore(30);
                         document.add(parrafoCalificacionComentarioNumerico);
                         break;
 
@@ -231,7 +233,6 @@ public class GestorGenerarReporteResolucion {
                         RespuestaPreguntaRelacionColumnas respuestaPreguntaRelacionColumnas = (RespuestaPreguntaRelacionColumnas) respuesta;
                         Paragraph parrafoPreguntaRelacionColumnas = new Paragraph(13, contadorOrden + ") " + respuestaPreguntaRelacionColumnas.getPregunta().getStrEnunciado() + "\n");
                         parrafoPreguntaRelacionColumnas.setSpacingAfter(15);
-                        //parrafoPreguntaRelacionColumnas.setSpacingBefore(30);
                         document.add(parrafoPreguntaRelacionColumnas);
 
                         PdfPTable tableRelacionesColumnas = new PdfPTable(3);
@@ -266,15 +267,16 @@ public class GestorGenerarReporteResolucion {
                         tableRelacionesColumnas.addCell(cell3RC);
                         document.add(tableRelacionesColumnas);
 
-                        Paragraph parrafoCalificacionComentarioRelacionColumnas = new Paragraph(13, "Calificacion: " + respuestaPreguntaRelacionColumnas.getCalificacion() + "\n", BLUE);
+                        Paragraph parrafoCalificacionComentarioRelacionColumnas = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaRelacionColumnas.getCalificacion() + "\n", BLUE);
                         if (respuestaPreguntaRelacionColumnas.getStrComentario() != null) {
-                            parrafoCalificacionComentarioRelacionColumnas.add(new Chunk("Comentario Docente: " + respuestaPreguntaRelacionColumnas.getStrComentario(), COMENTARIO));
+                            parrafoCalificacionComentarioRelacionColumnas.add(new Chunk("Comentario Docente: " + respuestaPreguntaRelacionColumnas.getStrComentario() + "\n", COMENTARIO));
                         }
                         contadorOrden++;
                         if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
                             parrafoCalificacionComentarioRelacionColumnas.setSpacingAfter(15);
+                            Chunk lineSeparator = new Chunk ("______________________________________________________________________________", COMENTARIO);
+                            parrafoCalificacionComentarioRelacionColumnas.add(lineSeparator);
                         }
-                        parrafoCalificacionComentarioRelacionColumnas.setSpacingBefore(30);
                         document.add(parrafoCalificacionComentarioRelacionColumnas);
 
                         break;
@@ -283,7 +285,6 @@ public class GestorGenerarReporteResolucion {
                         RespuestaPreguntaVerdaderoFalso respuestaPreguntaVerdaderoFalso = (RespuestaPreguntaVerdaderoFalso) respuesta;
                         Paragraph parrafoPreguntaVerdaderoFalso = new Paragraph(13, contadorOrden + ") " + respuestaPreguntaVerdaderoFalso.getPregunta().getStrEnunciado() + "\n");
                         parrafoPreguntaVerdaderoFalso.setSpacingAfter(15);
-                        //parrafoPreguntaVerdaderoFalso.setSpacingBefore(30);
                         document.add(parrafoPreguntaVerdaderoFalso);
 
                         PdfPTable tableVerdaderoFalso = new PdfPTable(3);
@@ -318,15 +319,16 @@ public class GestorGenerarReporteResolucion {
                         tableVerdaderoFalso.addCell(cell3VF);
                         document.add(tableVerdaderoFalso);
 
-                        Paragraph parrafoCalificacionComentarioVF = new Paragraph(13, "Calificacion: " + respuestaPreguntaVerdaderoFalso.getCalificacion() + "\n", BLUE);
+                        Paragraph parrafoCalificacionComentarioVF = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaVerdaderoFalso.getCalificacion() + "\n", BLUE);
                         if (respuestaPreguntaVerdaderoFalso.getStrComentario() != null) {
-                            parrafoCalificacionComentarioVF.add(new Chunk("Comentario Docente: " + respuestaPreguntaVerdaderoFalso.getStrComentario(), COMENTARIO));
+                            parrafoCalificacionComentarioVF.add(new Chunk("Comentario Docente: " + respuestaPreguntaVerdaderoFalso.getStrComentario() + "\n", COMENTARIO));
                         }
                         contadorOrden++;
                         if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
                             parrafoCalificacionComentarioVF.setSpacingAfter(15);
+                            Chunk lineSeparator = new Chunk ("______________________________________________________________________________", COMENTARIO);
+                            parrafoCalificacionComentarioVF.add(lineSeparator);
                         }
-                        parrafoCalificacionComentarioVF.setSpacingBefore(30);
                         document.add(parrafoCalificacionComentarioVF);
                         break;
                 }
