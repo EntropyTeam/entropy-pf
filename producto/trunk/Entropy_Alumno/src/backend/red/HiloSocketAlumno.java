@@ -42,9 +42,18 @@ public class HiloSocketAlumno extends Thread {
     public Socket getSocket() {
         return socket;
     }
+    
+    public void cerrarSocket() {
+        try {
+            this.socket.close();
+        } catch (IOException ex) {
+            System.out.println("Error al cerrar el socket del alumno");
+            Logger.getLogger(HiloSocketAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void enviarMensaje(Mensaje mensaje) throws IOException {
-        objetoSaliente.writeObject(mensaje);
+        if (!socket.isClosed()) objetoSaliente.writeObject(mensaje);
     }
 
     public void procesarMensaje(Mensaje mensaje) {
@@ -85,11 +94,13 @@ public class HiloSocketAlumno extends Thread {
 
         while (!this.isInterrupted()) {
             try {
-                //this.objetoEntrante = new ObjectInputStream(socket.getInputStream());
-                Object objRecibido = this.objetoEntrante.readObject();
-                if (objRecibido instanceof Mensaje) {
-                    Mensaje mensaje = (Mensaje) objRecibido;
-                    procesarMensaje(mensaje);
+                if (!socket.isClosed()) {
+                    //this.objetoEntrante = new ObjectInputStream(socket.getInputStream());
+                    Object objRecibido = this.objetoEntrante.readObject();
+                    if (objRecibido instanceof Mensaje) {
+                        Mensaje mensaje = (Mensaje) objRecibido;
+                        procesarMensaje(mensaje);
+                    }
                 }
             } catch (IOException e) {
                 System.out.println("Error de IOExcepcion al leer el mensaje.");

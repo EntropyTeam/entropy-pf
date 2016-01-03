@@ -144,14 +144,18 @@ public class GestorDePresentacion {
         }
     }
 
-    public void desconectarAlumno(int intIndice) {
-        this.frmControlPresentacion.desconectarAlumno(intIndice);
+    public void interrumpirAlumno(int intIndice) {
+        frmControlPresentacion.interrumpirAlumno(intIndice);
     }
 
     public void iniciarPresentacion(int intIndice) {
         this.frmControlPresentacion.iniciarPresentacion(intIndice);
         HiloCapturarImagen hiloCapturarImagen = new HiloCapturarImagen(intIndice);
         hiloCapturarImagen.start();
+    }
+    
+    public void finalizarPresentacion(int intIndice) {
+        frmControlPresentacion.finalizarPresentacion(intIndice);
     }
 
     public void mostrarDatosAlumno(int intIndice) {

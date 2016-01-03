@@ -110,8 +110,8 @@ public class GestorTomaExamen {
         return indice;
     }
 
-    public void desconectarAlumno(int intIndice) {
-        frmControlTomaExamen.desconectarAlumno(intIndice);
+    public void interrumpirAlumno(int intIndice) {
+        frmControlTomaExamen.interrumpirAlumno(intIndice);
     }
 
     public void iniciarExamen(int intIndice) {
