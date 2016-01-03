@@ -52,7 +52,11 @@ public class GestorGenerarReporteResolucion {
     public static final Font BLUE = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.BLUE);
     public static final Font GREEN = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.GREEN);
     public static final Font TITULO = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.BLACK);
-    public static final Font COMENTARIO = new Font(Font.FontFamily.HELVETICA, 11, Font.NORMAL, BaseColor.DARK_GRAY);
+    public static final Font ENUNCIADO = new Font(Font.FontFamily.HELVETICA, 13, Font.BOLD, BaseColor.BLACK);
+    public static final Font CHOISE = new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD, BaseColor.ORANGE);
+    public static final Font NORMAL = new Font(Font.FontFamily.HELVETICA, 11, Font.NORMAL, BaseColor.BLACK);
+    public static final Font COMENTARIO = new Font(Font.FontFamily.HELVETICA, 11, Font.ITALIC, BaseColor.DARK_GRAY);
+    
 
     public GestorGenerarReporteResolucion(Resolucion resolucionExamen) {
         this.resolucionExamen = resolucionExamen;
@@ -150,9 +154,11 @@ public class GestorGenerarReporteResolucion {
 
                     case "RespuestaDesarrollo":
                         RespuestaDesarrollo respuestaDesarrollo = (RespuestaDesarrollo) respuesta;
-                        Paragraph parrafoRespuestaDesarrollar = new Paragraph(13, contadorOrden + ") " + respuesta.getPregunta().getStrEnunciado() + "\n\n");
+                        Paragraph parrafoRespuestaDesarrollar = new Paragraph();
+                        Chunk enunciadoDesarrollo = new Chunk(contadorOrden + ") " + respuesta.getPregunta().getStrEnunciado() + "\n\n", ENUNCIADO);
+                        parrafoRespuestaDesarrollar.add(enunciadoDesarrollo);
                         parrafoRespuestaDesarrollar.add("   " + respuestaDesarrollo.getStrRespuesta() + "\n\n");
-                        parrafoRespuestaDesarrollar.add(new Chunk("\n" + "Calificacion: " + respuestaDesarrollo.getCalificacion() + "\n", BLUE));
+                        parrafoRespuestaDesarrollar.add(new Chunk("\n" + "Calificacion: " + respuestaDesarrollo.getCalificacion() + "/" + respuestaDesarrollo.getPregunta().getDblPuntaje() + "\n", BLUE));
                         if (respuestaDesarrollo.getStrComentario() != null) {
                             parrafoRespuestaDesarrollar.add(new Chunk("Comentario Docente: " + respuestaDesarrollo.getStrComentario() + "\n", COMENTARIO));
                         }
@@ -169,34 +175,24 @@ public class GestorGenerarReporteResolucion {
 
                     case "RespuestaPreguntaMultipleOpcion":
                         RespuestaPreguntaMultipleOpcion respuestaPreguntaMultipleOpcion = (RespuestaPreguntaMultipleOpcion) respuesta;
-                        Paragraph parrafoPreguntaMultipleOpcion = new Paragraph(13, contadorOrden + ") " + respuestaPreguntaMultipleOpcion.getPregunta().getStrEnunciado() + "\n\n");
+                        Paragraph parrafoPreguntaMultipleOpcion = new Paragraph();
+                        Chunk enunciadoRespuestaPreguntaMultipleOpcion = new Chunk( contadorOrden + ") " + respuestaPreguntaMultipleOpcion.getPregunta().getStrEnunciado() + "\n\n", ENUNCIADO);
+                        parrafoPreguntaMultipleOpcion.add(enunciadoRespuestaPreguntaMultipleOpcion);
                         parrafoPreguntaMultipleOpcion.setSpacingAfter(15);
-                        document.add(parrafoPreguntaMultipleOpcion);
                         ArrayList<OpcionMultipleOpcion> colOpcionMultipleOpcionCorrectas = new ArrayList<>();
-
-                        for (OpcionMultipleOpcion opcionMultipleOpcionCorrecta : respuestaPreguntaMultipleOpcion.getPregunta().getColOpciones()) {
-                            if (opcionMultipleOpcionCorrecta.isBlnEsVerdadera()) {
-                                colOpcionMultipleOpcionCorrectas.add(opcionMultipleOpcionCorrecta);
-                            }
-                        }
-
-                        List orderedList = new List(List.ORDERED);//Ver que pasa si es ordenada o desordenada.
+                        
                         for (RespuestaOpcionMultipleOpcion respuestaOpcionMultipleOpcion : respuestaPreguntaMultipleOpcion.getColeccionOpciones()) {
-                            OpcionMultipleOpcion opcionTemporal = new OpcionMultipleOpcion();
-                            opcionTemporal.setStrRespuesta(respuestaOpcionMultipleOpcion.getStrRespuesta());
-                            if (colOpcionMultipleOpcionCorrectas.contains(opcionTemporal) && respuestaOpcionMultipleOpcion.isBlnEsMarcada()) {
-                                orderedList.add(new ListItem(respuestaOpcionMultipleOpcion.getStrRespuesta() + "✔"));
-                            } else {
-                                if (respuestaOpcionMultipleOpcion.isBlnEsMarcada()) {
-                                    orderedList.add(new ListItem(respuestaOpcionMultipleOpcion.getStrRespuesta() + "X"));
-                                } else {
-                                    orderedList.add(new ListItem(respuestaOpcionMultipleOpcion.getStrRespuesta()));
-                                }
+                            if (respuestaOpcionMultipleOpcion.isBlnEsMarcada()) {
+                                Chunk choise = new Chunk("- " + respuestaOpcionMultipleOpcion.getStrRespuesta() + "\n", CHOISE);
+                                parrafoPreguntaMultipleOpcion.add(choise);
+                            } else  {
+                                Chunk choise = new Chunk("- " + respuestaOpcionMultipleOpcion.getStrRespuesta() + "\n", NORMAL);
+                                parrafoPreguntaMultipleOpcion.add(choise);
                             }
                         }
-                        document.add(orderedList);
+                        document.add(parrafoPreguntaMultipleOpcion);
 
-                        Paragraph parrafoCalificacionComentarioMultipleOpcion = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaMultipleOpcion.getCalificacion() + "\n", BLUE);
+                        Paragraph parrafoCalificacionComentarioMultipleOpcion = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaMultipleOpcion.getCalificacion() + "/" + respuestaPreguntaMultipleOpcion.getPregunta().getDblPuntaje() + "\n", BLUE);
                         if (respuestaPreguntaMultipleOpcion.getStrComentario() != null) {
                             parrafoCalificacionComentarioMultipleOpcion.add(new Chunk("Comentario Docente: " + respuestaPreguntaMultipleOpcion.getStrComentario() + "\n", COMENTARIO));
                         }
@@ -211,12 +207,13 @@ public class GestorGenerarReporteResolucion {
 
                     case "RespuestaPreguntaNumerica":
                         RespuestaPreguntaNumerica respuestaPreguntaNumerica = (RespuestaPreguntaNumerica) respuesta;
-                        Paragraph parrafoPreguntaNumerica = new Paragraph(13, contadorOrden + ") " + respuestaPreguntaNumerica.getPregunta().getStrEnunciado() + "\n");
-                        parrafoPreguntaNumerica.setSpacingAfter(15);
-                        //parrafoPreguntaNumerica.setSpacingBefore(30);
+                        Paragraph parrafoPreguntaNumerica = new Paragraph();
+                        Chunk enunciadoRespuestaPreguntaNumerica = new Chunk(contadorOrden + ") " + respuestaPreguntaNumerica.getPregunta().getStrEnunciado() + "\n\n", ENUNCIADO);
+                        parrafoPreguntaNumerica.add(enunciadoRespuestaPreguntaNumerica);
+                        parrafoPreguntaNumerica.add("   " + respuestaPreguntaNumerica.getDblRespuestaNumero() + "\n");
                         document.add(parrafoPreguntaNumerica);
 
-                        Paragraph parrafoCalificacionComentarioNumerico = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaNumerica.getCalificacion() + "\n", BLUE);
+                        Paragraph parrafoCalificacionComentarioNumerico = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaNumerica.getCalificacion() + "/" + respuestaPreguntaNumerica.getPregunta().getDblPuntaje() + "\n", BLUE);
                         if (respuestaPreguntaNumerica.getStrComentario() != null) {
                             parrafoPreguntaNumerica.add(new Chunk("Comentario Docente: " + respuestaPreguntaNumerica.getStrComentario() + "\n", COMENTARIO));
                         }
@@ -231,7 +228,9 @@ public class GestorGenerarReporteResolucion {
 
                     case "RespuestaPreguntaRelacionColumnas":
                         RespuestaPreguntaRelacionColumnas respuestaPreguntaRelacionColumnas = (RespuestaPreguntaRelacionColumnas) respuesta;
-                        Paragraph parrafoPreguntaRelacionColumnas = new Paragraph(13, contadorOrden + ") " + respuestaPreguntaRelacionColumnas.getPregunta().getStrEnunciado() + "\n");
+                        Paragraph parrafoPreguntaRelacionColumnas = new Paragraph();
+                        Chunk enunciadoRespuestaPreguntaRelacionColumnas = new Chunk(contadorOrden + ") " + respuestaPreguntaRelacionColumnas.getPregunta().getStrEnunciado() + "\n", ENUNCIADO);
+                        parrafoPreguntaRelacionColumnas.add(enunciadoRespuestaPreguntaRelacionColumnas);
                         parrafoPreguntaRelacionColumnas.setSpacingAfter(15);
                         document.add(parrafoPreguntaRelacionColumnas);
 
@@ -253,13 +252,13 @@ public class GestorGenerarReporteResolucion {
 
                         //Armado de la tabla
                         PdfPCell cell1RC = new PdfPCell(new Paragraph(columnaIzquierdaRC));
-                        cell1RC.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        cell1RC.setHorizontalAlignment(Element.ALIGN_RIGHT);
                         cell1RC.setBorder(Rectangle.NO_BORDER);
                         PdfPCell cell2RC = new PdfPCell(new Paragraph(columnaCentral));
                         cell2RC.setHorizontalAlignment(Element.ALIGN_CENTER);
                         cell2RC.setBorder(Rectangle.NO_BORDER);
                         PdfPCell cell3RC = new PdfPCell(new Paragraph(columnaDerechaRC));
-                        cell3RC.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        cell3RC.setHorizontalAlignment(Element.ALIGN_LEFT);
                         cell3RC.setBorder(Rectangle.NO_BORDER);
 
                         tableRelacionesColumnas.addCell(cell1RC);
@@ -267,7 +266,7 @@ public class GestorGenerarReporteResolucion {
                         tableRelacionesColumnas.addCell(cell3RC);
                         document.add(tableRelacionesColumnas);
 
-                        Paragraph parrafoCalificacionComentarioRelacionColumnas = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaRelacionColumnas.getCalificacion() + "\n", BLUE);
+                        Paragraph parrafoCalificacionComentarioRelacionColumnas = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaRelacionColumnas.getCalificacion() + "/" + respuestaPreguntaRelacionColumnas.getPregunta().getDblPuntaje() + "\n", BLUE);
                         if (respuestaPreguntaRelacionColumnas.getStrComentario() != null) {
                             parrafoCalificacionComentarioRelacionColumnas.add(new Chunk("Comentario Docente: " + respuestaPreguntaRelacionColumnas.getStrComentario() + "\n", COMENTARIO));
                         }
@@ -283,7 +282,9 @@ public class GestorGenerarReporteResolucion {
 
                     case "RespuestaPreguntaVerdaderoFalso":
                         RespuestaPreguntaVerdaderoFalso respuestaPreguntaVerdaderoFalso = (RespuestaPreguntaVerdaderoFalso) respuesta;
-                        Paragraph parrafoPreguntaVerdaderoFalso = new Paragraph(13, contadorOrden + ") " + respuestaPreguntaVerdaderoFalso.getPregunta().getStrEnunciado() + "\n");
+                        Paragraph parrafoPreguntaVerdaderoFalso = new Paragraph();
+                        Chunk enunciadoRespuestaPreguntaVerdaderoFalso = new Chunk(contadorOrden + ") " + respuestaPreguntaVerdaderoFalso.getPregunta().getStrEnunciado() + "\n", ENUNCIADO);
+                        parrafoPreguntaVerdaderoFalso.add(enunciadoRespuestaPreguntaVerdaderoFalso);
                         parrafoPreguntaVerdaderoFalso.setSpacingAfter(15);
                         document.add(parrafoPreguntaVerdaderoFalso);
 
@@ -297,9 +298,9 @@ public class GestorGenerarReporteResolucion {
 
                         if (respuestaPreguntaVerdaderoFalso.isBlnSeleccionoVerdadero()) {
                             columnaIzquierdaVF = "[X] Verdadero";
-                            columnaDerechaVF = "[ ] Falso";
+                            columnaDerechaVF = "[  ] Falso";
                         } else {
-                            columnaIzquierdaVF = "[ ] Verdadero";
+                            columnaIzquierdaVF = "[  ] Verdadero";
                             columnaDerechaVF = "[X] Falso";
                         }
 
@@ -319,7 +320,7 @@ public class GestorGenerarReporteResolucion {
                         tableVerdaderoFalso.addCell(cell3VF);
                         document.add(tableVerdaderoFalso);
 
-                        Paragraph parrafoCalificacionComentarioVF = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaVerdaderoFalso.getCalificacion() + "\n", BLUE);
+                        Paragraph parrafoCalificacionComentarioVF = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaVerdaderoFalso.getCalificacion() + "/" + respuestaPreguntaVerdaderoFalso.getPregunta().getDblPuntaje() + "\n", BLUE);
                         if (respuestaPreguntaVerdaderoFalso.getStrComentario() != null) {
                             parrafoCalificacionComentarioVF.add(new Chunk("Comentario Docente: " + respuestaPreguntaVerdaderoFalso.getStrComentario() + "\n", COMENTARIO));
                         }
