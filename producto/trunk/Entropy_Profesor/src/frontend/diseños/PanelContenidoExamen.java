@@ -724,7 +724,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
                     btnBajarPregunta.setEnabled(true);
                 }
             }
-             if(preguntaSeleccionada.getColAdjuntos()!=null && preguntaSeleccionada.getColAdjuntos().size()>0)
+             if(preguntaSeleccionada!=null && preguntaSeleccionada.getColAdjuntos()!=null && preguntaSeleccionada.getColAdjuntos().size()>0)
             {
                 this.lblRutaAdjunto.setText("Se ha cargado una imagen");
             }
@@ -780,7 +780,8 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDuplicarPreguntaActionPerformed
 
     private void txaEnunciadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaEnunciadoFocusLost
-        this.fabricarPregunta(0);
+        //this.fabricarPregunta(0);
+        this.fabricarPregunta(intIndexSeleccionado);
     }//GEN-LAST:event_txaEnunciadoFocusLost
 
     private void txtPuntajeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPuntajeFocusLost
