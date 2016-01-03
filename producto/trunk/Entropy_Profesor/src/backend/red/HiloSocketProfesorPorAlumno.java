@@ -70,17 +70,19 @@ public class HiloSocketProfesorPorAlumno extends Thread {
     public void run() {
         try {
             while (blnVive) {
-                Object objRecibido = objetoEntrante.readObject(); //El alumno envio un mensaje
-                if (objRecibido instanceof Mensaje) {
-                    Mensaje mensaje = (Mensaje) objRecibido;
-                    this.procesarMensaje(mensaje);
+                if (!socket.isClosed()) {
+                    Object objRecibido = objetoEntrante.readObject(); //El alumno envio un mensaje
+                    if (objRecibido instanceof Mensaje) {
+                        Mensaje mensaje = (Mensaje) objRecibido;
+                        this.procesarMensaje(mensaje);
+                    }
                 }
             }
         } catch (Exception e) {
             System.out.println(e.toString());
             System.out.println("EL alumno se fue");
             System.err.println("SI OCURRE UNA EXCEP ANTES DE AGREGAR UN USUARIO, LA SIGUIENTE LINEA PRODUCE UNA EXCEPCIÓN EN LA TABL, INTENTANDO BORRAR UNA LÍNEA QUE NO EXISTE.");
-            procesarMensaje(new Mensaje(TipoMensaje.DESCONECTAR_CLIENTE, (Object) null));
+            procesarMensaje(new Mensaje(TipoMensaje.CLIENTE_INTERRUMPIDO, (Object) null));
             //SocketProfesor.socketsAlumnos.remove(this);
         }
     }
@@ -107,7 +109,13 @@ public class HiloSocketProfesorPorAlumno extends Thread {
                 break;
 
             case TipoMensaje.DESCONECTAR_CLIENTE:
-                gestorTomaExamen.desconectarAlumno(intIndice);
+                this.blnVive = false;
+                this.cerrarSocket();
+                break;
+
+            case TipoMensaje.CLIENTE_INTERRUMPIDO:
+                if (this.gestorTomaExamen != null) this.gestorTomaExamen.interrumpirAlumno(intIndice);
+                if (this.gestorPresentacion != null) this.gestorPresentacion.interrumpirAlumno(intIndice);
                 break;
 
             case TipoMensaje.INICIAR_EXAMEN:
@@ -117,6 +125,10 @@ public class HiloSocketProfesorPorAlumno extends Thread {
             case TipoMensaje.FINALIZAR_EXAMEN:
                 Resolucion resolucion = (Resolucion) mensaje.getPayload();
                 gestorTomaExamen.finalizarExamenAlumno(intIndice, resolucion);
+                break;
+
+            case TipoMensaje.FINALIZAR_PRESENTACION:
+                gestorPresentacion.finalizarPresentacion(intIndice);
                 break;
 
             case TipoMensaje.ENVIAR_PROGRESO:
@@ -169,9 +181,7 @@ public class HiloSocketProfesorPorAlumno extends Thread {
      * método.
      */
     public void enviarMensaje(Mensaje mensaje) throws IOException {
-        //objetoSaliente = new ObjectOutputStream(this.socket.getOutputStream());
-        objetoSaliente.writeObject(mensaje);
-        //objetoSaliente.flush();
+        if (!socket.isClosed()) objetoSaliente.writeObject(mensaje);
     }
 
     /**
@@ -193,6 +203,15 @@ public class HiloSocketProfesorPorAlumno extends Thread {
     public void setIndice(int indice) {
         this.intIndice = indice;
     }
+    
+    public void cerrarSocket() {
+        try {
+            this.socket.close();
+        } catch (IOException ex) {
+            System.out.println("Error al cerrar el socket en el profesor.");
+            Logger.getLogger(HiloSocketProfesorPorAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void notificarCancelacionExamen() {
         Mensaje mensaje = new Mensaje(TipoMensaje.CANCELAR_EXAMEN);
@@ -205,8 +224,7 @@ public class HiloSocketProfesorPorAlumno extends Thread {
 
     public boolean notificarAnulacionResolucion(String strJustificacion) {
         try {
-            enviarMensaje(new Mensaje(TipoMensaje.NOTIFICAR_ANULACION, strJustificacion)
-            );
+            enviarMensaje(new Mensaje(TipoMensaje.NOTIFICAR_ANULACION, strJustificacion));
         } catch (IOException ex) {
             return false;
         }

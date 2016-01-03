@@ -343,7 +343,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
         return tblAlumnos.getRowCount() - 1;
     }
 
-    public void desconectarAlumno(int intIndice) {
+    public void interrumpirAlumno(int intIndice) {
         defaultTblAlumnos.setValueAt(EstadoPresentacion.INTERRUMPIDO, intIndice, 1);
     }
 
