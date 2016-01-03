@@ -154,6 +154,9 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
         });
 
         pnlFondo.setImagen(GestorImagenes.crearImage("/frontend/imagenes/bg_gris.jpg"));
@@ -326,7 +329,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
                         .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlDatosExamenLayout.createSequentialGroup()
                         .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblsInstitucion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                            .addComponent(lblsInstitucion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, Short.MAX_VALUE)
                             .addComponent(lblsExamen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblsCurso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -466,6 +469,10 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
          this.gestorEstados.setEstadoInstantaneo("Termina examen");
         repaint();
     }//GEN-LAST:event_btnFinalizarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.gestorTomaExamen.pararConexiones();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * Anula el examen del alumno en cuestión.

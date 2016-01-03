@@ -120,6 +120,9 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
         });
 
         pnlFondo.setImagen(GestorImagenes.crearImage("/frontend/imagenes/bg_gris.jpg"));
@@ -296,6 +299,10 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
         DialogGuardarAsistencia dialogGuardarClase = new DialogGuardarAsistencia(this, true, gestorDePresentacion);
         dialogGuardarClase.setVisible(true);
     }//GEN-LAST:event_btnGuardarAsistenciaActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.gestorDePresentacion.pararConexiones();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * Anula el examen del alumno en cuestión.
