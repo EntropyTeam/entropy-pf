@@ -8,6 +8,8 @@ import backend.resoluciones.Resolucion;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.mail.EnvioMail;
+import java.awt.Desktop;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -60,6 +62,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
         btnVerEstadisticasDelAlumno = new javax.swing.JButton();
         btnCompartirResolucion = new javax.swing.JButton();
         btnCorregirTodas = new javax.swing.JButton();
+        btnVerResolucion = new javax.swing.JButton();
         pnlPreguntaSeleccionada = new javax.swing.JPanel();
         pnlDatosAlumno = new javax.swing.JPanel();
         lblsNombre = new javax.swing.JLabel();
@@ -181,14 +184,35 @@ public class PanelResoluciones extends javax.swing.JPanel {
             }
         });
 
+        btnVerResolucion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_examinar_25x25.png"))); // NOI18N
+        btnVerResolucion.setToolTipText("");
+        btnVerResolucion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnVerResolucion.setContentAreaFilled(false);
+        btnVerResolucion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerResolucion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVerResolucionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVerResolucionMouseExited(evt);
+            }
+        });
+        btnVerResolucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerResolucionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlPreguntasLayout = new javax.swing.GroupLayout(pnlPreguntas);
         pnlPreguntas.setLayout(pnlPreguntasLayout);
         pnlPreguntasLayout.setHorizontalGroup(
             pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
             .addGroup(pnlPreguntasLayout.createSequentialGroup()
                 .addComponent(btnCorregirTodas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVerResolucion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVerRespuestas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVerEstadisticasDelAlumno)
@@ -198,13 +222,14 @@ public class PanelResoluciones extends javax.swing.JPanel {
         pnlPreguntasLayout.setVerticalGroup(
             pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPreguntasLayout.createSequentialGroup()
-                .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVerRespuestas)
                     .addComponent(btnVerEstadisticasDelAlumno)
                     .addComponent(btnCompartirResolucion)
-                    .addComponent(btnCorregirTodas)))
+                    .addComponent(btnCorregirTodas)
+                    .addComponent(btnVerResolucion)))
         );
 
         pnlPreguntaSeleccionada.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resolución Seleccionada", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
@@ -304,7 +329,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPreguntasRespondidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPreguntasRespondidas, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                        .addComponent(lblPreguntasRespondidas, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPreguntasCorregidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -506,11 +531,39 @@ public class PanelResoluciones extends javax.swing.JPanel {
         GestorExamen.getInstancia().calificarRespuestasSinCalificacion(this, colResoluciones.get(0).getExamen());
     }//GEN-LAST:event_btnCorregirTodasActionPerformed
 
+    private void btnVerResolucionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerResolucionMouseEntered
+        gestorEstado.setEstadoInstantaneo("Ver examen hecho por alumno.");
+    }//GEN-LAST:event_btnVerResolucionMouseEntered
+
+    private void btnVerResolucionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerResolucionMouseExited
+        gestorEstado.volverAEstadoImportante();
+    }//GEN-LAST:event_btnVerResolucionMouseExited
+
+    private void btnVerResolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerResolucionActionPerformed
+        if(lstResoluciones.getSelectedValue()!=null) {
+            try {
+                Resolucion  resolucion  = (Resolucion)lstResoluciones.getSelectedValue();
+                Alumno alumno = resolucion.getAlumno();
+                GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
+                gestorReporte.generarReporteResolucion();
+                String pathArchivo= gestorReporte.getResolucion();
+                Path path = Paths.get(pathArchivo);
+                byte[] pdf = Files.readAllBytes(path);
+                File pdfArchivo = new File(pathArchivo);
+                Desktop.getDesktop().open(pdfArchivo);
+            }
+            catch(Exception e) {
+                System.err.println("Ocurrió una excepción creando el PDF:  "+e.toString());
+            }
+        }
+    }//GEN-LAST:event_btnVerResolucionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompartirResolucion;
     private javax.swing.JButton btnCorregirTodas;
     private javax.swing.JButton btnVerEstadisticasDelAlumno;
+    private javax.swing.JButton btnVerResolucion;
     private javax.swing.JButton btnVerRespuestas;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblCalificacion;
