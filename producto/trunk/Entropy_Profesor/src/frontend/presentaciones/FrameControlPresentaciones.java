@@ -1,6 +1,5 @@
 package frontend.presentaciones;
 import backend.auxiliares.Mensajes;
-import backend.examenes.EstadoTomaExamen;
 import backend.presentaciones.EstadoPresentacion;
 import backend.gestores.GestorDePresentacion;
 import backend.red.GestorRedAdHoc;
@@ -11,8 +10,6 @@ import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.inicio.VentanaPrincipal;
-import frontend.tomaexamenes.CeldaTomarExamenRenderer;
-import frontend.tomaexamenes.DialogCancelarExamen;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -55,7 +52,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
         this.scrTablaAlumnos.getViewport().setOpaque(false);
 
         //Configuración de la tabla.
-        tblAlumnos.setDefaultRenderer(Object.class, new CeldaTomarExamenRenderer());
+        tblAlumnos.setDefaultRenderer(Object.class, new CeldaPresentacionRenderer());
         tblAlumnos.getTableHeader().setDefaultRenderer(new CeldaHeaderMultiLineRenderer());
         tblAlumnos.getColumn("Desconectar").setMaxWidth(70);
         tblAlumnos.getColumn("Otros").setMaxWidth(70);
@@ -179,7 +176,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Alumno", "Estado", "Inicio", "Finalizo", "Desconectar", "Otros"
+                "Alumno", "Estado", "Inició", "Finalizó", "Desconectar", "Otros"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -344,17 +341,17 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
     }
 
     public void interrumpirAlumno(int intIndice) {
-        defaultTblAlumnos.setValueAt(EstadoPresentacion.INTERRUMPIDO, intIndice, 1);
+        defaultTblAlumnos.setValueAt(EstadoPresentacion.INTERRUMPIDO.toString(), intIndice, 1);
     }
 
     public void iniciarPresentacion(int intIndice) {
-        defaultTblAlumnos.setValueAt(EstadoPresentacion.CONECTADO, intIndice, 1);
+        defaultTblAlumnos.setValueAt(EstadoPresentacion.CONECTADO.toString(), intIndice, 1);
         DateFormat formatoTiempo = new SimpleDateFormat("HH:mm:ss");
         defaultTblAlumnos.setValueAt(formatoTiempo.format(new Date()), intIndice, 2);
     }
 
     public void finalizarPresentacion(int intIndice) {
-        defaultTblAlumnos.setValueAt(EstadoPresentacion.DESCONECTADO, intIndice, 1);
+        defaultTblAlumnos.setValueAt(EstadoPresentacion.DESCONECTADO.toString(), intIndice, 1);
         DateFormat formatoTiempo = new SimpleDateFormat("HH:mm:ss");
         defaultTblAlumnos.setValueAt(formatoTiempo.format(new Date()), intIndice, 3);
     }
