@@ -1,5 +1,6 @@
 package backend.reporte;
 
+import backend.dao.diseños.DAOAdjunto;
 import backend.dao.diseños.DAOInstitucion;
 import backend.dao.examenes.DAOPreguntaExamen;
 import backend.diseños.OpcionMultipleOpcion;
@@ -21,8 +22,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.List;
-import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -44,6 +43,7 @@ import java.util.logging.Logger;
  */
 public class GestorGenerarReporteResolucion {
 
+    @SuppressWarnings("FieldMayBeFinal")
     private Resolucion resolucionExamen;
     private String strFilePath = "ReporteResolucionPrueba.pdf";
 
@@ -56,7 +56,6 @@ public class GestorGenerarReporteResolucion {
     public static final Font CHOISE = new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD, BaseColor.ORANGE);
     public static final Font NORMAL = new Font(Font.FontFamily.HELVETICA, 11, Font.NORMAL, BaseColor.BLACK);
     public static final Font COMENTARIO = new Font(Font.FontFamily.HELVETICA, 11, Font.ITALIC, BaseColor.DARK_GRAY);
-    
 
     public GestorGenerarReporteResolucion(Resolucion resolucionExamen) {
         this.resolucionExamen = resolucionExamen;
@@ -157,6 +156,11 @@ public class GestorGenerarReporteResolucion {
                         Paragraph parrafoRespuestaDesarrollar = new Paragraph();
                         Chunk enunciadoDesarrollo = new Chunk(contadorOrden + ") " + respuesta.getPregunta().getStrEnunciado() + "\n\n", ENUNCIADO);
                         parrafoRespuestaDesarrollar.add(enunciadoDesarrollo);
+                        
+                        //Agrego la imagen de la respuesta.
+                        parrafoRespuestaDesarrollar.add(this.setImage(respuestaDesarrollo));
+                        
+                        
                         parrafoRespuestaDesarrollar.add("   " + respuestaDesarrollo.getStrRespuesta() + "\n\n");
                         parrafoRespuestaDesarrollar.add(new Chunk("\n" + "Calificacion: " + respuestaDesarrollo.getCalificacion() + "/" + respuestaDesarrollo.getPregunta().getDblPuntaje() + "\n", BLUE));
                         if (respuestaDesarrollo.getStrComentario() != null) {
@@ -165,7 +169,7 @@ public class GestorGenerarReporteResolucion {
                         contadorOrden++;
                         if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
                             parrafoRespuestaDesarrollar.setSpacingAfter(15);
-                            Chunk lineSeparator = new Chunk ("______________________________________________________________________________", COMENTARIO);
+                            Chunk lineSeparator = new Chunk("______________________________________________________________________________", COMENTARIO);
                             parrafoRespuestaDesarrollar.add(lineSeparator);
                         }
                         parrafoRespuestaDesarrollar.setSpacingAfter(15);
@@ -176,16 +180,16 @@ public class GestorGenerarReporteResolucion {
                     case "RespuestaPreguntaMultipleOpcion":
                         RespuestaPreguntaMultipleOpcion respuestaPreguntaMultipleOpcion = (RespuestaPreguntaMultipleOpcion) respuesta;
                         Paragraph parrafoPreguntaMultipleOpcion = new Paragraph();
-                        Chunk enunciadoRespuestaPreguntaMultipleOpcion = new Chunk( contadorOrden + ") " + respuestaPreguntaMultipleOpcion.getPregunta().getStrEnunciado() + "\n\n", ENUNCIADO);
+                        Chunk enunciadoRespuestaPreguntaMultipleOpcion = new Chunk(contadorOrden + ") " + respuestaPreguntaMultipleOpcion.getPregunta().getStrEnunciado() + "\n\n", ENUNCIADO);
                         parrafoPreguntaMultipleOpcion.add(enunciadoRespuestaPreguntaMultipleOpcion);
                         parrafoPreguntaMultipleOpcion.setSpacingAfter(15);
                         ArrayList<OpcionMultipleOpcion> colOpcionMultipleOpcionCorrectas = new ArrayList<>();
-                        
+
                         for (RespuestaOpcionMultipleOpcion respuestaOpcionMultipleOpcion : respuestaPreguntaMultipleOpcion.getColeccionOpciones()) {
                             if (respuestaOpcionMultipleOpcion.isBlnEsMarcada()) {
                                 Chunk choise = new Chunk("- " + respuestaOpcionMultipleOpcion.getStrRespuesta() + "\n", CHOISE);
                                 parrafoPreguntaMultipleOpcion.add(choise);
-                            } else  {
+                            } else {
                                 Chunk choise = new Chunk("- " + respuestaOpcionMultipleOpcion.getStrRespuesta() + "\n", NORMAL);
                                 parrafoPreguntaMultipleOpcion.add(choise);
                             }
@@ -199,7 +203,7 @@ public class GestorGenerarReporteResolucion {
                         contadorOrden++;
                         if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
                             parrafoCalificacionComentarioMultipleOpcion.setSpacingAfter(15);
-                            Chunk lineSeparator = new Chunk ("______________________________________________________________________________", COMENTARIO);
+                            Chunk lineSeparator = new Chunk("______________________________________________________________________________", COMENTARIO);
                             parrafoCalificacionComentarioMultipleOpcion.add(lineSeparator);
                         }
                         document.add(parrafoCalificacionComentarioMultipleOpcion);
@@ -220,7 +224,7 @@ public class GestorGenerarReporteResolucion {
                         contadorOrden++;
                         if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
                             parrafoCalificacionComentarioNumerico.setSpacingAfter(15);
-                            Chunk lineSeparator = new Chunk ("______________________________________________________________________________", COMENTARIO);
+                            Chunk lineSeparator = new Chunk("______________________________________________________________________________", COMENTARIO);
                             parrafoCalificacionComentarioNumerico.add(lineSeparator);
                         }
                         document.add(parrafoCalificacionComentarioNumerico);
@@ -273,7 +277,7 @@ public class GestorGenerarReporteResolucion {
                         contadorOrden++;
                         if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
                             parrafoCalificacionComentarioRelacionColumnas.setSpacingAfter(15);
-                            Chunk lineSeparator = new Chunk ("______________________________________________________________________________", COMENTARIO);
+                            Chunk lineSeparator = new Chunk("______________________________________________________________________________", COMENTARIO);
                             parrafoCalificacionComentarioRelacionColumnas.add(lineSeparator);
                         }
                         document.add(parrafoCalificacionComentarioRelacionColumnas);
@@ -327,7 +331,7 @@ public class GestorGenerarReporteResolucion {
                         contadorOrden++;
                         if (this.resolucionExamen.getColRespuestas().size() >= contadorOrden) {
                             parrafoCalificacionComentarioVF.setSpacingAfter(15);
-                            Chunk lineSeparator = new Chunk ("______________________________________________________________________________", COMENTARIO);
+                            Chunk lineSeparator = new Chunk("______________________________________________________________________________", COMENTARIO);
                             parrafoCalificacionComentarioVF.add(lineSeparator);
                         }
                         document.add(parrafoCalificacionComentarioVF);
@@ -358,7 +362,7 @@ public class GestorGenerarReporteResolucion {
         }
     }
 
-    public Chunk getNota() {
+    private Chunk getNota() {
         Chunk chunk = new Chunk();
         boolean esAprobada = false;
         this.resolucionExamen.getExamen().setColPreguntas(this.getPreguntasExamen());
@@ -380,13 +384,45 @@ public class GestorGenerarReporteResolucion {
         return chunk;
     }
 
-    public ArrayList<Pregunta> getPreguntasExamen() {
+    private ArrayList<Pregunta> getPreguntasExamen() {
         DAOPreguntaExamen dAOPreguntaExamen = new DAOPreguntaExamen();
         return dAOPreguntaExamen.getPreguntasPorExamen(this.resolucionExamen.getExamen());
     }
 
-    public String getDate(Date date) {
+    private String getDate(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(date);
+    }
+
+    private PdfPTable setImage(Respuesta respuesta) {
+        
+        DAOAdjunto dAOAdjunto = new DAOAdjunto();
+        ArrayList<Object> colAdjuntos = new ArrayList<>();
+        colAdjuntos.add(dAOAdjunto.recuperarAdjuntoExamen(respuesta.getPregunta().getIntPreguntaId()));
+        respuesta.getPregunta().setColAdjuntos(colAdjuntos);
+
+        PdfPTable tblImage = new PdfPTable(1);
+
+        if (respuesta.getPregunta().getColAdjuntos().get(0) != null) {
+            Image image = null;
+            byte[] bytesImagen = (byte[]) respuesta.getPregunta().getColAdjuntos().get(0);
+
+            try {
+                image = Image.getInstance(bytesImagen);
+                image.scaleAbsolute(150f, 150f);
+            } catch (BadElementException ex) {
+                Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            PdfPCell cellImage = new PdfPCell(image, true);
+            cellImage.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellImage.setBorder(Rectangle.NO_BORDER);
+            tblImage.addCell(cellImage);
+            tblImage.setSpacingAfter(15);
+            tblImage.setSpacingBefore(15);
+        }
+        return tblImage;
     }
 }
