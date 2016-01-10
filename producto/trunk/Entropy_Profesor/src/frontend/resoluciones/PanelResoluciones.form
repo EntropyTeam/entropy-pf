@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
-  <NonVisualComponents>
-    <Component class="javax.swing.JProgressBar" name="jProgressBar1">
-    </Component>
-  </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -15,155 +11,24 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-100,0,0,2,49"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-121,0,0,2,70"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
     <Property name="axis" type="int" value="1"/>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="pnlDatosExamen">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="LookAndFeelEntropy.COLOR_TABLA_PRIMARIO" type="code"/>
-        </Property>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[32767, 109]"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="" noResource="true"/>
-      </Properties>
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="lowerSeparator" max="32767" attributes="0"/>
-                      <Component id="upperSeparator" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lblsExamen" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblsCurso" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="lblsDescripcion" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblCurso" alignment="0" max="32767" attributes="0"/>
-                              <Component id="lblDescripcion" alignment="0" pref="450" max="32767" attributes="0"/>
-                              <Component id="lblExamen" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="upperSeparator" min="-2" pref="11" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblExamen" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblsExamen" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblsCurso" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblCurso" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblsDescripcion" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblDescripcion" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lowerSeparator" min="-2" pref="13" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JSeparator" name="upperSeparator">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.COLOR_ENTROPY" type="code"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblsExamen">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL" type="code"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Examen:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblsCurso">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL" type="code"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Curso:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblsDescripcion">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL" type="code"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Descripci&#xf3;n:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblExamen">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.FUENTE_NEGRITA" type="code"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Examen"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblCurso">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Curso"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblDescripcion">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Descripci&#xf3;n"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JSeparator" name="lowerSeparator">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.COLOR_ENTROPY" type="code"/>
-            </Property>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
     <Container class="javax.swing.JPanel" name="pnlContenido">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder>
+              <Font PropertyName="font" name="Calibri" size="12" style="0"/>
+              <Color PropertyName="color" blue="0" green="66" red="cc" type="rgb"/>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -438,13 +303,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblsLegajo" pref="48" max="32767" attributes="0"/>
-                              <Component id="lblsNombre" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblsNombre" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblsLegajo" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblNombre" pref="210" max="32767" attributes="0"/>
+                              <Component id="lblNombre" max="32767" attributes="0"/>
                               <Component id="lblLegajo" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -496,7 +361,7 @@
                 <Component class="javax.swing.JLabel" name="lblNombre">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="LookAndFeelEntropy.FUENTE_NEGRITA" type="code"/>
+                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Nombre completo"/>
                   </Properties>
@@ -588,7 +453,7 @@
                               <Component id="lblPreguntasCorregidas" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblsPreguntasCorregidas" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="25" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -720,7 +585,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="lblActualizacionEstado" pref="525" max="32767" attributes="0"/>
+                  <Component id="lblActualizacionEstado" pref="546" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="lblIconoEstado" min="-2" pref="26" max="-2" attributes="0"/>
               </Group>
