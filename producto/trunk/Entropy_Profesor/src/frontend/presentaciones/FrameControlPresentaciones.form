@@ -167,8 +167,8 @@
                   <Table columnCount="6" rowCount="0">
                     <Column editable="false" title="Alumno" type="java.lang.Object"/>
                     <Column editable="false" title="Estado" type="java.lang.Object"/>
-                    <Column editable="false" title="Inicio" type="java.lang.Object"/>
-                    <Column editable="false" title="Finalizo" type="java.lang.Object"/>
+                    <Column editable="false" title="Inici&#xf3;" type="java.lang.Object"/>
+                    <Column editable="false" title="Finaliz&#xf3;" type="java.lang.Object"/>
                     <Column editable="true" title="Desconectar" type="java.lang.Object"/>
                     <Column editable="true" title="Otros" type="java.lang.Object"/>
                   </Table>

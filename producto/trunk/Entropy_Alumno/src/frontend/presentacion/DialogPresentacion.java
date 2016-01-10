@@ -5,8 +5,13 @@
  */
 package frontend.presentacion;
 
+import backend.auxiliares.Mensajes;
+import backend.gestores.GestorPresentacion;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -15,12 +20,16 @@ import javax.swing.JLabel;
  * @author Pelito
  */
 public class DialogPresentacion extends javax.swing.JDialog {
+    
+    private GestorPresentacion gestorPresentacion;
 
     /**
      * Creates new form DialogPresentacion
      */
-    public DialogPresentacion(java.awt.Frame parent, boolean modal) {
+    public DialogPresentacion(java.awt.Frame parent, boolean modal, GestorPresentacion gestorPresentacion) {
         super(parent, modal);
+        
+        this.gestorPresentacion = gestorPresentacion;
         initComponents();
     }
 
@@ -46,6 +55,11 @@ public class DialogPresentacion extends javax.swing.JDialog {
         lblImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlImagenLayout = new javax.swing.GroupLayout(pnlImagen);
         pnlImagen.setLayout(pnlImagenLayout);
@@ -71,6 +85,15 @@ public class DialogPresentacion extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        try {
+            this.gestorPresentacion.finalizarPresentacion();
+        } catch (IOException ex) {
+            Mensajes.mostrarError("Hubo un error al desconectarse del servidor.");
+            Logger.getLogger(DialogPresentacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

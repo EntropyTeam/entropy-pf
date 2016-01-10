@@ -2,6 +2,7 @@ package frontend.tomaexamenes;
 
 import backend.auxiliares.Mensajes;
 import backend.diseños.Curso;
+import backend.diseños.DiseñoExamen;
 import backend.diseños.Institucion;
 import backend.examenes.Examen;
 import backend.gestores.GestorImportarPregunta;
@@ -34,6 +35,9 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
         for (Institucion i : padre.getGestorDiseñoExamen().getInstitucionesPorFiltro("")) {
             cmbInstitucion.addItem(i);
         }
+        this.lblExamen.setText(padre.getDiseño().getStrNombre());
+        this.lblDescripcion.setText(padre.getDiseño().getStrDescripcion());
+        this.lblDescripcion.setToolTipText(padre.getDiseño().getStrDescripcion());
     }
 
     /**
@@ -47,6 +51,13 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
 
         lblSiguiente = new javax.swing.JLabel();
         pnlEncabezado = new javax.swing.JPanel();
+        pnlDatosExamen = new javax.swing.JPanel();
+        upperSeparator = new javax.swing.JSeparator();
+        lblsExamen = new javax.swing.JLabel();
+        lblsDescripcion = new javax.swing.JLabel();
+        lblExamen = new javax.swing.JLabel();
+        lblDescripcion = new javax.swing.JLabel();
+        lowerSeparator = new javax.swing.JSeparator();
         pnlConfirmacionCurso = new javax.swing.JPanel();
         lblNombreInstitucion = new javax.swing.JLabel();
         cmbInstitucion = new javax.swing.JComboBox();
@@ -83,6 +94,69 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
         });
 
         pnlEncabezado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos generales del examen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(204, 102, 0))); // NOI18N
+        pnlEncabezado.setLayout(new javax.swing.BoxLayout(pnlEncabezado, javax.swing.BoxLayout.Y_AXIS));
+
+        pnlDatosExamen.setBackground(LookAndFeelEntropy.COLOR_TABLA_PRIMARIO);
+        pnlDatosExamen.setMaximumSize(new java.awt.Dimension(32767, 109));
+        pnlDatosExamen.setName(""); // NOI18N
+
+        upperSeparator.setForeground(LookAndFeelEntropy.COLOR_ENTROPY);
+
+        lblsExamen.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsExamen.setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+        lblsExamen.setText("Examen:");
+
+        lblsDescripcion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsDescripcion.setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+        lblsDescripcion.setText("Descripción:");
+
+        lblExamen.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
+        lblExamen.setText("Examen");
+
+        lblDescripcion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblDescripcion.setText("Descripción");
+
+        lowerSeparator.setForeground(LookAndFeelEntropy.COLOR_ENTROPY);
+
+        javax.swing.GroupLayout pnlDatosExamenLayout = new javax.swing.GroupLayout(pnlDatosExamen);
+        pnlDatosExamen.setLayout(pnlDatosExamenLayout);
+        pnlDatosExamenLayout.setHorizontalGroup(
+            pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosExamenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lowerSeparator)
+                    .addComponent(upperSeparator, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDatosExamenLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblsExamen, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblsDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                            .addComponent(lblExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        pnlDatosExamenLayout.setVerticalGroup(
+            pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosExamenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(upperSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblExamen)
+                    .addComponent(lblsExamen, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblsDescripcion)
+                    .addComponent(lblDescripcion))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lowerSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1))
+        );
+
+        pnlEncabezado.add(pnlDatosExamen);
 
         pnlConfirmacionCurso.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Confirmación de curso", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR));
 
@@ -126,8 +200,8 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
                     .addComponent(lblCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlConfirmacionCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbInstitucion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cmbInstitucion, 0, 294, Short.MAX_VALUE)
+                    .addComponent(cmbCurso, 0, 294, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlConfirmacionCursoLayout.setVerticalGroup(
@@ -144,7 +218,9 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlOtrosDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Confirmación de curso", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR));
+        pnlEncabezado.add(pnlConfirmacionCurso);
+
+        pnlOtrosDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Otros datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR));
 
         lblFormaPresentacion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblFormaPresentacion.setText("Forma de presentación de las preguntas:");
@@ -204,7 +280,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
                     .addGroup(pnlOtrosDatosLayout.createSequentialGroup()
                         .addComponent(lblFormaPresentacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbFormaPresentacion, 0, 169, Short.MAX_VALUE))
+                        .addComponent(cmbFormaPresentacion, 0, 153, Short.MAX_VALUE))
                     .addGroup(pnlOtrosDatosLayout.createSequentialGroup()
                         .addGroup(pnlOtrosDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlOtrosDatosLayout.createSequentialGroup()
@@ -245,29 +321,10 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
                     .addComponent(lblsPorcentajeAprobacion)
                     .addComponent(txtPorcentajeAprobado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblsSignoPorcentaje))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout pnlEncabezadoLayout = new javax.swing.GroupLayout(pnlEncabezado);
-        pnlEncabezado.setLayout(pnlEncabezadoLayout);
-        pnlEncabezadoLayout.setHorizontalGroup(
-            pnlEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEncabezadoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlConfirmacionCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlOtrosDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        pnlEncabezadoLayout.setVerticalGroup(
-            pnlEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEncabezadoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlConfirmacionCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlOtrosDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        pnlEncabezado.add(pnlOtrosDatos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -281,7 +338,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlEncabezado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlEncabezado, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -380,20 +437,27 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
     private javax.swing.JComboBox cmbFormaPresentacion;
     private javax.swing.JComboBox cmbInstitucion;
     private javax.swing.JLabel lblCurso;
+    private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblDuracion;
+    private javax.swing.JLabel lblExamen;
     private javax.swing.JLabel lblFormaPresentacion;
     private javax.swing.JLabel lblHoras;
     private javax.swing.JLabel lblNombreInstitucion;
     private javax.swing.JLabel lblSeparadorHorasMinutos;
     private javax.swing.JLabel lblSiguiente;
+    private javax.swing.JLabel lblsDescripcion;
+    private javax.swing.JLabel lblsExamen;
     private javax.swing.JLabel lblsPorcentajeAprobacion;
     private javax.swing.JLabel lblsSignoPorcentaje;
+    private javax.swing.JSeparator lowerSeparator;
     private javax.swing.JPanel pnlConfirmacionCurso;
+    private javax.swing.JPanel pnlDatosExamen;
     private javax.swing.JPanel pnlEncabezado;
     private javax.swing.JPanel pnlOtrosDatos;
     private javax.swing.JSpinner spnHoras;
     private javax.swing.JSpinner spnMinutos;
     private frontend.auxiliares.TextFieldEntropy txtPorcentajeAprobado;
+    private javax.swing.JSeparator upperSeparator;
     // End of variables declaration//GEN-END:variables
 
     /**

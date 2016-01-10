@@ -42,6 +42,7 @@ public class GestorPresentacion {
     private Timer timerEspera;
     private Usuario profesor;
     private boolean blnEstaConectado = false;
+    private boolean blnEsPrimeraVez = true;
     private Dimension screenSize;
     
 
@@ -49,7 +50,7 @@ public class GestorPresentacion {
     public GestorPresentacion(String ipServidor, int intPuerto) throws Exception {
         this.ipServidor = ipServidor;
         this.intPuerto = intPuerto;
-        this.dialogPresentacion = new DialogPresentacion(mPadre,true);
+        this.dialogPresentacion = new DialogPresentacion(mPadre, true, this);
         iniciarConexion();
     }
     
@@ -83,12 +84,20 @@ public class GestorPresentacion {
         Mensaje mensaje = new Mensaje(TipoMensaje.DESCONECTAR_CLIENTE);
         hiloSocketAlumno.enviarMensaje(mensaje);
         hiloSocketAlumno.interrupt();
+        hiloSocketAlumno.cerrarSocket();
     }
 
     public void conectarAlumno(Alumno alumno) throws IOException {
         this.alumno = alumno;
         Mensaje mensaje = new Mensaje(TipoMensaje.CONECTAR_CLIENTE_PRESENTACION, alumno);
         hiloSocketAlumno.enviarMensaje(mensaje);
+    }
+
+    public void finalizarPresentacion() throws IOException {
+        Mensaje mnsAvisarFin = new Mensaje(TipoMensaje.FINALIZAR_PRESENTACION);
+        hiloSocketAlumno.enviarMensaje(mnsAvisarFin);
+        
+        this.avisarServidorCierre();
     }
 
     public boolean estaConectado() {
@@ -101,7 +110,9 @@ public class GestorPresentacion {
             BufferedImage imagen = ImageIO.read(bufferImg);
             if(this.dialogPresentacion.isVisible()) {
                 this.dialogPresentacion.setLblImagen(imagen);
-            } else if (blnEstaConectado) {
+            } else if (blnEsPrimeraVez) {
+                blnEsPrimeraVez = false;
+                this.dialogPresentacion.setLblImagen(imagen);
                 new HiloDialogPresentacion().start();
             }
         } catch (IOException ex) {
@@ -146,6 +157,8 @@ public class GestorPresentacion {
     public void comenzarPresentacion() throws IOException {
         Mensaje mnsAvisarComienzoPresentacion = new Mensaje(TipoMensaje.INICIAR_PRESENTACION);
         hiloSocketAlumno.enviarMensaje(mnsAvisarComienzoPresentacion);
+        
+        this.mPadre.getPanelDeslizante().setPanelMostrado(this.mPadre.getPnlInicio());
     }
 
     public Usuario getProfesor() {

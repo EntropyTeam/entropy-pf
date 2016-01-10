@@ -64,5 +64,27 @@ public class DAOAdjunto implements IDAOAdjunto {
         }
         return adjunto;
     }
+    
+        @Override
+    public Object recuperarAdjuntoExamen(int idPregunta) {
+        Object adjunto = null;
+        try {
+            Connection conexion = DAOConexion.conectarBaseDatos();
+            
+            String strConsulta = "SELECT " + EntropyDB.EXA_COL_ADJUNTO_ADJUNTO + " FROM " + EntropyDB.EXA_TBL_ADJUNTO + " " + "WHERE " + EntropyDB.EXA_COL_ADJUNTO_PREGUNTA_ID + " = ?";
+            PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
+            psConsulta.setInt(1, idPregunta);
+            ResultSet rsConsulta = psConsulta.executeQuery();
+            if (rsConsulta.next()) {
+                adjunto = rsConsulta.getObject(EntropyDB.EXA_COL_ADJUNTO_ADJUNTO);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Ocurrió un error mientras se recuperaba el adjunto: " + e.toString());
+        } finally {
+            DAOConexion.desconectarBaseDatos();
+        }
+        return adjunto;
+    }
 
 }

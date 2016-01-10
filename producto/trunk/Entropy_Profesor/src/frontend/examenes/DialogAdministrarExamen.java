@@ -708,7 +708,7 @@ public class DialogAdministrarExamen extends javax.swing.JDialog {
         gestorGenerarReporteResolucion.generarReporteResolucion();
         gestorGenerarReporteResolucion.borrarResolucionDeDisco();
         
-        enviarMail("Se le envia el examen a los alumnos", new ArrayList<String>());
+        enviarMail("Se le envía el examen a los alumnos.", new ArrayList<String>());
     }//GEN-LAST:event_btnCompartirActionPerformed
     private void enviarMail(String cuerpoDelMensaje, ArrayList<String> destinarios) {
         GestorEnvioDeMail gestorEnvioDeMail = new GestorEnvioDeMail();

@@ -100,6 +100,7 @@ public class GestorResolucionExamen {
         Mensaje mensaje = new Mensaje(TipoMensaje.DESCONECTAR_CLIENTE);
         hiloSocketAlumno.enviarMensaje(mensaje);
         hiloSocketAlumno.interrupt();
+        hiloSocketAlumno.cerrarSocket();
     }
 
     public void conectarAlumno(Alumno alumno) throws IOException {
@@ -267,6 +268,10 @@ public class GestorResolucionExamen {
     public void finalizarExamen() throws IOException {
         Mensaje mnsAvisarFin = new Mensaje(TipoMensaje.FINALIZAR_EXAMEN, resolucion);
         hiloSocketAlumno.enviarMensaje(mnsAvisarFin);
+        
+        // Cerramos la conexión
+        this.avisarServidorCierre();
+        
         this.dialogRealizarExamen.dispose(); //Esta linea de codigo esta preventivamente hasta decidir a donde se retorna luego de realizar el examen.
         this.mPadre.setVisible(true);//Esta linea de codigo esta preventivamente hasta decidir a donde se retorna luego de realizar el examen.
         if (!esCorreccionAutomatica()) {

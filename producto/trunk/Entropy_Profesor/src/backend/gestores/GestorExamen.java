@@ -62,10 +62,9 @@ public class GestorExamen {
         daoDiseñoExamen.guardarExamen(examen);
     }
 
-    public boolean verResolucion(Examen examenSeleccionado) {
-        Examen examen = new DAOExamen().getExamen(examenSeleccionado.getIntExamenId());
+    public boolean verResolucion(Examen examen) {
         examen.setColPreguntas(new DAOPreguntaExamen().getPreguntasPorExamen(examen));
-        ArrayList<Resolucion> colResoluciones = new DAOResolucion().getResoluciones(examenSeleccionado);
+        ArrayList<Resolucion> colResoluciones = new DAOResolucion().getResoluciones(examen);
         if (colResoluciones.isEmpty()) {
             Mensajes.mostrarInformacion("El examen no posee resoluciones.");
             return false;
@@ -73,11 +72,11 @@ public class GestorExamen {
         for (Resolucion resolucion : colResoluciones) {
             resolucion.setExamen(examen);
         }
-        PanelResoluciones pnlResoluciones = new PanelResoluciones(colResoluciones);
+        PanelResoluciones pnlResoluciones = new PanelResoluciones(examen, colResoluciones);
         pnlResoluciones.setName("Ver resoluciones");
         VentanaPrincipal.getInstancia().ocultarMenu();
         VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlResoluciones);
-        VentanaPrincipal.getInstancia().setTitle("Resoluciones - " + examenSeleccionado.getStrNombre());
+        VentanaPrincipal.getInstancia().setTitle("Resoluciones - " + examen.getStrNombre());
         if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
             VentanaPrincipal.getInstancia().pack();
         }
@@ -88,8 +87,7 @@ public class GestorExamen {
         try {
             if (resolucion.getExamen().getCurso().getStrNombre() == null) {
                 resolucion.getExamen().setCurso(new DAOCurso().recuperarCurso(resolucion.getExamen().getCurso().getIntCursoId()));
-            }
-            
+            }            
         } catch (Exception e){
             System.err.println("El curso asociado a la resolución es null.");
         }

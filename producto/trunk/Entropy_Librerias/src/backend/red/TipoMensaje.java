@@ -130,4 +130,14 @@ public class TipoMensaje {
      * de la validacion del codigo del alumno en el profesor.
      */
     public static final int RESULTADO_VALIDACION = 20;
+    
+    /**
+     * Se manda cuando se interrumpe la conexión de un alumno por una excepción.
+     */
+    public static final int CLIENTE_INTERRUMPIDO = 21;
+    
+    /**
+     * Se manda cuando el alumno finaliza la conexión de una presentacion.
+     */
+    public static final int FINALIZAR_PRESENTACION = 22;
 }
