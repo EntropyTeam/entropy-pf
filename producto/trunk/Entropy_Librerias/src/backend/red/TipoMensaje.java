@@ -140,4 +140,10 @@ public class TipoMensaje {
      * Se manda cuando el alumno finaliza la conexión de una presentacion.
      */
     public static final int FINALIZAR_PRESENTACION = 22;
+    
+    /**
+     * Se manda cuando el profesor finaliza el examen desde el frame de control
+     * de los examenes.
+     */
+    public static final int FINALIZAR_EXAMEN_DESDE_PROFESOR = 23;
 }
