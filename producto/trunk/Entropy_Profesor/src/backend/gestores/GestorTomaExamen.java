@@ -136,6 +136,12 @@ public class GestorTomaExamen {
         }
     }
 
+    public void notificarFinalizacionExamen() {
+        for (HiloSocketProfesorPorAlumno hiloAlumno : colHilosSocketsAlumnos) {
+            hiloAlumno.notificarFinalizacionExamen();
+        }
+    }
+
     public boolean anularResolucion(int intIndiceAlumno, String strJustificacion) {
         return colHilosSocketsAlumnos.get(intIndiceAlumno).notificarAnulacionResolucion(strJustificacion);
     }
