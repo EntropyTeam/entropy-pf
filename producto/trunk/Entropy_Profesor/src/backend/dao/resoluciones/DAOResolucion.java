@@ -162,4 +162,32 @@ public class DAOResolucion implements IDAOResolucion {
         return resoluciones;
     }
 
+    @Override
+    public ArrayList<Resolucion> getResolucionesDeUnAlumno(int idAlumno) {
+        Connection conexion = DAOConexion.conectarBaseDatos();
+        ArrayList<Resolucion> resoluciones = new ArrayList<>();
+        
+        try {
+
+            String strConsulta = "SELECT "
+                    + EntropyDB.RES_COL_RESOLUCION_ID + " "
+                    + " FROM " + EntropyDB.RES_TBL_RESOLUCION
+                    + " WHERE " + EntropyDB.RES_COL_RESOLUCION_ALUMNO_ID + " = ?";
+
+            PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
+            psConsulta.setInt(1, idAlumno);
+            ResultSet rs = psConsulta.executeQuery();
+            while (rs.next()) {
+                resoluciones.add(getResolucionCompleta(rs.getInt(EntropyDB.RES_COL_RESOLUCION_ID)));
+            }
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        } finally {
+//            DAOConexion.desconectarBaseDatos();
+        }
+        
+        return resoluciones;
+    }
+
 }
