@@ -28,6 +28,8 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
 
     private static VentanaPrincipal INSTANCIA = null;
     
+
+
     /**
      * Constructor por defecto.
      */

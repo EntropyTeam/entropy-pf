@@ -590,6 +590,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
             }
             catch(Exception e) {
                 System.err.println("Ocurrió una excepción creando el PDF:  "+e.toString());
+                e.printStackTrace();
             }
         }
         else //Si no se seleccionada a quien enviar se le enviara  todas las resoluciones
@@ -649,6 +650,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                 Desktop.getDesktop().open(pdfArchivo);
             }
             catch(Exception e) {
+                e.printStackTrace();
                 System.err.println("Ocurrió una excepción creando el PDF:  "+e.toString());
             }
         }
