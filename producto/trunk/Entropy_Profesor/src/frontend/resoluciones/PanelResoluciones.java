@@ -66,6 +66,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private void initComponents() {
 
         jProgressBar1 = new javax.swing.JProgressBar();
+        jProgressBar2 = new javax.swing.JProgressBar();
         pnlDatosExamen = new javax.swing.JPanel();
         upperSeparator = new javax.swing.JSeparator();
         lblsExamen = new javax.swing.JLabel();
@@ -661,6 +662,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private javax.swing.JButton btnVerResolucion;
     private javax.swing.JButton btnVerRespuestas;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JProgressBar jProgressBar2;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblCalificacion;
     private javax.swing.JLabel lblCurso;

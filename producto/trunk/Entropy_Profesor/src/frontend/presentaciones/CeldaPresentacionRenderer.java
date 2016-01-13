@@ -14,7 +14,7 @@ import javax.swing.table.TableCellRenderer;
 
 /**
  * Clase que representa al renderer para las celdas de la tabla en el panel de 
- * control de la toma de exámenes. Encargada de devolver los componentes 
+ * control de presentaciones. Encargada de devolver los componentes 
  * adecuados.
  * 
  * @author Denise
@@ -23,7 +23,7 @@ public class CeldaPresentacionRenderer implements TableCellRenderer {
 
     private static final ImageIcon imgAutenticado = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_usuario_autenticado_35px.png");
     private static final ImageIcon imgConectado = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_usuario_examen_terminado_35px.png");
-    private static final ImageIcon imgDesconectado = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_usuario_no_autenticado_35px.png");
+    private static final ImageIcon imgDesconectado = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_usuario_desconectado_35px.png");
     private static final ImageIcon imgInterrumpido = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_usuario_anulado_35px.png");
 
     /**

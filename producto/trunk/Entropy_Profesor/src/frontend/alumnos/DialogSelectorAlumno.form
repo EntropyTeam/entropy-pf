@@ -308,7 +308,7 @@
             </Component>
             <Component class="frontend.auxiliares.TextFieldEntropy" name="txtLegajo">
               <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtLegajoKeyTyped"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtLegajoKeyReleased"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtLegajo.setTextoPorDefecto(&quot;Ingrese un legajo...&quot;);&#xa;txtLegajo.mostrarTextoPorDefecto();"/>
@@ -316,7 +316,7 @@
             </Component>
             <Component class="frontend.auxiliares.TextFieldEntropy" name="txtNombre">
               <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombreKeyTyped"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombreKeyReleased"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtNombre.setTextoPorDefecto(&quot;Ingrese un nombre...&quot;);&#xa;txtNombre.mostrarTextoPorDefecto();"/>
@@ -340,7 +340,7 @@
             </Component>
             <Component class="frontend.auxiliares.TextFieldEntropy" name="txtApellido">
               <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtApellidoKeyTyped"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtApellidoKeyReleased"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtApellido.setTextoPorDefecto(&quot;Ingrese un apellido...&quot;);&#xa;txtApellido.mostrarTextoPorDefecto();"/>
@@ -364,7 +364,7 @@
             </Component>
             <Component class="frontend.auxiliares.TextFieldEntropy" name="txtDocumento">
               <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDocumentoKeyTyped"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDocumentoKeyReleased"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtDocumento.setTextoPorDefecto(&quot;Ingrese un documento...&quot;);&#xa;txtDocumento.mostrarTextoPorDefecto();"/>
@@ -394,6 +394,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lstAlumnosMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

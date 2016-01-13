@@ -844,7 +844,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
             lblsComentarios.setVisible(true);
         }
 
-        if (respuesta.getPregunta().getTema() != null) {
+        if (respuesta.getPregunta().getTema() != null && respuesta.getPregunta().getTema().getIntTemaId() > 0) {
             lblTema.setText("<html>" + respuesta.getPregunta().getTema().getStrNombre() + "</html>");
             lblTema.setVisible(true);
             lblsTema.setVisible(true);
