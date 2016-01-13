@@ -19,6 +19,8 @@ public interface IDAOPresentacion {
     
     public ArrayList<Presentacion> recuperarPresentaciones(int idCurso);
     
+    public ArrayList<Presentacion> recuperarPresentacionesDeUnAlumno(int idAlumno);
+    
     public ArrayList<Presentacion> recuperarPresentaciones(int idCurso, Date date);
     
     public ArrayList<Presentacion> recuperarPresentaciones(int idCurso, Date desde, Date hasta);
