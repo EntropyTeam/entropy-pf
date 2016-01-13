@@ -13,6 +13,7 @@ import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.estadisticas.PanelEstadisticasAlumno;
+import frontend.historialAlumno.DialogHistorialAlumno;
 import frontend.inicio.VentanaPrincipal;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,6 +25,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.KeyStroke;
 
 /**
@@ -40,15 +42,24 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
     private String strNombre, strApellido, strDocumento, strLegajo;
     private Institucion institucion;
     private Curso curso;
+    private TipoAccion tipoAccion;
+    
+    
+    
+    public enum TipoAccion {
+        BUSCARALUMNO, HISTORIALALUMNO
+    }
 
     /**
      * Constructor de la clase.
      *
      * @param padre ventana principal de la aplicación.
      * @param modal true si mantiene el foco, false de lo contrario.
+     * @param tipoAccion
      */
-    public DialogSelectorAlumno(VentanaPrincipal padre, boolean modal) {
+    public DialogSelectorAlumno(VentanaPrincipal padre, boolean modal, TipoAccion  tipoAccion) {
         super(padre, modal);
+        this.tipoAccion=tipoAccion;
         initComponents();
         this.setSize(new Dimension(600, 400));
         this.setLocationRelativeTo(padre);
@@ -410,20 +421,25 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void lstAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstAlumnosMouseClicked
-        if (evt.getClickCount() >= 2) {
-            Alumno seleccionado = (Alumno) this.lstAlumnos.getSelectedValue();
-            PanelEstadisticasAlumno pnlEstadisticasAlumno = new PanelEstadisticasAlumno(seleccionado);
-            pnlEstadisticasAlumno.setName("Estadísticas alumno");
-            VentanaPrincipal.getInstancia().ocultarMenu();
-            VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlEstadisticasAlumno);
-            VentanaPrincipal.getInstancia().setTitle("Estadísticas del alumno " + seleccionado.toString());
-            if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
-                VentanaPrincipal.getInstancia().pack();
+    private void lstAlumnosMouseClicked(java.awt.event.MouseEvent evt) {                                        
+        if (evt.getClickCount() >= 2){
+            if (tipoAccion == tipoAccion.BUSCARALUMNO) {
+                Alumno seleccionado = (Alumno) this.lstAlumnos.getSelectedValue();
+                PanelEstadisticasAlumno pnlEstadisticasAlumno = new PanelEstadisticasAlumno(seleccionado);
+                pnlEstadisticasAlumno.setName("Estadísticas alumno");
+                VentanaPrincipal.getInstancia().ocultarMenu();
+                VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlEstadisticasAlumno);
+                VentanaPrincipal.getInstancia().setTitle("Estadísticas del alumno " + seleccionado.toString());
+                if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+                    VentanaPrincipal.getInstancia().pack();
+                }
+                this.dispose();
+            } else {
+                DialogHistorialAlumno historialAlumno = new DialogHistorialAlumno(this, true);
+                historialAlumno.setVisible(true);
             }
-            this.dispose();
         }
-    }//GEN-LAST:event_lstAlumnosMouseClicked
+    }                                       
 
     private void txtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyReleased
         this.strApellido = txtApellido.getText();
@@ -447,6 +463,11 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
 
     public GestorBarrasDeEstado getGestorEstados() {
         return gestorEstados;
+    }
+    
+    public JList getLstAlumnos()
+    {
+        return lstAlumnos;
     }
 
 
