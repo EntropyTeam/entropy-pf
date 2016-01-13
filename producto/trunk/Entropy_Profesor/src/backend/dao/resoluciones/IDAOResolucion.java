@@ -37,5 +37,16 @@ public interface IDAOResolucion {
      * ninguna.
      */
     public ArrayList<Resolucion> getResoluciones(Examen examen);
+    
+    
+    
+        /**
+     * Busca todas las resoluciones de un Alumno.
+     *
+     * @param idAlumno identificador del alumno.
+     * @return las resoluciones del Alumno, una lista vacía si no se encontró
+     * ninguna.
+     */
+    public ArrayList<Resolucion> getResolucionesDeUnAlumno(int idAlumno);
 
 }

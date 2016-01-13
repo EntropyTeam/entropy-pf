@@ -27,6 +27,8 @@ import javax.swing.KeyStroke;
 public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrincipal {
 
     private static VentanaPrincipal INSTANCIA = null;
+    
+
 
     /**
      * Constructor por defecto.
@@ -76,6 +78,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         mniAdministrarExamenes = new javax.swing.JMenuItem();
         mncAlumnos = new javax.swing.JMenu();
         mniBuscarAlumno = new javax.swing.JMenuItem();
+        mniBuscarAlumno1 = new javax.swing.JMenuItem();
         mncPresentacion = new javax.swing.JMenu();
         mniAdministrarClasesDictadas = new javax.swing.JMenuItem();
         mncHerramientas = new javax.swing.JMenu();
@@ -212,6 +215,15 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         });
         mncAlumnos.add(mniBuscarAlumno);
 
+        mniBuscarAlumno1.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        mniBuscarAlumno1.setText("Historial Alumno");
+        mniBuscarAlumno1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniBuscarAlumno1ActionPerformed(evt);
+            }
+        });
+        mncAlumnos.add(mniBuscarAlumno1);
+
         mnbMenuBar.add(mncAlumnos);
 
         mncPresentacion.setText("Clases");
@@ -318,10 +330,17 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
 
     private void mniBuscarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniBuscarAlumnoActionPerformed
         ocultarMenu();
-        DialogSelectorAlumno dlgSeleccionarAlumno = new DialogSelectorAlumno(this, true);
+        DialogSelectorAlumno dlgSeleccionarAlumno = new DialogSelectorAlumno(this, true,DialogSelectorAlumno.TipoAccion.BUSCARALUMNO);
         dlgSeleccionarAlumno.getGestorEstados().setNuevoEstadoImportante("Seleccione un examen para trabajar... Utilice doble click o el botón correspondiente.");
         dlgSeleccionarAlumno.setVisible(true);
     }//GEN-LAST:event_mniBuscarAlumnoActionPerformed
+
+    private void mniBuscarAlumno1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniBuscarAlumno1ActionPerformed
+        ocultarMenu();
+        DialogSelectorAlumno dlgSeleccionarAlumno = new DialogSelectorAlumno(this, true, DialogSelectorAlumno.TipoAccion.HISTORIALALUMNO);
+        dlgSeleccionarAlumno.getGestorEstados().setNuevoEstadoImportante("Realize la busqueda del alumno... Utilice doble click o el botón correspondiente.");
+        dlgSeleccionarAlumno.setVisible(true);
+    }//GEN-LAST:event_mniBuscarAlumno1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblSeparador;
@@ -339,6 +358,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     private javax.swing.JMenuItem mniAdministrarExamenes;
     private javax.swing.JMenuItem mniAyuda;
     private javax.swing.JMenuItem mniBuscarAlumno;
+    private javax.swing.JMenuItem mniBuscarAlumno1;
     private javax.swing.JMenuItem mniEditarExamen;
     private javax.swing.JMenuItem mniNuevoExamen;
     private javax.swing.JMenuItem mniTomarExamen;

@@ -201,8 +201,11 @@ public class Examen implements Serializable {
 
     public double getPuntajeTotal() {
         double dblPuntaje = 0;
+        if(colPreguntas!=null)
+        {
         for (Pregunta pregunta : colPreguntas){
             dblPuntaje += pregunta.getDblPuntaje();
+        }
         }
         return dblPuntaje;
     }

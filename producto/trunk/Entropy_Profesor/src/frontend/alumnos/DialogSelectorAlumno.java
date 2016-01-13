@@ -18,6 +18,7 @@ import frontend.auxiliares.ComponentResizer;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
+import frontend.historialAlumno.DialogHistorialAlumno;
 import frontend.inicio.VentanaPrincipal;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JList;
 import javax.swing.KeyStroke;
 
 /**
@@ -44,6 +46,13 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
     private String strNombre, strApellido, strDocumento, strLegajo;
     private Institucion institucion;
     private Curso curso;
+    private TipoAccion tipoAccion;
+    
+    
+    
+    public enum TipoAccion {
+        BUSCARALUMNO, HISTORIALALUMNO
+    }
 
     /**
      * Constructor de la clase.
@@ -51,8 +60,9 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
      * @param padre ventana principal de la aplicación.
      * @param modal true si mantiene el foco, false de lo contrario.
      */
-    public DialogSelectorAlumno(VentanaPrincipal padre, boolean modal) {
+    public DialogSelectorAlumno(VentanaPrincipal padre, boolean modal, TipoAccion  tipoAccion) {
         super(padre, modal);
+        this.tipoAccion=tipoAccion;
         initComponents();
         this.setSize(new Dimension(600, 400));
         this.setLocationRelativeTo(padre);
@@ -322,6 +332,11 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
         pnlCentral.setOpaque(false);
         pnlCentral.setLayout(new javax.swing.BoxLayout(pnlCentral, javax.swing.BoxLayout.X_AXIS));
 
+        lstAlumnos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstAlumnosMouseClicked(evt);
+            }
+        });
         scrAlumnos.setViewportView(lstAlumnos);
 
         pnlCentral.add(scrAlumnos);
@@ -437,8 +452,21 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
         this.buscarAlumnos(strNombre, strApellido, strDocumento, strLegajo, institucion, curso);
     }//GEN-LAST:event_txtDocumentoKeyTyped
 
+    private void lstAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstAlumnosMouseClicked
+        if(evt.getClickCount()==2 && tipoAccion==tipoAccion.HISTORIALALUMNO)
+        {
+            DialogHistorialAlumno historialAlumno = new DialogHistorialAlumno(this, true);
+            historialAlumno.setVisible(true);
+        }
+    }//GEN-LAST:event_lstAlumnosMouseClicked
+
     public GestorBarrasDeEstado getGestorEstados() {
         return gestorEstados;
+    }
+    
+    public JList getLstAlumnos()
+    {
+        return lstAlumnos;
     }
 
 
