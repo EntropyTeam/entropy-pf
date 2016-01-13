@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -418,9 +419,9 @@ public class GestorGenerarReporteResolucion {
         
         if (this.resolucionExamen.esCorreccionCompleta()) {
             if (esAprobada) {
-                chunk = new Chunk(String.valueOf("Nota: " + this.resolucionExamen.getCalificacion()), GREEN);
+                chunk = new Chunk(String.valueOf("Nota: " + this.resolucionExamen.getCalificacionDeTrajo()), GREEN);
             } else {
-                chunk = new Chunk(String.valueOf("Nota: " + this.resolucionExamen.getCalificacion()), RED);
+                chunk = new Chunk(String.valueOf("Nota: " + this.resolucionExamen.getCalificacionDeTrajo()), RED);
             }
         } else {
             chunk = new Chunk("Nota: ----", BLUE);
