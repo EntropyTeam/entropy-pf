@@ -222,6 +222,15 @@ public class HiloSocketProfesorPorAlumno extends Thread {
         }
     }
 
+    public void notificarFinalizacionExamen() {
+        Mensaje mensaje = new Mensaje(TipoMensaje.FINALIZAR_EXAMEN_DESDE_PROFESOR);
+        try {
+            enviarMensaje(mensaje);
+        } catch (IOException e) {
+            Mensajes.mostrarError("Error al saludar a un alumno.");
+        }
+    }
+
     public boolean notificarAnulacionResolucion(String strJustificacion) {
         try {
             enviarMensaje(new Mensaje(TipoMensaje.NOTIFICAR_ANULACION, strJustificacion));

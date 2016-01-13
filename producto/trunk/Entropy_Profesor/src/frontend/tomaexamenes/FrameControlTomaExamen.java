@@ -466,7 +466,19 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFinalizarMouseExited
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
-         this.gestorEstados.setEstadoInstantaneo("Termina examen");
+        this.gestorEstados.setEstadoInstantaneo("Termina examen");
+        
+        // Terminar examen, pedir resoluciones y finalizar las conexiones.
+        if (Mensajes.mostrarConfirmacion("Está a punto de finalizar el examen y obtener todas las resoluciones. ¿Realmente desea continuar?")) {
+            gestorTomaExamen.notificarFinalizacionExamen();
+            this.dispose();
+            GestorRedAdHoc gestorRedAdHoc = new GestorRedAdHoc();
+            gestorRedAdHoc.desconectar();
+            throw new UnsupportedOperationException("Falta cerrar los hilos y todo el lío.");
+        }
+        
+        
+        
         repaint();
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
