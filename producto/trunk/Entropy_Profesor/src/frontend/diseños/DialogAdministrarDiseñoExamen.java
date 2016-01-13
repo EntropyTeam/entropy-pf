@@ -770,7 +770,7 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
                 mPadre.pack();
             }
         } catch (Exception ex) {
-            System.err.println(ex.getMessage());
+            ex.printStackTrace();
             Mensajes.mostrarError("Debe seleccionar un diseño de examen.");
         }
     }

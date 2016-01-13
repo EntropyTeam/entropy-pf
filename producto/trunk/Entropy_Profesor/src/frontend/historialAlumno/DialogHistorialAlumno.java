@@ -98,6 +98,7 @@ public class DialogHistorialAlumno extends javax.swing.JDialog {
             {
             modeloTabla.addRow(new Vector());
             Examen examen = gestorHistorial.getExamene(resolucion.get(i).getExamen().getIntExamenId());
+            resolucion.get(i).setExamen(examen);
             modeloTabla.setValueAt(examen.getStrNombre(), i, 0);
             modeloTabla.setValueAt(resolucion.get(i).getCalificacion(), i, 1);
             modeloTabla.setValueAt(examen.getDteFecha(), i, 2);
