@@ -3,6 +3,7 @@ package backend.resoluciones;
 import backend.usuarios.Alumno;
 import backend.examenes.Examen;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -165,4 +166,10 @@ public class Resolucion implements Serializable {
         return 100 * dblCalificacion / dblPuntajeTotal;
     }
     
+    public String getCalificacionDeTrajo(){
+        Double dblCalificacion = this.getCalificacion()/this.getExamen().getPuntajeTotal();
+            DecimalFormat format = new DecimalFormat("##.00");
+            String strCalificacion = format.format(dblCalificacion * 100);
+            return strCalificacion;
+    }
 }
