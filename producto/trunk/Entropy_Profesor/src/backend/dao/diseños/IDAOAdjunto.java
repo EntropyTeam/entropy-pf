@@ -17,4 +17,6 @@ public interface IDAOAdjunto {
     public void guardarAdjunto(int idPregunta, ArrayList<Object> adjunto, Connection conexion);
 
     public Object recuperarAdjunto(int idPregunta);
+    
+    public Object recuperarAdjuntoExamen(int idPregunta);
 }

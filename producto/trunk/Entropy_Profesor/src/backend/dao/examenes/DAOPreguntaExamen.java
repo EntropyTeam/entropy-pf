@@ -408,7 +408,14 @@ public class DAOPreguntaExamen implements IDAOPreguntaExamen {
         Connection conexion = DAOConexion.conectarBaseDatos();
 
         try {
-            String strConsulta = "SELECT P.preguntaId, P.enunciado, P.tipoPreguntaId, P.nivel, P.puntaje FROM exa_pregunta P, exa_Examen DE WHERE P.examenId = DE.examenId AND DE.examenId = ?";
+            String strConsulta = "SELECT "
+                    + "P.preguntaId, "
+                    + "P.enunciado, "
+                    + "P.tipoPreguntaId, "
+                    + "P.nivel, "
+                    + "P.puntaje "
+                    + "FROM exa_pregunta P, exa_Examen DE "
+                    + "WHERE P.examenId = DE.examenId AND DE.examenId = ?";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             psConsulta.setInt(1, examen.getIntExamenId());
             ResultSet rsConsulta = psConsulta.executeQuery();

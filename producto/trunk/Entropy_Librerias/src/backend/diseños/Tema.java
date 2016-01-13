@@ -12,9 +12,11 @@ public class Tema implements Serializable {
     private String strNombre;
 
     public Tema() {
+        intTemaId = -1;
     }
 
     public Tema(String strNombre) {
+        intTemaId = -1;
         this.strNombre = strNombre;
     }
 

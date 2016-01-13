@@ -17,6 +17,7 @@ public class LookAndFeelEntropy {
     public final static Font FUENTE_CURSIVA = new Font("Calibri", Font.ITALIC, 12);
     public final static Font FUENTE_TITULO = new Font("Calibri", Font.BOLD, 14);
     public final static Font FUENTE_TITULO_GRANDE = new Font("Calibri", Font.BOLD, 20);
+    public final static Color COLOR_ENTROPY = new Color(255,153,51);
     public final static Color COLOR_FUENTE_DESHABILITADA = new Color(153, 153, 153);
     public final static Color COLOR_FUENTE_TITULO_PANEL = new Color(204,102,0);
     public final static Color COLOR_CURSOR = new Color(255, 102, 0);

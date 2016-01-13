@@ -1,6 +1,7 @@
 package frontend.resoluciones;
 
 import backend.auxiliares.Mensajes;
+import backend.examenes.Examen;
 import backend.gestores.GestorExamen;
 import backend.reporte.*;
 import backend.usuarios.Alumno;
@@ -8,8 +9,6 @@ import backend.resoluciones.Resolucion;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.mail.EnvioMail;
-import java.awt.Desktop;
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,6 +16,8 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.ListModel;
+import java.awt.Desktop;
+import java.io.File;
 
 /**
  *
@@ -31,9 +32,10 @@ public class PanelResoluciones extends javax.swing.JPanel {
     /**
      * Creates new form PanelResoluciones
      *
+     * @param examen
      * @param colResoluciones
      */
-    public PanelResoluciones(ArrayList<Resolucion> colResoluciones) {
+    public PanelResoluciones(Examen examen, ArrayList<Resolucion> colResoluciones) {
         initComponents();
         this.gestorEstado = new GestorBarrasDeEstado(lblActualizacionEstado, lblIconoEstado);
         this.colResoluciones = colResoluciones;
@@ -43,6 +45,15 @@ public class PanelResoluciones extends javax.swing.JPanel {
             defaultLstPreguntas.addElement(resolucion);
         }
         this.lstResoluciones.setSelectedIndex(0);
+        this.lblExamen.setText(examen.getStrNombre());
+        this.lblCurso.setText(examen.getCurso().getStrNombre() + " - " + examen.getCurso().getInstitucion().getStrNombre());
+        if (examen.getStrDescripcion().isEmpty()){
+            lblsDescripcion.setVisible(false);
+            lblDescripcion.setVisible(false);
+        } else {
+            lblDescripcion.setText(examen.getStrDescripcion());
+            lblDescripcion.setToolTipText(examen.getStrDescripcion());
+        }
     }
 
     /**
@@ -54,6 +65,16 @@ public class PanelResoluciones extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
+        pnlDatosExamen = new javax.swing.JPanel();
+        upperSeparator = new javax.swing.JSeparator();
+        lblsExamen = new javax.swing.JLabel();
+        lblsCurso = new javax.swing.JLabel();
+        lblsDescripcion = new javax.swing.JLabel();
+        lblExamen = new javax.swing.JLabel();
+        lblCurso = new javax.swing.JLabel();
+        lblDescripcion = new javax.swing.JLabel();
+        lowerSeparator = new javax.swing.JSeparator();
         pnlContenido = new javax.swing.JPanel();
         pnlPreguntas = new javax.swing.JPanel();
         scrPreguntas = new javax.swing.JScrollPane();
@@ -88,7 +109,81 @@ public class PanelResoluciones extends javax.swing.JPanel {
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
-        pnlContenido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(204, 102, 0))); // NOI18N
+        pnlDatosExamen.setBackground(LookAndFeelEntropy.COLOR_TABLA_PRIMARIO);
+        pnlDatosExamen.setMaximumSize(new java.awt.Dimension(32767, 109));
+        pnlDatosExamen.setName(""); // NOI18N
+
+        upperSeparator.setForeground(LookAndFeelEntropy.COLOR_ENTROPY);
+
+        lblsExamen.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsExamen.setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+        lblsExamen.setText("Examen:");
+
+        lblsCurso.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsCurso.setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+        lblsCurso.setText("Curso:");
+
+        lblsDescripcion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsDescripcion.setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+        lblsDescripcion.setText("Descripción:");
+
+        lblExamen.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
+        lblExamen.setText("Examen");
+
+        lblCurso.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblCurso.setText("Curso");
+
+        lblDescripcion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblDescripcion.setText("Descripción");
+
+        lowerSeparator.setForeground(LookAndFeelEntropy.COLOR_ENTROPY);
+
+        javax.swing.GroupLayout pnlDatosExamenLayout = new javax.swing.GroupLayout(pnlDatosExamen);
+        pnlDatosExamen.setLayout(pnlDatosExamenLayout);
+        pnlDatosExamenLayout.setHorizontalGroup(
+            pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosExamenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lowerSeparator)
+                    .addComponent(upperSeparator, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDatosExamenLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblsExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblsCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblsDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                            .addComponent(lblExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        pnlDatosExamenLayout.setVerticalGroup(
+            pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosExamenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(upperSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblExamen)
+                    .addComponent(lblsExamen, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblsCurso)
+                    .addComponent(lblCurso))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblsDescripcion)
+                    .addComponent(lblDescripcion))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lowerSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1))
+        );
+
+        add(pnlDatosExamen);
 
         pnlPreguntas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resoluciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
         pnlPreguntas.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -207,13 +302,13 @@ public class PanelResoluciones extends javax.swing.JPanel {
         pnlPreguntas.setLayout(pnlPreguntasLayout);
         pnlPreguntasLayout.setHorizontalGroup(
             pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+            .addComponent(scrPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(pnlPreguntasLayout.createSequentialGroup()
                 .addComponent(btnCorregirTodas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVerResolucion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(btnVerRespuestas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVerResolucion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVerEstadisticasDelAlumno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -222,7 +317,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
         pnlPreguntasLayout.setVerticalGroup(
             pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPreguntasLayout.createSequentialGroup()
-                .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                .addComponent(scrPreguntas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVerRespuestas)
@@ -255,12 +350,12 @@ public class PanelResoluciones extends javax.swing.JPanel {
             pnlDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDatosAlumnoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblsNombre, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblsLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblsLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(lblsNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                     .addComponent(lblLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -329,7 +424,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPreguntasRespondidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPreguntasRespondidas, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                        .addComponent(lblPreguntasRespondidas, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPreguntasCorregidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -374,7 +469,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                 .addGroup(pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPreguntasCorregidas)
                     .addComponent(lblsPreguntasCorregidas))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlPreguntaSeleccionadaLayout = new javax.swing.GroupLayout(pnlPreguntaSeleccionada);
@@ -434,7 +529,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
         pnlEstadoLayout.setHorizontalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEstadoLayout.createSequentialGroup()
-                .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+                .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblIconoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -565,10 +660,14 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private javax.swing.JButton btnVerEstadisticasDelAlumno;
     private javax.swing.JButton btnVerResolucion;
     private javax.swing.JButton btnVerRespuestas;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblCalificacion;
+    private javax.swing.JLabel lblCurso;
+    private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblDuracion;
     private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblExamen;
     private javax.swing.JLabel lblIconoEstado;
     private javax.swing.JLabel lblLegajo;
     private javax.swing.JLabel lblNombre;
@@ -576,28 +675,34 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private javax.swing.JLabel lblPreguntasCorregidas;
     private javax.swing.JLabel lblPreguntasRespondidas;
     private javax.swing.JLabel lblsCalificacion;
+    private javax.swing.JLabel lblsCurso;
+    private javax.swing.JLabel lblsDescripcion;
     private javax.swing.JLabel lblsDuracion;
     private javax.swing.JLabel lblsEstado;
+    private javax.swing.JLabel lblsExamen;
     private javax.swing.JLabel lblsLegajo;
     private javax.swing.JLabel lblsNombre;
     private javax.swing.JLabel lblsPorcentaje;
     private javax.swing.JLabel lblsPreguntasCorregidas;
     private javax.swing.JLabel lblsPreguntasRespondidas;
+    private javax.swing.JSeparator lowerSeparator;
     private javax.swing.JList lstResoluciones;
     private javax.swing.JPanel pnlContenido;
     private javax.swing.JPanel pnlDatosAlumno;
+    private javax.swing.JPanel pnlDatosExamen;
     private javax.swing.JPanel pnlDatosGenerales;
     private javax.swing.JPanel pnlEstado;
     private javax.swing.JPanel pnlPreguntaSeleccionada;
     private javax.swing.JPanel pnlPreguntas;
     private javax.swing.JScrollPane scrPreguntas;
+    private javax.swing.JSeparator upperSeparator;
     // End of variables declaration//GEN-END:variables
 
     private void cargarDatosGenerales(Resolucion resolucion) {
         lblNombre.setText(resolucion.getAlumno().getStrNombre());
-        lblLegajo.setText((resolucion.getAlumno().getStrLegajo() == null) ? "" : resolucion.getAlumno().getStrLegajo());
+        lblLegajo.setText((resolucion.getAlumno().getStrLegajo() == null) ? "---" : resolucion.getAlumno().getStrLegajo());
         lblEstado.setText((resolucion.esCorreccionCompleta()) ? "Corrección completa." : "Corrección incompleta.");
-        lblDuracion.setText((int) (resolucion.getIntTiempoEmpleado() / 60) + ":" + resolucion.getIntTiempoEmpleado() % 60 + " h");
+        lblDuracion.setText(String.format("%02d",(int) (resolucion.getIntTiempoEmpleado() / 60)) + ":" + String.format("%02d", resolucion.getIntTiempoEmpleado() % 60) + " h");
         double dblCalificacion = resolucion.getCalificacion();
         double dblPuntajeTotal = resolucion.getExamen().getPuntajeTotal();
         lblCalificacion.setText(dblCalificacion + "/" + dblPuntajeTotal);

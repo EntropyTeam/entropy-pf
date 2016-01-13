@@ -40,7 +40,6 @@ public class PanelTomaExamen extends javax.swing.JPanel {
         this.mPadre = mPadre;
         gestorDiseñoExamen = new GestorDiseñoExamen();
         gestorCursosInstituciones = new GestorCursosEInstituciones();
-
         initComponents();
         this.gestorEstados = new GestorBarrasDeEstado(lblActualizacionEstado, lblIconoEstado);
         this.mostrarBotonPublicar(false);
@@ -294,4 +293,8 @@ public class PanelTomaExamen extends javax.swing.JPanel {
         return gestorDiseñoExamen;
     }
 
+    public DiseñoExamen getDiseño() {
+        return diseñoExamenSeleccionado;
+    }
+    
 }
