@@ -21,6 +21,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JComponent;
@@ -88,10 +89,12 @@ public class DialogHistorialAlumno extends javax.swing.JDialog {
             resolucion.get(i).setExamen(examen);
             modeloTabla.setValueAt(examen.getStrNombre(), i, 0);
             modeloTabla.setValueAt(resolucion.get(i).getCalificacion(), i, 1);
-            modeloTabla.setValueAt(examen.getDteFecha(), i, 2);
+            String fechaString = new SimpleDateFormat("yyyy-MM-dd").format(examen.getDteFecha()); 
+            modeloTabla.setValueAt(fechaString, i, 2);
             modeloTabla.setValueAt(resolucion.get(i), i, 3);
             }
         }
+        ocultarColumnas();
         jtExamenesRendidos.setModel(modeloTabla);  
     }
     
