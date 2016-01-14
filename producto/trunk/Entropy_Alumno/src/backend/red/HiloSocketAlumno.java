@@ -52,8 +52,14 @@ public class HiloSocketAlumno extends Thread {
         }
     }
 
-    public void enviarMensaje(Mensaje mensaje) throws IOException {
-        if (!socket.isClosed()) objetoSaliente.writeObject(mensaje);
+    public void enviarMensaje(Mensaje mensaje) {
+        if (!socket.isClosed()) {
+            try {
+                objetoSaliente.writeObject(mensaje);
+            } catch (IOException ex) {
+                System.out.println("Error al enviar el mensaje al profesor.");
+            }
+        }
     }
 
     public void procesarMensaje(Mensaje mensaje) {
@@ -67,6 +73,9 @@ public class HiloSocketAlumno extends Thread {
                 break;
             case TipoMensaje.CANCELAR_EXAMEN:
                 gestorResolucionExamen.notificarCancelacionExamen();
+                break;
+            case TipoMensaje.FINALIZAR_EXAMEN_DESDE_PROFESOR:
+                gestorResolucionExamen.notificarFinalizacionExamen();
                 break;
             case TipoMensaje.NOTIFICAR_ANULACION:
                 gestorResolucionExamen.notificarAnulacionResolucion(mensaje.getPayload().toString());

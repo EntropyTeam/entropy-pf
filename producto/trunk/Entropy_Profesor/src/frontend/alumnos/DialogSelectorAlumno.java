@@ -1,10 +1,16 @@
 package frontend.alumnos;
 
 import backend.alumnos.GestorAlumnos;
+import backend.auxiliares.Mensajes;
+import backend.dao.resoluciones.DAOResolucion;
+import backend.mail.*;
 import backend.diseños.Curso;
 import backend.diseños.Institucion;
 import backend.examenes.Examen;
+import backend.gestores.GestorExamen;
 import backend.gestores.GestorImportarPregunta;
+import backend.reporte.GestorGenerarReporteResolucion;
+import backend.resoluciones.Resolucion;
 import backend.usuarios.Alumno;
 import frontend.auxiliares.CeldaListaRendererEntropy;
 import frontend.auxiliares.ComponentMover;
@@ -12,7 +18,6 @@ import frontend.auxiliares.ComponentResizer;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
-import frontend.estadisticas.PanelEstadisticasAlumno;
 import frontend.historialAlumno.DialogHistorialAlumno;
 import frontend.inicio.VentanaPrincipal;
 import java.awt.Color;
@@ -24,7 +29,6 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.KeyStroke;
 
@@ -55,7 +59,6 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
      *
      * @param padre ventana principal de la aplicación.
      * @param modal true si mantiene el foco, false de lo contrario.
-     * @param tipoAccion
      */
     public DialogSelectorAlumno(VentanaPrincipal padre, boolean modal, TipoAccion  tipoAccion) {
         super(padre, modal);
@@ -98,6 +101,14 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
         strApellido = "";
         strDocumento = "";
         strLegajo = "";
+    }
+
+    private void verResoluciones() {
+        
+    }
+
+    private void verEstadisticas() {
+        
     }
 
     /**
@@ -220,16 +231,16 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
         txtLegajo.setTextoPorDefecto("Ingrese un legajo...");
         txtLegajo.mostrarTextoPorDefecto();
         txtLegajo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtLegajoKeyReleased(evt);
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLegajoKeyTyped(evt);
             }
         });
 
         txtNombre.setTextoPorDefecto("Ingrese un nombre...");
         txtNombre.mostrarTextoPorDefecto();
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtNombreKeyReleased(evt);
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
             }
         });
 
@@ -242,8 +253,8 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
         txtApellido.setTextoPorDefecto("Ingrese un apellido...");
         txtApellido.mostrarTextoPorDefecto();
         txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtApellidoKeyReleased(evt);
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
             }
         });
 
@@ -256,8 +267,8 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
         txtDocumento.setTextoPorDefecto("Ingrese un documento...");
         txtDocumento.mostrarTextoPorDefecto();
         txtDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDocumentoKeyReleased(evt);
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDocumentoKeyTyped(evt);
             }
         });
 
@@ -421,45 +432,33 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void lstAlumnosMouseClicked(java.awt.event.MouseEvent evt) {                                        
-        if (evt.getClickCount() >= 2){
-            if (tipoAccion == tipoAccion.BUSCARALUMNO) {
-                Alumno seleccionado = (Alumno) this.lstAlumnos.getSelectedValue();
-                PanelEstadisticasAlumno pnlEstadisticasAlumno = new PanelEstadisticasAlumno(seleccionado);
-                pnlEstadisticasAlumno.setName("Estadísticas alumno");
-                VentanaPrincipal.getInstancia().ocultarMenu();
-                VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlEstadisticasAlumno);
-                VentanaPrincipal.getInstancia().setTitle("Estadísticas del alumno " + seleccionado.toString());
-                if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
-                    VentanaPrincipal.getInstancia().pack();
-                }
-                this.dispose();
-            } else {
-                DialogHistorialAlumno historialAlumno = new DialogHistorialAlumno(this, true);
-                historialAlumno.setVisible(true);
-            }
-        }
-    }                                       
-
-    private void txtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyReleased
-        this.strApellido = txtApellido.getText();
-        this.buscarAlumnos(strNombre, strApellido, strDocumento, strLegajo, institucion, curso);
-    }//GEN-LAST:event_txtApellidoKeyReleased
-
-    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         this.strNombre = txtNombre.getText();
         this.buscarAlumnos(strNombre, strApellido, strDocumento, strLegajo, institucion, curso);
-    }//GEN-LAST:event_txtNombreKeyReleased
+    }//GEN-LAST:event_txtNombreKeyTyped
 
-    private void txtLegajoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLegajoKeyReleased
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        this.strApellido = txtApellido.getText();
+        this.buscarAlumnos(strNombre, strApellido, strDocumento, strLegajo, institucion, curso);
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtLegajoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLegajoKeyTyped
         this.strLegajo = txtLegajo.getText();
         this.buscarAlumnos(strNombre, strApellido, strDocumento, strLegajo, institucion, curso);
-    }//GEN-LAST:event_txtLegajoKeyReleased
+    }//GEN-LAST:event_txtLegajoKeyTyped
 
-    private void txtDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyReleased
+    private void txtDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyTyped
         this.strDocumento = txtDocumento.getText();
         this.buscarAlumnos(strNombre, strApellido, strDocumento, strLegajo, institucion, curso);
-    }//GEN-LAST:event_txtDocumentoKeyReleased
+    }//GEN-LAST:event_txtDocumentoKeyTyped
+
+    private void lstAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstAlumnosMouseClicked
+        if(evt.getClickCount()==2 && tipoAccion==tipoAccion.HISTORIALALUMNO)
+        {
+            DialogHistorialAlumno historialAlumno = new DialogHistorialAlumno(this, true);
+            historialAlumno.setVisible(true);
+        }
+    }//GEN-LAST:event_lstAlumnosMouseClicked
 
     public GestorBarrasDeEstado getGestorEstados() {
         return gestorEstados;

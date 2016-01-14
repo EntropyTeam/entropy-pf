@@ -31,6 +31,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -315,14 +317,8 @@ public class GestorResolucionExamen {
      * @param intPreguntasRespondidas cantidad de preguntas ya respondidas.
      */
     public void notificarProgreso(Integer intPreguntasRespondidas) {
-        try {
-            Mensaje mnsEnviarProgreso = new Mensaje(TipoMensaje.ENVIAR_PROGRESO, intPreguntasRespondidas);
-            hiloSocketAlumno.enviarMensaje(mnsEnviarProgreso);
-        } catch (IOException ex) {
-            // Esta excepción no es tan importante como para comunicarla al 
-            // alumno.
-            System.err.println("Ex: Imposible comunicar con el profesor para enviar progreso.");
-        }
+        Mensaje mnsEnviarProgreso = new Mensaje(TipoMensaje.ENVIAR_PROGRESO, intPreguntasRespondidas);
+        hiloSocketAlumno.enviarMensaje(mnsEnviarProgreso);
     }
 
     /**
@@ -427,11 +423,51 @@ public class GestorResolucionExamen {
         gestorSeguridad.habilitarTaskManager();
         this.resolucion = null;
         this.timerEspera = null;
-        this.hiloSocketAlumno.interrupt();
+        try {
+            this.avisarServidorCierre();
+        } catch (IOException ex) {
+            Mensajes.mostrarError("Error al cerrar la conexión con el profesor.");
+        }
         this.dialogRealizarExamen.dispose();
         this.dialogRealizarExamen = null;
         volverPanelInicio();
         Mensajes.mostrarAdvertencia("El examen ha sido cancelado por su instructor.\nComuníquese con el mismo para mayor información.");
+    }
+
+    /**
+     * Cancela el examen actual y vuelve a la ventana principal.
+     */
+    public void notificarFinalizacionExamen() {
+        GestorSeguridad gestorSeguridad = new GestorSeguridad();
+        gestorSeguridad.habilitarExplorer();
+        gestorSeguridad.habilitarTaskManager();
+        
+        Mensaje mnsAvisarFin = new Mensaje(TipoMensaje.FINALIZAR_EXAMEN, resolucion);
+        hiloSocketAlumno.enviarMensaje(mnsAvisarFin);
+        
+        // Cerramos la conexión
+        try {
+            this.avisarServidorCierre();
+        } catch (IOException ex) {
+            Mensajes.mostrarError("Error al cerrar la conexión con el profesor.");
+        }
+        
+        this.dialogRealizarExamen.dispose(); //Esta linea de codigo esta preventivamente hasta decidir a donde se retorna luego de realizar el examen.
+        this.dialogRealizarExamen = null;
+        this.mPadre.setVisible(true); //Esta linea de codigo esta preventivamente hasta decidir a donde se retorna luego de realizar el examen.
+        if (!esCorreccionAutomatica()) {
+            Mensajes.mostrarExito("¡Examen finalizado por su instructor!"
+                    + "\nEl examen contiene respuestas a ser corregidas por el instructor. "
+                    + "\nA continuación se muestra la resolución de las preguntas de corrección automática."
+                    + "\nLa calificación final será enviada a "
+                    + "la dirección de correo electrónico proporcionada.");
+        } else {
+            Mensajes.mostrarExito("¡Examen finalizado por su instructor!");
+        }
+        PanelRespuesta pnlRespuestas = new PanelRespuesta(resolucion);
+        pnlRespuestas.setName("Respuestas");
+        mPadre.getPanelDeslizante().setPanelMostrado(pnlRespuestas);
+        mPadre.setTitle("Sistema de Administración de Entornos Educativos");
     }
 
     public void volverPanelInicio() {
@@ -442,24 +478,23 @@ public class GestorResolucionExamen {
     }
 
     public void notificarAnulacionResolucion(String strJustificacion) {
+        GestorSeguridad gestorSeguridad = new GestorSeguridad();
+        gestorSeguridad.habilitarExplorer();
+        gestorSeguridad.habilitarTaskManager();
+        this.dialogRealizarExamen.dispose();
+        this.volverPanelInicio();
+        Mensajes.mostrarAdvertencia("Su examen ha sido anulado por su instructor con el siguiente motivo:\n\n\"" + strJustificacion + "\"\n\nConsulte con su instructor.");
+        this.resolucion.setStrJustificacionAnulacion(strJustificacion);
+        Mensaje mnsResolucionAnulada = new Mensaje(TipoMensaje.ANULAR_RESOLUCION, resolucion);
+        hiloSocketAlumno.enviarMensaje(mnsResolucionAnulada);
         try {
-            GestorSeguridad gestorSeguridad = new GestorSeguridad();
-            gestorSeguridad.habilitarExplorer();
-            gestorSeguridad.habilitarTaskManager();
-            this.dialogRealizarExamen.dispose();
-            this.volverPanelInicio();
-            Mensajes.mostrarAdvertencia("Su examen ha sido anulado por su instructor con el siguiente motivo:\n\n\"" + strJustificacion + "\"\n\nConsulte con su instructor.");
-            this.resolucion.setStrJustificacionAnulacion(strJustificacion);
-            Mensaje mnsResolucionAnulada = new Mensaje(TipoMensaje.ANULAR_RESOLUCION, resolucion);
-            hiloSocketAlumno.enviarMensaje(mnsResolucionAnulada);
-            this.hiloSocketAlumno.interrupt();
-            this.resolucion = null;
-            this.timerEspera = null;
-            this.dialogRealizarExamen = null;
+            this.avisarServidorCierre();
         } catch (IOException ex) {
-            guardarCambiosADisco();
+            Mensajes.mostrarError("Error al cerrar la conexión con el profesor.");
         }
-
+        this.resolucion = null;
+        this.timerEspera = null;
+        this.dialogRealizarExamen = null;
     }
 
     public void setProfesor(Usuario profesor) {
