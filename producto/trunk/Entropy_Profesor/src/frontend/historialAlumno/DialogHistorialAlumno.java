@@ -65,6 +65,7 @@ public class DialogHistorialAlumno extends javax.swing.JDialog {
         cargarDatosAlumno();
         cargarExamenesRendidos();
         cargarClasesAsisitidas();
+        ocultarColumnas();
     }
     
     private void cargarDatosAlumno()
@@ -109,7 +110,16 @@ public class DialogHistorialAlumno extends javax.swing.JDialog {
         jtClasesAsistidas.setModel(modeloTabla);
     }
     
-
+    private void ocultarColumnas()
+    {
+        jtClasesAsistidas.getColumnModel().getColumn(3).setMaxWidth(0);
+        jtClasesAsistidas.getColumnModel().getColumn(3).setMinWidth(0);
+        jtClasesAsistidas.getColumnModel().getColumn(3).setPreferredWidth(0);
+        jtExamenesRendidos.getColumnModel().getColumn(3).setMaxWidth(0);
+        jtExamenesRendidos.getColumnModel().getColumn(3).setMinWidth(0);
+        jtExamenesRendidos.getColumnModel().getColumn(3).setPreferredWidth(0);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -193,11 +203,6 @@ public class DialogHistorialAlumno extends javax.swing.JDialog {
         pnlCentral.setLayout(new javax.swing.BoxLayout(pnlCentral, javax.swing.BoxLayout.X_AXIS));
 
         jspExamenesRendidos.setBorder(javax.swing.BorderFactory.createTitledBorder("Examenes Rendidos"));
-        jspExamenesRendidos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jspExamenesRendidosMouseClicked(evt);
-            }
-        });
 
         jtExamenesRendidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -366,10 +371,6 @@ public class DialogHistorialAlumno extends javax.swing.JDialog {
     private void btnRegresar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar2ActionPerformed
         dispose();
     }//GEN-LAST:event_btnRegresar2ActionPerformed
-
-    private void jspExamenesRendidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jspExamenesRendidosMouseClicked
-
-    }//GEN-LAST:event_jspExamenesRendidosMouseClicked
 
     private void jtExamenesRendidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtExamenesRendidosMouseClicked
         if(evt.getClickCount()==2 )
