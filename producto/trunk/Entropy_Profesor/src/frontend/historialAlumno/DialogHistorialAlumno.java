@@ -1,29 +1,16 @@
 package frontend.historialAlumno;
 
-import backend.Asistencia.Asistencia;
 import backend.Presentacion.Presentacion;
 import frontend.alumnos.*;
-import backend.alumnos.GestorAlumnos;
-import backend.auxiliares.Mensajes;
-import backend.dao.resoluciones.DAOResolucion;
-import backend.mail.*;
-import backend.diseños.Curso;
-import backend.diseños.Institucion;
 import backend.examenes.Examen;
-import backend.gestores.GestorExamen;
 import backend.gestores.GestorHistorialAlumno;
-import backend.gestores.GestorImportarPregunta;
 import backend.reporte.GestorGenerarReporteResolucion;
 import backend.resoluciones.Resolucion;
 import backend.usuarios.Alumno;
-import frontend.auxiliares.CeldaListaRendererEntropy;
 import frontend.auxiliares.ComponentMover;
 import frontend.auxiliares.ComponentResizer;
-import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
-
-import frontend.inicio.VentanaPrincipal;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -36,7 +23,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Vector;
-import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.KeyStroke;
@@ -405,7 +391,6 @@ public class DialogHistorialAlumno extends javax.swing.JDialog {
                 System.err.println("Ocurrió una excepción creando el PDF:  "+e.toString());
             }
         }
-                // TODO add your handling code here:
     }//GEN-LAST:event_jtExamenesRendidosMouseClicked
     
 
