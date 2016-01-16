@@ -1,11 +1,25 @@
 package frontend.estadisticas;
 
-import backend.usuarios.Alumno;
 import frontend.alumnos.DialogPerfilCompleto;
 import frontend.auxiliares.CustomTabbedPaneUI;
-import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.inicio.VentanaPrincipal;
 import javax.swing.UIManager;
+import backend.Presentacion.Presentacion;
+import backend.examenes.Examen;
+import backend.gestores.GestorHistorialAlumno;
+import backend.reporte.GestorGenerarReporteResolucion;
+import backend.resoluciones.Resolucion;
+import backend.usuarios.Alumno;
+import frontend.auxiliares.LookAndFeelEntropy;
+import java.awt.Desktop;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,6 +28,7 @@ import javax.swing.UIManager;
 public class PanelEstadisticasAlumno extends javax.swing.JPanel {
 
     private final Alumno alumno;
+    private GestorHistorialAlumno gestorHistorial;
     
     /**
      * Creates new form PanelEstadisticasAlumno
@@ -48,8 +63,57 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
         this.alumno = alumno;
         this.lblAlumno.setText(alumno.getStrApellido()+", "+alumno.getStrNombre());
         this.lblLegajo.setText((alumno.getStrLegajo() != null && !alumno.getStrLegajo().isEmpty()) ? alumno.getStrLegajo() : "---");
+        gestorHistorial = new GestorHistorialAlumno();
+        cargarExamenesRendidos();
+        cargarClasesAsisitidas();
+        ocultarColumnas();
     }
-
+    
+    private void cargarExamenesRendidos()
+    {
+        ArrayList<Resolucion> resolucion = gestorHistorial.getResoluciones(alumno.getIntAlumnoId());
+        DefaultTableModel modeloTabla = (DefaultTableModel)jtExamenesRendidos.getModel();
+        for (int i = 0; i < resolucion.size(); i++) {
+            if(resolucion.get(i).getExamen()!=null)
+            {
+            modeloTabla.addRow(new Vector());
+            Examen examen = gestorHistorial.getExamene(resolucion.get(i).getExamen().getIntExamenId());
+            resolucion.get(i).setExamen(examen);
+            modeloTabla.setValueAt(examen.getStrNombre(), i, 0);
+            modeloTabla.setValueAt(resolucion.get(i).getCalificacion(), i, 1);
+            String fechaString = new SimpleDateFormat("yyyy-MM-dd").format(examen.getDteFecha()); 
+            modeloTabla.setValueAt(fechaString, i, 2);
+            modeloTabla.setValueAt(resolucion.get(i), i, 3);
+            }
+        }
+        ocultarColumnas();
+        jtExamenesRendidos.setModel(modeloTabla);  
+    }
+    
+    private void cargarClasesAsisitidas()
+    {
+        ArrayList<Presentacion>  presentaciones = gestorHistorial.getAsisntencias(alumno.getIntAlumnoId());
+        DefaultTableModel modeloTabla = (DefaultTableModel)jtClasesAsistidas.getModel();
+        for (int i = 0; i < presentaciones.size(); i++) {
+            modeloTabla.addRow(new Vector());
+            modeloTabla.setValueAt(presentaciones.get(i).getStrNombre(), i, 0);
+            modeloTabla.setValueAt(presentaciones.get(i).getStrDescripcion(), i, 1);
+            modeloTabla.setValueAt(presentaciones.get(i).getDteFecha(), i, 2);
+            modeloTabla.setValueAt(presentaciones.get(i), i, 3);
+        }
+        jtClasesAsistidas.setModel(modeloTabla);
+    }
+    
+    private void ocultarColumnas()
+    {
+        jtClasesAsistidas.getColumnModel().getColumn(3).setMaxWidth(0);
+        jtClasesAsistidas.getColumnModel().getColumn(3).setMinWidth(0);
+        jtClasesAsistidas.getColumnModel().getColumn(3).setPreferredWidth(0);
+        jtExamenesRendidos.getColumnModel().getColumn(3).setMaxWidth(0);
+        jtExamenesRendidos.getColumnModel().getColumn(3).setMinWidth(0);
+        jtExamenesRendidos.getColumnModel().getColumn(3).setPreferredWidth(0);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,6 +147,12 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
         lblNotaMayor = new javax.swing.JLabel();
         lblsNotaMenor = new javax.swing.JLabel();
         lblNotaMenor = new javax.swing.JLabel();
+        pnlExamenes = new javax.swing.JPanel();
+        jspExamenesRendidos = new javax.swing.JScrollPane();
+        jtExamenesRendidos = new javax.swing.JTable();
+        pnlAsistencias = new javax.swing.JPanel();
+        jspClasesAsistidas = new javax.swing.JScrollPane();
+        jtClasesAsistidas = new javax.swing.JTable();
 
         pnlDatosExamen.setBackground(LookAndFeelEntropy.COLOR_TABLA_PRIMARIO);
         pnlDatosExamen.setMaximumSize(new java.awt.Dimension(32767, 109));
@@ -257,10 +327,114 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
                 .addGroup(pnlGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblsNotaMenor)
                     .addComponent(lblNotaMenor))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
 
         tbpSolapas.addTab("General", pnlGeneral);
+
+        jspExamenesRendidos.setBorder(null);
+
+        jtExamenesRendidos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Examen", "Nota", "Fecha", "Objeto"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtExamenesRendidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtExamenesRendidosMouseClicked(evt);
+            }
+        });
+        jspExamenesRendidos.setViewportView(jtExamenesRendidos);
+
+        javax.swing.GroupLayout pnlExamenesLayout = new javax.swing.GroupLayout(pnlExamenes);
+        pnlExamenes.setLayout(pnlExamenesLayout);
+        pnlExamenesLayout.setHorizontalGroup(
+            pnlExamenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 498, Short.MAX_VALUE)
+            .addGroup(pnlExamenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlExamenesLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jspExamenesRendidos, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        pnlExamenesLayout.setVerticalGroup(
+            pnlExamenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 318, Short.MAX_VALUE)
+            .addGroup(pnlExamenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlExamenesLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jspExamenesRendidos, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)))
+        );
+
+        tbpSolapas.addTab("Exámenes", pnlExamenes);
+
+        jspClasesAsistidas.setBorder(null);
+
+        jtClasesAsistidas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Descripción", "Fecha", "Objeto"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jspClasesAsistidas.setViewportView(jtClasesAsistidas);
+
+        javax.swing.GroupLayout pnlAsistenciasLayout = new javax.swing.GroupLayout(pnlAsistencias);
+        pnlAsistencias.setLayout(pnlAsistenciasLayout);
+        pnlAsistenciasLayout.setHorizontalGroup(
+            pnlAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 498, Short.MAX_VALUE)
+            .addGroup(pnlAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlAsistenciasLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jspClasesAsistidas, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        pnlAsistenciasLayout.setVerticalGroup(
+            pnlAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 318, Short.MAX_VALUE)
+            .addGroup(pnlAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlAsistenciasLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jspClasesAsistidas, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        tbpSolapas.addTab("Asistencias", pnlAsistencias);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -288,8 +462,34 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
         new DialogPerfilCompleto(VentanaPrincipal.getInstancia(), true, alumno).setVisible(true);
     }//GEN-LAST:event_lblPerfilCompletoMouseClicked
 
+    private void jtExamenesRendidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtExamenesRendidosMouseClicked
+        if(evt.getClickCount()==2 )
+        {
+            try {
+                Resolucion  resolucion  = (Resolucion) jtExamenesRendidos.getModel().getValueAt(jtExamenesRendidos.getSelectedRow(), 3);
+                if(resolucion!=null)
+                {
+                    GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
+                    gestorReporte.generarReporteResolucion();
+                    String pathArchivo= gestorReporte.getResolucion();
+                    Path path = Paths.get(pathArchivo);
+                    byte[] pdf = Files.readAllBytes(path);
+                    File pdfArchivo = new File(pathArchivo);
+                    Desktop.getDesktop().open(pdfArchivo);
+                }
+            }
+            catch(Exception e) {
+                System.err.println("Ocurrió una excepción creando el PDF:  "+e.toString());
+            }
+        }
+    }//GEN-LAST:event_jtExamenesRendidosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jspClasesAsistidas;
+    private javax.swing.JScrollPane jspExamenesRendidos;
+    private javax.swing.JTable jtClasesAsistidas;
+    private javax.swing.JTable jtExamenesRendidos;
     private javax.swing.JLabel lblAlumno;
     private javax.swing.JLabel lblAprobados;
     private javax.swing.JLabel lblCorregidos;
@@ -310,7 +510,9 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
     private javax.swing.JLabel lblsPorcentajeAprobados;
     private javax.swing.JLabel lblsRendidos;
     private javax.swing.JSeparator lowerSeparator;
+    private javax.swing.JPanel pnlAsistencias;
     private javax.swing.JPanel pnlDatosExamen;
+    private javax.swing.JPanel pnlExamenes;
     private javax.swing.JPanel pnlGeneral;
     private javax.swing.JTabbedPane tbpSolapas;
     private javax.swing.JSeparator upperSeparator;
