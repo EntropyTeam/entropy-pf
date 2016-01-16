@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package backend.gestores;
 
-import backend.Asistencia.Asistencia;
 import backend.Presentacion.Presentacion;
 import backend.dao.examenes.DAOExamen;
+import backend.dao.examenes.DAOPreguntaExamen;
 import backend.dao.presentacion.DAOPresentacion;
 import backend.dao.presentacion.IDAOPresentacion;
 import backend.dao.resoluciones.DAOResolucion;
@@ -30,13 +25,14 @@ public class GestorHistorialAlumno {
     }
     
     
-        public Examen getExamene (int idExamen) {
+        public Examen getExamen (int idExamen) {
         DAOExamen dAOExamen = new DAOExamen();
         Examen examen = dAOExamen.getExamen(idExamen);
+        examen.setColPreguntas(new DAOPreguntaExamen().getPreguntasPorExamen(examen));
         return examen;
     }
     
-        public ArrayList<Presentacion> getAsisntencias (int idAlumno) {
+        public ArrayList<Presentacion> getAsistencias (int idAlumno) {
         ArrayList<Presentacion> colAsistencia = new ArrayList<Presentacion>();
         IDAOPresentacion daoPresentacion = new DAOPresentacion();
         colAsistencia = daoPresentacion.recuperarPresentacionesDeUnAlumno(idAlumno);

@@ -142,7 +142,7 @@ public class CeldaMultiLineaRendererEntropy extends AbstractCellEditor implement
 
         return txaEditor;
     }
-
+    
     /**
      * Clase interna para el manejo de la edición multilínea.
      */

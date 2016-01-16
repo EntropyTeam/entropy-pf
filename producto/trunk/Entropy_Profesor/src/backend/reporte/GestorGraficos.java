@@ -91,7 +91,7 @@ public class GestorGraficos {
         for (int j = 0; j < colResoluciones.size(); j++) {
             Resolucion resolucion = colResoluciones.get(j);
             matResultados[j][0] = resolucion.getAlumno().toString();
-            matResultados[j][1] = resolucion.getPorcentajeAprobacion() + "%";
+            matResultados[j][1] = String.format("%.2f", resolucion.getPorcentajeAprobacion()) + "%";
             blnAnulada = resolucion.isBlnAnulada();
             for (int i = 0; i < resolucion.getColRespuestas().size(); i++){
                 Respuesta respuesta = resolucion.getColRespuestas().get(i);

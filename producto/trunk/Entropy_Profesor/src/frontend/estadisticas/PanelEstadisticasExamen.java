@@ -7,15 +7,14 @@ import frontend.auxiliares.CeldaListaRendererEntropy;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
+import frontend.auxiliares.TabbedPaneEntropy;
 import frontend.inicio.VentanaPrincipal;
 import java.awt.Component;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -47,6 +46,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         this.gestorGraficos = gestorGraficos;
         this.pnlPreguntas.setVisible(false);
         this.lblGrafico.setIcon(new ImageIcon(gestorGraficos.generarGraficoPoblacionResolucionesDificultad(false, 600, 300)));
+        tpnEstadisticas.setUI(new TabbedPaneEntropy());
         tblRespuestas.setModel(new javax.swing.table.DefaultTableModel(
             gestorGraficos.crearMatrizRespuestas(),
             gestorGraficos.getEncabezadoMatriz()
@@ -257,10 +257,11 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         });
         pnlFiltros.add(cmbPorcentaje);
 
-        pnlGrafico.setImagen(GestorImagenes.crearImage("/frontend/imagenes/bg4.jpg"));
-        pnlGrafico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 102, 0), 4));
+        pnlGrafico.setBorder(null);
         pnlGrafico.setOpaque(false);
         pnlGrafico.setLayout(new java.awt.GridLayout(1, 0, 10, 10));
+
+        tpnEstadisticas.setBorder(null);
 
         pnlPreguntas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Preguntas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
         pnlPreguntas.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -289,7 +290,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         );
         pnlPreguntasLayout.setVerticalGroup(
             pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+            .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
         );
 
         spnGrafico.setLeftComponent(pnlPreguntas);

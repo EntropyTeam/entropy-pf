@@ -1,7 +1,7 @@
 package frontend.estadisticas;
 
 import frontend.alumnos.DialogPerfilCompleto;
-import frontend.auxiliares.CustomTabbedPaneUI;
+import frontend.auxiliares.TabbedPaneEntropy;
 import frontend.inicio.VentanaPrincipal;
 import javax.swing.UIManager;
 import backend.Presentacion.Presentacion;
@@ -10,6 +10,7 @@ import backend.gestores.GestorHistorialAlumno;
 import backend.reporte.GestorGenerarReporteResolucion;
 import backend.resoluciones.Resolucion;
 import backend.usuarios.Alumno;
+import frontend.auxiliares.CeldaMultiLineaRendererEntropy;
 import frontend.auxiliares.LookAndFeelEntropy;
 import java.awt.Desktop;
 import java.io.File;
@@ -29,91 +30,73 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
 
     private final Alumno alumno;
     private GestorHistorialAlumno gestorHistorial;
-    
+
     /**
      * Creates new form PanelEstadisticasAlumno
+     *
      * @param alumno cuyas estadísticas deben mostrarse.
      */
     public PanelEstadisticasAlumno(Alumno alumno) {
         initComponents();
-        UIManager.put("TabbedPane.selected", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.selectedForeground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.tabAreaBackground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.background", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.borderHightlightColor", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.contentAreaColor", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.darkShadow", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.focus", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.foreground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.highlight", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.light", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.selected", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.selectedForeground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.selectHighlight", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.shadow", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.tabAreaBackground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.unselectedBackground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.unselectedTabBackground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.unselectedTabForeground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.unselectedTabHighlight", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        UIManager.put("TabbedPane.unselectedTabShadow", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
 
-
-        this.tbpSolapas.setUI(new CustomTabbedPaneUI());
+        this.tbpSolapas.setUI(new TabbedPaneEntropy());
         this.alumno = alumno;
-        this.lblAlumno.setText(alumno.getStrApellido()+", "+alumno.getStrNombre());
+        this.lblAlumno.setText(alumno.getStrApellido() + ", " + alumno.getStrNombre());
         this.lblLegajo.setText((alumno.getStrLegajo() != null && !alumno.getStrLegajo().isEmpty()) ? alumno.getStrLegajo() : "---");
         gestorHistorial = new GestorHistorialAlumno();
+
+        // Formato de tablas
+        tblExamenesRendidos.getTableHeader().setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        tblExamenesRendidos.setDefaultRenderer(Object.class, new CeldaMultiLineaRendererEntropy(tblExamenesRendidos, false));
+        tblClasesAsistidas.getTableHeader().setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        tblClasesAsistidas.setDefaultRenderer(Object.class, new CeldaMultiLineaRendererEntropy(tblClasesAsistidas, false));
+
         cargarExamenesRendidos();
         cargarClasesAsisitidas();
         ocultarColumnas();
     }
-    
-    private void cargarExamenesRendidos()
-    {
+
+    private void cargarExamenesRendidos() {
         ArrayList<Resolucion> resolucion = gestorHistorial.getResoluciones(alumno.getIntAlumnoId());
-        DefaultTableModel modeloTabla = (DefaultTableModel)jtExamenesRendidos.getModel();
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblExamenesRendidos.getModel();
         for (int i = 0; i < resolucion.size(); i++) {
-            if(resolucion.get(i).getExamen()!=null)
-            {
-            modeloTabla.addRow(new Vector());
-            Examen examen = gestorHistorial.getExamene(resolucion.get(i).getExamen().getIntExamenId());
-            resolucion.get(i).setExamen(examen);
-            modeloTabla.setValueAt(examen.getStrNombre(), i, 0);
-            modeloTabla.setValueAt(resolucion.get(i).getCalificacion(), i, 1);
-            String fechaString = new SimpleDateFormat("yyyy-MM-dd").format(examen.getDteFecha()); 
-            modeloTabla.setValueAt(fechaString, i, 2);
-            modeloTabla.setValueAt(resolucion.get(i), i, 3);
+            if (resolucion.get(i).getExamen()!= null) {
+                modeloTabla.addRow(new Vector());
+                Examen examen = gestorHistorial.getExamen(resolucion.get(i).getExamen().getIntExamenId());
+                resolucion.get(i).setExamen(examen);
+                modeloTabla.setValueAt(examen.getStrNombre(), i, 0);
+                modeloTabla.setValueAt(String.format("%.2f", resolucion.get(i).getPorcentajeAprobacion()) + "%", i, 1);
+                String fechaString = new SimpleDateFormat("dd-MM-yyyy").format(examen.getDteFecha());
+                modeloTabla.setValueAt(fechaString, i, 2);
+                modeloTabla.setValueAt(resolucion.get(i), i, 3);
             }
         }
         ocultarColumnas();
-        jtExamenesRendidos.setModel(modeloTabla);  
+        tblExamenesRendidos.setModel(modeloTabla);
     }
-    
-    private void cargarClasesAsisitidas()
-    {
-        ArrayList<Presentacion>  presentaciones = gestorHistorial.getAsisntencias(alumno.getIntAlumnoId());
-        DefaultTableModel modeloTabla = (DefaultTableModel)jtClasesAsistidas.getModel();
+
+    private void cargarClasesAsisitidas() {
+        ArrayList<Presentacion> presentaciones = gestorHistorial.getAsistencias(alumno.getIntAlumnoId());
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblClasesAsistidas.getModel();
         for (int i = 0; i < presentaciones.size(); i++) {
             modeloTabla.addRow(new Vector());
             modeloTabla.setValueAt(presentaciones.get(i).getStrNombre(), i, 0);
             modeloTabla.setValueAt(presentaciones.get(i).getStrDescripcion(), i, 1);
-            modeloTabla.setValueAt(presentaciones.get(i).getDteFecha(), i, 2);
+            modeloTabla.setValueAt(new SimpleDateFormat("dd-MM-yyyy").format(presentaciones.get(i).getDteFecha()), i, 2);
             modeloTabla.setValueAt(presentaciones.get(i), i, 3);
         }
-        jtClasesAsistidas.setModel(modeloTabla);
+        tblClasesAsistidas.setModel(modeloTabla);
     }
-    
-    private void ocultarColumnas()
-    {
-        jtClasesAsistidas.getColumnModel().getColumn(3).setMaxWidth(0);
-        jtClasesAsistidas.getColumnModel().getColumn(3).setMinWidth(0);
-        jtClasesAsistidas.getColumnModel().getColumn(3).setPreferredWidth(0);
-        jtExamenesRendidos.getColumnModel().getColumn(3).setMaxWidth(0);
-        jtExamenesRendidos.getColumnModel().getColumn(3).setMinWidth(0);
-        jtExamenesRendidos.getColumnModel().getColumn(3).setPreferredWidth(0);
+
+    private void ocultarColumnas() {
+        tblClasesAsistidas.getColumnModel().getColumn(3).setMaxWidth(0);
+        tblClasesAsistidas.getColumnModel().getColumn(3).setMinWidth(0);
+        tblClasesAsistidas.getColumnModel().getColumn(3).setPreferredWidth(0);
+        tblExamenesRendidos.getColumnModel().getColumn(3).setMaxWidth(0);
+        tblExamenesRendidos.getColumnModel().getColumn(3).setMinWidth(0);
+        tblExamenesRendidos.getColumnModel().getColumn(3).setPreferredWidth(0);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,12 +130,15 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
         lblNotaMayor = new javax.swing.JLabel();
         lblsNotaMenor = new javax.swing.JLabel();
         lblNotaMenor = new javax.swing.JLabel();
+        pnlHistograma = new javax.swing.JPanel();
+        pnlRendimiento = new javax.swing.JPanel();
         pnlExamenes = new javax.swing.JPanel();
-        jspExamenesRendidos = new javax.swing.JScrollPane();
-        jtExamenesRendidos = new javax.swing.JTable();
+        scrExamenesRendidos = new javax.swing.JScrollPane();
+        tblExamenesRendidos = new javax.swing.JTable();
+        lblInfoExamenes = new javax.swing.JLabel();
         pnlAsistencias = new javax.swing.JPanel();
-        jspClasesAsistidas = new javax.swing.JScrollPane();
-        jtClasesAsistidas = new javax.swing.JTable();
+        scrClasesAsistidas = new javax.swing.JScrollPane();
+        tblClasesAsistidas = new javax.swing.JTable();
 
         pnlDatosExamen.setBackground(LookAndFeelEntropy.COLOR_TABLA_PRIMARIO);
         pnlDatosExamen.setMaximumSize(new java.awt.Dimension(32767, 109));
@@ -228,6 +214,8 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
                 .addComponent(lowerSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1))
         );
+
+        tbpSolapas.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
 
         lblsRendidos.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblsRendidos.setText("Exámenes Rendidos:");
@@ -327,19 +315,47 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
                 .addGroup(pnlGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblsNotaMenor)
                     .addComponent(lblNotaMenor))
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         tbpSolapas.addTab("General", pnlGeneral);
 
-        jspExamenesRendidos.setBorder(null);
+        javax.swing.GroupLayout pnlHistogramaLayout = new javax.swing.GroupLayout(pnlHistograma);
+        pnlHistograma.setLayout(pnlHistogramaLayout);
+        pnlHistogramaLayout.setHorizontalGroup(
+            pnlHistogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 498, Short.MAX_VALUE)
+        );
+        pnlHistogramaLayout.setVerticalGroup(
+            pnlHistogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 271, Short.MAX_VALUE)
+        );
 
-        jtExamenesRendidos.setModel(new javax.swing.table.DefaultTableModel(
+        tbpSolapas.addTab("Histograma", pnlHistograma);
+
+        javax.swing.GroupLayout pnlRendimientoLayout = new javax.swing.GroupLayout(pnlRendimiento);
+        pnlRendimiento.setLayout(pnlRendimientoLayout);
+        pnlRendimientoLayout.setHorizontalGroup(
+            pnlRendimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 498, Short.MAX_VALUE)
+        );
+        pnlRendimientoLayout.setVerticalGroup(
+            pnlRendimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 271, Short.MAX_VALUE)
+        );
+
+        tbpSolapas.addTab("Rendimiento", pnlRendimiento);
+
+        scrExamenesRendidos.setBorder(null);
+
+        tblExamenesRendidos.setAutoCreateRowSorter(true);
+        tblExamenesRendidos.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        tblExamenesRendidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Examen", "Nota", "Fecha", "Objeto"
+                "Examen", "Porcentaje de Aprobación", "Fecha", "Objeto"
             }
         ) {
             Class[] types = new Class [] {
@@ -357,43 +373,53 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jtExamenesRendidos.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblExamenesRendidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblExamenesRendidos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtExamenesRendidosMouseClicked(evt);
+                tblExamenesRendidosMouseClicked(evt);
             }
         });
-        jspExamenesRendidos.setViewportView(jtExamenesRendidos);
+        scrExamenesRendidos.setViewportView(tblExamenesRendidos);
+
+        lblInfoExamenes.setBackground(LookAndFeelEntropy.COLOR_TABLA_PRIMARIO);
+        lblInfoExamenes.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblInfoExamenes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_mensajes_informacion_orange.png"))); // NOI18N
+        lblInfoExamenes.setText("Hacer doble clic en cada fila para ver la resolución.");
+        lblInfoExamenes.setBorder(javax.swing.BorderFactory.createLineBorder(LookAndFeelEntropy.COLOR_ENTROPY));
+        lblInfoExamenes.setOpaque(true);
 
         javax.swing.GroupLayout pnlExamenesLayout = new javax.swing.GroupLayout(pnlExamenes);
         pnlExamenes.setLayout(pnlExamenesLayout);
         pnlExamenesLayout.setHorizontalGroup(
             pnlExamenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
-            .addGroup(pnlExamenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlExamenesLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jspExamenesRendidos, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(pnlExamenesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlExamenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrExamenesRendidos, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                    .addComponent(lblInfoExamenes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnlExamenesLayout.setVerticalGroup(
             pnlExamenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
-            .addGroup(pnlExamenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlExamenesLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jspExamenesRendidos, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)))
+            .addGroup(pnlExamenesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrExamenesRendidos, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblInfoExamenes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         tbpSolapas.addTab("Exámenes", pnlExamenes);
 
-        jspClasesAsistidas.setBorder(null);
+        scrClasesAsistidas.setBorder(null);
 
-        jtClasesAsistidas.setModel(new javax.swing.table.DefaultTableModel(
+        tblClasesAsistidas.setAutoCreateRowSorter(true);
+        tblClasesAsistidas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Descripción", "Fecha", "Objeto"
+                "Presentación", "Descripción", "Fecha", "Objeto"
             }
         ) {
             Class[] types = new Class [] {
@@ -411,27 +437,23 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jspClasesAsistidas.setViewportView(jtClasesAsistidas);
+        scrClasesAsistidas.setViewportView(tblClasesAsistidas);
 
         javax.swing.GroupLayout pnlAsistenciasLayout = new javax.swing.GroupLayout(pnlAsistencias);
         pnlAsistencias.setLayout(pnlAsistenciasLayout);
         pnlAsistenciasLayout.setHorizontalGroup(
             pnlAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
-            .addGroup(pnlAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlAsistenciasLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jspClasesAsistidas, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(pnlAsistenciasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrClasesAsistidas, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnlAsistenciasLayout.setVerticalGroup(
             pnlAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
-            .addGroup(pnlAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlAsistenciasLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jspClasesAsistidas, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(pnlAsistenciasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrClasesAsistidas, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         tbpSolapas.addTab("Asistencias", pnlAsistencias);
@@ -462,37 +484,31 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
         new DialogPerfilCompleto(VentanaPrincipal.getInstancia(), true, alumno).setVisible(true);
     }//GEN-LAST:event_lblPerfilCompletoMouseClicked
 
-    private void jtExamenesRendidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtExamenesRendidosMouseClicked
-        if(evt.getClickCount()==2 )
-        {
+    private void tblExamenesRendidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblExamenesRendidosMouseClicked
+        if (evt.getClickCount() == 2) {
             try {
-                Resolucion  resolucion  = (Resolucion) jtExamenesRendidos.getModel().getValueAt(jtExamenesRendidos.getSelectedRow(), 3);
-                if(resolucion!=null)
-                {
+                Resolucion resolucion = (Resolucion) tblExamenesRendidos.getModel().getValueAt(tblExamenesRendidos.getSelectedRow(), 3);
+                if (resolucion != null) {
                     GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
                     gestorReporte.generarReporteResolucion();
-                    String pathArchivo= gestorReporte.getResolucion();
+                    String pathArchivo = gestorReporte.getResolucion();
                     Path path = Paths.get(pathArchivo);
                     byte[] pdf = Files.readAllBytes(path);
                     File pdfArchivo = new File(pathArchivo);
                     Desktop.getDesktop().open(pdfArchivo);
                 }
-            }
-            catch(Exception e) {
-                System.err.println("Ocurrió una excepción creando el PDF:  "+e.toString());
+            } catch (Exception e) {
+                System.err.println("Ocurrió una excepción creando el PDF:  " + e.toString());
             }
         }
-    }//GEN-LAST:event_jtExamenesRendidosMouseClicked
+    }//GEN-LAST:event_tblExamenesRendidosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jspClasesAsistidas;
-    private javax.swing.JScrollPane jspExamenesRendidos;
-    private javax.swing.JTable jtClasesAsistidas;
-    private javax.swing.JTable jtExamenesRendidos;
     private javax.swing.JLabel lblAlumno;
     private javax.swing.JLabel lblAprobados;
     private javax.swing.JLabel lblCorregidos;
+    private javax.swing.JLabel lblInfoExamenes;
     private javax.swing.JLabel lblLegajo;
     private javax.swing.JLabel lblNotaMayor;
     private javax.swing.JLabel lblNotaMenor;
@@ -514,6 +530,12 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
     private javax.swing.JPanel pnlDatosExamen;
     private javax.swing.JPanel pnlExamenes;
     private javax.swing.JPanel pnlGeneral;
+    private javax.swing.JPanel pnlHistograma;
+    private javax.swing.JPanel pnlRendimiento;
+    private javax.swing.JScrollPane scrClasesAsistidas;
+    private javax.swing.JScrollPane scrExamenesRendidos;
+    private javax.swing.JTable tblClasesAsistidas;
+    private javax.swing.JTable tblExamenesRendidos;
     private javax.swing.JTabbedPane tbpSolapas;
     private javax.swing.JSeparator upperSeparator;
     // End of variables declaration//GEN-END:variables

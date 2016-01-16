@@ -6,12 +6,14 @@ import javax.swing.*;
 import javax.swing.plaf.*;
 import javax.swing.plaf.basic.*;
 import javax.swing.text.View;
+
 /**
  *
- * @author tesis
+ * @author Denise
  */
-public class CustomTabbedPaneUI extends BasicTabbedPaneUI {
+public class TabbedPaneEntropy extends BasicTabbedPaneUI {
     private Color selectedColor;
+    private Color secondaryColor;
     private Color disabledColor;
     private final int inclTab = 4;
     private final int anchoFocoV = inclTab;
@@ -19,15 +21,40 @@ public class CustomTabbedPaneUI extends BasicTabbedPaneUI {
     private final int anchoCarpetas = 18;
     private Polygon shape;
 
+    public TabbedPaneEntropy() {
+//        UIManager.put("TabbedPane.selected", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.selectedForeground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.tabAreaBackground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.background", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.borderHightlightColor", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.focus", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.light", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.selected", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.selectHighlight", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.shadow", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.tabAreaBackground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.unselectedBackground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.unselectedTabBackground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.unselectedTabHighlight", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.unselectedTabShadow", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.selectedForeground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+//        UIManager.put("TabbedPane.unselectedTabForeground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+        UIManager.put("TabbedPane.foreground", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+        UIManager.put("TabbedPane.highlight", LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
+        UIManager.put("TabbedPane.darkShadow", LookAndFeelEntropy.COLOR_ENTROPY);
+        UIManager.put("TabbedPane.contentAreaColor", LookAndFeelEntropy.COLOR_TABLA_PRIMARIO);
+    }
+    
     public static ComponentUI createUI(JComponent c) {
-        return new CustomTabbedPaneUI();
+        return new TabbedPaneEntropy();
     }
 
     @Override
     protected void installDefaults() {
         super.installDefaults();
-        selectedColor = LookAndFeelEntropy.COLOR_TABLA_PRIMARIO;//new Color(250, 192, 192);
-        disabledColor = LookAndFeelEntropy.COLOR_TABLA_SECUNDARIO;//new Color(197, 193, 168);
+        selectedColor = LookAndFeelEntropy.COLOR_ENTROPY;
+        secondaryColor = LookAndFeelEntropy.COLOR_TABLA_PRIMARIO;
+        disabledColor = LookAndFeelEntropy.COLOR_SELECCION_ITEM;
         tabAreaInsets.right = anchoCarpetas;
     }
 
@@ -83,31 +110,11 @@ public class CustomTabbedPaneUI extends BasicTabbedPaneUI {
     protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected) {
         Graphics2D g2D = (Graphics2D) g;
         GradientPaint gradientShadow;
-        int xp[] = null; // Para la forma
+        int xp[] = null;
         int yp[] = null;
-        switch (tabPlacement) {
-            case LEFT:
-                xp = new int[]{x, x, x + w, x + w, x};
-                yp = new int[]{y, y + h - 3, y + h - 3, y, y};
-                gradientShadow = new GradientPaint(x, y, new Color(100, 100, 255), x, y + h, selectedColor);
-                break;
-            case RIGHT:
-                xp = new int[]{x, x, x + w - 2, x + w - 2, x};
-                yp = new int[]{y, y + h - 3, y + h - 3, y, y};
-                gradientShadow = new GradientPaint(x, y, new Color(100, 100, 255), x, y + h, new Color(153, 186, 243));
-                break;
-            case BOTTOM:
-                xp = new int[]{x, x, x + 3, x + w - inclTab - 6, x + w - inclTab - 2, x + w - inclTab, x + w - 3, x};
-                yp = new int[]{y, y + h - 3, y + h, y + h, y + h - 1, y + h - 3, y, y};
-                gradientShadow = new GradientPaint(x, y, new Color(100, 100, 255), x, y + h, Color.BLUE);
-                break;
-            case TOP:
-            default:
-                xp = new int[]{x, x, x + 3, x + w - inclTab - 6, x + w - inclTab - 2, x + w - inclTab, x + w - inclTab, x};
-                yp = new int[]{y + h, y + 3, y, y, y + 1, y + 3, y + h, y + h};
-                gradientShadow = new GradientPaint(0, 0, selectedColor, 0, y + h / 2, new Color(240, 255, 210));
-                break;
-        }
+        xp = new int[]{x, x, x + 3, x + w - inclTab - 6, x + w - inclTab - 2, x + w - inclTab, x + w - inclTab, x};
+        yp = new int[]{y + h, y + 3, y, y, y + 1, y + 3, y + h, y + h};
+        gradientShadow = new GradientPaint(0, 0, selectedColor, 0, y + h / 2, LookAndFeelEntropy.COLOR_ENTROPY);
         shape = new Polygon(xp, yp, xp.length);
         if (isSelected) {
             g2D.setColor(selectedColor);
@@ -115,10 +122,10 @@ public class CustomTabbedPaneUI extends BasicTabbedPaneUI {
         } else {
             if (tabPane.isEnabled() && tabPane.isEnabledAt(tabIndex)) {
                 g2D.setColor(disabledColor);
-                GradientPaint gradientShadowTmp = new GradientPaint(0, 0, new Color(255, 255, 200), 0, y + h / 2, new Color(240, 255, 210));
+                GradientPaint gradientShadowTmp = new GradientPaint(0, 0, secondaryColor, 0, y + h / 2, disabledColor);
                 g2D.setPaint(gradientShadowTmp);
             } else {
-                GradientPaint gradientShadowTmp = new GradientPaint(0, 0, new Color(240, 255, 210), 0, y + 15 + h / 2, new Color(204, 204, 204));
+                GradientPaint gradientShadowTmp = new GradientPaint(0, 0, secondaryColor, 0, y + 15 + h / 2, disabledColor);
                 g2D.setPaint(gradientShadowTmp);
             }
         }
