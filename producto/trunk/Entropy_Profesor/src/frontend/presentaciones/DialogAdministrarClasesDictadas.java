@@ -11,6 +11,9 @@ import backend.diseños.Institucion;
 import backend.reporte.GestorGenerarReportePresentacionesRealizadas;
 import frontend.auxiliares.CeldaListaRendererEntropy;
 import frontend.auxiliares.LookAndFeelEntropy;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +21,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 import net.sf.jasperreports.engine.JRException;
 
 /**
@@ -26,17 +31,24 @@ import net.sf.jasperreports.engine.JRException;
  */
 public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
 
-    private DAOInstitucion daoInstitucion = new DAOInstitucion();
-    private DAOCurso daoCurso = new DAOCurso();
+    private final DAOInstitucion daoInstitucion = new DAOInstitucion();
+    private final DAOCurso daoCurso = new DAOCurso();
 
     /**
      * Creates new form DialogAdministrarClasesDictadas
+     * @param parent
+     * @param modal
      */
     public DialogAdministrarClasesDictadas(java.awt.Frame parent, boolean modal) {
         super(parent, false);
         initComponents();
         setLocationRelativeTo(parent);
+        this.getRootPane().registerKeyboardAction(new DialogAdministrarClasesDictadas.EscapeAction(),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                JComponent.WHEN_IN_FOCUSED_WINDOW);        
         setTitle("Administrar presentaciones");
+        this.cmbInstitucion.setRenderer(new CeldaListaRendererEntropy());
+        this.cmbCurso.setRenderer(new CeldaListaRendererEntropy());
         lstClasesDictadas.setCellRenderer(new CeldaListaRendererEntropy());
         cargarComboInstituciones();
         cargarComboCursos(((Institucion) cmbInstitucion.getSelectedItem()).getIntInstitucionId());
@@ -53,7 +65,6 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
     }
 
     private void cargarComboCursos(int idInstitucion) {
-        DAOCurso daoCurso = new DAOCurso();
         Institucion institucion = daoInstitucion.recuperarInstitucion(idInstitucion);
         ArrayList<Curso> listacurso = daoCurso.recuperarTodosLosCursos(institucion, "");
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
@@ -72,7 +83,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
     private void buscarListaDeClasesDictadas() {
         IDAOPresentacion daoPresentacion = new DAOPresentacion();
         ArrayList<Presentacion> presentaciones = daoPresentacion.recuperarPresentaciones(((Curso) cmbCurso.getSelectedItem()).getIntCursoId(), dcFechaDesde.getDate(), dcFechaHasta.getDate());
-        if (presentaciones.size()==0) {
+        if (presentaciones.isEmpty()) {
             Mensajes.mostrarInformacion("No se encontraron resultados para la búsqueda realizada.");
             limpiarListaDeClases();
             return;
@@ -366,4 +377,16 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
     private javax.swing.JPanel pnlDatosClase;
     private javax.swing.JScrollPane scrClases;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Clase que escucha por el tecleo de la tecla Esc.
+     */
+    private class EscapeAction implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            dispose();
+        }
+    }
+
 }

@@ -1,19 +1,18 @@
 package backend.reporte;
 
 import backend.Presentacion.Presentacion;
-import backend.resoluciones.Resolucion;
 import frontend.auxiliares.LookAndFeelEntropy;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -88,10 +87,12 @@ public class GestorGraficosAlumno {
         xyplot.setRenderer(1, renderer2);
         
         DateAxis axis = (DateAxis) xyplot.getDomainAxis();
-        axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
+        axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy", new Locale("es", "ES")));
+        axis.setLabelFont(LookAndFeelEntropy.FUENTE_REGULAR);
         
         NumberAxis rangeAxis = (NumberAxis) xyplot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        rangeAxis.setLabelFont(LookAndFeelEntropy.FUENTE_REGULAR);
         
         //Seteamos transparencia de fondo
         Plot plot = chart.getPlot();

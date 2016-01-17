@@ -212,6 +212,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
     private void btnPresentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresentarActionPerformed
+        mPadre.ocultarMenu();
         PanelPresentacion pnlPresentacion = new PanelPresentacion(mPadre);
         pnlPresentacion.setName("Crear Presentacion");
         pnlPresentacion.getGestorEstados().setNuevoEstadoImportante("¡Bienvenido a la interfaz de presentacion!");

@@ -1,6 +1,7 @@
 package frontend.resoluciones;
 
 import backend.auxiliares.Mensajes;
+import backend.dao.usuarios.DAOAlumno;
 import backend.examenes.Examen;
 import backend.gestores.GestorExamen;
 import backend.reporte.*;
@@ -8,6 +9,8 @@ import backend.usuarios.Alumno;
 import backend.resoluciones.Resolucion;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.LookAndFeelEntropy;
+import frontend.estadisticas.PanelEstadisticasAlumno;
+import frontend.inicio.VentanaPrincipal;
 import frontend.mail.EnvioMail;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,6 +21,7 @@ import javax.swing.JList;
 import javax.swing.ListModel;
 import java.awt.Desktop;
 import java.io.File;
+import javax.swing.JFrame;
 
 /**
  *
@@ -47,7 +51,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
         this.lstResoluciones.setSelectedIndex(0);
         this.lblExamen.setText(examen.getStrNombre());
         this.lblCurso.setText(examen.getCurso().getStrNombre() + " - " + examen.getCurso().getInstitucion().getStrNombre());
-        if (examen.getStrDescripcion().isEmpty()){
+        if (examen.getStrDescripcion().isEmpty()) {
             lblsDescripcion.setVisible(false);
             lblDescripcion.setVisible(false);
         } else {
@@ -342,7 +346,8 @@ public class PanelResoluciones extends javax.swing.JPanel {
         lblLegajo.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblLegajo.setText("55192");
 
-        lblNombre.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblNombre.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
+        lblNombre.setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
         lblNombre.setText("Nombre completo");
 
         javax.swing.GroupLayout pnlDatosAlumnoLayout = new javax.swing.GroupLayout(pnlDatosAlumno);
@@ -378,37 +383,37 @@ public class PanelResoluciones extends javax.swing.JPanel {
         lblsDuracion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblsDuracion.setText("Duración:");
 
-        lblDuracion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblDuracion.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
         lblDuracion.setText("1:32 h");
 
         lblsPreguntasRespondidas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblsPreguntasRespondidas.setText("Preguntas respondidas:");
 
-        lblPreguntasRespondidas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblPreguntasRespondidas.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
         lblPreguntasRespondidas.setText("20/30");
 
         lblsPreguntasCorregidas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblsPreguntasCorregidas.setText("Preguntas corregidas:");
 
-        lblPreguntasCorregidas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblPreguntasCorregidas.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
         lblPreguntasCorregidas.setText("29/30");
 
         lblsEstado.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblsEstado.setText("Estado:");
 
-        lblEstado.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblEstado.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
         lblEstado.setText("Correción incompleta.");
 
         lblsCalificacion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblsCalificacion.setText("Calificación:");
 
-        lblCalificacion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblCalificacion.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
         lblCalificacion.setText("95/100");
 
         lblsPorcentaje.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblsPorcentaje.setText("Porcentaje aprobado:");
 
-        lblPorcentaje.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblPorcentaje.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
         lblPorcentaje.setText("95 %");
 
         javax.swing.GroupLayout pnlDatosGeneralesLayout = new javax.swing.GroupLayout(pnlDatosGenerales);
@@ -563,7 +568,22 @@ public class PanelResoluciones extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVerRespuestasMouseEntered
 
     private void btnVerEstadisticasDelAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerEstadisticasDelAlumnoActionPerformed
-
+        if (lstResoluciones.getSelectedValue() != null) {
+            try {
+                Resolucion resolucion = (Resolucion) lstResoluciones.getSelectedValue();
+                Alumno alumno = new DAOAlumno().getAlumnoByResolucion(resolucion.getIntID());
+                PanelEstadisticasAlumno pnlEstadisticasAlumno = new PanelEstadisticasAlumno(alumno);
+                pnlEstadisticasAlumno.setName("Estadísticas alumno");
+                VentanaPrincipal.getInstancia().ocultarMenu();
+                VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlEstadisticasAlumno);
+                VentanaPrincipal.getInstancia().setTitle("Estadísticas del alumno " + alumno.toString());
+                if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+                    VentanaPrincipal.getInstancia().pack();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btnVerEstadisticasDelAlumnoActionPerformed
 
     private void btnVerEstadisticasDelAlumnoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerEstadisticasDelAlumnoMouseExited
@@ -576,38 +596,32 @@ public class PanelResoluciones extends javax.swing.JPanel {
 
     private void btnCompartirResolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompartirResolucionActionPerformed
         //Se le envia a una resolucion al alumno seleccionado
-        if(lstResoluciones.getSelectedValue()!=null) {
+        if (lstResoluciones.getSelectedValue() != null) {
             try {
-                Resolucion  resolucion  = (Resolucion)lstResoluciones.getSelectedValue();
+                Resolucion resolucion = (Resolucion) lstResoluciones.getSelectedValue();
                 Alumno alumno = resolucion.getAlumno();
                 GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
                 gestorReporte.generarReporteResolucion();
-                String pathArchivo= gestorReporte.getResolucion();
+                String pathArchivo = gestorReporte.getResolucion();
                 Path path = Paths.get(pathArchivo);
                 byte[] pdf = Files.readAllBytes(path);
                 EnvioMail nuevoMail = new EnvioMail(alumno, pdf);
                 nuevoMail.setVisible(true);
-            }
-            catch(Exception e) {
-                System.err.println("Ocurrió una excepción creando el PDF:  "+e.toString());
+            } catch (Exception e) {
+                System.err.println("Ocurrió una excepción creando el PDF:  " + e.toString());
                 e.printStackTrace();
             }
-        }
-        else //Si no se seleccionada a quien enviar se le enviara  todas las resoluciones
+        } else //Si no se selecciona a quien enviar se le enviara  todas las resoluciones
         {
-           if( Mensajes.mostrarConfirmacion("¿Está seguro que desea enviar las resoluciones a todos los alumnos?"))
-           {
+            if (Mensajes.mostrarConfirmacion("¿Está seguro que desea enviar las resoluciones a todos los alumnos?")) {
                 ArrayList alumnos = recuperarTodoslosAlumnos(this.lstResoluciones);
                 ArrayList<byte[]> pdfs = null; // Son el array de los pdfs que se crearan
                 EnvioMail nuevoMail = new EnvioMail(alumnos, pdfs);
-           }
-           
+            }
         }
-
-
     }//GEN-LAST:event_btnCompartirResolucionActionPerformed
 
-        
+
     private void btnCompartirResolucionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCompartirResolucionMouseExited
         gestorEstado.volverAEstadoImportante();
     }//GEN-LAST:event_btnCompartirResolucionMouseExited
@@ -637,21 +651,20 @@ public class PanelResoluciones extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVerResolucionMouseExited
 
     private void btnVerResolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerResolucionActionPerformed
-        if(lstResoluciones.getSelectedValue()!=null) {
+        if (lstResoluciones.getSelectedValue() != null) {
             try {
-                Resolucion  resolucion  = (Resolucion)lstResoluciones.getSelectedValue();
+                Resolucion resolucion = (Resolucion) lstResoluciones.getSelectedValue();
                 Alumno alumno = resolucion.getAlumno();
                 GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
                 gestorReporte.generarReporteResolucion();
-                String pathArchivo= gestorReporte.getResolucion();
+                String pathArchivo = gestorReporte.getResolucion();
                 Path path = Paths.get(pathArchivo);
                 byte[] pdf = Files.readAllBytes(path);
                 File pdfArchivo = new File(pathArchivo);
                 Desktop.getDesktop().open(pdfArchivo);
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
-                System.err.println("Ocurrió una excepción creando el PDF:  "+e.toString());
+                System.err.println("Ocurrió una excepción creando el PDF:  " + e.toString());
             }
         }
     }//GEN-LAST:event_btnVerResolucionActionPerformed
@@ -706,7 +719,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
         lblNombre.setText(resolucion.getAlumno().getStrNombre());
         lblLegajo.setText((resolucion.getAlumno().getStrLegajo() == null) ? "---" : resolucion.getAlumno().getStrLegajo());
         lblEstado.setText((resolucion.esCorreccionCompleta()) ? "Corrección completa." : "Corrección incompleta.");
-        lblDuracion.setText(String.format("%02d",(int) (resolucion.getIntTiempoEmpleado() / 60)) + ":" + String.format("%02d", resolucion.getIntTiempoEmpleado() % 60) + " h");
+        lblDuracion.setText(String.format("%02d", (int) (resolucion.getIntTiempoEmpleado() / 60)) + ":" + String.format("%02d", resolucion.getIntTiempoEmpleado() % 60) + " h");
         double dblCalificacion = resolucion.getCalificacion();
         double dblPuntajeTotal = resolucion.getExamen().getPuntajeTotal();
         lblCalificacion.setText(dblCalificacion + "/" + dblPuntajeTotal);
@@ -722,14 +735,12 @@ public class PanelResoluciones extends javax.swing.JPanel {
         Resolucion resolucion = (Resolucion) lstResoluciones.getSelectedValue();
         GestorExamen.getInstancia().verRespuestas(this, resolucion);
     }
-    
-    
-    private ArrayList<Alumno> recuperarTodoslosAlumnos(JList lista)
-    {
+
+    private ArrayList<Alumno> recuperarTodoslosAlumnos(JList lista) {
         ListModel listaModelo = lista.getModel();
         ArrayList listaAlumnos = new ArrayList();
         for (int i = 0; i < listaModelo.getSize(); i++) {
-            listaAlumnos.add(((Resolucion)listaModelo.getElementAt(i)).getAlumno());
+            listaAlumnos.add(((Resolucion) listaModelo.getElementAt(i)).getAlumno());
         }
         return listaAlumnos;
     }

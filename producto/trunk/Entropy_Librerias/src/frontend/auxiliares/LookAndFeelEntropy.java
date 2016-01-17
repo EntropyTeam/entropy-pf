@@ -28,5 +28,6 @@ public class LookAndFeelEntropy {
     public final static Color COLOR_TABLA_SECUNDARIO = new Color(255,204,102,20);
     public final static Color COLOR_BLANCO_TRANSLUCIDO = new Color(255, 255, 255, 123);
     public final static Border BORDE_NARANJA = new LineBorder(new Color(255,102,0));
+    public final static Border BORDE_ENTROPY = new LineBorder(COLOR_ENTROPY);
     
 }

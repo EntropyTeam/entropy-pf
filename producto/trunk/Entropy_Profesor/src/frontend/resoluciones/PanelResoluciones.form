@@ -498,7 +498,10 @@
                 <Component class="javax.swing.JLabel" name="lblNombre">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                      <Connection code="LookAndFeelEntropy.FUENTE_NEGRITA" type="code"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Nombre completo"/>
                   </Properties>
@@ -607,7 +610,7 @@
                 <Component class="javax.swing.JLabel" name="lblDuracion">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                      <Connection code="LookAndFeelEntropy.FUENTE_NEGRITA" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="1:32 h"/>
                   </Properties>
@@ -623,7 +626,7 @@
                 <Component class="javax.swing.JLabel" name="lblPreguntasRespondidas">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                      <Connection code="LookAndFeelEntropy.FUENTE_NEGRITA" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="20/30"/>
                   </Properties>
@@ -639,7 +642,7 @@
                 <Component class="javax.swing.JLabel" name="lblPreguntasCorregidas">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                      <Connection code="LookAndFeelEntropy.FUENTE_NEGRITA" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="29/30"/>
                   </Properties>
@@ -655,7 +658,7 @@
                 <Component class="javax.swing.JLabel" name="lblEstado">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                      <Connection code="LookAndFeelEntropy.FUENTE_NEGRITA" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Correci&#xf3;n incompleta."/>
                   </Properties>
@@ -671,7 +674,7 @@
                 <Component class="javax.swing.JLabel" name="lblCalificacion">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                      <Connection code="LookAndFeelEntropy.FUENTE_NEGRITA" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="95/100"/>
                   </Properties>
@@ -687,7 +690,7 @@
                 <Component class="javax.swing.JLabel" name="lblPorcentaje">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                      <Connection code="LookAndFeelEntropy.FUENTE_NEGRITA" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="95 %"/>
                   </Properties>
