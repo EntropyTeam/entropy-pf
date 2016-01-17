@@ -57,7 +57,7 @@ import org.jfree.ui.StandardGradientPaintTransformer;
  *
  * @author Denise
  */
-public class GestorGraficos {
+public class GestorGraficosExamen {
 
     private JFreeChart lastChart;
 
@@ -78,7 +78,7 @@ public class GestorGraficos {
 
     private String[][] matResultados;
 
-    public GestorGraficos(ArrayList<Resolucion> colResoluciones) {
+    public GestorGraficosExamen(ArrayList<Resolucion> colResoluciones) {
         this.colResoluciones = colResoluciones;
         this.intTotalRespuestas = colResoluciones.get(0).getExamen().getColPreguntas().size();
         matResultados = new String[colResoluciones.size()][intTotalRespuestas+2];
@@ -287,7 +287,7 @@ public class GestorGraficos {
                 intervalos[i] = intervalos[i] / intTotalResoluciones;
             }
         }
-        return GestorGraficos.this.generarGraficoLineal(
+        return GestorGraficosExamen.this.generarGraficoLineal(
                 "Resultado de los exámenes",
                 "Porcentaje de aprobación",
                 "Cantidad de resoluciones",
@@ -593,7 +593,7 @@ public class GestorGraficos {
                 intervalos[i] = intervalos[i] / intTotalResoluciones;
             }
         }
-        return GestorGraficos.this.generarGraficoLineal(
+        return GestorGraficosExamen.this.generarGraficoLineal(
                 "Resultado de los exámenes",
                 "Porcentaje de aprobación",
                 "Cantidad de resoluciones",
@@ -632,7 +632,7 @@ public class GestorGraficos {
                 intervalos[i] = intervalos[i] / intTotalResoluciones;
             }
         }
-        return GestorGraficos.this.generarGraficoBarrasDistribucionResultados(
+        return GestorGraficosExamen.this.generarGraficoBarrasDistribucionResultados(
                 "Resultado de los exámenes",
                 "Porcentaje de aprobación",
                 "Cantidad de resoluciones",
@@ -800,7 +800,7 @@ public class GestorGraficos {
         //Seteamos características de la función lineal
         XYItemRenderer xyLineRendererObs = new XYLineAndShapeRenderer();
         xyLineRendererObs.setSeriesShape(0, new Line2D.Double(0.0, 0.0, 0.0, 0.0));
-        xyLineRendererObs.setSeriesStroke(0, new BasicStroke(3.5f));
+        xyLineRendererObs.setSeriesStroke(0, new BasicStroke(2.5f));
         xyLineRendererObs.setBasePaint(generarColorAleatorio(Color.orange));
         xyplot.setRenderer(1, xyLineRendererObs);
         //Seteamos color de labels de ejes

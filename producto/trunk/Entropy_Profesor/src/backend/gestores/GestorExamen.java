@@ -10,7 +10,7 @@ import backend.dao.usuarios.DAOAlumno;
 import backend.diseños.Curso;
 import backend.examenes.EstadoExamen;
 import backend.examenes.Examen;
-import backend.reporte.GestorGraficos;
+import backend.reporte.GestorGraficosExamen;
 import backend.resoluciones.Resolucion;
 import backend.resoluciones.Respuesta;
 import frontend.estadisticas.PanelEstadisticasExamen;
@@ -168,7 +168,7 @@ public class GestorExamen {
         for (Resolucion resolucion : colResoluciones) {
             resolucion.setExamen(examen);
         }
-        PanelEstadisticasExamen pnlEstadisticas = new PanelEstadisticasExamen(VentanaPrincipal.getInstancia(), new GestorGraficos(colResoluciones));
+        PanelEstadisticasExamen pnlEstadisticas = new PanelEstadisticasExamen(VentanaPrincipal.getInstancia(), new GestorGraficosExamen(colResoluciones));
         pnlEstadisticas.setName("Ver estadísticas");
         VentanaPrincipal.getInstancia().ocultarMenu();
         VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlEstadisticas);

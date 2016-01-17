@@ -8,6 +8,8 @@ import backend.Presentacion.Presentacion;
 import backend.examenes.Examen;
 import backend.gestores.GestorHistorialAlumno;
 import backend.reporte.GestorGenerarReporteResolucion;
+import backend.reporte.GestorGraficosAlumno;
+import backend.reporte.GestorGraficosExamen;
 import backend.resoluciones.Resolucion;
 import backend.usuarios.Alumno;
 import frontend.auxiliares.CeldaMultiLineaRendererEntropy;
@@ -20,6 +22,9 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,7 +34,11 @@ import javax.swing.table.DefaultTableModel;
 public class PanelEstadisticasAlumno extends javax.swing.JPanel {
 
     private final Alumno alumno;
-    private GestorHistorialAlumno gestorHistorial;
+    private final GestorHistorialAlumno gestorHistorial;
+    private GestorGraficosExamen gestorGraficos;
+    private ArrayList<Resolucion> colResoluciones;
+    private final int ancho = 400;
+    private final int alto = 400;
 
     /**
      * Creates new form PanelEstadisticasAlumno
@@ -44,7 +53,6 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
         this.lblAlumno.setText(alumno.getStrApellido() + ", " + alumno.getStrNombre());
         this.lblLegajo.setText((alumno.getStrLegajo() != null && !alumno.getStrLegajo().isEmpty()) ? alumno.getStrLegajo() : "---");
         gestorHistorial = new GestorHistorialAlumno();
-
         // Formato de tablas
         tblExamenesRendidos.getTableHeader().setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         tblExamenesRendidos.setDefaultRenderer(Object.class, new CeldaMultiLineaRendererEntropy(tblExamenesRendidos, false));
@@ -54,25 +62,49 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
         cargarExamenesRendidos();
         cargarClasesAsisitidas();
         ocultarColumnas();
+        
     }
 
     private void cargarExamenesRendidos() {
-        ArrayList<Resolucion> resolucion = gestorHistorial.getResoluciones(alumno.getIntAlumnoId());
+        colResoluciones = gestorHistorial.getResoluciones(alumno.getIntAlumnoId());
         DefaultTableModel modeloTabla = (DefaultTableModel) tblExamenesRendidos.getModel();
-        for (int i = 0; i < resolucion.size(); i++) {
-            if (resolucion.get(i).getExamen()!= null) {
+        for (int i = 0; i < colResoluciones.size(); i++) {
+            if (colResoluciones.get(i).getExamen()!= null) {
                 modeloTabla.addRow(new Vector());
-                Examen examen = gestorHistorial.getExamen(resolucion.get(i).getExamen().getIntExamenId());
-                resolucion.get(i).setExamen(examen);
+                Examen examen = gestorHistorial.getExamen(colResoluciones.get(i).getExamen().getIntExamenId());
+                colResoluciones.get(i).setExamen(examen);
                 modeloTabla.setValueAt(examen.getStrNombre(), i, 0);
-                modeloTabla.setValueAt(String.format("%.2f", resolucion.get(i).getPorcentajeAprobacion()) + "%", i, 1);
+                modeloTabla.setValueAt(String.format("%.2f", colResoluciones.get(i).getPorcentajeAprobacion()) + "%", i, 1);
                 String fechaString = new SimpleDateFormat("dd-MM-yyyy").format(examen.getDteFecha());
                 modeloTabla.setValueAt(fechaString, i, 2);
-                modeloTabla.setValueAt(resolucion.get(i), i, 3);
+                modeloTabla.setValueAt(colResoluciones.get(i), i, 3);
             }
         }
         ocultarColumnas();
         tblExamenesRendidos.setModel(modeloTabla);
+        gestorGraficos = new GestorGraficosExamen(colResoluciones);
+        this.lblResultados.setIcon(new ImageIcon(gestorGraficos.generarGraficoBarrasResoluciones(false, true, ancho, alto)));
+        this.lblNotas.setIcon(new ImageIcon(gestorGraficos.generarGraficoLinealResoluciones(false, true, ancho, alto)));
+        this.lblRendidos.setText(colResoluciones.size()+"");
+        int corregidos = getCantidadCorregidos(colResoluciones);
+        this.lblCorregidos.setText(corregidos+"");
+        int aprobados = getCantidadAprobados(colResoluciones);
+        this.lblAprobados.setText(aprobados+"/"+corregidos);
+        this.lblPorcentajeAprobados.setText(String.format("%.2f", (double) aprobados * 100 / corregidos)+"%");
+        double mayor = 0;
+        double menor = 0;
+        double suma = 0;
+        for (Resolucion resolucion : colResoluciones) {
+            if (resolucion.esCorreccionCompleta()){
+                double calificacion = resolucion.getPorcentajeAprobacion();
+                if (calificacion > mayor) mayor = calificacion;
+                if (menor == 0 || calificacion < menor) menor = calificacion;
+                suma += calificacion;
+            }
+        }        
+        this.lblNotaMayor.setText(String.format("%.2f", mayor)+"%");
+        this.lblNotaMenor.setText(String.format("%.2f", menor)+"%");
+        this.lblNotaPromedio.setText(String.format("%.2f", suma/corregidos)+"%");
     }
 
     private void cargarClasesAsisitidas() {
@@ -86,6 +118,7 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
             modeloTabla.setValueAt(presentaciones.get(i), i, 3);
         }
         tblClasesAsistidas.setModel(modeloTabla);
+        this.lblAsistencias.setIcon(new ImageIcon(new GestorGraficosAlumno().generarGraficoTimelineAsistencias(presentaciones, true, ancho, alto)));
     }
 
     private void ocultarColumnas() {
@@ -130,13 +163,17 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
         lblNotaMayor = new javax.swing.JLabel();
         lblsNotaMenor = new javax.swing.JLabel();
         lblNotaMenor = new javax.swing.JLabel();
-        pnlHistograma = new javax.swing.JPanel();
-        pnlRendimiento = new javax.swing.JPanel();
+        pnlResultados = new javax.swing.JPanel();
+        lblResultados = new javax.swing.JLabel();
+        pnlNotas = new javax.swing.JPanel();
+        lblNotas = new javax.swing.JLabel();
         pnlExamenes = new javax.swing.JPanel();
         scrExamenesRendidos = new javax.swing.JScrollPane();
         tblExamenesRendidos = new javax.swing.JTable();
         lblInfoExamenes = new javax.swing.JLabel();
         pnlAsistencias = new javax.swing.JPanel();
+        lblAsistencias = new javax.swing.JLabel();
+        pnlClases = new javax.swing.JPanel();
         scrClasesAsistidas = new javax.swing.JScrollPane();
         tblClasesAsistidas = new javax.swing.JTable();
 
@@ -320,31 +357,35 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
 
         tbpSolapas.addTab("General", pnlGeneral);
 
-        javax.swing.GroupLayout pnlHistogramaLayout = new javax.swing.GroupLayout(pnlHistograma);
-        pnlHistograma.setLayout(pnlHistogramaLayout);
-        pnlHistogramaLayout.setHorizontalGroup(
-            pnlHistogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
+        lblResultados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout pnlResultadosLayout = new javax.swing.GroupLayout(pnlResultados);
+        pnlResultados.setLayout(pnlResultadosLayout);
+        pnlResultadosLayout.setHorizontalGroup(
+            pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
         );
-        pnlHistogramaLayout.setVerticalGroup(
-            pnlHistogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 271, Short.MAX_VALUE)
+        pnlResultadosLayout.setVerticalGroup(
+            pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
         );
 
-        tbpSolapas.addTab("Histograma", pnlHistograma);
+        tbpSolapas.addTab("Resultados", pnlResultados);
 
-        javax.swing.GroupLayout pnlRendimientoLayout = new javax.swing.GroupLayout(pnlRendimiento);
-        pnlRendimiento.setLayout(pnlRendimientoLayout);
-        pnlRendimientoLayout.setHorizontalGroup(
-            pnlRendimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
+        lblNotas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout pnlNotasLayout = new javax.swing.GroupLayout(pnlNotas);
+        pnlNotas.setLayout(pnlNotasLayout);
+        pnlNotasLayout.setHorizontalGroup(
+            pnlNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblNotas, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
         );
-        pnlRendimientoLayout.setVerticalGroup(
-            pnlRendimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 271, Short.MAX_VALUE)
+        pnlNotasLayout.setVerticalGroup(
+            pnlNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblNotas, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
         );
 
-        tbpSolapas.addTab("Rendimiento", pnlRendimiento);
+        tbpSolapas.addTab("Notas", pnlNotas);
 
         scrExamenesRendidos.setBorder(null);
 
@@ -411,6 +452,21 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
 
         tbpSolapas.addTab("Exámenes", pnlExamenes);
 
+        lblAsistencias.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout pnlAsistenciasLayout = new javax.swing.GroupLayout(pnlAsistencias);
+        pnlAsistencias.setLayout(pnlAsistenciasLayout);
+        pnlAsistenciasLayout.setHorizontalGroup(
+            pnlAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblAsistencias, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+        );
+        pnlAsistenciasLayout.setVerticalGroup(
+            pnlAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblAsistencias, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+        );
+
+        tbpSolapas.addTab("Asistencias", pnlAsistencias);
+
         scrClasesAsistidas.setBorder(null);
 
         tblClasesAsistidas.setAutoCreateRowSorter(true);
@@ -439,24 +495,24 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
         });
         scrClasesAsistidas.setViewportView(tblClasesAsistidas);
 
-        javax.swing.GroupLayout pnlAsistenciasLayout = new javax.swing.GroupLayout(pnlAsistencias);
-        pnlAsistencias.setLayout(pnlAsistenciasLayout);
-        pnlAsistenciasLayout.setHorizontalGroup(
-            pnlAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAsistenciasLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlClasesLayout = new javax.swing.GroupLayout(pnlClases);
+        pnlClases.setLayout(pnlClasesLayout);
+        pnlClasesLayout.setHorizontalGroup(
+            pnlClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlClasesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(scrClasesAsistidas, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        pnlAsistenciasLayout.setVerticalGroup(
-            pnlAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAsistenciasLayout.createSequentialGroup()
+        pnlClasesLayout.setVerticalGroup(
+            pnlClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlClasesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(scrClasesAsistidas, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        tbpSolapas.addTab("Asistencias", pnlAsistencias);
+        tbpSolapas.addTab("Clases asistidas", pnlClases);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -507,15 +563,18 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblAlumno;
     private javax.swing.JLabel lblAprobados;
+    private javax.swing.JLabel lblAsistencias;
     private javax.swing.JLabel lblCorregidos;
     private javax.swing.JLabel lblInfoExamenes;
     private javax.swing.JLabel lblLegajo;
     private javax.swing.JLabel lblNotaMayor;
     private javax.swing.JLabel lblNotaMenor;
     private javax.swing.JLabel lblNotaPromedio;
+    private javax.swing.JLabel lblNotas;
     private javax.swing.JLabel lblPerfilCompleto;
     private javax.swing.JLabel lblPorcentajeAprobados;
     private javax.swing.JLabel lblRendidos;
+    private javax.swing.JLabel lblResultados;
     private javax.swing.JLabel lblsAlumno;
     private javax.swing.JLabel lblsAprobados;
     private javax.swing.JLabel lblsCorregidos;
@@ -527,11 +586,12 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
     private javax.swing.JLabel lblsRendidos;
     private javax.swing.JSeparator lowerSeparator;
     private javax.swing.JPanel pnlAsistencias;
+    private javax.swing.JPanel pnlClases;
     private javax.swing.JPanel pnlDatosExamen;
     private javax.swing.JPanel pnlExamenes;
     private javax.swing.JPanel pnlGeneral;
-    private javax.swing.JPanel pnlHistograma;
-    private javax.swing.JPanel pnlRendimiento;
+    private javax.swing.JPanel pnlNotas;
+    private javax.swing.JPanel pnlResultados;
     private javax.swing.JScrollPane scrClasesAsistidas;
     private javax.swing.JScrollPane scrExamenesRendidos;
     private javax.swing.JTable tblClasesAsistidas;
@@ -539,4 +599,27 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
     private javax.swing.JTabbedPane tbpSolapas;
     private javax.swing.JSeparator upperSeparator;
     // End of variables declaration//GEN-END:variables
+
+    private int getCantidadCorregidos(ArrayList<Resolucion> colResoluciones) {
+        int count = 0;
+        for (Resolucion r : colResoluciones) {
+            if (r.esCorreccionCompleta()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private int getCantidadAprobados(ArrayList<Resolucion> colResoluciones) {
+        int count = 0;
+        for (Resolucion r : colResoluciones) {
+            try {
+                if (r.estaAprobada()) {
+                    count++;
+                }
+            } catch (Exception ex) {
+            }
+        }
+        return count;
+    }
 }

@@ -1,7 +1,7 @@
 package frontend.estadisticas;
 
 import backend.auxiliares.Mensajes;
-import backend.reporte.GestorGraficos;
+import backend.reporte.GestorGraficosExamen;
 import backend.reportes.Impresora;
 import frontend.auxiliares.CeldaListaRendererEntropy;
 import frontend.auxiliares.GestorBarrasDeEstado;
@@ -29,7 +29,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
     private final VentanaPrincipal mPadre;
     private final GestorBarrasDeEstado gestorEstados;
     private Component ultimoComboActivo;
-    private GestorGraficos gestorGraficos;
+    private GestorGraficosExamen gestorGraficos;
     private int ancho = 600;
     private int alto = 600;
 
@@ -39,7 +39,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
      * @param mPadre Ventana Principal padre
      * @param gestorGraficos
      */
-    public PanelEstadisticasExamen(VentanaPrincipal mPadre, GestorGraficos gestorGraficos) {
+    public PanelEstadisticasExamen(VentanaPrincipal mPadre, GestorGraficosExamen gestorGraficos) {
         this.mPadre = mPadre;
         initComponents();
         this.gestorEstados = new GestorBarrasDeEstado(lblActualizacionEstado, lblIconoEstado);
