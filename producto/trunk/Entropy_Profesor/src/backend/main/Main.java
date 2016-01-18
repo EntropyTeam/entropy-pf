@@ -37,7 +37,10 @@ public class Main {
             UIManager.put("TextArea.font", LookAndFeelEntropy.FUENTE_REGULAR);
             UIManager.put("Tree.collapsedIcon", GestorImagenes.crearImageIcon("/frontend/imagenes/ic_tree_collapsed.png"));
             UIManager.put("Tree.expandedIcon", GestorImagenes.crearImageIcon("/frontend/imagenes/ic_tree_expanded.png"));
-
+            UIManager.put("MenuItem.selectionBackground", LookAndFeelEntropy.COLOR_SELECCION_TEXTO);
+            UIManager.put("Menu.selectionBackground", LookAndFeelEntropy.COLOR_SELECCION_TEXTO);
+            UIManager.put("PopupMenu.border", LookAndFeelEntropy.BORDE_ENTROPY);
+            UIManager.put("ComboBox.selectionBackground", LookAndFeelEntropy.COLOR_SELECCION_TEXTO);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

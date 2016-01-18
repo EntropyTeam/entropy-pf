@@ -5,6 +5,8 @@ import frontend.auxiliares.TabbedPaneEntropy;
 import frontend.inicio.VentanaPrincipal;
 import javax.swing.UIManager;
 import backend.Presentacion.Presentacion;
+import backend.dao.diseños.DAOCurso;
+import backend.diseños.Curso;
 import backend.examenes.Examen;
 import backend.gestores.GestorHistorialAlumno;
 import backend.reporte.GestorGenerarReporteResolucion;
@@ -75,9 +77,24 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
                 colResoluciones.get(i).setExamen(examen);
                 modeloTabla.setValueAt(examen.getStrNombre(), i, 0);
                 modeloTabla.setValueAt(String.format("%.2f", colResoluciones.get(i).getPorcentajeAprobacion()) + "%", i, 1);
-                String fechaString = new SimpleDateFormat("dd-MM-yyyy").format(examen.getDteFecha());
-                modeloTabla.setValueAt(fechaString, i, 2);
-                modeloTabla.setValueAt(colResoluciones.get(i), i, 3);
+                Resolucion resolucion = colResoluciones.get(i);
+                String estado = "DESAPROBADO";
+                if (!resolucion.esCorreccionCompleta()) {
+                    estado = "FALTA CORREGIR";
+                } else {
+                    try {
+                        if (resolucion.estaAprobada()){
+                            estado = "APROBADO";
+                        }
+                    } catch (Exception ex) {
+                        Logger.getLogger(PanelEstadisticasAlumno.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                modeloTabla.setValueAt(estado, i, 2);
+                modeloTabla.setValueAt(new SimpleDateFormat("dd-MM-yyyy").format(examen.getDteFecha()), i, 3);
+                modeloTabla.setValueAt(examen.getCurso().getStrNombre(), i, 4);
+                modeloTabla.setValueAt(examen.getCurso().getInstitucion().getStrNombre(), i, 5);                
+                modeloTabla.setValueAt(colResoluciones.get(i), i, 6);
             }
         }
         ocultarColumnas();
@@ -115,19 +132,23 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
             modeloTabla.setValueAt(presentaciones.get(i).getStrNombre(), i, 0);
             modeloTabla.setValueAt(presentaciones.get(i).getStrDescripcion(), i, 1);
             modeloTabla.setValueAt(new SimpleDateFormat("dd-MM-yyyy").format(presentaciones.get(i).getDteFecha()), i, 2);
-            modeloTabla.setValueAt(presentaciones.get(i), i, 3);
+            modeloTabla.setValueAt(presentaciones.get(i), i, 5);
+            //Denise dice: Lo que sigue es horrible, pero el modelo está mal hecho y no tengo ganas de cambiarlo. Fue.
+            Curso curso = new DAOCurso().recuperarCurso(presentaciones.get(i).getIntIdCurso());
+            modeloTabla.setValueAt(curso.getStrNombre(), i, 3);
+            modeloTabla.setValueAt(curso.getInstitucion().getStrNombre(), i, 4);            
         }
         tblClasesAsistidas.setModel(modeloTabla);
         this.lblAsistencias.setIcon(new ImageIcon(new GestorGraficosAlumno().generarGraficoTimelineAsistencias(presentaciones, true, ancho, alto)));
     }
 
     private void ocultarColumnas() {
-        tblClasesAsistidas.getColumnModel().getColumn(3).setMaxWidth(0);
-        tblClasesAsistidas.getColumnModel().getColumn(3).setMinWidth(0);
-        tblClasesAsistidas.getColumnModel().getColumn(3).setPreferredWidth(0);
-        tblExamenesRendidos.getColumnModel().getColumn(3).setMaxWidth(0);
-        tblExamenesRendidos.getColumnModel().getColumn(3).setMinWidth(0);
-        tblExamenesRendidos.getColumnModel().getColumn(3).setPreferredWidth(0);
+        tblClasesAsistidas.getColumnModel().getColumn(5).setMaxWidth(0);
+        tblClasesAsistidas.getColumnModel().getColumn(5).setMinWidth(0);
+        tblClasesAsistidas.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tblExamenesRendidos.getColumnModel().getColumn(6).setMaxWidth(0);
+        tblExamenesRendidos.getColumnModel().getColumn(6).setMinWidth(0);
+        tblExamenesRendidos.getColumnModel().getColumn(6).setPreferredWidth(0);
     }
 
     /**
@@ -396,14 +417,14 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Examen", "Porcentaje de Aprobación", "Fecha", "Objeto"
+                "Examen", "Calificación", "Estado", "Fecha", "Curso", "Institución", "Objeto"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -425,7 +446,7 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
         lblInfoExamenes.setBackground(LookAndFeelEntropy.COLOR_TABLA_PRIMARIO);
         lblInfoExamenes.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblInfoExamenes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_mensajes_informacion_orange.png"))); // NOI18N
-        lblInfoExamenes.setText("Hacer doble clic en cada fila para ver la resolución.");
+        lblInfoExamenes.setText("Hacer doble clic en cada fila para guardar la resolución en PDF.");
         lblInfoExamenes.setBorder(javax.swing.BorderFactory.createLineBorder(LookAndFeelEntropy.COLOR_ENTROPY));
         lblInfoExamenes.setOpaque(true);
 
@@ -475,14 +496,14 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Presentación", "Descripción", "Fecha", "Objeto"
+                "Presentación", "Descripción", "Fecha", "Curso", "Institución", "Objeto"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -543,7 +564,7 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
     private void tblExamenesRendidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblExamenesRendidosMouseClicked
         if (evt.getClickCount() == 2) {
             try {
-                Resolucion resolucion = (Resolucion) tblExamenesRendidos.getModel().getValueAt(tblExamenesRendidos.getSelectedRow(), 3);
+                Resolucion resolucion = (Resolucion) tblExamenesRendidos.getModel().getValueAt(tblExamenesRendidos.getSelectedRow(), 6);
                 if (resolucion != null) {
                     GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
                     gestorReporte.generarReporteResolucion();
