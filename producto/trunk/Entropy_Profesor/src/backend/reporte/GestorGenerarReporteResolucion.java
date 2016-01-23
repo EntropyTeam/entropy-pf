@@ -31,7 +31,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -179,8 +178,7 @@ public class GestorGenerarReporteResolucion {
                             parrafoRespuestaDesarrollar.add(lineSeparator);
                         }
                         parrafoRespuestaDesarrollar.setSpacingAfter(15);
-                        document.add(parrafoRespuestaDesarrollar);
-                        
+                        document.add(parrafoRespuestaDesarrollar); 
                         break;
                     
                     case "RespuestaPreguntaMultipleOpcion":
