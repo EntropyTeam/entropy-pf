@@ -88,4 +88,8 @@ public class Mensajes {
         dm.setVisible(true);
         return dm.getOpcionElegida();
     }
+
+    public static void mostrarAcercaDe() {
+        new DialogMensaje(null, true, DialogMensaje.TipoMensaje.ACERCA_DE, null, "Sistema de administración para entornos educativos.\nVersión 1.0.0\nProgramado por Entropy Team.").setVisible(true);
+    }
 }

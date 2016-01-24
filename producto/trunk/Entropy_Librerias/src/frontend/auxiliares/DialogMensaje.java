@@ -23,14 +23,14 @@ import javax.swing.border.LineBorder;
  *
  * @author Denise
  */
-public class DialogMensaje extends javax.swing.JDialog {
+public final class DialogMensaje extends javax.swing.JDialog {
 
     private int intOpcionElegida;
     private String[] colBotones;
 
     public enum TipoMensaje {
 
-        EXITO, ADVERTENCIA, ERROR, OPCION_YES_CANCEL, OPCION_YES_NO_CANCEL, OPCION_CUSTOM, INFORMACION
+        EXITO, ADVERTENCIA, ERROR, OPCION_YES_CANCEL, OPCION_YES_NO_CANCEL, OPCION_CUSTOM, INFORMACION, ACERCA_DE
     }
 
     /**
@@ -252,6 +252,16 @@ public class DialogMensaje extends javax.swing.JDialog {
         BotonGradiente btnNo;
         BotonGradiente btnCancelar;
         switch (tipoMensaje) {
+            case ACERCA_DE:
+                lblTitulo.setText("Entropy - Educational Innovation");
+                lblTitulo.setForeground(new Color(204, 153, 0));
+                pnlFondoAux.setColor(new Color(239, 192, 63));
+                sptSeparador.setForeground(new Color(255, 153, 0));
+                lblIcono.setIcon(GestorImagenes.crearImageIcon("/frontend/imagenes/ic_logo.png"));
+                btnCerrar.setIcon(GestorImagenes.crearImageIcon("/frontend/imagenes/ic_mensajes_cerrar_advertencia.png"));
+                pnlFondo.setBorder(new LineBorder(new Color(255, 102, 0), 1, true));
+                break;
+                
             case ADVERTENCIA:
                 lblTitulo.setText("Atención");
                 lblTitulo.setForeground(new Color(204, 153, 0));

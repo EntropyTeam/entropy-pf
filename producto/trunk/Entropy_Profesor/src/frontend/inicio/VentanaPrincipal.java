@@ -1,5 +1,6 @@
 package frontend.inicio;
 
+import backend.auxiliares.Mensajes;
 import frontend.alumnos.DialogSelectorAlumno;
 import backend.red.GestorRedAdHoc;
 import frontend.auxiliares.GestorImagenes;
@@ -80,10 +81,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         mniBuscarAlumno = new javax.swing.JMenuItem();
         mncPresentacion = new javax.swing.JMenu();
         mniAdministrarClasesDictadas = new javax.swing.JMenuItem();
-        mncHerramientas = new javax.swing.JMenu();
-        mncVentana = new javax.swing.JMenu();
         mncAyuda = new javax.swing.JMenu();
-        mniAyuda = new javax.swing.JMenuItem();
         mniAcercaDe = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -230,23 +228,16 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
 
         mnbMenuBar.add(mncPresentacion);
 
-        mncHerramientas.setText("Herramientas");
-        mncHerramientas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        mnbMenuBar.add(mncHerramientas);
-
-        mncVentana.setText("Ventana");
-        mncVentana.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        mnbMenuBar.add(mncVentana);
-
         mncAyuda.setText("Ayuda");
         mncAyuda.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
 
-        mniAyuda.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        mniAyuda.setText("Ver Ayuda");
-        mncAyuda.add(mniAyuda);
-
         mniAcercaDe.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         mniAcercaDe.setText("Acerca de...");
+        mniAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAcercaDeActionPerformed(evt);
+            }
+        });
         mncAyuda.add(mniAcercaDe);
 
         mnbMenuBar.add(mncAyuda);
@@ -325,6 +316,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         dlgSeleccionarAlumno.setVisible(true);
     }//GEN-LAST:event_mniBuscarAlumnoActionPerformed
 
+    private void mniAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAcercaDeActionPerformed
+        Mensajes.mostrarAcercaDe();
+    }//GEN-LAST:event_mniAcercaDeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblSeparador;
     private javax.swing.JMenuBar mnbMenuBar;
@@ -332,14 +327,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     private javax.swing.JMenu mncAyuda;
     private javax.swing.JMenu mncDiseños;
     private javax.swing.JMenu mncExámenes;
-    private javax.swing.JMenu mncHerramientas;
     private javax.swing.JMenu mncPresentacion;
-    private javax.swing.JMenu mncVentana;
     private javax.swing.JMenuItem mniAcercaDe;
     private javax.swing.JMenuItem mniAdministrarClasesDictadas;
     private javax.swing.JMenuItem mniAdministrarDiseños;
     private javax.swing.JMenuItem mniAdministrarExamenes;
-    private javax.swing.JMenuItem mniAyuda;
     private javax.swing.JMenuItem mniBuscarAlumno;
     private javax.swing.JMenuItem mniEditarExamen;
     private javax.swing.JMenuItem mniNuevoExamen;
