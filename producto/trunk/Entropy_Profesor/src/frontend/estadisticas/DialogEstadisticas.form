@@ -137,9 +137,9 @@
                   <Connection code="LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/frontend/imagenes/ic_perfil_50x50.png"/>
+                  <Image iconType="3" name="/frontend/imagenes/ic_examenes_orange_50x50.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt;Perfil de usuario&lt;/htmll&gt;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;Estad&#xed;sticas por examen&lt;/htmll&gt;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
@@ -149,7 +149,7 @@
                 </Property>
                 <Property name="iconTextGap" type="int" value="15"/>
                 <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/frontend/imagenes/ic_perfil_60x60.png"/>
+                  <Image iconType="3" name="/frontend/imagenes/ic_examenes_orange_60x60.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -162,9 +162,9 @@
                   <Connection code="LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/frontend/imagenes/ic_conexion_50x50.png"/>
+                  <Image iconType="3" name="/frontend/imagenes/ic_perfil_50x50.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt;Configuraciones de red&lt;/html&gt;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;Estad&#xed;sticas por alumnos&lt;/html&gt;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
@@ -174,7 +174,7 @@
                 </Property>
                 <Property name="iconTextGap" type="int" value="15"/>
                 <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/frontend/imagenes/ic_conexion_60x60.png"/>
+                  <Image iconType="3" name="/frontend/imagenes/ic_perfil_60x60.png"/>
                 </Property>
               </Properties>
               <Events>

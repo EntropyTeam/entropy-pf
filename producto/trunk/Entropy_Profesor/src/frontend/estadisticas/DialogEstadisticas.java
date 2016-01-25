@@ -1,8 +1,11 @@
-package frontend.configuracion;
+package frontend.estadisticas;
 
+import frontend.alumnos.DialogSelectorAlumno;
+import frontend.configuracion.*;
 import frontend.auxiliares.ComponentMover;
 import frontend.auxiliares.ComponentResizer;
 import frontend.auxiliares.LookAndFeelEntropy;
+import frontend.examenes.DialogAdministrarExamen;
 import frontend.inicio.VentanaPrincipal;
 import frontend.usuario.PanelDatosUsuario;
 import java.awt.Color;
@@ -25,7 +28,7 @@ import javax.swing.border.LineBorder;
  *
  * @author Denise
  */
-public class DialogConfiguraciones extends javax.swing.JDialog {
+public class DialogEstadisticas extends javax.swing.JDialog {
     
     /**
      * Constructor de la clase.
@@ -33,7 +36,7 @@ public class DialogConfiguraciones extends javax.swing.JDialog {
      * @param parent ventana padre.
      * @param modal true si mantiene el foco, false de los contrario.
      */
-    public DialogConfiguraciones(java.awt.Frame parent, boolean modal) {
+    public DialogEstadisticas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         pnlFondoAux.setColor(new Color(235, 204, 114));
@@ -109,13 +112,13 @@ public class DialogConfiguraciones extends javax.swing.JDialog {
 
         btnPerfilUsuario.setFont(LookAndFeelEntropy.FUENTE_TITULO);
         btnPerfilUsuario.setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        btnPerfilUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_perfil_50x50.png"))); // NOI18N
-        btnPerfilUsuario.setText("<html>Perfil de usuario</htmll>");
+        btnPerfilUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_examenes_orange_50x50.png"))); // NOI18N
+        btnPerfilUsuario.setText("<html>Estadísticas por examen</htmll>");
         btnPerfilUsuario.setBorder(null);
         btnPerfilUsuario.setContentAreaFilled(false);
         btnPerfilUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPerfilUsuario.setIconTextGap(15);
-        btnPerfilUsuario.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_perfil_60x60.png"))); // NOI18N
+        btnPerfilUsuario.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_examenes_orange_60x60.png"))); // NOI18N
         btnPerfilUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPerfilUsuarioActionPerformed(evt);
@@ -124,13 +127,13 @@ public class DialogConfiguraciones extends javax.swing.JDialog {
         pnlBotones.add(btnPerfilUsuario);
 
         btnRed.setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
-        btnRed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_conexion_50x50.png"))); // NOI18N
-        btnRed.setText("<html>Configuraciones de red</html>");
+        btnRed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_perfil_50x50.png"))); // NOI18N
+        btnRed.setText("<html>Estadísticas por alumnos</html>");
         btnRed.setBorder(null);
         btnRed.setContentAreaFilled(false);
         btnRed.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRed.setIconTextGap(15);
-        btnRed.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_conexion_60x60.png"))); // NOI18N
+        btnRed.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_perfil_60x60.png"))); // NOI18N
         btnRed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRedActionPerformed(evt);
@@ -185,18 +188,18 @@ public class DialogConfiguraciones extends javax.swing.JDialog {
 
     private void btnPerfilUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilUsuarioActionPerformed
         this.dispose();
-        PanelDatosUsuario pnlDatosUsuarios = new PanelDatosUsuario(VentanaPrincipal.getInstancia());
-        pnlDatosUsuarios.setName("Perfil Usuario");
-        VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlDatosUsuarios);
-        VentanaPrincipal.getInstancia().setTitle("Perfil de Usuario");
-        if (VentanaPrincipal.getInstancia().getExtendedState() !=  JFrame.MAXIMIZED_BOTH) {
-            VentanaPrincipal.getInstancia().pack();
-        }
+        DialogAdministrarExamen dlgSeleccionarExamenes = new DialogAdministrarExamen(VentanaPrincipal.getInstancia(), true);
+        dlgSeleccionarExamenes.getGestorEstados().setNuevoEstadoImportante("Seleccione un examen para trabajar... Utilice doble click o el botón correspondiente.");
+        dlgSeleccionarExamenes.setVisible(true);
     }//GEN-LAST:event_btnPerfilUsuarioActionPerformed
 
     private void btnRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        DialogSelectorAlumno dlgSeleccionarAlumno = new DialogSelectorAlumno(VentanaPrincipal.getInstancia(), true);
+        dlgSeleccionarAlumno.getGestorEstados().setNuevoEstadoImportante("Seleccione un examen para trabajar... Utilice doble click o el botón correspondiente.");
+        dlgSeleccionarAlumno.setVisible(true);
     }//GEN-LAST:event_btnRedActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;

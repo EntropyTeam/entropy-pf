@@ -171,6 +171,9 @@
           <Image iconType="3" name="/frontend/imagenes/ic_estadisticas_60x60.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEstadisticasActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnPresentar">
       <Properties>

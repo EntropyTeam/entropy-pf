@@ -4,6 +4,7 @@ import frontend.configuracion.DialogConfiguraciones;
 import frontend.diseños.DialogAdministrarDiseñoExamen;
 import frontend.cursos.PanelAdministrarCursos;
 import frontend.diseños.PanelDiseño;
+import frontend.estadisticas.DialogEstadisticas;
 import frontend.presentaciones.PanelPresentacion;
 import javax.swing.JFrame;
 
@@ -129,6 +130,11 @@ public class MenuPrincipal extends javax.swing.JPanel {
         btnEstadisticas.setIconTextGap(10);
         btnEstadisticas.setOpaque(true);
         btnEstadisticas.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_estadisticas_60x60.png"))); // NOI18N
+        btnEstadisticas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstadisticasActionPerformed(evt);
+            }
+        });
         add(btnEstadisticas);
 
         btnPresentar.setBackground(new java.awt.Color(255, 153, 51));
@@ -222,6 +228,11 @@ public class MenuPrincipal extends javax.swing.JPanel {
             mPadre.pack();
         }
     }//GEN-LAST:event_btnPresentarActionPerformed
+
+    private void btnEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadisticasActionPerformed
+        mPadre.ocultarMenu();
+        new DialogEstadisticas(mPadre, true).setVisible(true);
+    }//GEN-LAST:event_btnEstadisticasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfiguracion;
