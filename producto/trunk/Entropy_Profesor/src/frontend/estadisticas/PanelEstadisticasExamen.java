@@ -5,16 +5,18 @@ import backend.reporte.GestorGraficosExamen;
 import backend.reportes.Impresora;
 import frontend.auxiliares.CeldaListaRendererEntropy;
 import frontend.auxiliares.GestorBarrasDeEstado;
-import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.auxiliares.TabbedPaneEntropy;
 import frontend.inicio.VentanaPrincipal;
 import java.awt.Component;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.FileWriter;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -26,12 +28,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PanelEstadisticasExamen extends javax.swing.JPanel {
 
-    private final VentanaPrincipal mPadre;
+    private final Object mPadre;
     private final GestorBarrasDeEstado gestorEstados;
     private Component ultimoComboActivo;
-    private GestorGraficosExamen gestorGraficos;
-    private int ancho = 600;
-    private int alto = 600;
+    private final GestorGraficosExamen gestorGraficos;
+    private final int ancho = 600;
+    private final int alto = 600;
 
     /**
      * Constructor para editar un diseño de examen.
@@ -39,13 +41,12 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
      * @param mPadre Ventana Principal padre
      * @param gestorGraficos
      */
-    public PanelEstadisticasExamen(VentanaPrincipal mPadre, GestorGraficosExamen gestorGraficos) {
+    public PanelEstadisticasExamen(Component mPadre, GestorGraficosExamen gestorGraficos) {
         this.mPadre = mPadre;
         initComponents();
         this.gestorEstados = new GestorBarrasDeEstado(lblActualizacionEstado, lblIconoEstado);
         this.gestorGraficos = gestorGraficos;
         this.pnlPreguntas.setVisible(false);
-        this.lblGrafico.setIcon(new ImageIcon(gestorGraficos.generarGraficoPoblacionResolucionesDificultad(false, 600, 300)));
         tpnEstadisticas.setUI(new TabbedPaneEntropy());
         tblRespuestas.setModel(new javax.swing.table.DefaultTableModel(
             gestorGraficos.crearMatrizRespuestas(),
@@ -56,6 +57,20 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         tblRespuestas.getTableHeader().setReorderingAllowed(false);
         tpnEstadisticas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         tpnEstadisticas.setOpaque(false);
+        if (gestorGraficos.getTotalNoCorregidos() > 0){
+            String strMensaje = "Existen "+gestorGraficos.getTotalNoCorregidos()+" resoluciones a espera de corrección. No se incluirán en las estadísticas.";
+            Mensajes.mostrarAdvertencia(strMensaje);
+            gestorEstados.setNuevoEstadoImportante(strMensaje, GestorBarrasDeEstado.TipoEstado.ADVERTENCIA);
+        }
+        if (!(mPadre instanceof PanelEstadisticasAlumno)) {
+                pnlBotones.remove(btnVolver);
+        }
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                generarGrafico();
+            }
+        });
     }
 
     /**
@@ -70,7 +85,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         pnlBotones = new javax.swing.JPanel();
         btnGuardarExamen = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
-        cmbEstadisticasMenu = new frontend.estadisticas.ComboBoxMenu(new String[] {"... diseños", "... cursos", "... colegios"});
+        btnVolver = new javax.swing.JButton();
         btnVolverInicio = new javax.swing.JButton();
         pnlEstado = new javax.swing.JPanel();
         lblActualizacionEstado = new javax.swing.JLabel();
@@ -89,10 +104,11 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         scrGrafico = new javax.swing.JScrollPane();
         lblGrafico = new javax.swing.JLabel();
         pnlTabla = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        scrRespuestas = new javax.swing.JScrollPane();
         tblRespuestas = new javax.swing.JTable();
+        lblInfoExamenes = new javax.swing.JLabel();
 
-        pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
+        pnlBotones.setLayout(new java.awt.GridLayout());
 
         btnGuardarExamen.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnGuardarExamen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_guardar.png"))); // NOI18N
@@ -135,7 +151,27 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
             }
         });
         pnlBotones.add(btnImprimir);
-        pnlBotones.add(cmbEstadisticasMenu);
+
+        btnVolver.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
+        btnVolver.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnVolver.setContentAreaFilled(false);
+        btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolver.setIconTextGap(10);
+        btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVolverMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVolverMouseExited(evt);
+            }
+        });
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        pnlBotones.add(btnVolver);
 
         btnVolverInicio.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnVolverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_inicio.png"))); // NOI18N
@@ -290,7 +326,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         );
         pnlPreguntasLayout.setVerticalGroup(
             pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+            .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
         );
 
         spnGrafico.setLeftComponent(pnlPreguntas);
@@ -316,25 +352,33 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblRespuestas);
+        scrRespuestas.setViewportView(tblRespuestas);
 
-        pnlTabla.add(jScrollPane2);
+        pnlTabla.add(scrRespuestas);
 
         tpnEstadisticas.addTab("Datos", pnlTabla);
 
         pnlGrafico.add(tpnEstadisticas);
 
+        lblInfoExamenes.setBackground(LookAndFeelEntropy.COLOR_TABLA_PRIMARIO);
+        lblInfoExamenes.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblInfoExamenes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_mensajes_informacion_orange.png"))); // NOI18N
+        lblInfoExamenes.setText("<html>Seleccione la solapa pertinente y presione el botón de guardado para descargar la imagen o la hoja de cálculo.</html>");
+        lblInfoExamenes.setBorder(javax.swing.BorderFactory.createLineBorder(LookAndFeelEntropy.COLOR_ENTROPY));
+        lblInfoExamenes.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(pnlEstado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlBotones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlFiltros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlGrafico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(pnlEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlFiltros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblInfoExamenes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -345,7 +389,9 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblInfoExamenes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
@@ -353,8 +399,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverInicioActionPerformed
-        mPadre.getPanelDeslizante().setPanelMostrado(mPadre.getPnlInicio());
-        mPadre.setTitle("Sistema de Administración de Entornos Educativos");
+        VentanaPrincipal.getInstancia().volverAInicio();
     }//GEN-LAST:event_btnVolverInicioActionPerformed
 
     private void btnGuardarExamenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarExamenActionPerformed
@@ -513,9 +558,19 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnImprimirActionPerformed
 
-    public VentanaPrincipal getVentanaPrincipal() {
-        return mPadre;
-    }
+    private void btnVolverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseEntered
+        this.gestorEstados.setEstadoInstantaneo("Volver a estadísticas del alumno.");
+    }//GEN-LAST:event_btnVolverMouseEntered
+
+    private void btnVolverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseExited
+        this.gestorEstados.volverAEstadoImportante();
+    }//GEN-LAST:event_btnVolverMouseExited
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        if (mPadre instanceof PanelEstadisticasAlumno) {
+            VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado((JPanel) mPadre);            
+        }
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     public GestorBarrasDeEstado getGestorEstados() {
         return gestorEstados;
@@ -524,16 +579,16 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarExamen;
     private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JButton btnVolverInicio;
-    private frontend.estadisticas.ComboBoxMenu cmbEstadisticasMenu;
     private javax.swing.JComboBox cmbFiltro;
     private javax.swing.JComboBox cmbGrafico;
     private javax.swing.JComboBox cmbNotas;
     private javax.swing.JComboBox cmbPorcentaje;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblGrafico;
     private javax.swing.JLabel lblIconoEstado;
+    private javax.swing.JLabel lblInfoExamenes;
     private javax.swing.JList lstPreguntas;
     private javax.swing.JPanel pnlBotones;
     private javax.swing.JPanel pnlEstado;
@@ -543,6 +598,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
     private javax.swing.JPanel pnlTabla;
     private javax.swing.JScrollPane scrGrafico;
     private javax.swing.JScrollPane scrPreguntas;
+    private javax.swing.JScrollPane scrRespuestas;
     private javax.swing.JSplitPane spnGrafico;
     private javax.swing.JTable tblRespuestas;
     private javax.swing.JTabbedPane tpnEstadisticas;
@@ -553,6 +609,14 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         int indexFiltro = this.cmbFiltro.getSelectedIndex();
         int indexGrafico = this.cmbGrafico.getSelectedIndex();
         boolean esPorcentaje = this.cmbPorcentaje.getSelectedIndex() == 1;
+        int ancho = lblGrafico.getSize().width;
+        if (ancho < 200) {
+            ancho = this.ancho;
+        }
+        int alto = lblGrafico.getSize().height;
+        if (alto < 200) {
+            alto = this.alto;
+        }
         switch (indexFiltro) {
             case 0: // Frecuencias
                 switch (indexGrafico) {
@@ -615,7 +679,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
                 }
                 switch (indexGrafico) {
                     case 0: //Torta
-                        this.lblGrafico.setIcon(new ImageIcon(gestorGraficos.generarGraficoTortaResolucionesPreguntas(ancho, alto)));
+                        this.lblGrafico.setIcon(new ImageIcon(gestorGraficos.generarGraficoTortaResolucionesPreguntas(ancho*2/3, alto)));
                         break;
                     case 1: // Barras
                         this.lblGrafico.setIcon(new ImageIcon(gestorGraficos.generarGraficoBarrasResolucionesPreguntas(esPorcentaje, ancho, alto)));
@@ -631,5 +695,5 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         }
         tpnEstadisticas.setSelectedIndex(0);
     }
-
+    
 }

@@ -398,6 +398,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
                 return;
             }
             pnlSlides.setPanelMostrado(pnlInicio, false);
+            setTitle("Sistema de Administración de Entornos Educativos");
         }
     }
 }

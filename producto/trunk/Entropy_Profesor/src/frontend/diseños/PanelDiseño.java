@@ -276,7 +276,7 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
     }//GEN-LAST:event_btnVolverInicioMouseEntered
 
     private void btnTomarExamenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTomarExamenMouseEntered
-        this.gestorEstados.setEstadoInstantaneo("Tomar este diseño de examen.");
+        this.gestorEstados.setEstadoInstantaneo("Tomar un examen con este diseño.");
     }//GEN-LAST:event_btnTomarExamenMouseEntered
 
     private void btnTomarExamenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTomarExamenMouseExited
@@ -298,7 +298,7 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
                 ex.printStackTrace();
             }
         } else {
-            Mensajes.mostrarAdvertencia("Su diseño de examen esta vacio");
+            Mensajes.mostrarAdvertencia("Su diseño de examen esta vacío.");
         }
 
 

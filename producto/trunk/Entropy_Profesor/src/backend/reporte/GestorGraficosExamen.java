@@ -67,6 +67,7 @@ public class GestorGraficosExamen {
     private int intTotalAprobados;
     private int intTotalAnulados;
     private int intTotalRespuestas;
+    private int intTotalNoCorregidos;
 
     private ArrayList<Double> lstPorcentajeCalificaciones;
     private ArrayList<Categoria> lstTemas;
@@ -140,12 +141,18 @@ public class GestorGraficosExamen {
         intTotalAprobados = 0;
         intTotalAnulados = 0;
         intTotalRespuestas = 0;
+        intTotalNoCorregidos = 0;
 
         for (Resolucion resolucion : colResoluciones) {
             try {
 
                 if (resolucion.isBlnAnulada()) {
                     intTotalAnulados++;
+                    continue;
+                }
+                
+                if (!resolucion.esCorreccionCompleta()){
+                    intTotalNoCorregidos++;
                     continue;
                 }
 
@@ -175,12 +182,15 @@ public class GestorGraficosExamen {
                         lstPreguntas.add(pregunta);
                     }
                     
-                    Categoria tema = new Categoria(respuesta.getPregunta().getTema().getStrNombre());
-                    int indexTema = lstTemas.indexOf(tema);
-                    if (indexTema != -1) {
-                        tema = lstTemas.get(indexTema);
-                    } else {
-                        lstTemas.add(tema);
+                    Categoria tema = null;
+                    if (respuesta.getPregunta().getTema() != null && respuesta.getPregunta().getTema().getIntTemaId() > 0) {
+                        tema = new Categoria(respuesta.getPregunta().getTema().getStrNombre());
+                        int indexTema = lstTemas.indexOf(tema);
+                        if (indexTema != -1) {
+                            tema = lstTemas.get(indexTema);
+                        } else {
+                            lstTemas.add(tema);
+                        }
                     }
 
                     Categoria dificultad = new Categoria(respuesta.getPregunta().getStrNivel());
@@ -192,7 +202,7 @@ public class GestorGraficosExamen {
                     }
 
                     if (!respuesta.fueRespondida()) {
-                        tema.cantNoRespondidas++;
+                        if (tema != null) tema.cantNoRespondidas++;
                         dificultad.cantNoRespondidas++;
                         pregunta.cantNoRespondidas++;
                         continue;
@@ -202,17 +212,17 @@ public class GestorGraficosExamen {
                     //Datos para filtros de tema
                     switch (esCorrecta) {
                         case 1: // Contestó bien la pregunta
-                            tema.cantCorrectas++;
+                            if (tema != null) tema.cantCorrectas++;
                             dificultad.cantCorrectas++;
                             pregunta.cantCorrectas++;
                             break;
                         case 0: // Contestó mal
-                            tema.cantIncorrectas++;
+                            if (tema != null) tema.cantIncorrectas++;
                             dificultad.cantIncorrectas++;
                             pregunta.cantIncorrectas++;
                             break;
                         case 2: // Pregunta de desarrollo incompleta
-                            tema.cantIncompletas++;
+                            if (tema != null) tema.cantIncompletas++;
                             dificultad.cantIncompletas++;
                             pregunta.cantIncompletas++;
                             break;
@@ -389,6 +399,8 @@ public class GestorGraficosExamen {
     
     public BufferedImage generarGraficoPoblacionResolucionesDificultad(boolean porcentaje, int anchoImagen, int altoImagen) {
 
+        if (lstDificultad.isEmpty()) return new BufferedImage(5, 5, BufferedImage.TRANSLUCENT);
+        
         ArrayList<Serie> series = new ArrayList<>();
 
         for (Categoria dificultad : lstDificultad) {
@@ -417,6 +429,8 @@ public class GestorGraficosExamen {
 
     public BufferedImage generarGraficoBarrasApiladasResolucionesDificultad(boolean porcentaje, int anchoImagen, int altoImagen) {
 
+        if (lstDificultad.isEmpty()) return new BufferedImage(5, 5, BufferedImage.TRANSLUCENT);
+        
         ArrayList<Serie> series = new ArrayList<>();
 
         for (Categoria dificultad : lstDificultad) {
@@ -447,6 +461,8 @@ public class GestorGraficosExamen {
 
     public BufferedImage generarGraficoBarrasResolucionesDificultad(boolean porcentaje, int anchoImagen, int altoImagen) {
 
+        if (lstDificultad.isEmpty()) return new BufferedImage(5, 5, BufferedImage.TRANSLUCENT);
+        
         ArrayList<Serie> series = new ArrayList<>();
 
         double[] correctas = new double[lstDificultad.size()];
@@ -480,6 +496,8 @@ public class GestorGraficosExamen {
 
     public BufferedImage generarGraficoPoblacionResolucionesTemas(boolean porcentaje, int anchoImagen, int altoImagen) {
 
+        if (lstTemas.isEmpty()) return new BufferedImage(5, 5, BufferedImage.TRANSLUCENT);
+        
         ArrayList<Serie> series = new ArrayList<>();
 
         for (Categoria tema : lstTemas) {
@@ -507,6 +525,8 @@ public class GestorGraficosExamen {
 
     public BufferedImage generarGraficoBarrasApiladasResolucionesTemas(boolean porcentaje, int anchoImagen, int altoImagen) {
 
+        if (lstTemas.isEmpty()) return new BufferedImage(5, 5, BufferedImage.TRANSLUCENT);
+        
         ArrayList<Serie> series = new ArrayList<>();
 
         for (Categoria tema : lstTemas) {
@@ -997,6 +1017,10 @@ public class GestorGraficosExamen {
 
         Color color = new Color(red, green, blue);
         return color;
+    }
+
+    public int getTotalNoCorregidos() {
+        return intTotalNoCorregidos;
     }
 
     private static class Serie {

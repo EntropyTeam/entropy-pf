@@ -148,8 +148,11 @@ public class DAOAlumno implements IDAOAlumno {
                     + "WHERE "
                     + "AL." + EntropyDB.GRL_COL_ALUMNO_NOMBRE + " LIKE (?) "
                     + "AND AL." + EntropyDB.GRL_COL_ALUMNO_APELLIDO + " LIKE (?) "
-                   + "AND AL." + EntropyDB.GRL_COL_ALUMNO_DOCUMENTO + " LIKE (?) "
-                    + "AND (AL." + EntropyDB.GRL_COL_ALUMNO_LEGAJO + " LIKE (?) OR AL." + EntropyDB.GRL_COL_ALUMNO_LEGAJO + " IS NULL)";
+                   + "AND AL." + EntropyDB.GRL_COL_ALUMNO_DOCUMENTO + " LIKE (?) ";
+            
+            if (strLegajo != null && !strLegajo.isEmpty()){
+                strConsulta += "AND AL." + EntropyDB.GRL_COL_ALUMNO_LEGAJO + " LIKE (?)";
+            }                    
 
             if (curso != null) {
                 strConsulta += "AND C." + EntropyDB.GRL_COL_CURSO_ID + " = ? ";
@@ -162,7 +165,10 @@ public class DAOAlumno implements IDAOAlumno {
             psConsulta.setString(1, strNombre + "%");
             psConsulta.setString(2, strApellido + "%");
             psConsulta.setString(3, strDocumento + "%");
-            psConsulta.setString(4, strLegajo + "%");
+            
+            if (strLegajo != null && !strLegajo.isEmpty()){
+                psConsulta.setString(4, strLegajo + "%");
+            } 
             
             if (curso != null) {
                 psConsulta.setInt(5, curso.getIntCursoId());

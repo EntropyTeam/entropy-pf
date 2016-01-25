@@ -13,6 +13,7 @@ import backend.examenes.Examen;
 import backend.reporte.GestorGraficosExamen;
 import backend.resoluciones.Resolucion;
 import backend.resoluciones.Respuesta;
+import frontend.estadisticas.PanelEstadisticasAlumno;
 import frontend.estadisticas.PanelEstadisticasExamen;
 import frontend.inicio.VentanaPrincipal;
 import frontend.resoluciones.PanelResoluciones;
@@ -179,5 +180,17 @@ public class GestorExamen {
         return true;
     }
 
-    
+    public boolean verEstadisticas(PanelEstadisticasAlumno mPadre, ArrayList<Resolucion> colResoluciones) {
+        if (colResoluciones.isEmpty()) {
+            return false;
+        }
+        PanelEstadisticasExamen pnlEstadisticas = new PanelEstadisticasExamen(mPadre, new GestorGraficosExamen(colResoluciones));
+        pnlEstadisticas.setName("Ver estadísticas");
+        VentanaPrincipal.getInstancia().ocultarMenu();
+        VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlEstadisticas);
+        if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+            VentanaPrincipal.getInstancia().pack();
+        }
+        return true;
+    }
 }

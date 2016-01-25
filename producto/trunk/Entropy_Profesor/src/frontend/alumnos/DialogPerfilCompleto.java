@@ -97,19 +97,19 @@ public class DialogPerfilCompleto extends javax.swing.JDialog {
             }
         });
 
-        lblsDocumento.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsDocumento.setFont(LookAndFeelEntropy.FUENTE_CURSIVA);
         lblsDocumento.setText("Documento:");
 
-        lblDocumento.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblDocumento.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
         lblDocumento.setText("DNI 35580949");
 
-        lblsLegajo.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsLegajo.setFont(LookAndFeelEntropy.FUENTE_CURSIVA);
         lblsLegajo.setText("Legajo:");
 
         lblLegajo.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblLegajo.setText("55192");
 
-        lblsEmail.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsEmail.setFont(LookAndFeelEntropy.FUENTE_CURSIVA);
         lblsEmail.setText("E-mail:");
 
         lblEmail.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
