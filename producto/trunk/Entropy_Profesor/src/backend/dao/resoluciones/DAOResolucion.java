@@ -190,4 +190,53 @@ public class DAOResolucion implements IDAOResolucion {
         return resoluciones;
     }
 
+    @Override
+    public ArrayList<Resolucion> getResolucionesByCurso(int idCurso) {
+        Connection conexion = DAOConexion.conectarBaseDatos();
+        ArrayList<Resolucion> resoluciones = new ArrayList<>();
+        try {
+            String strConsulta = "SELECT "
+                    + EntropyDB.RES_COL_RESOLUCION_ID + " "
+                    + " FROM " + EntropyDB.RES_TBL_RESOLUCION + " R INNER JOIN " + EntropyDB.EXA_TBL_EXAMEN + " E "
+                    + " ON R." + EntropyDB.RES_COL_RESOLUCION_EXAMEN_ID + " = E." + EntropyDB.EXA_COL_EXAMEN_ID
+                    + " INNER JOIN " + EntropyDB.GRL_TBL_CURSO + " C ON E." + EntropyDB.EXA_COL_EXAMEN_CURSO_ID + " = C." + EntropyDB.GRL_COL_CURSO_ID
+                    + " WHERE E." + EntropyDB.EXA_COL_EXAMEN_CURSO_ID + " = ?";
+
+            PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
+            psConsulta.setInt(1, idCurso);
+            ResultSet rs = psConsulta.executeQuery();
+            while (rs.next()) {
+                resoluciones.add(getResolucionCompleta(rs.getInt(EntropyDB.RES_COL_RESOLUCION_ID)));
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return resoluciones;
+    }
+
+    @Override
+    public ArrayList<Resolucion> getResolucionesByInstitucion(int idInstitucion) {
+        Connection conexion = DAOConexion.conectarBaseDatos();
+        ArrayList<Resolucion> resoluciones = new ArrayList<>();
+        try {
+            String strConsulta = "SELECT "
+                    + EntropyDB.RES_COL_RESOLUCION_ID + " "
+                    + " FROM " + EntropyDB.RES_TBL_RESOLUCION + " R INNER JOIN " + EntropyDB.EXA_TBL_EXAMEN + " E "
+                    + " ON R." + EntropyDB.RES_COL_RESOLUCION_EXAMEN_ID + " = E." + EntropyDB.EXA_COL_EXAMEN_ID
+                    + " INNER JOIN " + EntropyDB.GRL_TBL_CURSO + " C ON E." + EntropyDB.EXA_COL_EXAMEN_CURSO_ID + " = C." + EntropyDB.GRL_COL_CURSO_ID
+                    + " INNER JOIN " + EntropyDB.GRL_TBL_INSTITUCION + " I ON C." + EntropyDB.GRL_COL_CURSO_INSTITUCION_ID + " = I." + EntropyDB.GRL_COL_INSTITUCION_ID
+                    + " WHERE C." + EntropyDB.GRL_COL_CURSO_INSTITUCION_ID + " = ?";
+
+            PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
+            psConsulta.setInt(1, idInstitucion);
+            ResultSet rs = psConsulta.executeQuery();
+            while (rs.next()) {
+                resoluciones.add(getResolucionCompleta(rs.getInt(EntropyDB.RES_COL_RESOLUCION_ID)));
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return resoluciones;
+    }
+
 }

@@ -48,5 +48,9 @@ public interface IDAOResolucion {
      * ninguna.
      */
     public ArrayList<Resolucion> getResolucionesDeUnAlumno(int idAlumno);
+    
+    public ArrayList<Resolucion> getResolucionesByCurso(int idCurso);
+    
+    public ArrayList<Resolucion> getResolucionesByInstitucion(int idInstitucion);
 
 }

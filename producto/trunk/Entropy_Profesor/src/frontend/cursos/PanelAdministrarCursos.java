@@ -5,6 +5,7 @@ import backend.dao.diseños.DAOCurso;
 import backend.diseños.Curso;
 import backend.diseños.Institucion;
 import backend.gestores.GestorCursosEInstituciones;
+import backend.gestores.GestorExamen;
 import frontend.auxiliares.CeldaListaRendererEntropy;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.GestorImagenes;
@@ -601,6 +602,11 @@ public class PanelAdministrarCursos extends javax.swing.JPanel {
                 btnImprimirMouseExited(evt);
             }
         });
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
         pnlBotones.add(btnImprimir);
 
         btnVolverInicio.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -1164,6 +1170,20 @@ public class PanelAdministrarCursos extends javax.swing.JPanel {
     private void dlgEditarInstitucionWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dlgEditarInstitucionWindowClosing
         bytesImagen = null;
     }//GEN-LAST:event_dlgEditarInstitucionWindowClosing
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        Institucion institucion = (Institucion) lstInstituciones.getSelectedValue();
+        Curso curso = (Curso) lstCursos.getSelectedValue();
+        if (institucion == null && curso == null) {
+            Mensajes.mostrarInformacion("Debe seleccionar primero una institución o curso.");
+            return;
+        }
+        if (curso != null) {
+            GestorExamen.getInstancia().verEstadisticas(this, curso);
+        } else {
+            GestorExamen.getInstancia().verEstadisticas(this, institucion);
+        }
+    }//GEN-LAST:event_btnImprimirActionPerformed
 
     public GestorBarrasDeEstado getGestorEstados() {
         return gestorEstados;

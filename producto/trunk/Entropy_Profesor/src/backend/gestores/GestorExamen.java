@@ -8,6 +8,7 @@ import backend.dao.resoluciones.DAOResolucion;
 import backend.dao.resoluciones.DAORespuesta;
 import backend.dao.usuarios.DAOAlumno;
 import backend.diseños.Curso;
+import backend.diseños.Institucion;
 import backend.examenes.EstadoExamen;
 import backend.examenes.Examen;
 import backend.reporte.GestorGraficosExamen;
@@ -179,8 +180,32 @@ public class GestorExamen {
         }
         return true;
     }
+    
+    public boolean verEstadisticas(JPanel mPadre, Curso curso) {
+        ArrayList<Resolucion> colResoluciones = new DAOResolucion().getResolucionesByCurso(curso.getIntCursoId());
+        if (colResoluciones.isEmpty()) {
+            Mensajes.mostrarInformacion("No existen resoluciones para ese curso.");
+        }
+        for (Resolucion resolucion : colResoluciones){
+            resolucion.setExamen(new DAOExamen().getExamen(resolucion.getExamen().getIntExamenId()));
+            resolucion.getExamen().setColPreguntas(new DAOPreguntaExamen().getPreguntasPorExamen(resolucion.getExamen()));
+        }
+        return verEstadisticas(mPadre, colResoluciones);
+    }
+    
+    public boolean verEstadisticas(JPanel mPadre, Institucion institucion) {
+        ArrayList<Resolucion> colResoluciones = new DAOResolucion().getResolucionesByInstitucion(institucion.getIntInstitucionId());
+        if (colResoluciones.isEmpty()) {
+            Mensajes.mostrarInformacion("No existen resoluciones para esa institución.");
+        }
+        for (Resolucion resolucion : colResoluciones){
+            resolucion.setExamen(new DAOExamen().getExamen(resolucion.getExamen().getIntExamenId()));
+            resolucion.getExamen().setColPreguntas(new DAOPreguntaExamen().getPreguntasPorExamen(resolucion.getExamen()));
+        }
+        return verEstadisticas(mPadre, colResoluciones);
+    }
 
-    public boolean verEstadisticas(PanelEstadisticasAlumno mPadre, ArrayList<Resolucion> colResoluciones) {
+    public boolean verEstadisticas(JPanel mPadre, ArrayList<Resolucion> colResoluciones) {
         if (colResoluciones.isEmpty()) {
             return false;
         }

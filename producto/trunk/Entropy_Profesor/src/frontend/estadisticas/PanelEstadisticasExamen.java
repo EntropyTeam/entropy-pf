@@ -17,7 +17,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-import javax.swing.JViewport;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -564,9 +563,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVolverMouseExited
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        if (mPadre instanceof PanelEstadisticasAlumno) {
-            VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado((JPanel) mPadre);            
-        }
+        VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado((JPanel) mPadre);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     public GestorBarrasDeEstado getGestorEstados() {
