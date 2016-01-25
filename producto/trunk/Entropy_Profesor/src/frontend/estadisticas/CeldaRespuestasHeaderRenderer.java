@@ -64,10 +64,11 @@ public class CeldaRespuestasHeaderRenderer extends JLabel implements TableCellRe
         }
         
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        table.getTableHeader().setMinimumSize(new Dimension(20, intAlturaAuxiliar));
-        table.getTableHeader().setPreferredSize(new Dimension(0, intAlturaAuxiliar));
-        
-        setText((value == null) ? "" : ("<html><center>" + value.toString() + "</center></html>"));
+        try{
+            setPreferredSize(new Dimension(intAnchoAuxiliar, intAlturaAuxiliar));
+            setText((value == null) ? "" : ("<html><center>" + value.toString() + "</center></html>"));
+        } catch(Exception e){
+        }
         return this;
     }
     

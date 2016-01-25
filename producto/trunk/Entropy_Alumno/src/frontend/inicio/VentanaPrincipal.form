@@ -9,43 +9,6 @@
         </Property>
       </Properties>
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="mncEx&#xe1;menes">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Ex&#xe1;menes"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
-            </Property>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mniAdministrarExamenes">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Administrar ex&#xe1;menes"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniAdministrarExamenesActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="mncHerramientas">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Herramientas"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
-            </Property>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="mncVentana">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Ventana"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
-            </Property>
-          </Properties>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="mncAyuda">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ayuda"/>
@@ -54,14 +17,6 @@
             </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mniAyuda">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Ver Ayuda"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniAcercaDe">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -69,6 +24,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Acerca de..."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniAcercaDeActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

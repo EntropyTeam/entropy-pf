@@ -54,8 +54,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         ));
         tblRespuestas.setDefaultRenderer(Object.class, new CeldaRespuestasRenderer());
         tblRespuestas.getTableHeader().setDefaultRenderer(new CeldaRespuestasHeaderRenderer());
-        tblRespuestas.getTableHeader().setReorderingAllowed(false);        
-        tblRespuestas.setFillsViewportHeight(false);        
+        tblRespuestas.getTableHeader().setReorderingAllowed(false);
         tpnEstadisticas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         tpnEstadisticas.setOpaque(false);
         if (gestorGraficos.getTotalNoCorregidos() > 0){
@@ -73,7 +72,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
             }
         });
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * ADVERTENCIA: Do NOT modify this code. The content of this method is

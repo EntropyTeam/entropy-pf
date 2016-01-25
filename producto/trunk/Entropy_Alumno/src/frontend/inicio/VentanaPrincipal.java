@@ -1,5 +1,6 @@
 package frontend.inicio;
 
+import backend.auxiliares.Mensajes;
 import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.auxiliares.PanelDeslizante;
@@ -60,12 +61,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         lblSeparador = new javax.swing.JLabel();
         pnlSlides = new frontend.auxiliares.PanelDeslizante();
         mnbMenuBar = new javax.swing.JMenuBar();
-        mncExámenes = new javax.swing.JMenu();
-        mniAdministrarExamenes = new javax.swing.JMenuItem();
-        mncHerramientas = new javax.swing.JMenu();
-        mncVentana = new javax.swing.JMenu();
         mncAyuda = new javax.swing.JMenu();
-        mniAyuda = new javax.swing.JMenuItem();
         mniAcercaDe = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,7 +73,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
 
         pnlMargen.setBackground(new java.awt.Color(255, 255, 255));
         pnlMargen.setOpaque(false);
-        pnlMargen.setLayout(new java.awt.GridLayout());
+        pnlMargen.setLayout(new java.awt.GridLayout(1, 0));
 
         lblSeparador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSeparador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/separator.png"))); // NOI18N
@@ -124,37 +120,16 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
 
         mnbMenuBar.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
 
-        mncExámenes.setText("Exámenes");
-        mncExámenes.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-
-        mniAdministrarExamenes.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        mniAdministrarExamenes.setText("Administrar exámenes");
-        mniAdministrarExamenes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniAdministrarExamenesActionPerformed(evt);
-            }
-        });
-        mncExámenes.add(mniAdministrarExamenes);
-
-        mnbMenuBar.add(mncExámenes);
-
-        mncHerramientas.setText("Herramientas");
-        mncHerramientas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        mnbMenuBar.add(mncHerramientas);
-
-        mncVentana.setText("Ventana");
-        mncVentana.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        mnbMenuBar.add(mncVentana);
-
         mncAyuda.setText("Ayuda");
         mncAyuda.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
 
-        mniAyuda.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        mniAyuda.setText("Ver Ayuda");
-        mncAyuda.add(mniAyuda);
-
         mniAcercaDe.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         mniAcercaDe.setText("Acerca de...");
+        mniAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAcercaDeActionPerformed(evt);
+            }
+        });
         mncAyuda.add(mniAcercaDe);
 
         mnbMenuBar.add(mncAyuda);
@@ -175,20 +150,15 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mniAdministrarExamenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAdministrarExamenesActionPerformed
-        
-    }//GEN-LAST:event_mniAdministrarExamenesActionPerformed
+    private void mniAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAcercaDeActionPerformed
+        Mensajes.mostrarAcercaDe();
+    }//GEN-LAST:event_mniAcercaDeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblSeparador;
     private javax.swing.JMenuBar mnbMenuBar;
     private javax.swing.JMenu mncAyuda;
-    private javax.swing.JMenu mncExámenes;
-    private javax.swing.JMenu mncHerramientas;
-    private javax.swing.JMenu mncVentana;
     private javax.swing.JMenuItem mniAcercaDe;
-    private javax.swing.JMenuItem mniAdministrarExamenes;
-    private javax.swing.JMenuItem mniAyuda;
     private frontend.auxiliares.PanelConFondo pnlBackground;
     private javax.swing.JLayeredPane pnlConMenu;
     private javax.swing.JPanel pnlMargen;
