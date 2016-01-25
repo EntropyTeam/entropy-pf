@@ -16,16 +16,13 @@ import javax.swing.table.TableColumn;
  *
  * @author Denise
  */
-public class CeldaRespuestasHeaderRenderer extends JLabel implements TableCellRenderer{
-
+public class CeldaRespuestasHeaderRenderer extends JLabel implements TableCellRenderer {
+    
     public CeldaRespuestasHeaderRenderer() {
-        setOpaque(false);
         setFont(LookAndFeelEntropy.FUENTE_CURSIVA);
         setOpaque(true);
         setForeground(Color.DARK_GRAY);
-        //setForeground(LookAndFeelEntropy.COLOR_FUENTE_TITULO_PANEL);
         setBackground(UIManager.getColor("TableHeader.background"));
-        //setBackground(Color.LIGHT_GRAY);
         setHorizontalAlignment(JLabel.CENTER);
         setVerticalAlignment(JLabel.TOP);
         setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
@@ -34,32 +31,44 @@ public class CeldaRespuestasHeaderRenderer extends JLabel implements TableCellRe
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {
-        
+
         int intAlturaAuxiliar = 0;
+        int intAnchoAuxiliar = table.getColumnModel().getColumn(column).getPreferredWidth();
+        
         Enumeration enumeration = table.getColumnModel().getColumns();
         while (enumeration.hasMoreElements()) {
             TableColumn tcol = ((TableColumn) enumeration.nextElement());
             Object value1 = tcol.getHeaderValue();
-            int intAltoCaracter1 = table.getFontMetrics(table.getFont()).getHeight() + 2;
-            int intAnchoActual1 = (int) table.getCellRect(row, column, false).getWidth();
-            int intAnchoDeseado1 = 0;
-            int intCantidadLineas1 = 1;
+            int intAltoCaracter = table.getFontMetrics(table.getFont()).getHeight() + 2;
+            int intAnchoActual = (int) table.getCellRect(row, column, false).getWidth();
+            int intAnchoCaracteres = 0;
+            int intCantidadLineas = 1;
             for (char c : value1.toString().toCharArray()) {
-                intAnchoDeseado1 += table.getFontMetrics(table.getFont()).charWidth(c);
-                if (intAnchoDeseado1 > intAnchoActual1 * intCantidadLineas1) {
-                    intCantidadLineas1++;
+                intAnchoCaracteres += table.getFontMetrics(table.getFont()).charWidth(c);
+                if (intAnchoCaracteres > intAnchoActual * intCantidadLineas) {
+                    intCantidadLineas++;
                 }
             }
-            int intNuevaAltura1 = intAltoCaracter1 * intCantidadLineas1;
-            if (intNuevaAltura1 > intAlturaAuxiliar) {
-                intAlturaAuxiliar = intNuevaAltura1;
+            if (intCantidadLineas > 6) {
+                int intNuevoAncho = intAnchoCaracteres / 6;
+                if (intNuevoAncho > intAnchoAuxiliar) {
+                    intAnchoAuxiliar = intNuevoAncho;
+                }
+                intCantidadLineas = 6;
+                table.getColumnModel().getColumn(column).setPreferredWidth(intAnchoAuxiliar);
             }
+            int intNuevaAltura = intAltoCaracter * intCantidadLineas;
+            if (intNuevaAltura > intAlturaAuxiliar) {
+                intAlturaAuxiliar = intNuevaAltura;
+            }            
         }
-            table.getTableHeader().setPreferredSize(new Dimension(table.getColumnModel().getColumn(column).getPreferredWidth(), intAlturaAuxiliar));
-            
+        
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.getTableHeader().setMinimumSize(new Dimension(20, intAlturaAuxiliar));
+        table.getTableHeader().setPreferredSize(new Dimension(0, intAlturaAuxiliar));
+        
         setText((value == null) ? "" : ("<html><center>" + value.toString() + "</center></html>"));
         return this;
     }
-    
     
 }

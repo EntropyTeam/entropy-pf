@@ -18,8 +18,7 @@ public class CeldaRespuestasRenderer implements TableCellRenderer{
     public static final Color CORRECTO = new Color(118, 229, 155);
     public static final Color INCOMPLETO = new Color(249, 197, 106);
     public static final Color SIN_CALIFICAR = new Color(192, 191, 189);
-    
-    
+        
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {        
         String strTexto = (value instanceof String) ? value.toString() : "";
@@ -42,6 +41,7 @@ public class CeldaRespuestasRenderer implements TableCellRenderer{
                 lbl.setBackground(INCOMPLETO);
                 break;
         }
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         return lbl;        
     }
     

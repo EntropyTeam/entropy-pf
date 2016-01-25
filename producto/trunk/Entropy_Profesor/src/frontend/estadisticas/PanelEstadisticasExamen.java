@@ -17,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JViewport;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -54,7 +55,8 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         ));
         tblRespuestas.setDefaultRenderer(Object.class, new CeldaRespuestasRenderer());
         tblRespuestas.getTableHeader().setDefaultRenderer(new CeldaRespuestasHeaderRenderer());
-        tblRespuestas.getTableHeader().setReorderingAllowed(false);
+        tblRespuestas.getTableHeader().setReorderingAllowed(false);        
+        tblRespuestas.setFillsViewportHeight(false);        
         tpnEstadisticas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         tpnEstadisticas.setOpaque(false);
         if (gestorGraficos.getTotalNoCorregidos() > 0){
@@ -103,12 +105,11 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         lstPreguntas = new javax.swing.JList();
         scrGrafico = new javax.swing.JScrollPane();
         lblGrafico = new javax.swing.JLabel();
-        pnlTabla = new javax.swing.JPanel();
         scrRespuestas = new javax.swing.JScrollPane();
         tblRespuestas = new javax.swing.JTable();
         lblInfoExamenes = new javax.swing.JLabel();
 
-        pnlBotones.setLayout(new java.awt.GridLayout());
+        pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
 
         btnGuardarExamen.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnGuardarExamen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_guardar.png"))); // NOI18N
@@ -338,9 +339,6 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
 
         tpnEstadisticas.addTab("Gráfico", spnGrafico);
 
-        pnlTabla.setOpaque(false);
-        pnlTabla.setLayout(new java.awt.GridLayout(1, 0));
-
         tblRespuestas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -352,11 +350,10 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblRespuestas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         scrRespuestas.setViewportView(tblRespuestas);
 
-        pnlTabla.add(scrRespuestas);
-
-        tpnEstadisticas.addTab("Datos", pnlTabla);
+        tpnEstadisticas.addTab("Preguntas por resolución", scrRespuestas);
 
         pnlGrafico.add(tpnEstadisticas);
 
@@ -389,7 +386,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                .addComponent(pnlGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblInfoExamenes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -595,7 +592,6 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
     private javax.swing.JPanel pnlFiltros;
     private frontend.auxiliares.PanelConFondo pnlGrafico;
     private javax.swing.JPanel pnlPreguntas;
-    private javax.swing.JPanel pnlTabla;
     private javax.swing.JScrollPane scrGrafico;
     private javax.swing.JScrollPane scrPreguntas;
     private javax.swing.JScrollPane scrRespuestas;
