@@ -132,7 +132,7 @@ public class DAOAlumno implements IDAOAlumno {
         try {
             conexion = DAOConexion.conectarBaseDatos();
             
-            String strConsulta = "SELECT "
+            String strConsulta = "SELECT DISTINCT "
                     + "AL." + EntropyDB.GRL_COL_ALUMNO_ID + ", "
                     + "AL." + EntropyDB.GRL_COL_ALUMNO_NOMBRE + ", "
                     + "AL." + EntropyDB.GRL_COL_ALUMNO_APELLIDO + ", "
