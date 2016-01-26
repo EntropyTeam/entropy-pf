@@ -114,7 +114,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
         lblCamposObligatorios = new javax.swing.JLabel();
         pnlAdjuntos = new javax.swing.JPanel();
         lblRutaAdjunto = new javax.swing.JLabel();
-        btnBajarPregunta1 = new javax.swing.JButton();
+        btnAdjunto = new javax.swing.JButton();
         scrTipoPregunta = new javax.swing.JScrollPane();
         lblAnterior = new javax.swing.JLabel();
 
@@ -382,22 +382,14 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
         lblRutaAdjunto.setForeground(new java.awt.Color(102, 102, 102));
         lblRutaAdjunto.setText("Seleccione un archivo a cargar...");
 
-        btnBajarPregunta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_attachment_25x25.png"))); // NOI18N
-        btnBajarPregunta1.setToolTipText("");
-        btnBajarPregunta1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnBajarPregunta1.setContentAreaFilled(false);
-        btnBajarPregunta1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBajarPregunta1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnBajarPregunta1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnBajarPregunta1MouseExited(evt);
-            }
-        });
-        btnBajarPregunta1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdjunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_attachment_25x25.png"))); // NOI18N
+        btnAdjunto.setToolTipText("");
+        btnAdjunto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAdjunto.setContentAreaFilled(false);
+        btnAdjunto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdjunto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBajarPregunta1ActionPerformed(evt);
+                btnAdjuntoActionPerformed(evt);
             }
         });
 
@@ -409,7 +401,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lblRutaAdjunto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBajarPregunta1)
+                .addComponent(btnAdjunto)
                 .addContainerGap())
         );
         pnlAdjuntosLayout.setVerticalGroup(
@@ -419,7 +411,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
                 .addComponent(lblRutaAdjunto)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnlAdjuntosLayout.createSequentialGroup()
-                .addComponent(btnBajarPregunta1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAdjunto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -790,18 +782,10 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtPuntajeFocusLost
 
-    private void btnBajarPregunta1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBajarPregunta1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBajarPregunta1MouseEntered
-
-    private void btnBajarPregunta1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBajarPregunta1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBajarPregunta1MouseExited
-
-    private void btnBajarPregunta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajarPregunta1ActionPerformed
+    private void btnAdjuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdjuntoActionPerformed
         DialogImportarAdjuntos adjuntos = new DialogImportarAdjuntos(VentanaPrincipal.getInstancia(), true, this);
         adjuntos.setVisible(true);
-    }//GEN-LAST:event_btnBajarPregunta1ActionPerformed
+    }//GEN-LAST:event_btnAdjuntoActionPerformed
 
     private void keyReleasedCmbTema(KeyEvent evt) {
         if (FiltroTexto.TipoFiltro.DIGITOS_Y_LETRAS.toString().contains(String.valueOf(evt.getKeyChar()))
@@ -1110,8 +1094,8 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdjunto;
     private javax.swing.JButton btnBajarPregunta;
-    private javax.swing.JButton btnBajarPregunta1;
     private javax.swing.JButton btnDuplicarPregunta;
     private javax.swing.JButton btnEliminarPregunta;
     private javax.swing.JButton btnImportarPregunta;

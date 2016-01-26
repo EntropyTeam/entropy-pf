@@ -42,6 +42,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
     private int intIDSeleccionada;
     private final Resolucion resolucion;
     private final GestorBarrasDeEstado gestorEstado;
+    private DialogAdjunto dlgAdjunto;
 
     /**
      * Constructor de la clase.
@@ -104,6 +105,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
         lblTema = new javax.swing.JLabel();
         lblsComentarios = new javax.swing.JLabel();
         lblComentarios = new javax.swing.JLabel();
+        btnVerAdjunto = new javax.swing.JButton();
         pnlContenidoPregunta = new javax.swing.JPanel();
         pnlCasillas = new javax.swing.JPanel();
         pnlFila1 = new javax.swing.JPanel();
@@ -199,6 +201,30 @@ public class PanelRespuesta extends javax.swing.JPanel {
         lblComentarios.setText("No tengo comentarios.");
         lblComentarios.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
+        btnVerAdjunto.setFont(LookAndFeelEntropy.FUENTE_CURSIVA);
+        btnVerAdjunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_attachment_25x25.png"))); // NOI18N
+        btnVerAdjunto.setText("Ver adjunto");
+        btnVerAdjunto.setToolTipText("");
+        btnVerAdjunto.setBorder(null);
+        btnVerAdjunto.setBorderPainted(false);
+        btnVerAdjunto.setContentAreaFilled(false);
+        btnVerAdjunto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerAdjunto.setFocusPainted(false);
+        btnVerAdjunto.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnVerAdjunto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVerAdjuntoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVerAdjuntoMouseExited(evt);
+            }
+        });
+        btnVerAdjunto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerAdjuntoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlEnunciadoLayout = new javax.swing.GroupLayout(pnlEnunciado);
         pnlEnunciado.setLayout(pnlEnunciadoLayout);
         pnlEnunciadoLayout.setHorizontalGroup(
@@ -206,7 +232,10 @@ public class PanelRespuesta extends javax.swing.JPanel {
             .addGroup(pnlEnunciadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                    .addGroup(pnlEnunciadoLayout.createSequentialGroup()
+                        .addComponent(lblEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnVerAdjunto, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlEnunciadoLayout.createSequentialGroup()
                         .addGroup(pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblsComentarios)
@@ -214,21 +243,23 @@ public class PanelRespuesta extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(lblComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         pnlEnunciadoLayout.setVerticalGroup(
             pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEnunciadoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(btnVerAdjunto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblsTema)
                     .addComponent(lblTema))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblsComentarios)
+                    .addComponent(lblsComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                     .addComponent(lblComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -251,11 +282,11 @@ public class PanelRespuesta extends javax.swing.JPanel {
         );
         pnlPreguntaLayout.setVerticalGroup(
             pnlPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
+            .addGap(0, 232, Short.MAX_VALUE)
             .addGroup(pnlPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlPreguntaLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(pnlEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(pnlContenidoPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                     .addContainerGap()))
@@ -397,8 +428,21 @@ public class PanelRespuesta extends javax.swing.JPanel {
         cambiarPreguntaSeleccionada(intIDSeleccionada + 1);
     }//GEN-LAST:event_lblSiguienteMouseClicked
 
+    private void btnVerAdjuntoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerAdjuntoMouseEntered
+        btnVerAdjunto.setText("<html><u>Ver adjunto</u></html>");
+    }//GEN-LAST:event_btnVerAdjuntoMouseEntered
+
+    private void btnVerAdjuntoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerAdjuntoMouseExited
+        btnVerAdjunto.setText("<html>Ver adjunto</html>");
+    }//GEN-LAST:event_btnVerAdjuntoMouseExited
+
+    private void btnVerAdjuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerAdjuntoActionPerformed
+        dlgAdjunto.setVisible(true);
+    }//GEN-LAST:event_btnVerAdjuntoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVerAdjunto;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblAnterior;
     private javax.swing.JLabel lblCasillaTemplate;
@@ -615,7 +659,12 @@ public class PanelRespuesta extends javax.swing.JPanel {
         JPanel pnl = colPaneles[idRespuesta];
 
         Respuesta respuesta = resolucion.getColRespuestas().get(idRespuesta);
-
+        
+        btnVerAdjunto.setVisible(!respuesta.getPregunta().getColAdjuntos().isEmpty());
+        if(!respuesta.getPregunta().getColAdjuntos().isEmpty()){
+            dlgAdjunto = new DialogAdjunto(VentanaPrincipal.getInstancia(), true, respuesta.getPregunta().getColAdjuntos().get(0));
+        }
+        
         double dblCalificacion = respuesta.getCalificacion();
 
         if (dblCalificacion >= 0) {

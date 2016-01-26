@@ -217,11 +217,11 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="230" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="232" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="pnlEnunciado" max="32767" attributes="0"/>
+                              <Component id="pnlEnunciado" pref="81" max="32767" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="pnlContenidoPregunta" pref="133" max="32767" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -245,7 +245,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblEnunciado" pref="484" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="lblEnunciado" pref="398" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnVerAdjunto" min="-2" pref="119" max="-2" attributes="0"/>
+                                  </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="lblsComentarios" max="32767" attributes="0"/>
@@ -254,7 +258,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="lblTema" max="32767" attributes="0"/>
-                                          <Component id="lblComentarios" max="32767" attributes="0"/>
+                                          <Component id="lblComentarios" pref="442" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -266,15 +270,18 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="lblEnunciado" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblEnunciado" pref="33" max="32767" attributes="0"/>
+                                  <Component id="btnVerAdjunto" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblsTema" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblTema" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblsComentarios" max="32767" attributes="0"/>
+                                  <Component id="lblsComentarios" pref="27" max="32767" attributes="0"/>
                                   <Component id="lblComentarios" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -325,6 +332,33 @@
                         <Property name="text" type="java.lang.String" value="No tengo comentarios."/>
                         <Property name="verticalAlignment" type="int" value="1"/>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnVerAdjunto">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="LookAndFeelEntropy.FUENTE_CURSIVA" type="code"/>
+                        </Property>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/frontend/imagenes/ic_attachment_25x25.png"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Ver adjunto"/>
+                        <Property name="toolTipText" type="java.lang.String" value=""/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="null"/>
+                        </Property>
+                        <Property name="borderPainted" type="boolean" value="false"/>
+                        <Property name="contentAreaFilled" type="boolean" value="false"/>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Cursor de Mano"/>
+                        </Property>
+                        <Property name="focusPainted" type="boolean" value="false"/>
+                        <Property name="verticalAlignment" type="int" value="3"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnVerAdjuntoMouseEntered"/>
+                        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnVerAdjuntoMouseExited"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerAdjuntoActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

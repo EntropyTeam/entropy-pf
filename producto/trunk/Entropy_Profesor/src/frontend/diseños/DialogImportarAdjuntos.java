@@ -2,6 +2,7 @@ package frontend.diseños;
 
 import backend.diseños.Pregunta;
 import frontend.auxiliares.GestorImagenes;
+import frontend.inicio.VentanaPrincipal;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -29,7 +30,7 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
     public DialogImportarAdjuntos(java.awt.Frame parent, boolean modal, PanelContenidoExamen mPadre) {
         super(parent, modal);
         this.mPadre = mPadre;
-        this.setLocationRelativeTo(parent);
+        this.setLocationRelativeTo(VentanaPrincipal.getInstancia());
         initComponents();
         validarImagen();
     }
