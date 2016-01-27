@@ -273,7 +273,7 @@ public class GestorResolucionExamen {
         
         // Cerramos la conexión
         this.avisarServidorCierre();
-        
+        this.eliminarArchivoTemporal();
         this.dialogRealizarExamen.dispose(); //Esta linea de codigo esta preventivamente hasta decidir a donde se retorna luego de realizar el examen.
         this.mPadre.setVisible(true);//Esta linea de codigo esta preventivamente hasta decidir a donde se retorna luego de realizar el examen.
         if (!esCorreccionAutomatica()) {
@@ -282,7 +282,6 @@ public class GestorResolucionExamen {
                     + "\nA continuación se muestra la resolución de las preguntas de corrección automática."
                     + "\nLa calificación final será enviada a "
                     + "la dirección de correo electrónico proporcionada.");
-            dialogRealizarExamen.dispose();
         } else {
             Mensajes.mostrarExito("¡Examen finalizado exitosamente!");
         }
@@ -309,6 +308,13 @@ public class GestorResolucionExamen {
      */
     public void guardarCambiosADisco() {
         this.gestorPersistencia.guardarResolucion(this.resolucion);
+    }
+
+    /**
+     * Guarda la resolución en el disco duro.
+     */
+    public void eliminarArchivoTemporal() {
+        this.gestorPersistencia.eliminarResolucion();
     }
 
     /**
@@ -428,6 +434,7 @@ public class GestorResolucionExamen {
         } catch (IOException ex) {
             Mensajes.mostrarError("Error al cerrar la conexión con el profesor.");
         }
+        this.eliminarArchivoTemporal();
         this.dialogRealizarExamen.dispose();
         this.dialogRealizarExamen = null;
         volverPanelInicio();
@@ -451,7 +458,7 @@ public class GestorResolucionExamen {
         } catch (IOException ex) {
             Mensajes.mostrarError("Error al cerrar la conexión con el profesor.");
         }
-        
+        this.eliminarArchivoTemporal();
         this.dialogRealizarExamen.dispose(); //Esta linea de codigo esta preventivamente hasta decidir a donde se retorna luego de realizar el examen.
         this.dialogRealizarExamen = null;
         this.mPadre.setVisible(true); //Esta linea de codigo esta preventivamente hasta decidir a donde se retorna luego de realizar el examen.
@@ -481,6 +488,7 @@ public class GestorResolucionExamen {
         GestorSeguridad gestorSeguridad = new GestorSeguridad();
         gestorSeguridad.habilitarExplorer();
         gestorSeguridad.habilitarTaskManager();
+        this.eliminarArchivoTemporal();
         this.dialogRealizarExamen.dispose();
         this.volverPanelInicio();
         Mensajes.mostrarAdvertencia("Su examen ha sido anulado por su instructor con el siguiente motivo:\n\n\"" + strJustificacion + "\"\n\nConsulte con su instructor.");
