@@ -48,6 +48,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
     public FrameControlTomaExamen(VentanaPrincipal mPadre, Examen examenTomar) {
         initComponents();
         this.mPadre = mPadre;
+        this.mPadre.setBlnSeEstaTomandoExamen(true);
         this.intFinalizado = 0;
         setLocationRelativeTo(null);
         this.setIconImage(this.getIconImage());
@@ -484,6 +485,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         this.gestorTomaExamen.pararConexiones();
+        this.mPadre.setBlnSeEstaTomandoExamen(false);
     }//GEN-LAST:event_formWindowClosed
 
     /**

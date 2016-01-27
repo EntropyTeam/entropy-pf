@@ -39,6 +39,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
     public FrameControlPresentaciones(VentanaPrincipal mPadre) {
         initComponents();
         this.mPadre = mPadre;
+        this.mPadre.setBlnSeEstaRealizandoPresentacion(true);
         setLocationRelativeTo(null);
         this.setIconImage(this.getIconImage());
         setTitle("Presentación en tiempo real");
@@ -299,6 +300,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         this.gestorDePresentacion.pararConexiones();
+        this.mPadre.setBlnSeEstaRealizandoPresentacion(false);
     }//GEN-LAST:event_formWindowClosed
 
     /**

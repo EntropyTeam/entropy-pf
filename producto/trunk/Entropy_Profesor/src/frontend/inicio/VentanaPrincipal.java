@@ -29,12 +29,18 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
 
     private static VentanaPrincipal INSTANCIA = null;
     
+    private boolean blnSeEstaTomandoExamen;
+    private boolean blnSeEstaRealizandoPresentacion;
+    
 
 
     /**
      * Constructor por defecto.
      */
     private VentanaPrincipal() {
+        this.blnSeEstaTomandoExamen = false;
+        this.blnSeEstaRealizandoPresentacion = false;
+        
         initComponents();
         this.setLocationRelativeTo(null);
         this.pnlSlides.setPanelMostrado(pnlInicio);
@@ -84,7 +90,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         mncAyuda = new javax.swing.JMenu();
         mniAcercaDe = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Sistema de Administración de Entornos Educativos");
         setMinimumSize(new java.awt.Dimension(500, 200));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -301,6 +307,18 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         GestorRedAdHoc gestorRedAdHoc = new GestorRedAdHoc();
         gestorRedAdHoc.desconectar();
+        
+        if (blnSeEstaTomandoExamen) {
+            Mensajes.mostrarAdvertencia("Se esta tomando un examen, finalícelo antes de salir.");
+            return;
+        }
+        if (blnSeEstaRealizandoPresentacion){
+            Mensajes.mostrarAdvertencia("Se esta realizando una presentación, finalícela antes de salir");
+            return;
+        }
+        
+        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
     private void mniAdministrarClasesDictadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAdministrarClasesDictadasActionPerformed
@@ -379,6 +397,14 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     @Override
     public void setTitulo (String strTitulo) {
         VentanaPrincipal.getInstancia().setTitle(strTitulo);
+    }
+
+    public void setBlnSeEstaTomandoExamen(boolean blnSeEstaTomandoExamen) {
+        this.blnSeEstaTomandoExamen = blnSeEstaTomandoExamen;
+    }
+
+    public void setBlnSeEstaRealizandoPresentacion(boolean blnSeEstaRealizandoPresentacion) {
+        this.blnSeEstaRealizandoPresentacion = blnSeEstaRealizandoPresentacion;
     }
     
     /**
