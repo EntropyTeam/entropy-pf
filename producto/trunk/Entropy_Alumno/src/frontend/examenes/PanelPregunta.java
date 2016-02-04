@@ -358,7 +358,8 @@ public class PanelPregunta extends javax.swing.JPanel {
             if (!pnlPreguntaSeleccionada.seModifico()) {
                 colCasillas[intIDSeleccionada].setBackground(Color.LIGHT_GRAY);
             }
-            int intPreguntasRespondidas = gestor.getRespuestas().size();
+            int intTotalPreguntas = gestor.getRespuestas().size();
+            int intPreguntasRespondidas = intTotalPreguntas;
             for (JLabel lblCasilla : colCasillas) {
                 if (lblCasilla.getBackground().equals(Color.LIGHT_GRAY)) {
                     intPreguntasRespondidas--;
@@ -373,8 +374,14 @@ public class PanelPregunta extends javax.swing.JPanel {
             gestor.notificarProgreso(intPreguntasRespondidas);
 
             this.frmPadre.setAlwaysOnTop(false);
+            
+            String strAdvertencia = "Está a punto de enviar el examen para su corrección.";
+            if (intPreguntasRespondidas < intTotalPreguntas) {
+                strAdvertencia = " Quedan " + (intTotalPreguntas - intPreguntasRespondidas) + " preguntas sin responder.";
+            }
+            strAdvertencia += " ¿Está seguro que desea continuar?";
 
-            if (Mensajes.mostrarConfirmacion("Está a punto de enviar el examen para corrección. ¿Está seguro que desea continuar?")) {
+            if (Mensajes.mostrarConfirmacion(strAdvertencia)) {
                 //Desactivo la seguridad en este punto, ademas de que esto desactivada en los eventos Closing y Closed del dialog.
                 //this.desabilitarSeguridad();   //Activar esto cando se active la seguridad.
                 this.gestor.finalizarExamen();
