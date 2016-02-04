@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package frontend.presentacion;
 
 import backend.auxiliares.Mensajes;
 import backend.gestores.GestorPresentacion;
-import java.awt.Graphics;
+import frontend.auxiliares.GestorImagenes;
 import java.awt.Image;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -28,7 +23,7 @@ public class DialogPresentacion extends javax.swing.JDialog {
      */
     public DialogPresentacion(java.awt.Frame parent, boolean modal, GestorPresentacion gestorPresentacion) {
         super(parent, modal);
-        
+        this.setIconImage(this.getIconImage());
         this.gestorPresentacion = gestorPresentacion;
         initComponents();
     }
@@ -94,6 +89,10 @@ public class DialogPresentacion extends javax.swing.JDialog {
             Logger.getLogger(DialogPresentacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowClosed
+
+    public Image getIconImage() {
+        return GestorImagenes.crearImage("/frontend/imagenes/ic_system.png");
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
