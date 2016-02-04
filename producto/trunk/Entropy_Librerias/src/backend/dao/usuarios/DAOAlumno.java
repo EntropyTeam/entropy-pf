@@ -161,19 +161,22 @@ public class DAOAlumno implements IDAOAlumno {
             }
             
             psConsulta = conexion.prepareStatement(strConsulta);
-
+            
             psConsulta.setString(1, strNombre + "%");
             psConsulta.setString(2, strApellido + "%");
             psConsulta.setString(3, strDocumento + "%");
             
+            int idCount = 4;
+            
             if (strLegajo != null && !strLegajo.isEmpty()){
                 psConsulta.setString(4, strLegajo + "%");
+                idCount++;
             } 
             
             if (curso != null) {
-                psConsulta.setInt(5, curso.getIntCursoId());
+                psConsulta.setInt(idCount, curso.getIntCursoId());
             } else if (institucion != null) {
-                psConsulta.setInt(5, institucion.getIntInstitucionId());
+                psConsulta.setInt(idCount, institucion.getIntInstitucionId());
             }
 
             rsResultado = psConsulta.executeQuery();
