@@ -123,14 +123,14 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        pnlDatosClase.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clases dictadas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
+        pnlDatosClase.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clases dictadas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR, new java.awt.Color(102, 102, 102)));
         pnlDatosClase.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         pnlDatosClase.setMinimumSize(pnlDatosClase.getPreferredSize());
 
-        lblInstitucion1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblInstitucion1.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblInstitucion1.setText("Institución:");
 
-        lblCurso1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblCurso1.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblCurso1.setText("Curso:");
 
         pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
@@ -149,7 +149,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         pnlBotones.add(btnVolver);
 
         btnVistaPrevia.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnVistaPrevia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_examinar_25x25.png"))); // NOI18N
+        btnVistaPrevia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_vista_previa.png"))); // NOI18N
         btnVistaPrevia.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnVistaPrevia.setContentAreaFilled(false);
         btnVistaPrevia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -199,7 +199,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         lblDescripcion.setText("Hasta:");
 
         cmbInstitucion.setBackground(new java.awt.Color(255, 204, 102));
-        cmbInstitucion.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        cmbInstitucion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         cmbInstitucion.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbInstitucionItemStateChanged(evt);
@@ -207,7 +207,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         });
 
         cmbCurso.setBackground(new java.awt.Color(255, 204, 102));
-        cmbCurso.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        cmbCurso.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
 
         dcFechaDesde.setDate(new Date());
         dcFechaDesde.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
@@ -215,6 +215,7 @@ public class DialogAdministrarClasesDictadas extends javax.swing.JDialog {
         dcFechaHasta.setDate(new Date());
         dcFechaHasta.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
 
+        lstClasesDictadas.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lstClasesDictadas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrClases.setViewportView(lstClasesDictadas);
 
