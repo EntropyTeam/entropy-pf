@@ -510,7 +510,7 @@ public class DialogAdministrarExamen extends javax.swing.JDialog {
         pnlFiltros.setOpaque(false);
 
         cmbInstitucion.setBackground(new java.awt.Color(255, 204, 102));
-        cmbInstitucion.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        cmbInstitucion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         cmbInstitucion.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbInstitucionItemStateChanged(evt);
@@ -522,14 +522,14 @@ public class DialogAdministrarExamen extends javax.swing.JDialog {
             }
         });
 
-        lblNombreInstitucion.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblNombreInstitucion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblNombreInstitucion.setText("Institución:");
 
-        lblCurso.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblCurso.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblCurso.setText("Curso:");
 
         cmbCurso.setBackground(new java.awt.Color(255, 204, 102));
-        cmbCurso.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        cmbCurso.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         cmbCurso.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbCursoItemStateChanged(evt);
@@ -545,7 +545,7 @@ public class DialogAdministrarExamen extends javax.swing.JDialog {
         lblEstadoExamen.setText("Estado:");
 
         cmbEstado.setBackground(new java.awt.Color(255, 204, 102));
-        cmbEstado.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        cmbEstado.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         cmbEstado.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbEstadoItemStateChanged(evt);
@@ -630,7 +630,7 @@ public class DialogAdministrarExamen extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

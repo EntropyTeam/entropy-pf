@@ -82,7 +82,7 @@ public class Email {
             texto.setText(this.getMessage());
             multiParte.addBodyPart(texto);
         } catch (MessagingException e) {
-            System.err.println("Ocurrio un error al crear la mutiparte del texto del mensaje");
+            System.err.println("Ocurrió un error al crear la sección multiparte del texto del mensaje");
             System.err.println(e.toString());
         }
     }
@@ -95,7 +95,7 @@ public class Email {
             pdfBodyPart.setFileName(nombreArchivo + ".pdf");
             this.getMultiParte().addBodyPart(pdfBodyPart);
         } catch (MessagingException e) {
-            System.err.println("Ocurrio un error al crear la mutiparte del adjunto mensaje");
+            System.err.println("Ocurrió un error al crear la sección multiparte del adjunto mensaje");
             System.err.println(e.toString());
 
         }

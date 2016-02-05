@@ -3,6 +3,7 @@ package backend.dao.resoluciones;
 import backend.dao.DAOConexion;
 import backend.dao.EntropyDB;
 import backend.dao.diseños.DAODiseñoExamen;
+import backend.dao.usuarios.DAOAlumno;
 import backend.examenes.Examen;
 import backend.usuarios.Alumno;
 import backend.resoluciones.Resolucion;
@@ -85,33 +86,22 @@ public class DAOResolucion implements IDAOResolucion {
             resolucion.setIntID(idResolucion);
 
             String strConsulta = "SELECT "
-                    + "A." + EntropyDB.GRL_COL_ALUMNO_NOMBRE + ", "
-                    + "A." + EntropyDB.GRL_COL_ALUMNO_APELLIDO + ", "
-                    + "A." + EntropyDB.GRL_COL_ALUMNO_LEGAJO + ", "
-                    + "R." + EntropyDB.RES_COL_RESOLUCION_CODIGO + ", "
-                    + "R." + EntropyDB.RES_COL_RESOLUCION_IP + ", "
-                    + "R." + EntropyDB.RES_COL_RESOLUCION_EXAMEN_ID + ", "
-                    + "R." + EntropyDB.RES_COL_RESOLUCION_TIEMPO_EMPLEADO + ", "
-                    + "R." + EntropyDB.RES_COL_RESOLUCION_ANULADA + ", "
-                    + "R." + EntropyDB.RES_COL_RESOLUCION_MOTIVO_ANULACION + " "
-                    + " FROM " + EntropyDB.GRL_TBL_ALUMNO
-                    + " A INNER JOIN " + EntropyDB.RES_TBL_RESOLUCION
-                    + " R ON R." + EntropyDB.RES_COL_RESOLUCION_ALUMNO_ID + " = A." + EntropyDB.GRL_COL_ALUMNO_ID
-                    + " WHERE R." + EntropyDB.RES_COL_RESOLUCION_ID + " = ?";
+                    + EntropyDB.RES_COL_RESOLUCION_CODIGO + ", "
+                    + EntropyDB.RES_COL_RESOLUCION_IP + ", "
+                    + EntropyDB.RES_COL_RESOLUCION_EXAMEN_ID + ", "
+                    + EntropyDB.RES_COL_RESOLUCION_TIEMPO_EMPLEADO + ", "
+                    + EntropyDB.RES_COL_RESOLUCION_ANULADA + ", "
+                    + EntropyDB.RES_COL_RESOLUCION_MOTIVO_ANULACION + " "
+                    + " FROM " + EntropyDB.RES_TBL_RESOLUCION
+                    + " WHERE " + EntropyDB.RES_COL_RESOLUCION_ID + " = ?";
 
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             psConsulta.setInt(1, idResolucion);
             ResultSet rs = psConsulta.executeQuery();
             while (rs.next()) {
-                String strNombre = rs.getString(EntropyDB.GRL_COL_ALUMNO_NOMBRE);
-                String strApellido = rs.getString(EntropyDB.GRL_COL_ALUMNO_APELLIDO);
-                String strLegajo = rs.getString(EntropyDB.GRL_COL_ALUMNO_LEGAJO);
+                Alumno alumno = new DAOAlumno().getAlumnoByResolucion(resolucion.getIntID());
                 String strCodigo = rs.getString(EntropyDB.RES_COL_RESOLUCION_CODIGO);
                 String strIP = rs.getString(EntropyDB.RES_COL_RESOLUCION_IP);
-                Alumno alumno = new Alumno();
-                alumno.setStrNombre(strNombre);
-                alumno.setStrApellido(strApellido);
-                alumno.setStrLegajo(strLegajo);
                 alumno.setStrCodigo(strCodigo);
                 alumno.setStrIP(strIP);
                 resolucion.setAlumno(alumno);
