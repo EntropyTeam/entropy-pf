@@ -14,15 +14,15 @@ import javax.swing.JLabel;
  *
  * @author Pelito
  */
-public class DialogPresentacion extends javax.swing.JDialog {
+public final class DialogPresentacion extends javax.swing.JFrame {
     
-    private GestorPresentacion gestorPresentacion;
+    private final GestorPresentacion gestorPresentacion;
 
     /**
      * Creates new form DialogPresentacion
      */
     public DialogPresentacion(java.awt.Frame parent, boolean modal, GestorPresentacion gestorPresentacion) {
-        super(parent, modal);
+        super();
         this.setIconImage(this.getIconImage());
         this.gestorPresentacion = gestorPresentacion;
         initComponents();
@@ -64,7 +64,7 @@ public class DialogPresentacion extends javax.swing.JDialog {
         );
         pnlImagenLayout.setVerticalGroup(
             pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(lblImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
