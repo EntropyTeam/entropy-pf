@@ -72,7 +72,7 @@ public class DialogModificarTiempo extends javax.swing.JDialog {
                 mPadre.quitarTiempo(intMinutosQuitados);
                 mPadre.getExamenATomar().setIntTiempo(intNuevoTiempo);
             } else {
-                Mensajes.mostrarError("Hay alumnos que les queda menos tiempo del que deseas quitar.");
+                Mensajes.mostrarError("Hay alumnos a los que les queda menos tiempo del que deseas quitar.");
                 return;
             }
         }
