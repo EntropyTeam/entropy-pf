@@ -1,7 +1,6 @@
 package frontend.tomaexamenes;
 
 import backend.usuarios.Alumno;
-import backend.usuarios.Usuario;
 import frontend.auxiliares.ComponentMover;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.auxiliares.PanelConFondo;
@@ -45,11 +44,8 @@ public class DialogInfoAlumno extends javax.swing.JDialog {
         //Fondo translúcido.
         this.pnlCentral.setBackground(LookAndFeelEntropy.COLOR_BLANCO_TRANSLUCIDO);
         this.scrDescripcion.getViewport().setOpaque(false);
-        this.scrClavePublica.getViewport().setOpaque(false);
         this.scrDescripcion.setOpaque(false);
-        this.scrClavePublica.setOpaque(false);
         this.txaDescripcion.setOpaque(false);
-        this.txaClavePublica.setOpaque(false);
 
         //Para que el undecorated dialog pueda moverse.
         ComponentMover cm = new ComponentMover(JDialog.class, pnlImagen);
@@ -82,8 +78,6 @@ public class DialogInfoAlumno extends javax.swing.JDialog {
         PanelDatosAlumno = new javax.swing.JPanel();
         scrDescripcion = new javax.swing.JScrollPane();
         txaDescripcion = new frontend.auxiliares.TextAreaEntropy();
-        scrClavePublica = new javax.swing.JScrollPane();
-        txaClavePublica = new frontend.auxiliares.TextAreaEntropy();
         pnlDatosHost = new javax.swing.JPanel();
         lblsIP = new javax.swing.JLabel();
         lblIP = new javax.swing.JLabel();
@@ -223,16 +217,6 @@ public class DialogInfoAlumno extends javax.swing.JDialog {
         txaDescripcion.setText("mQGiBDc63i0RBAD9MWBVMGw2+NvyQQHFiF1sN7efjisFngFskggY9AfIdnQuLfIq\nsiQITwgeRSTKCb6PyQPk3CqLImU3xqXbuDIoLOlf/Xcmf2twcKG07kSThTWX0WyA\nr81yMqgsE+4W7lj/AGPIUltjcJublwpPYVBG6RAC5nAPXICr1PjijDtAXQCg/wBL\n7HTuBtOJ7qXeYIl4Ozfmsq0EANSdKecm6dqnOYA11rTBk/VAgyLYh3heDboj0WAb\nTIpSf2Pjk7gIVBYutIzIocZ51j0YTG2/Sjs2gwxfRNz2zJt0COin6HrrUIAmGAE+\nKVrRP1NZdSmWZCFSNkB/GzXfooe3rhRAhRgdyTV2qYeKpZMbc8txScqSpbfDoW+T\nmH0vA/9/UvEfv6SClSjBa3/9Dq1QAqJsYEulqF1QzhmvI10fCKvtkzxTuj5vwlXC\no2G0iQoZG0dLOwazNTokW1Oo1VGmSxUb+zIp1LzNUSAzHEqI4iMOS4QakYgkeNH7\nLgwQrlLnmdnL2kRZvKPjrab1nAEyFka1fVGYu8w59mymteSF+rQuQ2FybG9zIFNl\ncnJhbm8gQ2luY2EgPHNlcnJhbm9AcG9zdGEudW5pemFyLmVzPokASwQQEQIACwUC\nNzreLQQLAwIBAAoJEFlyxNs7kDT0la4Ani3+z1B3su+uuVnYRjknWsqkMOmfAJ9Y\nNXuiASG3ABhOKHAcqE29rGB2H7kCDQQ3Ot4uEAgA9kJXtwh/CBdyorrWqULzBej5\nUxE5T7bxbrlLOCDaAadWoxTpj0BV89AHxstDqZSt90xkhkn4DIO9ZekX1KHTUPj1\nWV/cdlJPPT2N286Z4VeSWc39uK50T8X8dryDxUcwYc58yWb/Ffm7/ZFexwGq01ue\njaClcjrUGvC/RgBYK+X0iP1YTknbzSC0neSRBzZrM2w4DUUdD3yIsxx8Wy2O9vPJ\nI8BD8KVbGI2Ou1WMuF040zT9fBdXQ6MdGGzeMyEstSr/POGxKUAYEY18hKcKctaG\nxAMZyAcpesqVDNmWn6vQClCbAkbTCD1mpF1Bn5x8vYlLIhkmuquiXsNV6TILOwAC\nAgf8D5yY0PJdoNcZ72DhRsfqz/EMGh6QWZRVd0lreAG1gdNL5oRkN3RSP1cSmiU6\nRDrbBkfbPqKLIvhMZR8kzUSOIAcEhEaW1m4zanTK7iQwYifoWVnWAgKXIg9wzVMv\nZks37w/ekbaPWV8k9q1zmNezlscdHLF3WswEuhdKOnkdnuDmIb1hZkLhbXgspCJD\nC6jZhJ7lJRF7Am56VKHNV1ArIENVdngiNDEYCQ4PgxzX2RL3PX/J5AqXp/hyJ9mi\n1gOZjI91ZjCf70IY/khpKH5jd7cpFsfl1meNJnjbr3wSa+Vkx0Pv0MmoUZB1uvVo\nRdsV9RiKOIn2YIov8sVjqXxrIokARgQYEQIABgUCNzreLgAKCRBZcsTbO5A09Aql\nAKDtecIL1V+v8N5Av+c2EavWlJld4QCg704enpDj31SSO3hTKnl47dUQX8Q=\n=YQDR");
         scrDescripcion.setViewportView(txaDescripcion);
 
-        scrClavePublica.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clave pública", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_CURSIVA, new java.awt.Color(204, 102, 0)));
-        scrClavePublica.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrClavePublica.setToolTipText("");
-
-        txaClavePublica.setEditable(false);
-        txaClavePublica.setColumns(20);
-        txaClavePublica.setRows(5);
-        txaClavePublica.setText("mQGiBDc63i0RBAD9MWBVMGw2+NvyQQHFiF1sN7efjisFngFskggY9AfIdnQuLfIq\nsiQITwgeRSTKCb6PyQPk3CqLImU3xqXbuDIoLOlf/Xcmf2twcKG07kSThTWX0WyA\nr81yMqgsE+4W7lj/AGPIUltjcJublwpPYVBG6RAC5nAPXICr1PjijDtAXQCg/wBL\n7HTuBtOJ7qXeYIl4Ozfmsq0EANSdKecm6dqnOYA11rTBk/VAgyLYh3heDboj0WAb\nTIpSf2Pjk7gIVBYutIzIocZ51j0YTG2/Sjs2gwxfRNz2zJt0COin6HrrUIAmGAE+\nKVrRP1NZdSmWZCFSNkB/GzXfooe3rhRAhRgdyTV2qYeKpZMbc8txScqSpbfDoW+T\nmH0vA/9/UvEfv6SClSjBa3/9Dq1QAqJsYEulqF1QzhmvI10fCKvtkzxTuj5vwlXC\no2G0iQoZG0dLOwazNTokW1Oo1VGmSxUb+zIp1LzNUSAzHEqI4iMOS4QakYgkeNH7\nLgwQrlLnmdnL2kRZvKPjrab1nAEyFka1fVGYu8w59mymteSF+rQuQ2FybG9zIFNl\ncnJhbm8gQ2luY2EgPHNlcnJhbm9AcG9zdGEudW5pemFyLmVzPokASwQQEQIACwUC\nNzreLQQLAwIBAAoJEFlyxNs7kDT0la4Ani3+z1B3su+uuVnYRjknWsqkMOmfAJ9Y\nNXuiASG3ABhOKHAcqE29rGB2H7kCDQQ3Ot4uEAgA9kJXtwh/CBdyorrWqULzBej5\nUxE5T7bxbrlLOCDaAadWoxTpj0BV89AHxstDqZSt90xkhkn4DIO9ZekX1KHTUPj1\nWV/cdlJPPT2N286Z4VeSWc39uK50T8X8dryDxUcwYc58yWb/Ffm7/ZFexwGq01ue\njaClcjrUGvC/RgBYK+X0iP1YTknbzSC0neSRBzZrM2w4DUUdD3yIsxx8Wy2O9vPJ\nI8BD8KVbGI2Ou1WMuF040zT9fBdXQ6MdGGzeMyEstSr/POGxKUAYEY18hKcKctaG\nxAMZyAcpesqVDNmWn6vQClCbAkbTCD1mpF1Bn5x8vYlLIhkmuquiXsNV6TILOwAC\nAgf8D5yY0PJdoNcZ72DhRsfqz/EMGh6QWZRVd0lreAG1gdNL5oRkN3RSP1cSmiU6\nRDrbBkfbPqKLIvhMZR8kzUSOIAcEhEaW1m4zanTK7iQwYifoWVnWAgKXIg9wzVMv\nZks37w/ekbaPWV8k9q1zmNezlscdHLF3WswEuhdKOnkdnuDmIb1hZkLhbXgspCJD\nC6jZhJ7lJRF7Am56VKHNV1ArIENVdngiNDEYCQ4PgxzX2RL3PX/J5AqXp/hyJ9mi\n1gOZjI91ZjCf70IY/khpKH5jd7cpFsfl1meNJnjbr3wSa+Vkx0Pv0MmoUZB1uvVo\nRdsV9RiKOIn2YIov8sVjqXxrIokARgQYEQIABgUCNzreLgAKCRBZcsTbO5A09Aql\nAKDtecIL1V+v8N5Av+c2EavWlJld4QCg704enpDj31SSO3hTKnl47dUQX8Q=\n=YQDR");
-        scrClavePublica.setViewportView(txaClavePublica);
-
         pnlDatosHost.setOpaque(false);
 
         lblsIP.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
@@ -286,7 +270,6 @@ public class DialogInfoAlumno extends javax.swing.JDialog {
             .addGroup(PanelDatosAlumnoLayout.createSequentialGroup()
                 .addComponent(pnlDatosHost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(scrClavePublica)
         );
         PanelDatosAlumnoLayout.setVerticalGroup(
             PanelDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,8 +278,6 @@ public class DialogInfoAlumno extends javax.swing.JDialog {
                 .addComponent(scrDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlDatosHost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrClavePublica, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -379,9 +360,7 @@ public class DialogInfoAlumno extends javax.swing.JDialog {
     private PanelGradiente pnlFondoAux;
     private javax.swing.JPanel pnlImagen;
     private frontend.auxiliares.PanelConFondo pnlImagenLogo;
-    private javax.swing.JScrollPane scrClavePublica;
     private javax.swing.JScrollPane scrDescripcion;
-    private frontend.auxiliares.TextAreaEntropy txaClavePublica;
     private frontend.auxiliares.TextAreaEntropy txaDescripcion;
     // End of variables declaration//GEN-END:variables
 

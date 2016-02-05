@@ -318,7 +318,6 @@
                           <Component id="pnlDatosHost" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Component id="scrClavePublica" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -328,8 +327,6 @@
                           <Component id="scrDescripcion" pref="146" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="pnlDatosHost" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="scrClavePublica" min="-2" pref="149" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -356,35 +353,6 @@
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Component class="frontend.auxiliares.TextAreaEntropy" name="txaDescripcion">
-                      <Properties>
-                        <Property name="editable" type="boolean" value="false"/>
-                        <Property name="columns" type="int" value="20"/>
-                        <Property name="rows" type="int" value="5"/>
-                        <Property name="text" type="java.lang.String" value="mQGiBDc63i0RBAD9MWBVMGw2+NvyQQHFiF1sN7efjisFngFskggY9AfIdnQuLfIq&#xa;siQITwgeRSTKCb6PyQPk3CqLImU3xqXbuDIoLOlf/Xcmf2twcKG07kSThTWX0WyA&#xa;r81yMqgsE+4W7lj/AGPIUltjcJublwpPYVBG6RAC5nAPXICr1PjijDtAXQCg/wBL&#xa;7HTuBtOJ7qXeYIl4Ozfmsq0EANSdKecm6dqnOYA11rTBk/VAgyLYh3heDboj0WAb&#xa;TIpSf2Pjk7gIVBYutIzIocZ51j0YTG2/Sjs2gwxfRNz2zJt0COin6HrrUIAmGAE+&#xa;KVrRP1NZdSmWZCFSNkB/GzXfooe3rhRAhRgdyTV2qYeKpZMbc8txScqSpbfDoW+T&#xa;mH0vA/9/UvEfv6SClSjBa3/9Dq1QAqJsYEulqF1QzhmvI10fCKvtkzxTuj5vwlXC&#xa;o2G0iQoZG0dLOwazNTokW1Oo1VGmSxUb+zIp1LzNUSAzHEqI4iMOS4QakYgkeNH7&#xa;LgwQrlLnmdnL2kRZvKPjrab1nAEyFka1fVGYu8w59mymteSF+rQuQ2FybG9zIFNl&#xa;cnJhbm8gQ2luY2EgPHNlcnJhbm9AcG9zdGEudW5pemFyLmVzPokASwQQEQIACwUC&#xa;NzreLQQLAwIBAAoJEFlyxNs7kDT0la4Ani3+z1B3su+uuVnYRjknWsqkMOmfAJ9Y&#xa;NXuiASG3ABhOKHAcqE29rGB2H7kCDQQ3Ot4uEAgA9kJXtwh/CBdyorrWqULzBej5&#xa;UxE5T7bxbrlLOCDaAadWoxTpj0BV89AHxstDqZSt90xkhkn4DIO9ZekX1KHTUPj1&#xa;WV/cdlJPPT2N286Z4VeSWc39uK50T8X8dryDxUcwYc58yWb/Ffm7/ZFexwGq01ue&#xa;jaClcjrUGvC/RgBYK+X0iP1YTknbzSC0neSRBzZrM2w4DUUdD3yIsxx8Wy2O9vPJ&#xa;I8BD8KVbGI2Ou1WMuF040zT9fBdXQ6MdGGzeMyEstSr/POGxKUAYEY18hKcKctaG&#xa;xAMZyAcpesqVDNmWn6vQClCbAkbTCD1mpF1Bn5x8vYlLIhkmuquiXsNV6TILOwAC&#xa;Agf8D5yY0PJdoNcZ72DhRsfqz/EMGh6QWZRVd0lreAG1gdNL5oRkN3RSP1cSmiU6&#xa;RDrbBkfbPqKLIvhMZR8kzUSOIAcEhEaW1m4zanTK7iQwYifoWVnWAgKXIg9wzVMv&#xa;Zks37w/ekbaPWV8k9q1zmNezlscdHLF3WswEuhdKOnkdnuDmIb1hZkLhbXgspCJD&#xa;C6jZhJ7lJRF7Am56VKHNV1ArIENVdngiNDEYCQ4PgxzX2RL3PX/J5AqXp/hyJ9mi&#xa;1gOZjI91ZjCf70IY/khpKH5jd7cpFsfl1meNJnjbr3wSa+Vkx0Pv0MmoUZB1uvVo&#xa;RdsV9RiKOIn2YIov8sVjqXxrIokARgQYEQIABgUCNzreLgAKCRBZcsTbO5A09Aql&#xa;AKDtecIL1V+v8N5Av+c2EavWlJld4QCg704enpDj31SSO3hTKnl47dUQX8Q=&#xa;=YQDR"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JScrollPane" name="scrClavePublica">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Clave p&#xfa;blica">
-                          <Connection PropertyName="font" code="LookAndFeelEntropy.FUENTE_CURSIVA" type="code"/>
-                          <Color PropertyName="color" blue="0" green="66" red="cc" type="rgb"/>
-                        </TitledBorder>
-                      </Border>
-                    </Property>
-                    <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                  </AuxValues>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                  <SubComponents>
-                    <Component class="frontend.auxiliares.TextAreaEntropy" name="txaClavePublica">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="columns" type="int" value="20"/>
