@@ -2,6 +2,7 @@ package backend.dao.examenes;
 
 import backend.dao.DAOConexion;
 import backend.dao.EntropyDB;
+import backend.dao.diseños.DAOAdjunto;
 import backend.diseños.Pregunta;
 import backend.diseños.Curso;
 import backend.examenes.EstadoExamen;
@@ -193,11 +194,20 @@ public class DAOExamen implements IDAOExamen {
             ResultSet rsConsulta = psConsulta.executeQuery();
             int intUltimoIdExamen = rsConsulta.getInt(1);
             examen.setIntExamenId(intUltimoIdExamen);
-
+            
             // Guardar las preguntas
             DAOPreguntaExamen daoPreguntaExamen = new DAOPreguntaExamen();
             for (Pregunta p : examen.getColPreguntas()) {
                 daoPreguntaExamen.guardarPregunta(p, intUltimoIdExamen, conexion);
+                
+                //Se agrega el guardar adjunto en en el examen
+                
+                if(p.getColAdjuntos()!=null && p.getColAdjuntos().size()>0)
+                {
+                    DAOAdjunto daoAdjunto= new DAOAdjunto();
+                    daoAdjunto.guardarAdjuntoExamen(p.getIntPreguntaId(), p.getColAdjuntos(), conexion); 
+                }
+                
             }
 
             conexion.commit();

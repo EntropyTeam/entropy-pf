@@ -42,6 +42,28 @@ public class DAOAdjunto implements IDAOAdjunto {
             }
         }
     }
+    
+    
+   @Override
+    public void guardarAdjuntoExamen(int idPregunta, ArrayList<Object> adjuntos, Connection conexionParametro) {
+        Connection conexion = conexionParametro;
+        try {
+            String strConsulta = "INSERT INTO " + EntropyDB.EXA_TBL_ADJUNTO + "(" + EntropyDB.EXA_COL_ADJUNTO_ADJUNTO + "," + EntropyDB.EXA_COL_ADJUNTO_PREGUNTA_ID + ") VALUES(?,?)";
+            PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
+            for (Object adjunto1 : adjuntos) {
+                psConsulta.setBytes(1, (byte[]) adjunto1);
+                psConsulta.setInt(2, idPregunta);
+                psConsulta.execute();
+            }
+        } catch (SQLException e) {
+            System.err.println("Ocurrió un error mientras se recuperaba el adjunto: " + e.toString());
+            try {
+                conexion.rollback();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOAdjunto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
+    }
 
     @Override
     public Object recuperarAdjunto(int idPregunta) {

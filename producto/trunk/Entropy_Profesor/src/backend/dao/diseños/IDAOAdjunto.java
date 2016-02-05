@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public interface IDAOAdjunto {
     
     public void guardarAdjunto(int idPregunta, ArrayList<Object> adjunto, Connection conexion);
+    
+    public void guardarAdjuntoExamen(int idPregunta, ArrayList<Object> adjunto, Connection conexion);
 
     public Object recuperarAdjunto(int idPregunta);
     
