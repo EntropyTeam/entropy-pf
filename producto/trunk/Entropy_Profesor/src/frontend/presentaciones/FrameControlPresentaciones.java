@@ -311,7 +311,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
     private void anularAlumno(ActionEvent e) {
 
         if (tblAlumnos.getModel().getRowCount() > 0
-                && Mensajes.mostrarConfirmacion("Está a punto de desconectar al alumno de la presentacion. ¿Realmente desea continuar?")) {
+                && Mensajes.mostrarConfirmacion("Está a punto de desconectar al alumno de la presentación. ¿Realmente desea continuar?")) {
             int intFila = Integer.valueOf(e.getActionCommand());
             gestorDePresentacion.anularPresentacion(intFila);
         }
