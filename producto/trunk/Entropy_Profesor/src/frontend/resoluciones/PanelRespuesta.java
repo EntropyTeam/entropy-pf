@@ -531,7 +531,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
                 .addGap(1, 1, 1))
         );
 
-        pnlBotones.setLayout(new java.awt.GridLayout());
+        pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
 
         btnVolver.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
@@ -560,6 +560,14 @@ public class PanelRespuesta extends javax.swing.JPanel {
         btnVolverInicio.setContentAreaFilled(false);
         btnVolverInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVolverInicio.setIconTextGap(10);
+        btnVolverInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVolverInicioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVolverInicioMouseExited(evt);
+            }
+        });
         btnVolverInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverInicioActionPerformed(evt);
@@ -653,6 +661,14 @@ public class PanelRespuesta extends javax.swing.JPanel {
     private void btnVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverInicioActionPerformed
         VentanaPrincipal.getInstancia().volverAInicio();
     }//GEN-LAST:event_btnVolverInicioActionPerformed
+
+    private void btnVolverInicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverInicioMouseEntered
+        this.gestorEstado.setEstadoInstantaneo("Volver a la pantalla de inicio.");
+    }//GEN-LAST:event_btnVolverInicioMouseEntered
+
+    private void btnVolverInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverInicioMouseExited
+        this.gestorEstado.volverAEstadoImportante();
+    }//GEN-LAST:event_btnVolverInicioMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

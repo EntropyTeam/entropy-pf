@@ -42,6 +42,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
      */
     public PanelResoluciones(Examen examen, ArrayList<Resolucion> colResoluciones) {
         initComponents();
+        VentanaPrincipal.getInstancia().setTitle("Resoluciones - " + examen.getStrNombre());
         this.gestorEstado = new GestorBarrasDeEstado(lblActualizacionEstado, lblIconoEstado);
         this.colResoluciones = colResoluciones;
         this.defaultLstPreguntas = new DefaultListModel();
@@ -636,7 +637,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
             try {
                 Resolucion resolucion = (Resolucion) lstResoluciones.getSelectedValue();
                 Alumno alumno = new DAOAlumno().getAlumnoByResolucion(resolucion.getIntID());
-                PanelEstadisticasAlumno pnlEstadisticasAlumno = new PanelEstadisticasAlumno(alumno);
+                PanelEstadisticasAlumno pnlEstadisticasAlumno = new PanelEstadisticasAlumno(this, alumno);
                 pnlEstadisticasAlumno.setName("Estadísticas alumno");
                 VentanaPrincipal.getInstancia().ocultarMenu();
                 VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlEstadisticasAlumno);
