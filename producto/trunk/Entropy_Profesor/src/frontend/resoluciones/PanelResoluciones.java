@@ -10,6 +10,7 @@ import backend.resoluciones.Resolucion;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.estadisticas.PanelEstadisticasAlumno;
+import frontend.examenes.DialogAdministrarExamen;
 import frontend.inicio.VentanaPrincipal;
 import frontend.mail.DialogEnviarEmail;
 import java.nio.file.Files;
@@ -71,6 +72,10 @@ public class PanelResoluciones extends javax.swing.JPanel {
 
         jProgressBar1 = new javax.swing.JProgressBar();
         jProgressBar2 = new javax.swing.JProgressBar();
+        jPanel1 = new javax.swing.JPanel();
+        pnlBotones = new javax.swing.JPanel();
+        btnVolver = new javax.swing.JButton();
+        btnVolverInicio = new javax.swing.JButton();
         pnlDatosExamen = new javax.swing.JPanel();
         upperSeparator = new javax.swing.JSeparator();
         lblsExamen = new javax.swing.JLabel();
@@ -113,6 +118,65 @@ public class PanelResoluciones extends javax.swing.JPanel {
         lblIconoEstado = new javax.swing.JLabel();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel1.setMaximumSize(new java.awt.Dimension(32767, 55));
+        jPanel1.setPreferredSize(new java.awt.Dimension(498, 55));
+
+        pnlBotones.setMaximumSize(new java.awt.Dimension(32767, 39));
+        pnlBotones.setLayout(new java.awt.GridLayout());
+
+        btnVolver.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
+        btnVolver.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnVolver.setContentAreaFilled(false);
+        btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolver.setIconTextGap(10);
+        btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVolverMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVolverMouseExited(evt);
+            }
+        });
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        pnlBotones.add(btnVolver);
+
+        btnVolverInicio.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnVolverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_inicio.png"))); // NOI18N
+        btnVolverInicio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnVolverInicio.setContentAreaFilled(false);
+        btnVolverInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolverInicio.setIconTextGap(10);
+        btnVolverInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverInicioActionPerformed(evt);
+            }
+        });
+        pnlBotones.add(btnVolverInicio);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 498, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 55, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        add(jPanel1);
 
         pnlDatosExamen.setBackground(LookAndFeelEntropy.COLOR_TABLA_PRIMARIO);
         pnlDatosExamen.setMaximumSize(new java.awt.Dimension(32767, 109));
@@ -162,7 +226,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                             .addComponent(lblExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -310,7 +374,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
             .addComponent(scrPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(pnlPreguntasLayout.createSequentialGroup()
                 .addComponent(btnCorregirTodas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(btnVerRespuestas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVerResolucion)
@@ -361,7 +425,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                     .addComponent(lblsNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                     .addComponent(lblLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -430,7 +494,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPreguntasRespondidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPreguntasRespondidas, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
+                        .addComponent(lblPreguntasRespondidas, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPreguntasCorregidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -475,7 +539,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                 .addGroup(pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPreguntasCorregidas)
                     .addComponent(lblsPreguntasCorregidas))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlPreguntaSeleccionadaLayout = new javax.swing.GroupLayout(pnlPreguntaSeleccionada);
@@ -535,7 +599,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
         pnlEstadoLayout.setHorizontalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEstadoLayout.createSequentialGroup()
-                .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblIconoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -669,6 +733,23 @@ public class PanelResoluciones extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnVerResolucionActionPerformed
 
+    private void btnVolverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseEntered
+        this.gestorEstado.setEstadoInstantaneo("Volver al selector de exámenes.");
+    }//GEN-LAST:event_btnVolverMouseEntered
+
+    private void btnVolverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseExited
+        this.gestorEstado.volverAEstadoImportante();
+    }//GEN-LAST:event_btnVolverMouseExited
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        VentanaPrincipal.getInstancia().volverAInicio();
+        new DialogAdministrarExamen(VentanaPrincipal.getInstancia(), true).setVisible(true);
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverInicioActionPerformed
+        VentanaPrincipal.getInstancia().volverAInicio();
+    }//GEN-LAST:event_btnVolverInicioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompartirResolucion;
@@ -676,6 +757,9 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private javax.swing.JButton btnVerEstadisticasDelAlumno;
     private javax.swing.JButton btnVerResolucion;
     private javax.swing.JButton btnVerRespuestas;
+    private javax.swing.JButton btnVolver;
+    private javax.swing.JButton btnVolverInicio;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JProgressBar jProgressBar2;
     private javax.swing.JLabel lblActualizacionEstado;
@@ -704,6 +788,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private javax.swing.JLabel lblsPreguntasRespondidas;
     private javax.swing.JSeparator lowerSeparator;
     private javax.swing.JList lstResoluciones;
+    private javax.swing.JPanel pnlBotones;
     private javax.swing.JPanel pnlContenido;
     private javax.swing.JPanel pnlDatosAlumno;
     private javax.swing.JPanel pnlDatosExamen;
