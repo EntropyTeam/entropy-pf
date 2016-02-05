@@ -343,7 +343,7 @@ public class GestorGenerarReporteDisenoExamen {
         
         DAOAdjunto dAOAdjunto = new DAOAdjunto();
         ArrayList<Object> colAdjuntos = new ArrayList<>();
-        colAdjuntos.add(dAOAdjunto.recuperarAdjuntoExamen(pregunta.getIntPreguntaId()));
+        colAdjuntos.add(dAOAdjunto.recuperarAdjuntoDiseño(pregunta.getIntPreguntaId()));
         pregunta.setColAdjuntos(colAdjuntos);
         
         PdfPTable tblImage = null;

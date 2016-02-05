@@ -40,7 +40,7 @@ public class DAOAdjunto implements IDAOAdjunto {
             } catch (SQLException ex) {
                 Logger.getLogger(DAOAdjunto.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } 
+        }
     }
 
     @Override
@@ -48,7 +48,7 @@ public class DAOAdjunto implements IDAOAdjunto {
         Object adjunto = null;
         try {
             Connection conexion = DAOConexion.conectarBaseDatos();
-            
+
             String strConsulta = "SELECT * " + "FROM " + EntropyDB.DIS_TBL_ADJUNTO + " " + "WHERE " + EntropyDB.DIS_COL_ADJUNTO_PREGUNTA_ID + " = ?";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             psConsulta.setInt(1, idPregunta);
@@ -65,12 +65,33 @@ public class DAOAdjunto implements IDAOAdjunto {
         return adjunto;
     }
     
-        @Override
+        public Object recuperarAdjuntoDiseño(int idPregunta) {
+        Object adjunto = null;
+        try {
+            Connection conexion = DAOConexion.conectarBaseDatos();
+
+            String strConsulta = "SELECT * " + "FROM " + EntropyDB.DIS_TBL_ADJUNTO + " " + "WHERE " + EntropyDB.DIS_COL_ADJUNTO_PREGUNTA_ID + " = ?";
+            PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
+            psConsulta.setInt(1, idPregunta);
+            ResultSet rsConsulta = psConsulta.executeQuery();
+            if (rsConsulta.next()) {
+                adjunto = rsConsulta.getObject(EntropyDB.DIS_COL_ADJUNTO_ADJUNTO);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Ocurrió un error mientras se recuperaba el adjunto: " + e.toString());
+        } finally {
+            DAOConexion.desconectarBaseDatos();
+        }
+        return adjunto;
+    }
+
+    @Override
     public Object recuperarAdjuntoExamen(int idPregunta) {
         Object adjunto = null;
         try {
             Connection conexion = DAOConexion.conectarBaseDatos();
-            
+
             String strConsulta = "SELECT " + EntropyDB.EXA_COL_ADJUNTO_ADJUNTO + " FROM " + EntropyDB.EXA_TBL_ADJUNTO + " " + "WHERE " + EntropyDB.EXA_COL_ADJUNTO_PREGUNTA_ID + " = ?";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             psConsulta.setInt(1, idPregunta);
