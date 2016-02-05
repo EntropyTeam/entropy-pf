@@ -95,6 +95,14 @@ public class HiloSocketAlumno extends Thread {
                 gestorResolucionExamen.setBlnValidacion(blnValidacion);
                 gestorResolucionExamen.setFueValidado(true);
                 break;
+            case TipoMensaje.AGREGAR_TIEMPO_EXAMEN:
+                int intMinutosAgregados = (int) mensaje.getPayload();
+                gestorResolucionExamen.agregarTiempo(intMinutosAgregados);
+                break;
+            case TipoMensaje.QUITAR_TIEMPO_EXAMEN:
+                int intMinutosQuitados = (int) mensaje.getPayload();
+                gestorResolucionExamen.quitarTiempo(intMinutosQuitados);
+                break;
         }
     }
 

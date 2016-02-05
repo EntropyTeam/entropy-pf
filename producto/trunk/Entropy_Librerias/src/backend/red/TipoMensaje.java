@@ -146,4 +146,16 @@ public class TipoMensaje {
      * de los examenes.
      */
     public static final int FINALIZAR_EXAMEN_DESDE_PROFESOR = 23;
+    
+    /**
+     * Se manda cuando el profesor agrega tiempo de un examen. El payload es un 
+     * Integer que indica la cantidad de tiempo a agregar en minutos.
+     */
+    public static final int AGREGAR_TIEMPO_EXAMEN = 24;
+    
+    /**
+     * Se manda cuando el profesor quita tiempo de un examen. El payload es un 
+     * Integer que indica la cantidad de tiempo a quitar en minutos.
+     */
+    public static final int QUITAR_TIEMPO_EXAMEN = 25;
 }

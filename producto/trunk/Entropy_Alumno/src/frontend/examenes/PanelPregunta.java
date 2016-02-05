@@ -691,6 +691,14 @@ public class PanelPregunta extends javax.swing.JPanel {
         lblTema.setVisible(false);
         lblTema.setText("");
     }
+    
+    public void agregarTiempo(int intMinutosAgregados) {
+        this.tmrTemporizador.agregarTiempo(intMinutosAgregados);
+    }
+    
+    public void quitarTiempo(int intMinutosQuitados) {
+        this.tmrTemporizador.quitarTiempo(intMinutosQuitados);
+    }
 
     /**
      * Clase que se encarga de manejar el timer de cuenta regresiva.
@@ -760,7 +768,14 @@ public class PanelPregunta extends javax.swing.JPanel {
         public boolean isCaducado() {
             return blnCaducado;
         }
+        
+        public void agregarTiempo(int intMinutosAgregados) {
+            this.minutos += intMinutosAgregados;
+        }
 
+        public void quitarTiempo(int intMinutosQuitados) {
+            this.minutos -= intMinutosQuitados;
+        }
     }
 
     private void desabilitarSeguridad() {

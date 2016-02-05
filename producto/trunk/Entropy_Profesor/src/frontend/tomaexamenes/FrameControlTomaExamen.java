@@ -637,6 +637,27 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
     public void notificarAutenticacionExitosa(int intIndice) {
         defaultTblAlumnos.setValueAt(EstadoTomaExamen.AUTENTICADO, intIndice, 1);
     }
+    
+    public boolean validarTiempoQuitar(int intMinutosQuitar) {
+        for (CuentaRegresiva cuentaRegresiva : colCuentasRegresivas) {
+            if (cuentaRegresiva.getMinutos() < intMinutosQuitar) return false;
+        }
+        return true;
+    }
+    
+    public void agregarTiempo(int intMinutosAgregados) {
+        this.gestorTomaExamen.agregarTiempo(intMinutosAgregados);
+        for (CuentaRegresiva cuentaRegresiva : colCuentasRegresivas) {
+            cuentaRegresiva.agregarTiempo(intMinutosAgregados);
+        }
+    }
+    
+    public void quitarTiempo(int intMinutosQuitados) {
+        this.gestorTomaExamen.quitarTiempo(intMinutosQuitados);
+        for (CuentaRegresiva cuentaRegresiva : colCuentasRegresivas) {
+            cuentaRegresiva.quitarTiempo(intMinutosQuitados);
+        }
+    }
 
     /**
      * Clase que se encarga de manejar el timer de cuenta regresiva.
@@ -687,6 +708,18 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
 
         private void parar() {
             tmrTemporizador.stop();
+        }
+        
+        public int getMinutos() {
+            return this.minutos;
+        }
+        
+        public void agregarTiempo(int intMinutosAgregados) {
+            this.minutos += intMinutosAgregados;
+        }
+
+        public void quitarTiempo(int intMinutosQuitados) {
+            this.minutos -= intMinutosQuitados;
         }
     }
 }

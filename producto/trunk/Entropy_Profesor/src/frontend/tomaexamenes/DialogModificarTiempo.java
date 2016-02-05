@@ -1,5 +1,7 @@
 package frontend.tomaexamenes;
 
+import backend.auxiliares.Mensajes;
+import backend.red.Mensaje;
 import frontend.auxiliares.CeldaListaRendererEntropy;
 import frontend.auxiliares.ComponentMover;
 import frontend.auxiliares.GestorBarrasDeEstado;
@@ -58,17 +60,24 @@ public class DialogModificarTiempo extends javax.swing.JDialog {
     private void agregarTiempo() {
         if (cmbAccion.getSelectedItem().equals("Agregar")) {
             int intTiempoInicial = mPadre.getExamenATomar().getIntTiempo();
-            int intTiempoAgregado = Integer.parseInt(this.spnMinutos.getModel().getValue().toString());
-            int intNuevoTiempo = intTiempoInicial + intTiempoAgregado;
-            mPadre.getExamenATomar().setIntTiempo(intNuevoTiempo);
-           
-        } else { //falta contral si las horas que le quitas son mayores al las disponibles...
+            int intMinutosAgregados = Integer.parseInt(this.spnMinutos.getModel().getValue().toString());
+            int intNuevoTiempo = intTiempoInicial + intMinutosAgregados;
+            mPadre.agregarTiempo(intMinutosAgregados);
+            mPadre.getExamenATomar().setIntTiempo(intNuevoTiempo);           
+        } else {
             int intTiempoInicial = mPadre.getExamenATomar().getIntTiempo();
-            int intTiempoQuitado = Integer.parseInt(this.spnMinutos.getModel().getValue().toString());
-            int intNuevoTiempo = intTiempoInicial - intTiempoQuitado;
-            mPadre.getExamenATomar().setIntTiempo(intNuevoTiempo);
+            int intMinutosQuitados = Integer.parseInt(this.spnMinutos.getModel().getValue().toString());
+            int intNuevoTiempo = intTiempoInicial - intMinutosQuitados;
+            if (mPadre.validarTiempoQuitar(intMinutosQuitados)) {
+                mPadre.quitarTiempo(intMinutosQuitados);
+                mPadre.getExamenATomar().setIntTiempo(intNuevoTiempo);
+            } else {
+                Mensajes.mostrarError("Hay alumnos que les queda menos tiempo del que deseas quitar.");
+                return;
+            }
         }
-         //generar mensaje al cliente con el nuevo tiempo...
+        //generar mensaje al cliente con el nuevo tiempo...
+        this.dispose();
     }
 
     /**
@@ -266,10 +275,8 @@ public class DialogModificarTiempo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnComenzarExamenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarExamenActionPerformed
-
         agregarTiempo();
         this.gestorEstados.setNuevoEstadoImportante("Error al realizar la acción.", GestorBarrasDeEstado.TipoEstado.ADVERTENCIA);
-
     }//GEN-LAST:event_btnComenzarExamenActionPerformed
 
     private void btnComenzarExamenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComenzarExamenMouseEntered

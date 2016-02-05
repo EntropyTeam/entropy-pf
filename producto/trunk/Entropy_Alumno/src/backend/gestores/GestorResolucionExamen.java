@@ -504,6 +504,14 @@ public class GestorResolucionExamen {
         this.timerEspera = null;
         this.dialogRealizarExamen = null;
     }
+    
+    public void agregarTiempo(int intMinutosAgregados) {
+        this.dialogRealizarExamen.agregarTiempo(intMinutosAgregados);
+    }
+    
+    public void quitarTiempo(int intMinutosQuitados) {
+        this.dialogRealizarExamen.quitarTiempo(intMinutosQuitados);
+    }
 
     public void setProfesor(Usuario profesor) {
         this.profesor = profesor;
@@ -539,7 +547,5 @@ public class GestorResolucionExamen {
 
     public HiloSocketAlumno getHiloSocketAlumno() {
         return hiloSocketAlumno;
-    }
-    
-    
+    }    
 }

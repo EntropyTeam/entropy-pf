@@ -161,4 +161,28 @@ public class GestorTomaExamen {
     public void notificarAutenticacionExitosa(int intIndice) {
         frmControlTomaExamen.notificarAutenticacionExitosa(intIndice);
     }
+    
+    public void agregarTiempo(int intMinutosAgregados) {
+        Mensaje mensaje = new Mensaje(TipoMensaje.AGREGAR_TIEMPO_EXAMEN, intMinutosAgregados);
+        for (HiloSocketProfesorPorAlumno hiloSocketProfesorPorAlumno : colHilosSocketsAlumnos) {
+            try {
+                hiloSocketProfesorPorAlumno.enviarMensaje(mensaje);
+            } catch (IOException ex) {
+                Logger.getLogger(GestorTomaExamen.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println("ERROR AL AGREGAR TIEMPO AL ALUMNO " + hiloSocketProfesorPorAlumno.getIndice());
+            }
+        }
+    }
+    
+    public void quitarTiempo(int intMinutosQuitados) {
+        Mensaje mensaje = new Mensaje(TipoMensaje.QUITAR_TIEMPO_EXAMEN, intMinutosQuitados);
+        for (HiloSocketProfesorPorAlumno hiloSocketProfesorPorAlumno : colHilosSocketsAlumnos) {
+            try {
+                hiloSocketProfesorPorAlumno.enviarMensaje(mensaje);
+            } catch (IOException ex) {
+                Logger.getLogger(GestorTomaExamen.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println("ERROR AL QUITAR TIEMPO AL ALUMNO " + hiloSocketProfesorPorAlumno.getIndice());
+            }
+        }
+    }
 }

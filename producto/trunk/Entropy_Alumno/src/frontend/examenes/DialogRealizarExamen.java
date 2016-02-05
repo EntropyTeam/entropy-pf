@@ -12,22 +12,31 @@ import javax.swing.JPanel;
 public class DialogRealizarExamen extends javax.swing.JDialog {
 
     private GestorSeguridad gestorSeguridad;
+    private PanelPregunta pnlPregunta;
     
     /**
      * Creates new form DialogRealizarExamen
      */
-    public DialogRealizarExamen(java.awt.Frame parent, boolean modal, PanelPregunta pnl) {
+    public DialogRealizarExamen(java.awt.Frame parent, boolean modal, PanelPregunta pnlPregunta) {
         super(parent, modal);
         initComponents();
         //Se debe activar el always on top para que ande la seguridad.
 //        this.setAlwaysOnTop(true);
         this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds()); 
         this.setMaximumSize(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getSize());
-        this.pnlCentral.add(pnl);
+        this.pnlPregunta = pnlPregunta;
+        this.pnlCentral.add(this.pnlPregunta);
         gestorSeguridad = new GestorSeguridad();
         gestorSeguridad.deshabilitarExplorer();
         gestorSeguridad.deshabilitarTaskManager();
-        
+    }
+    
+    public void agregarTiempo(int intMinutosAgregados) {
+        this.pnlPregunta.agregarTiempo(intMinutosAgregados);
+    }
+    
+    public void quitarTiempo(int intMinutosQuitados) {
+        this.pnlPregunta.quitarTiempo(intMinutosQuitados);
     }
 
     /**
