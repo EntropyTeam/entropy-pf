@@ -55,7 +55,7 @@ public class RespuestaPreguntaMultipleOpcion extends Respuesta implements Serial
 
     @Override
     public double getCalificacion() {
-        boolean blnEsCorrecta = true;
+        boolean blnEsCorrecta = (colOpciones.size() > 0);
         for(RespuestaOpcionMultipleOpcion rtaOpcionMO : colOpciones) {
             if (!blnEsCorrecta) break;
             for (OpcionMultipleOpcion ptaOpcionMO : preguntaMultipleOpcion.getColOpciones()) {
