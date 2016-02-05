@@ -35,7 +35,7 @@ public class PanelEspera extends javax.swing.JPanel {
         lblEspera.setForeground(new java.awt.Color(204, 102, 0));
         lblEspera.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEspera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/cargador.gif"))); // NOI18N
-        lblEspera.setText("Esperando receptar examen...");
+        lblEspera.setText("Estableciendo conexión con el profesor...");
         lblEspera.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblEspera.setIconTextGap(25);
         lblEspera.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

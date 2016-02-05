@@ -38,7 +38,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/frontend/imagenes/cargador.gif"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Esperando receptar examen..."/>
+        <Property name="text" type="java.lang.String" value="Estableciendo conexi&#xf3;n con el profesor..."/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="iconTextGap" type="int" value="25"/>
         <Property name="verticalTextPosition" type="int" value="3"/>

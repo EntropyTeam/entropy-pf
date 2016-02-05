@@ -158,7 +158,7 @@ public class GestorPresentacion {
         Mensaje mnsAvisarComienzoPresentacion = new Mensaje(TipoMensaje.INICIAR_PRESENTACION);
         hiloSocketAlumno.enviarMensaje(mnsAvisarComienzoPresentacion);
         
-        this.mPadre.getPanelDeslizante().setPanelMostrado(this.mPadre.getPnlInicio());
+        VentanaPrincipal.getInstancia().volverAInicio();
     }
 
     public Usuario getProfesor() {
