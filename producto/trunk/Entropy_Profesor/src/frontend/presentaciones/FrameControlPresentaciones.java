@@ -128,7 +128,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
         pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
 
         btnCancelar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_cancelar.png"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_tiempo_terminado_35x35.png"))); // NOI18N
         btnCancelar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnCancelar.setContentAreaFilled(false);
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -268,7 +268,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseEntered
-        this.gestorEstados.setEstadoInstantaneo("Cancelar la toma del examen.");
+        this.gestorEstados.setEstadoInstantaneo("Finalizar la presentación.");
         repaint();
     }//GEN-LAST:event_btnCancelarMouseEntered
 
@@ -286,11 +286,11 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnGuardarAsistenciaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaMouseEntered
-        // TODO add your handling code here:
+        this.gestorEstados.setEstadoInstantaneo("Registrar la presentación y sus asistentes.");
     }//GEN-LAST:event_btnGuardarAsistenciaMouseEntered
 
     private void btnGuardarAsistenciaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaMouseExited
-        // TODO add your handling code here:
+        this.gestorEstados.volverAEstadoImportante();
     }//GEN-LAST:event_btnGuardarAsistenciaMouseExited
 
     private void btnGuardarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaActionPerformed
