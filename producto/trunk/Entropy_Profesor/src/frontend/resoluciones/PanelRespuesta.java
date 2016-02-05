@@ -158,6 +158,10 @@ public class PanelRespuesta extends javax.swing.JPanel {
         lblExamen = new javax.swing.JLabel();
         lblCurso = new javax.swing.JLabel();
         lblDescripcion = new javax.swing.JLabel();
+        pnlSuperior = new javax.swing.JPanel();
+        pnlBotones = new javax.swing.JPanel();
+        btnVolver = new javax.swing.JButton();
+        btnVolverInicio = new javax.swing.JButton();
 
         pnlContenido.setLayout(new javax.swing.BoxLayout(pnlContenido, javax.swing.BoxLayout.Y_AXIS));
 
@@ -319,17 +323,17 @@ public class PanelRespuesta extends javax.swing.JPanel {
                 .addGroup(pnlPreguntaLayout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(pnlPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(pnlEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                        .addComponent(pnlEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
                         .addComponent(pnlContenidoPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addContainerGap()))
         );
         pnlPreguntaLayout.setVerticalGroup(
             pnlPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 319, Short.MAX_VALUE)
+            .addGap(0, 239, Short.MAX_VALUE)
             .addGroup(pnlPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlPreguntaLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(pnlEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                    .addComponent(pnlEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(pnlContenidoPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                     .addContainerGap()))
@@ -485,7 +489,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
                         .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlDatosExamenLayout.createSequentialGroup()
                                 .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblsDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                                    .addComponent(lblsDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 65, Short.MAX_VALUE)
                                     .addComponent(lblsAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(6, 6, 6)
                                 .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -527,6 +531,57 @@ public class PanelRespuesta extends javax.swing.JPanel {
                 .addGap(1, 1, 1))
         );
 
+        pnlBotones.setLayout(new java.awt.GridLayout());
+
+        btnVolver.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
+        btnVolver.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnVolver.setContentAreaFilled(false);
+        btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolver.setIconTextGap(10);
+        btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVolverMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVolverMouseExited(evt);
+            }
+        });
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        pnlBotones.add(btnVolver);
+
+        btnVolverInicio.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnVolverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_inicio.png"))); // NOI18N
+        btnVolverInicio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnVolverInicio.setContentAreaFilled(false);
+        btnVolverInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolverInicio.setIconTextGap(10);
+        btnVolverInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverInicioActionPerformed(evt);
+            }
+        });
+        pnlBotones.add(btnVolverInicio);
+
+        javax.swing.GroupLayout pnlSuperiorLayout = new javax.swing.GroupLayout(pnlSuperior);
+        pnlSuperior.setLayout(pnlSuperiorLayout);
+        pnlSuperiorLayout.setHorizontalGroup(
+            pnlSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pnlSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE))
+        );
+        pnlSuperiorLayout.setVerticalGroup(
+            pnlSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+            .addGroup(pnlSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(pnlBotones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -535,15 +590,19 @@ public class PanelRespuesta extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlDatosExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE))
+                    .addComponent(pnlContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+                    .addComponent(pnlSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlDatosExamen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlContenido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -579,8 +638,26 @@ public class PanelRespuesta extends javax.swing.JPanel {
         actualizarRespuesta();
     }//GEN-LAST:event_txtCalificacionFocusLost
 
+    private void btnVolverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseEntered
+        this.gestorEstado.setEstadoInstantaneo("Volver al selector de exámenes.");
+    }//GEN-LAST:event_btnVolverMouseEntered
+
+    private void btnVolverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseExited
+        this.gestorEstado.volverAEstadoImportante();
+    }//GEN-LAST:event_btnVolverMouseExited
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado((JPanel) pnlPadre);
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverInicioActionPerformed
+        VentanaPrincipal.getInstancia().volverAInicio();
+    }//GEN-LAST:event_btnVolverInicioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVolver;
+    private javax.swing.JButton btnVolverInicio;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblAlumno;
     private javax.swing.JLabel lblAnterior;
@@ -603,6 +680,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
     private javax.swing.JLabel lblsExamen;
     private javax.swing.JLabel lblsTema;
     private javax.swing.JSeparator lowerSeparator;
+    private javax.swing.JPanel pnlBotones;
     private javax.swing.JPanel pnlCasillas;
     private javax.swing.JPanel pnlCentral;
     private javax.swing.JPanel pnlComentario;
@@ -614,6 +692,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
     private javax.swing.JPanel pnlEstado;
     private javax.swing.JPanel pnlFila1;
     private javax.swing.JPanel pnlPregunta;
+    private javax.swing.JPanel pnlSuperior;
     private javax.swing.JScrollPane scrComentario;
     private frontend.auxiliares.TextAreaEntropy txaComentario;
     private frontend.auxiliares.TextFieldEntropy txtCalificacion;
