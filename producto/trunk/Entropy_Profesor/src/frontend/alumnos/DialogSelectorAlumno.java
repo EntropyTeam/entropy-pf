@@ -440,7 +440,7 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
             VentanaPrincipal.getInstancia().ocultarMenu();
             VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlEstadisticasAlumno);
             VentanaPrincipal.getInstancia().setTitle("Estadísticas del alumno " + seleccionado.toString());
-            if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+            if (!VentanaPrincipal.getInstancia().isMaximized()){
                 VentanaPrincipal.getInstancia().pack();
             }
             this.dispose();

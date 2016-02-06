@@ -701,7 +701,7 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
             mPadre.setTitle(examenSeleccionado.getStrNombre());
             this.dispose();
             mPadre.getPanelDeslizante().setPanelMostrado(pnlNuevoExamen);
-            if (mPadre.getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+            if (!mPadre.isMaximized()){
                 mPadre.pack();
             }
         } catch (Exception ex) {
@@ -721,7 +721,7 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
             mPadre.setTitle(examenSeleccionado.getStrNombre());
             this.dispose();
             mPadre.getPanelDeslizante().setPanelMostrado(pnlNuevoExamen);
-            if (mPadre.getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+            if (!mPadre.isMaximized()){
                 mPadre.pack();
             }
         } catch (Exception ex) {
@@ -753,7 +753,7 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
                     pnlNuevoExamen.getGestorEstados().setNuevoEstadoImportante("¡Bienvenido a la interfaz de edición de examen!");
                     mPadre.setTitle(examenSeleccionado.getStrNombre());
                     mPadre.getPanelDeslizante().setPanelMostrado(pnlNuevoExamen);
-                    if (mPadre.getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+                    if (!mPadre.isMaximized()){
                         mPadre.pack();
                     }
                     this.dispose();
@@ -766,7 +766,7 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
             mPadre.setTitle("Toma de examen - Paso 1 - " + examenSeleccionado.getStrNombre());
             this.dispose();
             mPadre.getPanelDeslizante().setPanelMostrado(pnlTomaExamen);
-            if (mPadre.getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+            if (!mPadre.isMaximized()){
                 mPadre.pack();
             }
         } catch (Exception ex) {

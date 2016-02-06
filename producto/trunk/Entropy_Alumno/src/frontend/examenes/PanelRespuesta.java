@@ -741,7 +741,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
             pnlInicio.setName("Panel inicio");
             VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlInicio);
             VentanaPrincipal.getInstancia().setTitle("Resoluciones - " + resolucion.getExamen().getStrNombre());
-            if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+            if (!VentanaPrincipal.getInstancia().isMaximized()){
                 VentanaPrincipal.getInstancia().pack();
             }
         }

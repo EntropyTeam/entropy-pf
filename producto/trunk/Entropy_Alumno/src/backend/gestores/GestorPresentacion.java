@@ -146,7 +146,7 @@ public class GestorPresentacion {
         pnlIniciarPresentacion.setName("Iniciar presentación");
         mPadre.getPanelDeslizante().setPanelMostrado(pnlIniciarPresentacion);
         mPadre.setTitle("Iniciar presentación");
-        if (mPadre.getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+        if (mPadre.isMaximized()) {
             mPadre.pack();
         }
     }

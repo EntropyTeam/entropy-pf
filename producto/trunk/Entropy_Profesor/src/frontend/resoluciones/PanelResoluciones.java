@@ -661,7 +661,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                 VentanaPrincipal.getInstancia().ocultarMenu();
                 VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlEstadisticasAlumno);
                 VentanaPrincipal.getInstancia().setTitle("Estadísticas del alumno " + alumno.toString());
-                if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+                if (!VentanaPrincipal.getInstancia().isMaximized()){
                     VentanaPrincipal.getInstancia().pack();
                 }
             } catch (Exception e) {

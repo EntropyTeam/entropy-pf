@@ -406,7 +406,7 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
                 pnlTomaExamen.getGestorEstados().setNuevoEstadoImportante("¡Bienvenido a la interfaz de toma de examen!");
                 mPadre.setTitle("Toma de examen - Paso 1 - " + gestorDiseñoExamen.getDiseñoExamen().getStrNombre());
                 mPadre.getPanelDeslizante().setPanelMostrado(pnlTomaExamen);
-                if (mPadre.getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+                if (!mPadre.isMaximized()){
                     mPadre.pack();
                 }
             }

@@ -11,7 +11,9 @@ import frontend.diseños.DialogAdministrarDiseñoExamen;
 import frontend.diseños.PanelDiseño;
 import frontend.examenes.DialogAdministrarExamen;
 import frontend.presentaciones.DialogAdministrarClasesDictadas;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,11 +30,9 @@ import javax.swing.KeyStroke;
 public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrincipal {
 
     private static VentanaPrincipal INSTANCIA = null;
-    
+
     private boolean blnSeEstaTomandoExamen;
     private boolean blnSeEstaRealizandoPresentacion;
-    
-
 
     /**
      * Constructor por defecto.
@@ -40,7 +40,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     private VentanaPrincipal() {
         this.blnSeEstaTomandoExamen = false;
         this.blnSeEstaRealizandoPresentacion = false;
-        
+
         initComponents();
         this.setLocationRelativeTo(null);
         this.pnlSlides.setPanelMostrado(pnlInicio);
@@ -278,7 +278,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         pnlNuevoExamen.getGestorEstados().setNuevoEstadoImportante("¡Bienvenido a la interfaz de nuevo examen!");
         getPanelDeslizante().setPanelMostrado(pnlNuevoExamen);
         setTitle("Nuevo examen sin título");
-        if (getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+        if (!isMaximized()) {
             pack();
         }
     }//GEN-LAST:event_mniNuevoExamenActionPerformed
@@ -307,16 +307,16 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         GestorRedAdHoc gestorRedAdHoc = new GestorRedAdHoc();
         gestorRedAdHoc.desconectar();
-        
+
         if (blnSeEstaTomandoExamen) {
             Mensajes.mostrarAdvertencia("Se esta tomando un examen, finalícelo antes de salir.");
             return;
         }
-        if (blnSeEstaRealizandoPresentacion){
+        if (blnSeEstaRealizandoPresentacion) {
             Mensajes.mostrarAdvertencia("Se esta realizando una presentación, finalícela antes de salir");
             return;
         }
-        
+
         this.dispose();
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
@@ -389,13 +389,13 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     }
 
     @Override
-    public void volverAInicio(){
+    public void volverAInicio() {
         VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(VentanaPrincipal.getInstancia().getPnlInicio());
         VentanaPrincipal.getInstancia().setTitle("Sistema de Administración de Entornos Educativos");
     }
-    
+
     @Override
-    public void setTitulo (String strTitulo) {
+    public void setTitulo(String strTitulo) {
         VentanaPrincipal.getInstancia().setTitle(strTitulo);
     }
 
@@ -406,7 +406,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     public void setBlnSeEstaRealizandoPresentacion(boolean blnSeEstaRealizandoPresentacion) {
         this.blnSeEstaRealizandoPresentacion = blnSeEstaRealizandoPresentacion;
     }
-    
+
     /**
      * Clase que escucha por el tecleo de la tecla Esc.
      */
@@ -426,5 +426,17 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
             pnlSlides.setPanelMostrado(pnlInicio, false);
             setTitle("Sistema de Administración de Entornos Educativos");
         }
+    }
+
+    public boolean isMaximized() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double screenWidth = screenSize.getWidth();
+        double screenHeight = screenSize.getHeight();
+        double windowHeight = getSize().height;
+        double windowWidth = getSize().width;
+        return getExtendedState() == JFrame.MAXIMIZED_BOTH
+                || getExtendedState() == JFrame.MAXIMIZED_VERT
+                || windowWidth > screenWidth / 2 - 60
+                || screenHeight - windowHeight < 50;
     }
 }

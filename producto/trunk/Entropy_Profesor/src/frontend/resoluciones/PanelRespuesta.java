@@ -1030,7 +1030,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
                 pnlMostrar = pnlInicio;
                 VentanaPrincipal.getInstancia().setTitle("Sistema de Administración de Entornos Educativos");
                 VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlMostrar);
-                if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+                if (!VentanaPrincipal.getInstancia().isMaximized()){
                     VentanaPrincipal.getInstancia().pack();
                 }
             } else {

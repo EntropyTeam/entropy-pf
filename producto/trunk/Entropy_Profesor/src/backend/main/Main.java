@@ -62,7 +62,7 @@ public class Main {
                     pnlDatosUsuarios.setName("Perfil Usuario");
                     VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlDatosUsuarios);
                     VentanaPrincipal.getInstancia().setTitle("Perfil de Usuario");
-                    if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+                    if (!VentanaPrincipal.getInstancia().isMaximized()){
                         VentanaPrincipal.getInstancia().pack();
                     }
                 }

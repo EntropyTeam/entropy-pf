@@ -181,7 +181,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
         pnlNuevoExamen.getGestorEstados().setNuevoEstadoImportante("¡Bienvenido a la interfaz de nuevo examen!");
         mPadre.getPanelDeslizante().setPanelMostrado(pnlNuevoExamen);
         mPadre.setTitle("Nuevo examen sin título");
-        if (mPadre.getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+        if (!mPadre.isMaximized()){
             mPadre.pack();
         }
     }//GEN-LAST:event_btnNuevoDiseñoActionPerformed
@@ -193,7 +193,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
         pnlAdministrarCursos.getGestorEstados().setNuevoEstadoImportante("¡Bienvenido a la interfaz de administración de cursos e instituciones!");
         mPadre.getPanelDeslizante().setPanelMostrado(pnlAdministrarCursos);
         mPadre.setTitle("Administración de cursos e instituciones");
-        if (mPadre.getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+        if (!mPadre.isMaximized()){
             mPadre.pack();
         }
     }//GEN-LAST:event_btnCursosActionPerformed
@@ -224,7 +224,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
         pnlPresentacion.getGestorEstados().setNuevoEstadoImportante("¡Bienvenido a la interfaz de presentacion!");
         mPadre.setTitle("Crear Presentacion");
         mPadre.getPanelDeslizante().setPanelMostrado(pnlPresentacion);
-        if (mPadre.getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+        if (!mPadre.isMaximized()){
             mPadre.pack();
         }
     }//GEN-LAST:event_btnPresentarActionPerformed

@@ -14,7 +14,6 @@ import backend.examenes.Examen;
 import backend.reporte.GestorGraficosExamen;
 import backend.resoluciones.Resolucion;
 import backend.resoluciones.Respuesta;
-import frontend.estadisticas.PanelEstadisticasAlumno;
 import frontend.estadisticas.PanelEstadisticasExamen;
 import frontend.inicio.VentanaPrincipal;
 import frontend.resoluciones.PanelResoluciones;
@@ -79,7 +78,7 @@ public class GestorExamen {
         VentanaPrincipal.getInstancia().ocultarMenu();
         VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlResoluciones);
         VentanaPrincipal.getInstancia().setTitle("Resoluciones - " + examen.getStrNombre());
-        if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+        if (!VentanaPrincipal.getInstancia().isMaximized()){
             VentanaPrincipal.getInstancia().pack();
         }
         return true;
@@ -99,7 +98,7 @@ public class GestorExamen {
         VentanaPrincipal.getInstancia().ocultarMenu();
         VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlRespuestas);
         VentanaPrincipal.getInstancia().setTitle("Examen de " + resolucion.toString() + " - " + resolucion.getExamen().getStrNombre());
-        if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+        if (!VentanaPrincipal.getInstancia().isMaximized()){
             VentanaPrincipal.getInstancia().pack();
         }
     }
@@ -153,7 +152,7 @@ public class GestorExamen {
         VentanaPrincipal.getInstancia().ocultarMenu();
         VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlRespuestas);
         VentanaPrincipal.getInstancia().setTitle("Respuestas sin corrección - " + examen.getStrNombre());
-        if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+        if (!VentanaPrincipal.getInstancia().isMaximized()) {
             VentanaPrincipal.getInstancia().pack();
         }
         return true;
@@ -175,7 +174,7 @@ public class GestorExamen {
         VentanaPrincipal.getInstancia().ocultarMenu();
         VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlEstadisticas);
         VentanaPrincipal.getInstancia().setTitle("Estadísticas de examen " + examenSeleccionado.getStrNombre() + " - " + new SimpleDateFormat("dd/MM/yyyy  -  HH:mm").format(examenSeleccionado.getDteFecha()));
-        if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+        if (!VentanaPrincipal.getInstancia().isMaximized()){
             VentanaPrincipal.getInstancia().pack();
         }
         return true;
@@ -213,7 +212,7 @@ public class GestorExamen {
         pnlEstadisticas.setName("Ver estadísticas");
         VentanaPrincipal.getInstancia().ocultarMenu();
         VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlEstadisticas);
-        if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+        if (!VentanaPrincipal.getInstancia().isMaximized()){
             VentanaPrincipal.getInstancia().pack();
         }
         return true;

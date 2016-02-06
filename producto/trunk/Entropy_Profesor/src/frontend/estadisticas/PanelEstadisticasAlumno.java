@@ -702,7 +702,7 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
         } else if (pnlPadre instanceof PanelResoluciones) {
             VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado((PanelResoluciones) pnlPadre);
             VentanaPrincipal.getInstancia().setTitle("Estadísticas del alumno " + alumno.toString());
-            if (VentanaPrincipal.getInstancia().getExtendedState() != JFrame.MAXIMIZED_BOTH) {
+            if (!VentanaPrincipal.getInstancia().isMaximized()){
                 VentanaPrincipal.getInstancia().pack();
             }
         }

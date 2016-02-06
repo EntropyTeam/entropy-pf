@@ -5,11 +5,14 @@ import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.auxiliares.PanelDeslizante;
 import frontend.auxiliares.PanelConMenu;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
 /**
@@ -221,5 +224,17 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
             }
             pnlSlides.setPanelMostrado(pnlInicio, false);
         }
+    }
+    
+    public boolean isMaximized() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double screenWidth = screenSize.getWidth();
+        double screenHeight = screenSize.getHeight();
+        double windowHeight = getSize().height;
+        double windowWidth = getSize().width;
+        return getExtendedState() == JFrame.MAXIMIZED_BOTH
+                || getExtendedState() == JFrame.MAXIMIZED_VERT
+                || windowWidth > screenWidth / 2 - 60
+                || screenHeight - windowHeight < 50;
     }
 }
