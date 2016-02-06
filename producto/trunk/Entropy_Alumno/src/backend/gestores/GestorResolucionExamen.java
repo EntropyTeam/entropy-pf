@@ -499,6 +499,7 @@ public class GestorResolucionExamen {
         this.dialogRealizarExamen.dispose();
         this.volverPanelInicio();
         Mensajes.mostrarAdvertencia("Su examen ha sido anulado por su instructor con el siguiente motivo:\n\n\"" + strJustificacion + "\"\n\nConsulte con su instructor.");
+        this.resolucion.setBlnAnulada(true);
         this.resolucion.setStrJustificacionAnulacion(strJustificacion);
         Mensaje mnsResolucionAnulada = new Mensaje(TipoMensaje.ANULAR_RESOLUCION, resolucion);
         hiloSocketAlumno.enviarMensaje(mnsResolucionAnulada);

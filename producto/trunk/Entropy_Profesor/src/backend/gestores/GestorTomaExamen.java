@@ -138,6 +138,7 @@ public class GestorTomaExamen {
 
     public void notificarFinalizacionExamen() {
         for (HiloSocketProfesorPorAlumno hiloAlumno : colHilosSocketsAlumnos) {
+            if (hiloAlumno.isInterrupted()) continue;
             hiloAlumno.notificarFinalizacionExamen();
         }
     }
@@ -147,7 +148,6 @@ public class GestorTomaExamen {
     }
 
     public void confirmarAnulacionResolucion(Resolucion resolucion) {
-        resolucion.setBlnAnulada(true);
         if (new DAOResolucion().guardarResolucion(resolucion)) {
             Mensajes.mostrarExito("¡Anulación exitosa!");
         } else {
