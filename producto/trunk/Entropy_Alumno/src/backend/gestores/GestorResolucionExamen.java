@@ -187,7 +187,7 @@ public class GestorResolucionExamen {
      * profesor.
      */
     public void comenzarExamen(String codigo) throws IOException {
-
+        
         //valido el codigo con el servidor (MAndo mensajes de ida y vuelta)
         Mensaje mnsValidarAlumno = new Mensaje(TipoMensaje.VALIDAR_ALUMNO, codigo);
         hiloSocketAlumno.enviarMensaje(mnsValidarAlumno);
@@ -246,6 +246,7 @@ public class GestorResolucionExamen {
         mPadre.setTitle("Examen iniciado: " + getExamen().getStrNombre());
         PanelPregunta pnlPreguntas = new PanelPregunta(mPadre, this);
         pnlPreguntas.setName("Preguntas");
+        VentanaPrincipal.getInstancia().volverAInicio();
         dialogRealizarExamen = new DialogRealizarExamen(mPadre, true, pnlPreguntas);
         dialogRealizarExamen.setVisible(true);
     }
@@ -276,19 +277,25 @@ public class GestorResolucionExamen {
         this.eliminarArchivoTemporal();
         this.dialogRealizarExamen.dispose(); //Esta linea de codigo esta preventivamente hasta decidir a donde se retorna luego de realizar el examen.
         this.mPadre.setVisible(true);//Esta linea de codigo esta preventivamente hasta decidir a donde se retorna luego de realizar el examen.
-        if (!esCorreccionAutomatica()) {
-            Mensajes.mostrarExito("¡Examen finalizado exitosamente!"
+        if (resolucion.getExamen().esMostrarCorreccionAutomatica()) {
+            if (!esCorreccionAutomatica()) {
+                Mensajes.mostrarExito("¡Examen finalizado exitosamente!"
                     + "\nEl examen contiene respuestas a ser corregidas por el instructor. "
-                    + "\nA continuación se muestra la resolución de las preguntas de corrección automática."
+                    + "\nA continuación se muestra la calificación de las preguntas de corrección automática."
                     + "\nLa calificación final será enviada a "
                     + "la dirección de correo electrónico proporcionada.");
+            } else {
+                Mensajes.mostrarExito("¡Examen finalizado exitosamente!\nLa resolución "
+                        + "será enviada a la dirección de correo electrónico proporcionada.");
+            }
+            PanelRespuesta pnlRespuestas = new PanelRespuesta(resolucion);
+            pnlRespuestas.setName("Respuestas");
+            mPadre.getPanelDeslizante().setPanelMostrado(pnlRespuestas);
+            mPadre.setTitle("Sistema de Administración de Entornos Educativos");
         } else {
-            Mensajes.mostrarExito("¡Examen finalizado exitosamente!");
-        }
-        PanelRespuesta pnlRespuestas = new PanelRespuesta(resolucion);
-        pnlRespuestas.setName("Respuestas");
-        mPadre.getPanelDeslizante().setPanelMostrado(pnlRespuestas);
-        mPadre.setTitle("Sistema de Administración de Entornos Educativos");
+            Mensajes.mostrarExito("¡Examen finalizado exitosamente!\nLa resolución será "
+                    + "enviada a la dirección de correo electrónico proporcionada luego de ser corregida por el profesor.");
+        }        
     }
 
     public boolean esCorreccionAutomatica() {
