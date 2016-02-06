@@ -1,6 +1,7 @@
 package backend.mail;
 
 
+import backend.dao.resoluciones.DAOResolucion;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
@@ -25,7 +26,7 @@ public class GestorEnvioDeMail {
 
     }
 
-    public void enviarMail(Email nuevoMail) {
+    public boolean enviarMail(Email nuevoMail) {
         try {
             Properties props = System.getProperties();
             props.put("mail.transport.protocol", "smtp");
@@ -45,9 +46,11 @@ public class GestorEnvioDeMail {
             msg.setSentDate(new Date());
             Transport.send(msg);
             System.out.println("El mensaje a " + nuevoMail.getTo() + " a sido enviado correctamente");
+            return true;
         } catch (MessagingException ex) {
             System.err.println("El mensaje no pudo enviado a " + nuevoMail.getTo());
             System.err.println("Exception " + ex);
+            return false;
         }
     }
 
@@ -67,5 +70,9 @@ public class GestorEnvioDeMail {
             String password = "teamentropy";
             return new PasswordAuthentication(username, password);
         }
+    }
+    
+    public boolean setResolucionEnviada(int idResolucion, boolean fueEnviada){
+        return new DAOResolucion().setFueEnviadaPorEmail(idResolucion, fueEnviada);
     }
 }

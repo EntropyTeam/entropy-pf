@@ -18,9 +18,16 @@ import backend.auxiliares.Mensajes;
 import backend.examenes.Examen;
 import backend.mail.Email;
 import backend.mail.GestorEnvioDeMail;
-import backend.usuarios.Alumno;
+import backend.reporte.GestorGenerarReporteResolucion;
+import backend.resoluciones.Resolucion;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Clase que representa la interfaz de administración de diseños de examen.
@@ -30,21 +37,16 @@ import java.util.ArrayList;
 public class DialogEnviarEmail extends javax.swing.JDialog {
 
     private final GestorBarrasDeEstado gestorEstados;
-    private ArrayList<Alumno> alumnos = null;
-    private Alumno alumno = null;
-    private ArrayList<byte[]> pdfs = null;
-    private byte[] pdf = null;
     private Examen examen;
+    private ArrayList<Resolucion> resoluciones;
 
     /**
      * Constructor de la clase.
      *
      * @param modal true si mantiene el foco, false de lo contrario.
-     * @param examen
-     * @param alumno
-     * @param pdf
+     * @param resolucion
      */
-    public DialogEnviarEmail(boolean modal, Examen examen, Alumno alumno, byte[] pdf) {
+    public DialogEnviarEmail(boolean modal, Resolucion resolucion) {
         super(VentanaPrincipal.getInstancia(), modal);
         initComponents();
         this.setSize(new Dimension(700, 400));
@@ -64,10 +66,10 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         cr.setSnapSize(new Dimension(10, 10));
         cr.registerComponent(this);
         
-        //Datos del email        
-        this.alumno = alumno;
-        this.pdf = pdf;
-        this.examen = examen;
+        //Datos del email
+        this.examen = resolucion.getExamen();
+        this.resoluciones = new ArrayList<>();
+        this.resoluciones.add(resolucion);
         recuperarDatosGenericosDelMail();
     }
     
@@ -75,11 +77,9 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
      * Constructor de la clase.
      *
      * @param modal true si mantiene el foco, false de lo contrario.
-     * @param examen
-     * @param alumnos
-     * @param pdfs
+     * @param resoluciones
      */
-    public DialogEnviarEmail(boolean modal, Examen examen, ArrayList<Alumno> alumnos, ArrayList<byte[]> pdfs) {
+    public DialogEnviarEmail(boolean modal, ArrayList<Resolucion> resoluciones) {
         super(VentanaPrincipal.getInstancia(), modal);
         initComponents();
         this.setSize(new Dimension(600, 400));
@@ -99,17 +99,16 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         cr.setSnapSize(new Dimension(10, 10));
         cr.registerComponent(this);
         
-        //Datos del email        
-        this.alumnos = alumnos;
-        this.pdfs = pdfs;
-        this.examen = examen;
+        //Datos del email
+        this.examen = resoluciones.get(0).getExamen();
+        this.resoluciones = resoluciones;
         recuperarDatosGenericosDelMailMultiples();
     }
     
     private void recuperarDatosGenericosDelMail() {
-        txtDestinatario.setText(this.alumno.getStrEmail());
+        txtDestinatario.setText(this.resoluciones.get(0).getAlumno().getStrEmail());
         txtAsunto.setText("Correción del examen \"" + examen.getStrNombre() + "\"");
-        lblAdjunto.setText("Correción del examen " + examen.getStrNombre() + " _ " + alumno.toString() + ".pdf");
+        lblAdjunto.setText("Correción del examen " + examen.getStrNombre() + " _ " + this.resoluciones.get(0).getAlumno().toString() + ".pdf");
         String strMensaje = "Se adjunta la resolución corregida para el examen  \"" + examen.getStrNombre() 
                 + "\", realizado el día " + new SimpleDateFormat("dd/MM/yyyy  -  HH:mm").format(examen.getDteFecha())
                 + ", en el curso " + examen.getCurso().getStrNombre()
@@ -118,8 +117,9 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
     }
 
     private void recuperarDatosGenericosDelMailMultiples() {
-        String todasLasDirecciones = concatenarTodosLasDireccionesDeMail(recuperarTodasLasDireccionesDeCorreo(this.alumnos));
+        String todasLasDirecciones = concatenarTodosLasDireccionesDeMail(recuperarTodasLasDireccionesDeCorreo());
         txtDestinatario.setText(todasLasDirecciones);
+        txtDestinatario.setEditable(false);
         txtAsunto.setText("Correción del examen \"" + examen.getStrNombre() + "\"");
         lblAdjunto.setText("Correción del examen " + examen.getStrNombre() + ".pdf");
         String strMensaje = "Se adjunta la resolución corregida para el examen  \"" + examen.getStrNombre() 
@@ -129,36 +129,60 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         txaCuerpo.setText(strMensaje);
     }
 
-    private void enviarMailUnicoDestinatario(Alumno alumno, byte[] pdf) {
-        GestorEnvioDeMail gestorEnvioDeMail = new GestorEnvioDeMail();
-        Email nuevoMail = new Email();
-        byte[] bytes = pdf;
-        nuevoMail.setTo(alumno.getStrEmail());
-        nuevoMail.setSubject(txtAsunto.getText());
-        nuevoMail.setMessage(txaCuerpo.getText());
-        nuevoMail.setAdjunto("Correción del examen " + examen.getStrNombre() + " _ " + alumno.toString(), bytes);
-        gestorEnvioDeMail.enviarMail(nuevoMail);
-    }
-
-    private void enviarMailMultiplesDestinatarios(ArrayList<Alumno> alumnos, ArrayList<byte[]> pdfs) {
-        GestorEnvioDeMail gestorEnvioDeMail = new GestorEnvioDeMail();
-        for (Alumno alumno : alumnos) {
+    private void enviarMailUnicoDestinatario() {
+        try {
+            GestorEnvioDeMail gestorEnvioDeMail = new GestorEnvioDeMail();
             Email nuevoMail = new Email();
-            nuevoMail.setTo(alumno.getStrEmail());
+            GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resoluciones.get(0));
+            gestorReporte.generarReporteResolucion();
+            String pathArchivo = gestorReporte.getResolucion();
+            Path path = Paths.get(pathArchivo);
+            byte[] pdf = Files.readAllBytes(path);
+            nuevoMail.setTo(txtDestinatario.getText());
             nuevoMail.setSubject(txtAsunto.getText());
             nuevoMail.setMessage(txaCuerpo.getText());
-            for (byte[] pdf : pdfs) {
-                byte[] bytes = pdf;
-                nuevoMail.setAdjunto("Correción del examen " + examen.getStrNombre() + " _ " + alumno.toString(), bytes);
-                gestorEnvioDeMail.enviarMail(nuevoMail);
+            nuevoMail.setAdjunto("Correción del examen " + examen.getStrNombre() + " _ " + resoluciones.get(0).getAlumno().toString(), pdf);
+            if (gestorEnvioDeMail.enviarMail(nuevoMail)) {
+                resoluciones.get(0).setFueEnviadaPorEmail(true);
+                gestorEnvioDeMail.setResolucionEnviada(resoluciones.get(0).getIntID(), true);
             }
+        } catch (IOException ex) {
+            Logger.getLogger(DialogEnviarEmail.class.getName()).log(Level.SEVERE, null, ex);
+            Mensajes.mostrarError("Error al enviar el mensaje.");
         }
     }
 
-    private ArrayList<String> recuperarTodasLasDireccionesDeCorreo(ArrayList<Alumno> alumnos) {
-        ArrayList<String> direccionesDeCorreo = new ArrayList<String>();
-        for (Alumno alumno : alumnos) {
-            direccionesDeCorreo.add(alumno.getStrEmail());
+    private void enviarMailMultiplesDestinatarios() {
+        try {
+            GestorEnvioDeMail gestorEnvioDeMail = new GestorEnvioDeMail();
+            for (Resolucion resolucion : resoluciones) {
+                Email nuevoMail = new Email();
+                nuevoMail.setTo(resolucion.getAlumno().getStrEmail());
+                nuevoMail.setSubject(txtAsunto.getText());
+                nuevoMail.setMessage(txaCuerpo.getText());
+                
+                GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
+                gestorReporte.generarReporteResolucion();
+                String pathArchivo = gestorReporte.getResolucion();
+                Path path = Paths.get(pathArchivo);
+                byte[] pdf = Files.readAllBytes(path);
+                
+                nuevoMail.setAdjunto("Correción del examen " + examen.getStrNombre() + " _ " + resolucion.getAlumno().toString(), pdf);
+                if (gestorEnvioDeMail.enviarMail(nuevoMail)) {
+                    gestorEnvioDeMail.setResolucionEnviada(resolucion.getIntID(), true);
+                    resolucion.setFueEnviadaPorEmail(true);
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(DialogEnviarEmail.class.getName()).log(Level.SEVERE, null, ex);
+            Mensajes.mostrarError("Error al enviar el mensaje.");
+        }
+    }
+
+    private ArrayList<String> recuperarTodasLasDireccionesDeCorreo() {       
+        ArrayList<String> direccionesDeCorreo = new ArrayList<>();
+        for (Resolucion resolucion : resoluciones) {
+            direccionesDeCorreo.add(resolucion.getAlumno().getStrEmail());
         }
         return direccionesDeCorreo;
     }
@@ -166,7 +190,7 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
     private String concatenarTodosLasDireccionesDeMail(ArrayList<String> direccionesMail) {
         String todasLasDirecciones = "";
         for (String mail : direccionesMail) {
-            todasLasDirecciones = todasLasDirecciones + mail + ",";
+            todasLasDirecciones += mail + ",";
         }
         return todasLasDirecciones;
     }
@@ -317,7 +341,7 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
 
         pnlCentral.add(scrMensaje);
 
-        pnlBotones.setLayout(new java.awt.GridLayout());
+        pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
 
         btnRegresar.setBackground(new java.awt.Color(255, 204, 153));
         btnRegresar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -426,14 +450,13 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        alumno.setStrEmail(this.txtDestinatario.getText());
         try {
-            if (alumnos == null) {
-                enviarMailUnicoDestinatario(alumno, pdf);
+            if (resoluciones.size() == 1) {
+                enviarMailUnicoDestinatario();
                 Mensajes.mostrarConfirmacion("El correo fue enviado correctamente.");
                 this.dispose();
             } else {
-                enviarMailMultiplesDestinatarios(this.alumnos, this.pdfs);
+                enviarMailMultiplesDestinatarios();
                 Mensajes.mostrarConfirmacion("Los correos fueron enviados correctamente.");
                 this.dispose();
             }

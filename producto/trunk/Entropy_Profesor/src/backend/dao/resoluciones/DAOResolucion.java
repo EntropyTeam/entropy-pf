@@ -36,8 +36,9 @@ public class DAOResolucion implements IDAOResolucion {
                     + EntropyDB.RES_COL_RESOLUCION_ANULADA + ", "
                     + EntropyDB.RES_COL_RESOLUCION_MOTIVO_ANULACION + ", "
                     + EntropyDB.RES_COL_RESOLUCION_IP + ", "
-                    + EntropyDB.RES_COL_RESOLUCION_CODIGO + ") "
-                    + "VALUES(?,?,?,?,?,?,?)";
+                    + EntropyDB.RES_COL_RESOLUCION_CODIGO + ", "
+                    + EntropyDB.RES_COL_RESOLUCION_ENVIADA +") "
+                    + "VALUES(?,?,?,?,?,?,?,?)";
 
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             psConsulta.setInt(1, resolucion.getExamen().getIntExamenId());
@@ -47,6 +48,7 @@ public class DAOResolucion implements IDAOResolucion {
             psConsulta.setString(5, resolucion.getStrJustificacionAnulacion());
             psConsulta.setString(6, resolucion.getAlumno().getStrIP());
             psConsulta.setString(7, resolucion.getAlumno().getStrCodigo());
+            psConsulta.setBoolean(8, false);
             psConsulta.execute();
             
             String strConsultaUltimoID = "SELECT last_insert_rowid();";
@@ -91,7 +93,8 @@ public class DAOResolucion implements IDAOResolucion {
                     + EntropyDB.RES_COL_RESOLUCION_EXAMEN_ID + ", "
                     + EntropyDB.RES_COL_RESOLUCION_TIEMPO_EMPLEADO + ", "
                     + EntropyDB.RES_COL_RESOLUCION_ANULADA + ", "
-                    + EntropyDB.RES_COL_RESOLUCION_MOTIVO_ANULACION + " "
+                    + EntropyDB.RES_COL_RESOLUCION_MOTIVO_ANULACION + ", "
+                    + EntropyDB.RES_COL_RESOLUCION_ENVIADA + " "
                     + " FROM " + EntropyDB.RES_TBL_RESOLUCION
                     + " WHERE " + EntropyDB.RES_COL_RESOLUCION_ID + " = ?";
 
@@ -111,6 +114,7 @@ public class DAOResolucion implements IDAOResolucion {
                 resolucion.setIntTiempoEmpleado(rs.getInt(EntropyDB.RES_COL_RESOLUCION_TIEMPO_EMPLEADO));
                 resolucion.setBlnAnulada(rs.getBoolean(EntropyDB.RES_COL_RESOLUCION_ANULADA));
                 resolucion.setStrJustificacionAnulacion(rs.getString(EntropyDB.RES_COL_RESOLUCION_MOTIVO_ANULACION));
+                resolucion.setFueEnviadaPorEmail(rs.getBoolean(EntropyDB.RES_COL_RESOLUCION_ENVIADA));
             }
 
             resolucion.setColRespuestas(new DAORespuesta().getRespuestas(resolucion));
@@ -229,4 +233,23 @@ public class DAOResolucion implements IDAOResolucion {
         return resoluciones;
     }
 
+    @Override
+    public boolean setFueEnviadaPorEmail(int resolucionID, boolean fueEnviada) {
+        Connection conexion = DAOConexion.conectarBaseDatos();
+        try {
+            String strConsulta = "UPDATE " + EntropyDB.RES_TBL_RESOLUCION 
+                    + " SET " + EntropyDB.RES_COL_RESOLUCION_ENVIADA +" = ? "
+                    + " WHERE " + EntropyDB.RES_COL_RESOLUCION_ID + " = ?";
+
+            PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
+            psConsulta.setBoolean(1, fueEnviada);
+            psConsulta.setInt(2, resolucionID);
+            return psConsulta.execute();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return false;
+        } finally {
+            DAOConexion.desconectarBaseDatos();
+        }
+    }
 }

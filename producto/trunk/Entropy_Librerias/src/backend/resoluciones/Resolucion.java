@@ -18,15 +18,18 @@ public class Resolucion implements Serializable {
     private ArrayList<Respuesta> colRespuestas;
     private Examen examen;
     private boolean blnAnulada;
+    private boolean fueEnviadaPorEmail;
     private String strJustificacionAnulacion;
 
     public Resolucion() {
         this.intID = -1;
+        this.fueEnviadaPorEmail = false;
         this.blnAnulada = false;
     }
 
     public Resolucion(Alumno alumno, int intTiempoEmpleado, ArrayList<Respuesta> colRespuestas) {
         this.intID = -1;
+        this.fueEnviadaPorEmail = false;
         this.alumno = alumno;
         this.intTiempoEmpleado = intTiempoEmpleado;
         this.colRespuestas = colRespuestas;
@@ -35,6 +38,7 @@ public class Resolucion implements Serializable {
 
     public Resolucion(int intID, Alumno alumno, int intTiempoEmpleado, ArrayList<Respuesta> colRespuestas) {
         this.intID = intID;
+        this.fueEnviadaPorEmail = false;
         this.alumno = alumno;
         this.intTiempoEmpleado = intTiempoEmpleado;
         this.colRespuestas = colRespuestas;
@@ -101,6 +105,14 @@ public class Resolucion implements Serializable {
         this.strJustificacionAnulacion = strJustificacionAnulacion;
     }
 
+    public boolean fueEnviadaPorEmail() {
+        return fueEnviadaPorEmail;
+    }
+
+    public void setFueEnviadaPorEmail(boolean fueEnviadaPorEmail) {
+        this.fueEnviadaPorEmail = fueEnviadaPorEmail;
+    }
+    
     @Override
     public String toString() {
         return alumno.getStrNombre();

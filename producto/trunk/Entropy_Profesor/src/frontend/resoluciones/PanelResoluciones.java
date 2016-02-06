@@ -664,14 +664,12 @@ public class PanelResoluciones extends javax.swing.JPanel {
         if (lstResoluciones.getSelectedValue() != null) {
             try {
                 Resolucion resolucion = (Resolucion) lstResoluciones.getSelectedValue();
-                Alumno alumno = resolucion.getAlumno();
                 GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
                 gestorReporte.generarReporteResolucion();
                 String pathArchivo = gestorReporte.getResolucion();
                 Path path = Paths.get(pathArchivo);
                 byte[] pdf = Files.readAllBytes(path);
-                DialogEnviarEmail nuevoMail = new DialogEnviarEmail(true, resolucion.getExamen(), alumno, pdf);
-                nuevoMail.setVisible(true);
+                new DialogEnviarEmail(true, resolucion).setVisible(true);                
             } catch (Exception e) {
                 System.err.println("Ocurrió una excepción creando el PDF:  " + e.toString());
                 e.printStackTrace();
@@ -679,9 +677,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
         } else //Si no se selecciona a quien enviar se le enviara  todas las resoluciones
         {
             if (Mensajes.mostrarConfirmacion("¿Está seguro que desea enviar las resoluciones a todos los alumnos?")) {
-                ArrayList alumnos = recuperarTodoslosAlumnos(this.lstResoluciones);
-                ArrayList<byte[]> pdfs = null; // Son el array de los pdfs que se crearan
-                DialogEnviarEmail nuevoMail = new DialogEnviarEmail(true, colResoluciones.get(0).getExamen(), alumnos, pdfs);
+                new DialogEnviarEmail(true, colResoluciones).setVisible(true);
             }
         }
     }//GEN-LAST:event_btnCompartirResolucionActionPerformed
@@ -820,14 +816,5 @@ public class PanelResoluciones extends javax.swing.JPanel {
         }
         Resolucion resolucion = (Resolucion) lstResoluciones.getSelectedValue();
         GestorExamen.getInstancia().verRespuestas(this, resolucion);
-    }
-
-    private ArrayList<Alumno> recuperarTodoslosAlumnos(JList lista) {
-        ListModel listaModelo = lista.getModel();
-        ArrayList listaAlumnos = new ArrayList();
-        for (int i = 0; i < listaModelo.getSize(); i++) {
-            listaAlumnos.add(((Resolucion) listaModelo.getElementAt(i)).getAlumno());
-        }
-        return listaAlumnos;
     }
 }

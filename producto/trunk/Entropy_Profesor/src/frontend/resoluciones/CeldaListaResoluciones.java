@@ -27,6 +27,7 @@ public class CeldaListaResoluciones extends DefaultListCellRenderer {
 
     private final ImageIcon icnError;
     private final ImageIcon icnExito;
+    private final ImageIcon icnMensaje;
     private final TextAreaEntropy txaCelda;
     private Component padre;
 
@@ -37,6 +38,7 @@ public class CeldaListaResoluciones extends DefaultListCellRenderer {
         padre = null;
         icnError = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_estado_advertencia.png");
         icnExito = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_estado_ok.png");
+        icnMensaje = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_mensaje_correo.png");
         txaCelda = new TextAreaEntropy();
         txaCelda.setEditable(false);
         txaCelda.setOpaque(true);
@@ -53,6 +55,7 @@ public class CeldaListaResoluciones extends DefaultListCellRenderer {
         lblIcono.setMaximumSize(new Dimension(icnError.getIconWidth(), icnError.getIconHeight()));
         lblIcono.setMinimumSize(new Dimension(icnError.getIconWidth(), icnError.getIconHeight()));
         lblIcono.setPreferredSize(new Dimension(icnError.getIconWidth(), icnError.getIconHeight()));
+        lblIcono.setOpaque(true);
 
         if (value instanceof Resolucion) {
             if (((Resolucion) value).esCorreccionCompleta()) {
@@ -73,12 +76,9 @@ public class CeldaListaResoluciones extends DefaultListCellRenderer {
                 }
             });
         }
-
-        if (isSelected) {
-            txaCelda.setBackground(LookAndFeelEntropy.COLOR_SELECCION_ITEM);
-        } else {
-            txaCelda.setBackground(Color.WHITE);
-        }
+        
+        txaCelda.setBackground(isSelected ? LookAndFeelEntropy.COLOR_SELECCION_ITEM : Color.WHITE);
+        lblIcono.setBackground(isSelected ? LookAndFeelEntropy.COLOR_SELECCION_ITEM : Color.WHITE);
 
         String strMostrar = value == null ? "" : value.toString();
 
@@ -107,7 +107,18 @@ public class CeldaListaResoluciones extends DefaultListCellRenderer {
 
         pnl.add(lblIcono);
         pnl.add(txaCelda);
-
+        
+        if (value instanceof Resolucion && ((Resolucion) value).fueEnviadaPorEmail()) {
+            JLabel lblMensaje = new JLabel();
+            lblMensaje.setMaximumSize(new Dimension(icnMensaje.getIconWidth(), icnMensaje.getIconHeight()));
+            lblMensaje.setMinimumSize(new Dimension(icnMensaje.getIconWidth(), icnMensaje.getIconHeight()));
+            lblMensaje.setPreferredSize(new Dimension(icnMensaje.getIconWidth(), icnMensaje.getIconHeight()));
+            lblMensaje.setIcon(icnMensaje);
+            lblMensaje.setOpaque(true);
+            lblMensaje.setBackground(isSelected ? LookAndFeelEntropy.COLOR_SELECCION_ITEM : Color.WHITE);
+            pnl.add(lblMensaje);           
+        }
+        
         return pnl;
     }
 
