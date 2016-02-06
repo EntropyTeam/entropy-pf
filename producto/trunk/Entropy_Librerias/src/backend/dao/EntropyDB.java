@@ -188,6 +188,7 @@ public class EntropyDB {
     public static final String RES_COL_RESOLUCION_MOTIVO_ANULACION = "motivoAnulacion";
     public static final String RES_COL_RESOLUCION_IP = "ip";
     public static final String RES_COL_RESOLUCION_CODIGO = "codigo";
+    public static final String RES_COL_RESOLUCION_ENVIADA = "enviada";
     
     public static final String RES_TBL_RESPUESTA = "res_respuesta";
     public static final String RES_COL_RESPUESTA_ID = "respuestaId";

@@ -18,10 +18,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
-import javax.swing.ListModel;
 import java.awt.Desktop;
 import java.io.File;
+import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
@@ -114,6 +113,8 @@ public class PanelResoluciones extends javax.swing.JPanel {
         lblCalificacion = new javax.swing.JLabel();
         lblsPorcentaje = new javax.swing.JLabel();
         lblPorcentaje = new javax.swing.JLabel();
+        lblsAnulacion = new javax.swing.JLabel();
+        lblAnulacion = new javax.swing.JLabel();
         pnlEstado = new javax.swing.JPanel();
         lblActualizacionEstado = new javax.swing.JLabel();
         lblIconoEstado = new javax.swing.JLabel();
@@ -124,7 +125,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(498, 55));
 
         pnlBotones.setMaximumSize(new java.awt.Dimension(32767, 39));
-        pnlBotones.setLayout(new java.awt.GridLayout());
+        pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
 
         btnVolver.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
@@ -164,9 +165,9 @@ public class PanelResoluciones extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
+            .addGap(0, 706, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,7 +175,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 2, Short.MAX_VALUE)))
         );
 
         add(jPanel1);
@@ -227,7 +228,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
                             .addComponent(lblExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -375,7 +376,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
             .addComponent(scrPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(pnlPreguntasLayout.createSequentialGroup()
                 .addComponent(btnCorregirTodas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                 .addComponent(btnVerRespuestas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVerResolucion)
@@ -426,7 +427,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                     .addComponent(lblsNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                     .addComponent(lblLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -481,6 +482,13 @@ public class PanelResoluciones extends javax.swing.JPanel {
         lblPorcentaje.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
         lblPorcentaje.setText("95 %");
 
+        lblsAnulacion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsAnulacion.setText("Motivo de anulación:");
+
+        lblAnulacion.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
+        lblAnulacion.setText("---");
+        lblAnulacion.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
         javax.swing.GroupLayout pnlDatosGeneralesLayout = new javax.swing.GroupLayout(pnlDatosGenerales);
         pnlDatosGenerales.setLayout(pnlDatosGeneralesLayout);
         pnlDatosGeneralesLayout.setHorizontalGroup(
@@ -495,7 +503,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPreguntasRespondidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPreguntasRespondidas, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
+                        .addComponent(lblPreguntasRespondidas, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPreguntasCorregidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -511,7 +519,12 @@ public class PanelResoluciones extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPorcentaje)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPorcentaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(lblPorcentaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
+                        .addComponent(lblsAnulacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAnulacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         pnlDatosGeneralesLayout.setVerticalGroup(
             pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -540,7 +553,13 @@ public class PanelResoluciones extends javax.swing.JPanel {
                 .addGroup(pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPreguntasCorregidas)
                     .addComponent(lblsPreguntasCorregidas))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
+                        .addComponent(lblsAnulacion)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblAnulacion, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnlPreguntaSeleccionadaLayout = new javax.swing.GroupLayout(pnlPreguntaSeleccionada);
@@ -600,7 +619,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
         pnlEstadoLayout.setHorizontalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEstadoLayout.createSequentialGroup()
-                .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblIconoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -662,26 +681,11 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private void btnCompartirResolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompartirResolucionActionPerformed
         //Se le envia a una resolucion al alumno seleccionado
         if (lstResoluciones.getSelectedValue() != null) {
-            try {
-                Resolucion resolucion = (Resolucion) lstResoluciones.getSelectedValue();
-                Alumno alumno = resolucion.getAlumno();
-                GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
-                gestorReporte.generarReporteResolucion();
-                String pathArchivo = gestorReporte.getResolucion();
-                Path path = Paths.get(pathArchivo);
-                byte[] pdf = Files.readAllBytes(path);
-                DialogEnviarEmail nuevoMail = new DialogEnviarEmail(true, resolucion.getExamen(), alumno, pdf);
-                nuevoMail.setVisible(true);
-            } catch (Exception e) {
-                System.err.println("Ocurrió una excepción creando el PDF:  " + e.toString());
-                e.printStackTrace();
-            }
+            new DialogEnviarEmail(true, (Resolucion) lstResoluciones.getSelectedValue()).setVisible(true);
         } else //Si no se selecciona a quien enviar se le enviara  todas las resoluciones
         {
-            if (Mensajes.mostrarConfirmacion("¿Está seguro que desea enviar las resoluciones a todos los alumnos?")) {
-                ArrayList alumnos = recuperarTodoslosAlumnos(this.lstResoluciones);
-                ArrayList<byte[]> pdfs = null; // Son el array de los pdfs que se crearan
-                DialogEnviarEmail nuevoMail = new DialogEnviarEmail(true, colResoluciones.get(0).getExamen(), alumnos, pdfs);
+            if (Mensajes.mostrarConfirmacion("¿Está seguro que desea enviar todas las resoluciones a sus respectivos alumnos?")) {
+                new DialogEnviarEmail(true, colResoluciones).setVisible(true);
             }
         }
     }//GEN-LAST:event_btnCompartirResolucionActionPerformed
@@ -764,6 +768,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JProgressBar jProgressBar2;
     private javax.swing.JLabel lblActualizacionEstado;
+    private javax.swing.JLabel lblAnulacion;
     private javax.swing.JLabel lblCalificacion;
     private javax.swing.JLabel lblCurso;
     private javax.swing.JLabel lblDescripcion;
@@ -776,6 +781,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private javax.swing.JLabel lblPorcentaje;
     private javax.swing.JLabel lblPreguntasCorregidas;
     private javax.swing.JLabel lblPreguntasRespondidas;
+    private javax.swing.JLabel lblsAnulacion;
     private javax.swing.JLabel lblsCalificacion;
     private javax.swing.JLabel lblsCurso;
     private javax.swing.JLabel lblsDescripcion;
@@ -804,7 +810,8 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private void cargarDatosGenerales(Resolucion resolucion) {
         lblNombre.setText(resolucion.getAlumno().getStrNombre());
         lblLegajo.setText((resolucion.getAlumno().getStrLegajo() == null) ? "---" : resolucion.getAlumno().getStrLegajo());
-        lblEstado.setText((resolucion.esCorreccionCompleta()) ? "Corrección completa." : "Corrección incompleta.");
+        lblEstado.setText(resolucion.isBlnAnulada() ? "Anulada." : resolucion.esCorreccionCompleta() ? "Corrección completa." : "Corrección incompleta.");
+        lblEstado.setForeground(resolucion.isBlnAnulada() ? new Color(255,0,0) : resolucion.esCorreccionCompleta() ? new Color(8,138,8) : new Color(255,0,0));
         lblDuracion.setText(String.format("%02d", (int) (resolucion.getIntTiempoEmpleado() / 60)) + ":" + String.format("%02d", resolucion.getIntTiempoEmpleado() % 60) + " h");
         double dblCalificacion = resolucion.getCalificacion();
         double dblPuntajeTotal = resolucion.getExamen().getPuntajeTotal();
@@ -812,6 +819,11 @@ public class PanelResoluciones extends javax.swing.JPanel {
         lblPorcentaje.setText(String.format("%.2f", (100 * dblCalificacion / dblPuntajeTotal)) + " %");
         lblPreguntasRespondidas.setText(resolucion.getCantidadPreguntasRespondidas() + "/" + resolucion.getColRespuestas().size());
         lblPreguntasCorregidas.setText(resolucion.getCantidadPreguntasCorregidas() + "/" + resolucion.getColRespuestas().size());
+        lblsAnulacion.setVisible(resolucion.isBlnAnulada());
+        lblAnulacion.setVisible(resolucion.isBlnAnulada());
+        if (resolucion.isBlnAnulada()) {
+            lblAnulacion.setText("<html>"+resolucion.getStrJustificacionAnulacion()+"</html>");
+        }
     }
 
     private void mostrarRespuestas() {
@@ -820,14 +832,5 @@ public class PanelResoluciones extends javax.swing.JPanel {
         }
         Resolucion resolucion = (Resolucion) lstResoluciones.getSelectedValue();
         GestorExamen.getInstancia().verRespuestas(this, resolucion);
-    }
-
-    private ArrayList<Alumno> recuperarTodoslosAlumnos(JList lista) {
-        ListModel listaModelo = lista.getModel();
-        ArrayList listaAlumnos = new ArrayList();
-        for (int i = 0; i < listaModelo.getSize(); i++) {
-            listaAlumnos.add(((Resolucion) listaModelo.getElementAt(i)).getAlumno());
-        }
-        return listaAlumnos;
     }
 }

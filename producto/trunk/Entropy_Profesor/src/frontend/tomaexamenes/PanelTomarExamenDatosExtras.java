@@ -74,6 +74,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
         lblsPorcentajeAprobacion = new javax.swing.JLabel();
         txtPorcentajeAprobado = new frontend.auxiliares.TextFieldEntropy();
         lblsSignoPorcentaje = new javax.swing.JLabel();
+        chbEsMostrarCorreccion = new javax.swing.JCheckBox();
 
         lblSiguiente.setBackground(new java.awt.Color(227, 226, 226));
         lblSiguiente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -93,7 +94,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
             }
         });
 
-        pnlEncabezado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos generales del examen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(204, 102, 0))); // NOI18N
+        pnlEncabezado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos generales del examen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR, new java.awt.Color(204, 102, 0)));
         pnlEncabezado.setLayout(new javax.swing.BoxLayout(pnlEncabezado, javax.swing.BoxLayout.Y_AXIS));
 
         pnlDatosExamen.setBackground(LookAndFeelEntropy.COLOR_TABLA_PRIMARIO);
@@ -134,7 +135,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
                             .addComponent(lblsDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                             .addComponent(lblExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -159,6 +160,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
         pnlEncabezado.add(pnlDatosExamen);
 
         pnlConfirmacionCurso.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Confirmación de curso", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR));
+        pnlConfirmacionCurso.setMaximumSize(new java.awt.Dimension(32767, 112));
 
         lblNombreInstitucion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblNombreInstitucion.setText("Institución:");
@@ -200,8 +202,8 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
                     .addComponent(lblCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlConfirmacionCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbInstitucion, 0, 294, Short.MAX_VALUE)
-                    .addComponent(cmbCurso, 0, 294, Short.MAX_VALUE))
+                    .addComponent(cmbInstitucion, 0, 353, Short.MAX_VALUE)
+                    .addComponent(cmbCurso, 0, 353, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlConfirmacionCursoLayout.setVerticalGroup(
@@ -270,6 +272,12 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
         lblsSignoPorcentaje.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblsSignoPorcentaje.setText("%");
 
+        chbEsMostrarCorreccion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        chbEsMostrarCorreccion.setSelected(true);
+        chbEsMostrarCorreccion.setText("<html>Mostrar al alumno la corrección de las preguntas de corrección automática al finalizar el examen.</html>");
+        chbEsMostrarCorreccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_checkbox.png"))); // NOI18N
+        chbEsMostrarCorreccion.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_checkbox_selected.png"))); // NOI18N
+
         javax.swing.GroupLayout pnlOtrosDatosLayout = new javax.swing.GroupLayout(pnlOtrosDatos);
         pnlOtrosDatos.setLayout(pnlOtrosDatosLayout);
         pnlOtrosDatosLayout.setHorizontalGroup(
@@ -280,7 +288,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
                     .addGroup(pnlOtrosDatosLayout.createSequentialGroup()
                         .addComponent(lblFormaPresentacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbFormaPresentacion, 0, 153, Short.MAX_VALUE))
+                        .addComponent(cmbFormaPresentacion, 0, 182, Short.MAX_VALUE))
                     .addGroup(pnlOtrosDatosLayout.createSequentialGroup()
                         .addGroup(pnlOtrosDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlOtrosDatosLayout.createSequentialGroup()
@@ -301,6 +309,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
                         .addComponent(lblsSignoPorcentaje)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addComponent(chbEsMostrarCorreccion, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         pnlOtrosDatosLayout.setVerticalGroup(
             pnlOtrosDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,7 +330,9 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
                     .addComponent(lblsPorcentajeAprobacion)
                     .addComponent(txtPorcentajeAprobado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblsSignoPorcentaje))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chbEsMostrarCorreccion, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pnlEncabezado.add(pnlOtrosDatos);
@@ -338,7 +349,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlEncabezado, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(pnlEncabezado, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -421,6 +432,10 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
         return Double.parseDouble(txtPorcentajeAprobado.getText());
     }
     
+    public boolean esMostrarCorreccionAutomatica(){
+        return chbEsMostrarCorreccion.isSelected();
+    }
+    
     /**
      * Se comunica con el gestor de importacion para buscar todos los cursos que
      * pertenecen a una Institucion.
@@ -433,6 +448,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
         return gestPregunta.getCursos(institucion);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox chbEsMostrarCorreccion;
     private javax.swing.JComboBox cmbCurso;
     private javax.swing.JComboBox cmbFormaPresentacion;
     private javax.swing.JComboBox cmbInstitucion;

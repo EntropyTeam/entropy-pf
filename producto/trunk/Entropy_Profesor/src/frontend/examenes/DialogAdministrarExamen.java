@@ -18,6 +18,7 @@ import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.inicio.VentanaPrincipal;
+import frontend.mail.DialogEnviarEmail;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -693,32 +694,19 @@ public class DialogAdministrarExamen extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCompartirMouseExited
 
     private void btnCompartirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompartirActionPerformed
-        System.err.println("FALTA IMPLEMENTAR COMPARTIR");
-
-        //Codigo mio para probar, esta mal.
         ArrayList<Resolucion> colResoluciones = new DAOResolucion().getResoluciones(examenSeleccionado);
         if (colResoluciones.isEmpty()) {
             Mensajes.mostrarInformacion("El examen no posee resoluciones.");
         } else {
-            for (Resolucion resolucion : colResoluciones) {
-                resolucion.setExamen(examenSeleccionado);
-            }
+            if (Mensajes.mostrarConfirmacion("¿Está seguro que desea enviar todas las resoluciones a sus respectivos alumnos?")) {
+                for (Resolucion resolucion : colResoluciones) {
+                    resolucion.setExamen(examenSeleccionado);
+                }
+                new DialogEnviarEmail(true, colResoluciones).setVisible(true);
+            }            
         }
-        GestorGenerarReporteResolucion gestorGenerarReporteResolucion = new GestorGenerarReporteResolucion(colResoluciones.get(0));
-        gestorGenerarReporteResolucion.generarReporteResolucion();
-        gestorGenerarReporteResolucion.borrarResolucionDeDisco();
-        
-        enviarMail("Se le envía el examen a los alumnos.", new ArrayList<String>());
     }//GEN-LAST:event_btnCompartirActionPerformed
-    private void enviarMail(String cuerpoDelMensaje, ArrayList<String> destinarios) {
-        GestorEnvioDeMail gestorEnvioDeMail = new GestorEnvioDeMail();
-        Email nuevoMail = new Email();
-        nuevoMail.setMessage(cuerpoDelMensaje);
-        byte[] bytes = null;
-        nuevoMail.setAdjunto(cuerpoDelMensaje, bytes);
-        gestorEnvioDeMail.enviarMuchosDestinatarios(nuevoMail, destinarios);
-
-    }
+        
     private void cmbInstitucionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbInstitucionItemStateChanged
         if (ultimoComboActivo == evt.getSource()) {
             int intIndexSeleccionado = this.cmbInstitucion.getSelectedIndex();

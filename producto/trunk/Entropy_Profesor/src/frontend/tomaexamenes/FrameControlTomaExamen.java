@@ -507,12 +507,9 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
                         cuentaRegresiva.parar();
                     }
                 }
-            } else {
-                return;
             }
         }
 
-        throw new UnsupportedOperationException("COMPLETAR");
     }
 
     /**

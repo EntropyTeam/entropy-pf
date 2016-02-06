@@ -18,15 +18,18 @@ public class Resolucion implements Serializable {
     private ArrayList<Respuesta> colRespuestas;
     private Examen examen;
     private boolean blnAnulada;
+    private boolean fueEnviadaPorEmail;
     private String strJustificacionAnulacion;
 
     public Resolucion() {
         this.intID = -1;
+        this.fueEnviadaPorEmail = false;
         this.blnAnulada = false;
     }
 
     public Resolucion(Alumno alumno, int intTiempoEmpleado, ArrayList<Respuesta> colRespuestas) {
         this.intID = -1;
+        this.fueEnviadaPorEmail = false;
         this.alumno = alumno;
         this.intTiempoEmpleado = intTiempoEmpleado;
         this.colRespuestas = colRespuestas;
@@ -35,6 +38,7 @@ public class Resolucion implements Serializable {
 
     public Resolucion(int intID, Alumno alumno, int intTiempoEmpleado, ArrayList<Respuesta> colRespuestas) {
         this.intID = intID;
+        this.fueEnviadaPorEmail = false;
         this.alumno = alumno;
         this.intTiempoEmpleado = intTiempoEmpleado;
         this.colRespuestas = colRespuestas;
@@ -74,6 +78,7 @@ public class Resolucion implements Serializable {
     }
 
     public boolean esCorreccionCompleta() {
+        if (blnAnulada) return true;
         return getCantidadPreguntasCorregidas() == colRespuestas.size();
     }
 
@@ -101,6 +106,14 @@ public class Resolucion implements Serializable {
         this.strJustificacionAnulacion = strJustificacionAnulacion;
     }
 
+    public boolean fueEnviadaPorEmail() {
+        return fueEnviadaPorEmail;
+    }
+
+    public void setFueEnviadaPorEmail(boolean fueEnviadaPorEmail) {
+        this.fueEnviadaPorEmail = fueEnviadaPorEmail;
+    }
+    
     @Override
     public String toString() {
         return alumno.getStrNombre();
@@ -113,6 +126,7 @@ public class Resolucion implements Serializable {
      * respuestas.
      */
     public double getCalificacion() {
+        if (blnAnulada) return 0;
         double dblCalificacion = 0;
         for (Respuesta rta : colRespuestas) {
             double dblCalificacionRta = rta.getCalificacion();
@@ -155,18 +169,21 @@ public class Resolucion implements Serializable {
     }
 
     public boolean estaAprobada() throws Exception {
+        if (blnAnulada) return false;
         double dblCalificacion = getCalificacion();
         double dblPuntajeTotal = getExamen().getPuntajeTotal();
         return (100 * dblCalificacion / dblPuntajeTotal) >= examen.getDblPorcentajeAprobacion();
     }
     
     public double getPorcentajeAprobacion(){
+        if (blnAnulada) return 0;
         double dblCalificacion = getCalificacion();
         double dblPuntajeTotal = getExamen().getPuntajeTotal();
         return 100 * dblCalificacion / dblPuntajeTotal;
     }
     
     public String getCalificacionDeTrajo(){
+        if (blnAnulada) return "0.00";
         Double dblCalificacion = this.getCalificacion()/this.getExamen().getPuntajeTotal();
             DecimalFormat format = new DecimalFormat("##.00");
             String strCalificacion = format.format(dblCalificacion * 100);

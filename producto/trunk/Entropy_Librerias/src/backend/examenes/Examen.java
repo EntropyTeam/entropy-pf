@@ -29,6 +29,7 @@ public class Examen implements Serializable {
     private int intTiempo; // En minutos
     private Date dteFecha;
     private Double dblPorcentajeAprobacion;
+    private boolean esMostrarCorreccionAutomatica;
 
     /**
      * Constructor por defecto.
@@ -36,6 +37,7 @@ public class Examen implements Serializable {
      */
     public Examen() {
         this.intExamenId = -1;
+        this.esMostrarCorreccionAutomatica = true;
         this.orden = OrdenLista.ALEATORIO;
     }
 
@@ -52,6 +54,7 @@ public class Examen implements Serializable {
      * @param dteFecha Fecha en la que fue tomado.
      */
     public Examen(int intExamenId, String strNombre, String strDescripcion, ArrayList<Pregunta> colPreguntas, Curso curso, int intEstado, int intTiempo, Date dteFecha) {
+        this.esMostrarCorreccionAutomatica = true;
         this.intExamenId = intExamenId;
         this.strNombre = strNombre;
         this.strDescripcion = strDescripcion;
@@ -72,6 +75,7 @@ public class Examen implements Serializable {
      * @param intEstado Estado del Examen.
      */
     public Examen(int intExamenId, String strNombre, String strDescripcion, int intEstado) {
+        this.esMostrarCorreccionAutomatica = true;
         this.intExamenId = intExamenId;
         this.strNombre = strNombre;
         this.strDescripcion = strDescripcion;
@@ -80,6 +84,7 @@ public class Examen implements Serializable {
     }
 
     public Examen(int intExamenId, String strNombre, String strDescripcion, Curso curso, int intEstado, int intTiempo) {
+        this.esMostrarCorreccionAutomatica = true;
         this.intExamenId = intExamenId;
         this.strNombre = strNombre;
         this.strDescripcion = strDescripcion;
@@ -176,6 +181,14 @@ public class Examen implements Serializable {
 
     public void setDblPorcentajeAprobacion(Double dblPorcentajeAprobacion) {
         this.dblPorcentajeAprobacion = dblPorcentajeAprobacion;
+    }
+
+    public boolean esMostrarCorreccionAutomatica() {
+        return esMostrarCorreccionAutomatica;
+    }
+
+    public void setEsMostrarCorreccionAutomatica(boolean esMostrarCorreccionAutomatica) {
+        this.esMostrarCorreccionAutomatica = esMostrarCorreccionAutomatica;
     }
     
     

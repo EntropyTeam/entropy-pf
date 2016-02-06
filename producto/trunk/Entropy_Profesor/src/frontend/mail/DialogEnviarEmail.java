@@ -16,9 +16,9 @@ import javax.swing.JDialog;
 import javax.swing.KeyStroke;
 import backend.auxiliares.Mensajes;
 import backend.examenes.Examen;
-import backend.mail.Email;
 import backend.mail.GestorEnvioDeMail;
-import backend.usuarios.Alumno;
+import backend.resoluciones.Resolucion;
+import frontend.auxiliares.TextUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -29,59 +29,44 @@ import java.util.ArrayList;
  */
 public class DialogEnviarEmail extends javax.swing.JDialog {
 
-    private final GestorBarrasDeEstado gestorEstados;
-    private ArrayList<Alumno> alumnos = null;
-    private Alumno alumno = null;
-    private ArrayList<byte[]> pdfs = null;
-    private byte[] pdf = null;
+    private GestorBarrasDeEstado gestorEstados;
     private Examen examen;
+    private ArrayList<Resolucion> resoluciones;    
 
     /**
      * Constructor de la clase.
      *
      * @param modal true si mantiene el foco, false de lo contrario.
-     * @param examen
-     * @param alumno
-     * @param pdf
+     * @param resolucion
      */
-    public DialogEnviarEmail(boolean modal, Examen examen, Alumno alumno, byte[] pdf) {
+    public DialogEnviarEmail(boolean modal, Resolucion resolucion) {
         super(VentanaPrincipal.getInstancia(), modal);
         initComponents();
-        this.setSize(new Dimension(700, 400));
-        this.setLocationRelativeTo(VentanaPrincipal.getInstancia());
-        this.getRootPane().registerKeyboardAction(new EscapeAction(),
-                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
-                JComponent.WHEN_IN_FOCUSED_WINDOW);
-
-        this.gestorEstados = new GestorBarrasDeEstado(lblActualizacionEstado, lblIconoEstado);
-        this.gestorEstados.setNuevoEstadoImportante("Envío de la correción a los alumnos.");
-        //Fondo translúcido.
-        this.pnlEstado.setBackground(new Color(255, 255, 255, 123));
-        
-        //Para que el undecorated dialog pueda moverse y ajustarse en tamaño.
-        ComponentMover cm = new ComponentMover(JDialog.class, lblBarraTitulo);
-        ComponentResizer cr = new ComponentResizer();
-        cr.setSnapSize(new Dimension(10, 10));
-        cr.registerComponent(this);
-        
-        //Datos del email        
-        this.alumno = alumno;
-        this.pdf = pdf;
-        this.examen = examen;
-        recuperarDatosGenericosDelMail();
+        iniciarComponentes();        
+        //Datos del email
+        this.examen = resolucion.getExamen();
+        this.resoluciones = new ArrayList<>();
+        this.resoluciones.add(resolucion);
+        autocompletarDatos();
     }
     
     /**
      * Constructor de la clase.
      *
      * @param modal true si mantiene el foco, false de lo contrario.
-     * @param examen
-     * @param alumnos
-     * @param pdfs
+     * @param resoluciones
      */
-    public DialogEnviarEmail(boolean modal, Examen examen, ArrayList<Alumno> alumnos, ArrayList<byte[]> pdfs) {
+    public DialogEnviarEmail(boolean modal, ArrayList<Resolucion> resoluciones) {
         super(VentanaPrincipal.getInstancia(), modal);
         initComponents();
+        iniciarComponentes();
+        //Datos del email
+        this.examen = resoluciones.get(0).getExamen();
+        this.resoluciones = resoluciones;
+        autocompletarDatosMultiples();
+    }
+    
+    private void iniciarComponentes(){
         this.setSize(new Dimension(600, 400));
         this.setLocationRelativeTo(VentanaPrincipal.getInstancia());
         this.getRootPane().registerKeyboardAction(new EscapeAction(),
@@ -99,17 +84,12 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         cr.setSnapSize(new Dimension(10, 10));
         cr.registerComponent(this);
         
-        //Datos del email        
-        this.alumnos = alumnos;
-        this.pdfs = pdfs;
-        this.examen = examen;
-        recuperarDatosGenericosDelMailMultiples();
     }
     
-    private void recuperarDatosGenericosDelMail() {
-        txtDestinatario.setText(this.alumno.getStrEmail());
+    private void autocompletarDatos() {
+        txtDestinatario.setText(this.resoluciones.get(0).getAlumno().getStrEmail());
         txtAsunto.setText("Correción del examen \"" + examen.getStrNombre() + "\"");
-        lblAdjunto.setText("Correción del examen " + examen.getStrNombre() + " _ " + alumno.toString() + ".pdf");
+        lblAdjunto.setText("Correción del examen " + examen.getStrNombre() + " _ " + this.resoluciones.get(0).getAlumno().toString() + ".pdf");
         String strMensaje = "Se adjunta la resolución corregida para el examen  \"" + examen.getStrNombre() 
                 + "\", realizado el día " + new SimpleDateFormat("dd/MM/yyyy  -  HH:mm").format(examen.getDteFecha())
                 + ", en el curso " + examen.getCurso().getStrNombre()
@@ -117,9 +97,10 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         txaCuerpo.setText(strMensaje);
     }
 
-    private void recuperarDatosGenericosDelMailMultiples() {
-        String todasLasDirecciones = concatenarTodosLasDireccionesDeMail(recuperarTodasLasDireccionesDeCorreo(this.alumnos));
+    private void autocompletarDatosMultiples() {
+        String todasLasDirecciones = concatenarTodosLasDireccionesDeMail(recuperarTodasLasDireccionesDeCorreo());
         txtDestinatario.setText(todasLasDirecciones);
+        txtDestinatario.setEditable(false);
         txtAsunto.setText("Correción del examen \"" + examen.getStrNombre() + "\"");
         lblAdjunto.setText("Correción del examen " + examen.getStrNombre() + ".pdf");
         String strMensaje = "Se adjunta la resolución corregida para el examen  \"" + examen.getStrNombre() 
@@ -128,37 +109,11 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
                 + " de la institución " +  examen.getCurso().getInstitucion().getStrNombre() + ".";
         txaCuerpo.setText(strMensaje);
     }
-
-    private void enviarMailUnicoDestinatario(Alumno alumno, byte[] pdf) {
-        GestorEnvioDeMail gestorEnvioDeMail = new GestorEnvioDeMail();
-        Email nuevoMail = new Email();
-        byte[] bytes = pdf;
-        nuevoMail.setTo(alumno.getStrEmail());
-        nuevoMail.setSubject(txtAsunto.getText());
-        nuevoMail.setMessage(txaCuerpo.getText());
-        nuevoMail.setAdjunto("Correción del examen " + examen.getStrNombre() + " _ " + alumno.toString(), bytes);
-        gestorEnvioDeMail.enviarMail(nuevoMail);
-    }
-
-    private void enviarMailMultiplesDestinatarios(ArrayList<Alumno> alumnos, ArrayList<byte[]> pdfs) {
-        GestorEnvioDeMail gestorEnvioDeMail = new GestorEnvioDeMail();
-        for (Alumno alumno : alumnos) {
-            Email nuevoMail = new Email();
-            nuevoMail.setTo(alumno.getStrEmail());
-            nuevoMail.setSubject(txtAsunto.getText());
-            nuevoMail.setMessage(txaCuerpo.getText());
-            for (byte[] pdf : pdfs) {
-                byte[] bytes = pdf;
-                nuevoMail.setAdjunto("Correción del examen " + examen.getStrNombre() + " _ " + alumno.toString(), bytes);
-                gestorEnvioDeMail.enviarMail(nuevoMail);
-            }
-        }
-    }
-
-    private ArrayList<String> recuperarTodasLasDireccionesDeCorreo(ArrayList<Alumno> alumnos) {
-        ArrayList<String> direccionesDeCorreo = new ArrayList<String>();
-        for (Alumno alumno : alumnos) {
-            direccionesDeCorreo.add(alumno.getStrEmail());
+    
+    private ArrayList<String> recuperarTodasLasDireccionesDeCorreo() {       
+        ArrayList<String> direccionesDeCorreo = new ArrayList<>();
+        for (Resolucion resolucion : resoluciones) {
+            direccionesDeCorreo.add(resolucion.getAlumno().getStrEmail());
         }
         return direccionesDeCorreo;
     }
@@ -166,7 +121,7 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
     private String concatenarTodosLasDireccionesDeMail(ArrayList<String> direccionesMail) {
         String todasLasDirecciones = "";
         for (String mail : direccionesMail) {
-            todasLasDirecciones = todasLasDirecciones + mail + ",";
+            todasLasDirecciones += mail + ",";
         }
         return todasLasDirecciones;
     }
@@ -199,7 +154,7 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         pnlBotonesAuxiliar = new javax.swing.JPanel();
         pnlBotones = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
+        btnEnviar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -264,6 +219,11 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         lblsAdjunto.setText("Adjunto:");
 
         txtDestinatario.setTextoPorDefecto("Ingrese una dirección de e-mail.");
+        txtDestinatario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDestinatarioFocusLost(evt);
+            }
+        });
 
         txtAsunto.setTextoPorDefecto("Ingrese un asunto...");
 
@@ -317,7 +277,7 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
 
         pnlCentral.add(scrMensaje);
 
-        pnlBotones.setLayout(new java.awt.GridLayout());
+        pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
 
         btnRegresar.setBackground(new java.awt.Color(255, 204, 153));
         btnRegresar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -334,20 +294,20 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         });
         pnlBotones.add(btnRegresar);
 
-        btnGuardar.setBackground(new java.awt.Color(255, 204, 153));
-        btnGuardar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_guardar.png"))); // NOI18N
-        btnGuardar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnGuardar.setContentAreaFilled(false);
-        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardar.setIconTextGap(10);
-        btnGuardar.setOpaque(true);
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnEnviar.setBackground(new java.awt.Color(255, 204, 153));
+        btnEnviar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_enviar_correo.png"))); // NOI18N
+        btnEnviar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnEnviar.setContentAreaFilled(false);
+        btnEnviar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEnviar.setIconTextGap(10);
+        btnEnviar.setOpaque(true);
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnEnviarActionPerformed(evt);
             }
         });
-        pnlBotones.add(btnGuardar);
+        pnlBotones.add(btnEnviar);
 
         javax.swing.GroupLayout pnlBotonesAuxiliarLayout = new javax.swing.GroupLayout(pnlBotonesAuxiliar);
         pnlBotonesAuxiliar.setLayout(pnlBotonesAuxiliarLayout);
@@ -425,15 +385,15 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        alumno.setStrEmail(this.txtDestinatario.getText());
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        if (!validarEmail()) return;
         try {
-            if (alumnos == null) {
-                enviarMailUnicoDestinatario(alumno, pdf);
+            if (resoluciones.size() == 1) {
+                new GestorEnvioDeMail().compartirResolucion(resoluciones.get(0), txtDestinatario.getText(), txtAsunto.getText(), txaCuerpo.getText());
                 Mensajes.mostrarConfirmacion("El correo fue enviado correctamente.");
                 this.dispose();
             } else {
-                enviarMailMultiplesDestinatarios(this.alumnos, this.pdfs);
+                new GestorEnvioDeMail().compartirMultiplesResoluciones(resoluciones, txtAsunto.getText(), txaCuerpo.getText());
                 Mensajes.mostrarConfirmacion("Los correos fueron enviados correctamente.");
                 this.dispose();
             }
@@ -441,15 +401,29 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
             Mensajes.mostrarError("Imposible enviar el mensaje. Intente nuevamente.");
             System.err.printf(e.toString());
         }
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    }//GEN-LAST:event_btnEnviarActionPerformed
 
+    private void txtDestinatarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDestinatarioFocusLost
+        validarEmail();
+    }//GEN-LAST:event_txtDestinatarioFocusLost
+    
+    private boolean validarEmail(){
+        if (resoluciones != null && resoluciones.size() == 1 && !txtDestinatario.getText().isEmpty() && !TextUtils.validarEmail(txtDestinatario.getText())) {
+            Mensajes.mostrarError("La dirección de correo electrónico ingresada no es válida.");
+            txtDestinatario.selectAll();
+            txtDestinatario.grabFocus();
+            return false;
+        }
+        return true;
+    }
+    
     public GestorBarrasDeEstado getGestorEstados() {
         return gestorEstados;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnEnviar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblAdjunto;
