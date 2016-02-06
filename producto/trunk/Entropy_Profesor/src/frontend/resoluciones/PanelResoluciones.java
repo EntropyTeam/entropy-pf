@@ -662,21 +662,10 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private void btnCompartirResolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompartirResolucionActionPerformed
         //Se le envia a una resolucion al alumno seleccionado
         if (lstResoluciones.getSelectedValue() != null) {
-            try {
-                Resolucion resolucion = (Resolucion) lstResoluciones.getSelectedValue();
-                GestorGenerarReporteResolucion gestorReporte = new GestorGenerarReporteResolucion(resolucion);
-                gestorReporte.generarReporteResolucion();
-                String pathArchivo = gestorReporte.getResolucion();
-                Path path = Paths.get(pathArchivo);
-                byte[] pdf = Files.readAllBytes(path);
-                new DialogEnviarEmail(true, resolucion).setVisible(true);                
-            } catch (Exception e) {
-                System.err.println("Ocurrió una excepción creando el PDF:  " + e.toString());
-                e.printStackTrace();
-            }
+            new DialogEnviarEmail(true, (Resolucion) lstResoluciones.getSelectedValue()).setVisible(true);
         } else //Si no se selecciona a quien enviar se le enviara  todas las resoluciones
         {
-            if (Mensajes.mostrarConfirmacion("¿Está seguro que desea enviar las resoluciones a todos los alumnos?")) {
+            if (Mensajes.mostrarConfirmacion("¿Está seguro que desea enviar todas las resoluciones a sus respectivos alumnos?")) {
                 new DialogEnviarEmail(true, colResoluciones).setVisible(true);
             }
         }
