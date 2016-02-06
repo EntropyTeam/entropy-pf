@@ -7,12 +7,8 @@ import frontend.auxiliares.FiltroTexto;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.GestorImagenes;
 import frontend.auxiliares.LookAndFeelEntropy;
-import frontend.auxiliares.botones.CircularGlossyButton;
-import frontend.auxiliares.botones.ColorStyles;
-import frontend.auxiliares.botones.Theme;
+import frontend.auxiliares.TextUtils;
 import frontend.inicio.IVentanaPrincipal;
-import java.awt.Dimension;
-//import frontend.inicio.VentanaPrincipal;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,8 +17,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -33,7 +27,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public final class PanelDatosUsuario extends javax.swing.JPanel {
 
-    public static final Pattern EMAIL_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     private final GestorBarrasDeEstado gestorEstados;
     private Usuario usuario;
     private final IVentanaPrincipal frmPrincipal;
@@ -448,8 +441,8 @@ public final class PanelDatosUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNroDocumentoActionPerformed
 
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
-        if (!txtEmail.getText().isEmpty() && !validarEmail(txtEmail.getText())) {
-            Mensajes.mostrarError("La dirección de correo ingresada no es válida.");
+        if (!txtEmail.getText().isEmpty() && !TextUtils.validarEmail(txtEmail.getText())) {
+            Mensajes.mostrarError("La dirección de correo electrónico ingresada no es válida.");
             txtEmail.selectAll();
             txtEmail.grabFocus();
         }
@@ -605,11 +598,6 @@ public final class PanelDatosUsuario extends javax.swing.JPanel {
     private frontend.auxiliares.TextFieldEntropy txtNroDocumento;
     // End of variables declaration//GEN-END:variables
 
-    private boolean validarEmail(String emailStr) {
-        Matcher matcher = EMAIL_REGEX.matcher(emailStr);
-        return matcher.find();
-    }
-
     private void guardarUsuario() {
         if (validarDatosUsuario()) {
             usuario.setStrNombre(txtNombre.getText());
@@ -635,6 +623,6 @@ public final class PanelDatosUsuario extends javax.swing.JPanel {
                 || txtApellido.getText().isEmpty()
                 || cmbTipoDocumento.getSelectedIndex() == -1
                 || txtNroDocumento.getText().isEmpty()
-                || (!txtEmail.getText().isEmpty() && !validarEmail(txtEmail.getText())));
+                || (!txtEmail.getText().isEmpty() && !TextUtils.validarEmail(txtEmail.getText())));
     }
 }

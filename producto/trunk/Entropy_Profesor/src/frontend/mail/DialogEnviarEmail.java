@@ -18,6 +18,7 @@ import backend.auxiliares.Mensajes;
 import backend.examenes.Examen;
 import backend.mail.GestorEnvioDeMail;
 import backend.resoluciones.Resolucion;
+import frontend.auxiliares.TextUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
 
     private GestorBarrasDeEstado gestorEstados;
     private Examen examen;
-    private ArrayList<Resolucion> resoluciones;
+    private ArrayList<Resolucion> resoluciones;    
 
     /**
      * Constructor de la clase.
@@ -153,7 +154,7 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         pnlBotonesAuxiliar = new javax.swing.JPanel();
         pnlBotones = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
+        btnEnviar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -218,6 +219,11 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         lblsAdjunto.setText("Adjunto:");
 
         txtDestinatario.setTextoPorDefecto("Ingrese una dirección de e-mail.");
+        txtDestinatario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDestinatarioFocusLost(evt);
+            }
+        });
 
         txtAsunto.setTextoPorDefecto("Ingrese un asunto...");
 
@@ -288,20 +294,20 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         });
         pnlBotones.add(btnRegresar);
 
-        btnGuardar.setBackground(new java.awt.Color(255, 204, 153));
-        btnGuardar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_guardar.png"))); // NOI18N
-        btnGuardar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnGuardar.setContentAreaFilled(false);
-        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardar.setIconTextGap(10);
-        btnGuardar.setOpaque(true);
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnEnviar.setBackground(new java.awt.Color(255, 204, 153));
+        btnEnviar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_enviar_correo.png"))); // NOI18N
+        btnEnviar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnEnviar.setContentAreaFilled(false);
+        btnEnviar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEnviar.setIconTextGap(10);
+        btnEnviar.setOpaque(true);
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnEnviarActionPerformed(evt);
             }
         });
-        pnlBotones.add(btnGuardar);
+        pnlBotones.add(btnEnviar);
 
         javax.swing.GroupLayout pnlBotonesAuxiliarLayout = new javax.swing.GroupLayout(pnlBotonesAuxiliar);
         pnlBotonesAuxiliar.setLayout(pnlBotonesAuxiliarLayout);
@@ -379,7 +385,8 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        if (!validarEmail()) return;
         try {
             if (resoluciones.size() == 1) {
                 new GestorEnvioDeMail().compartirResolucion(resoluciones.get(0), txtDestinatario.getText(), txtAsunto.getText(), txaCuerpo.getText());
@@ -394,15 +401,29 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
             Mensajes.mostrarError("Imposible enviar el mensaje. Intente nuevamente.");
             System.err.printf(e.toString());
         }
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    }//GEN-LAST:event_btnEnviarActionPerformed
 
+    private void txtDestinatarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDestinatarioFocusLost
+        validarEmail();
+    }//GEN-LAST:event_txtDestinatarioFocusLost
+    
+    private boolean validarEmail(){
+        if (resoluciones != null && resoluciones.size() == 1 && !txtDestinatario.getText().isEmpty() && !TextUtils.validarEmail(txtDestinatario.getText())) {
+            Mensajes.mostrarError("La dirección de correo electrónico ingresada no es válida.");
+            txtDestinatario.selectAll();
+            txtDestinatario.grabFocus();
+            return false;
+        }
+        return true;
+    }
+    
     public GestorBarrasDeEstado getGestorEstados() {
         return gestorEstados;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnEnviar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblAdjunto;
