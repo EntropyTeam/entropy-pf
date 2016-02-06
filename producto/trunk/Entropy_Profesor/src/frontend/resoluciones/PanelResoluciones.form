@@ -17,7 +17,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,16,0,0,1,-14"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-126,0,0,2,-62"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
@@ -37,9 +37,9 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="498" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="706" max="32767" attributes="0"/>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Component id="pnlBotones" alignment="0" pref="498" max="32767" attributes="0"/>
+                  <Component id="pnlBotones" alignment="0" pref="706" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -49,7 +49,7 @@
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="pnlBotones" min="-2" pref="53" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -151,7 +151,7 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblCurso" alignment="0" max="32767" attributes="0"/>
-                              <Component id="lblDescripcion" alignment="0" pref="395" max="32767" attributes="0"/>
+                              <Component id="lblDescripcion" alignment="0" pref="603" max="32767" attributes="0"/>
                               <Component id="lblExamen" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -306,7 +306,7 @@
                   <Component id="scrPreguntas" pref="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="btnCorregirTodas" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                      <EmptySpace pref="122" max="32767" attributes="0"/>
                       <Component id="btnVerRespuestas" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnVerResolucion" min="-2" max="-2" attributes="0"/>
@@ -542,7 +542,7 @@
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblNombre" pref="149" max="32767" attributes="0"/>
+                              <Component id="lblNombre" pref="253" max="32767" attributes="0"/>
                               <Component id="lblLegajo" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -630,7 +630,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblsPreguntasRespondidas" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblPreguntasRespondidas" pref="64" max="32767" attributes="0"/>
+                                  <Component id="lblPreguntasRespondidas" pref="168" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblsPreguntasCorregidas" min="-2" max="-2" attributes="0"/>
@@ -651,6 +651,12 @@
                                   <Component id="lblsPorcentaje" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="lblPorcentaje" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="lblsAnulacion" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lblAnulacion" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -689,7 +695,15 @@
                               <Component id="lblPreguntasCorregidas" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblsPreguntasCorregidas" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lblsAnulacion" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="lblAnulacion" pref="120" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -791,6 +805,23 @@
                     <Property name="text" type="java.lang.String" value="95 %"/>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JLabel" name="lblsAnulacion">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Motivo de anulaci&#xf3;n:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblAnulacion">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="LookAndFeelEntropy.FUENTE_NEGRITA" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="---"/>
+                    <Property name="verticalAlignment" type="int" value="1"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -821,7 +852,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="lblActualizacionEstado" pref="462" max="32767" attributes="0"/>
+                  <Component id="lblActualizacionEstado" pref="670" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="lblIconoEstado" min="-2" pref="26" max="-2" attributes="0"/>
               </Group>

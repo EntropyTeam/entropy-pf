@@ -78,6 +78,7 @@ public class Resolucion implements Serializable {
     }
 
     public boolean esCorreccionCompleta() {
+        if (blnAnulada) return true;
         return getCantidadPreguntasCorregidas() == colRespuestas.size();
     }
 
@@ -125,6 +126,7 @@ public class Resolucion implements Serializable {
      * respuestas.
      */
     public double getCalificacion() {
+        if (blnAnulada) return 0;
         double dblCalificacion = 0;
         for (Respuesta rta : colRespuestas) {
             double dblCalificacionRta = rta.getCalificacion();
@@ -167,18 +169,21 @@ public class Resolucion implements Serializable {
     }
 
     public boolean estaAprobada() throws Exception {
+        if (blnAnulada) return false;
         double dblCalificacion = getCalificacion();
         double dblPuntajeTotal = getExamen().getPuntajeTotal();
         return (100 * dblCalificacion / dblPuntajeTotal) >= examen.getDblPorcentajeAprobacion();
     }
     
     public double getPorcentajeAprobacion(){
+        if (blnAnulada) return 0;
         double dblCalificacion = getCalificacion();
         double dblPuntajeTotal = getExamen().getPuntajeTotal();
         return 100 * dblCalificacion / dblPuntajeTotal;
     }
     
     public String getCalificacionDeTrajo(){
+        if (blnAnulada) return "0.00";
         Double dblCalificacion = this.getCalificacion()/this.getExamen().getPuntajeTotal();
             DecimalFormat format = new DecimalFormat("##.00");
             String strCalificacion = format.format(dblCalificacion * 100);

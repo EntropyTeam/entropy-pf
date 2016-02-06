@@ -147,6 +147,7 @@ public class GestorTomaExamen {
     }
 
     public void confirmarAnulacionResolucion(Resolucion resolucion) {
+        resolucion.setBlnAnulada(true);
         if (new DAOResolucion().guardarResolucion(resolucion)) {
             Mensajes.mostrarExito("¡Anulación exitosa!");
         } else {
