@@ -105,10 +105,12 @@ public class GestorRedAdHoc {
             timer = new Timer(500, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (!getIP().startsWith("127")){
-                        pnlHijo.setIpAddress(getIP());
-                        timer.stop();
+                    while (getIP().equals("No estas conectado a ninguna red")){
+                        // Esperar hasta que la red se cree y tengamos la dir IP correcta
                     }
+                    
+                    pnlHijo.setIpAddress(getIP());
+                    timer.stop();
                 }
             });
             timer.start();
