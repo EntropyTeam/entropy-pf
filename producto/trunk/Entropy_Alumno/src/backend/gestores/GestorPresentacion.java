@@ -102,6 +102,7 @@ public class GestorPresentacion {
         hiloSocketAlumno.enviarMensaje(mnsAvisarFin);
 
         this.avisarServidorCierre();
+        mPadre.setBlnSeEstaRealizandoPresentacion(false);
     }
 
     public boolean estaConectado() {
@@ -164,6 +165,7 @@ public class GestorPresentacion {
         hiloSocketAlumno.enviarMensaje(mnsAvisarComienzoPresentacion);
 
         VentanaPrincipal.getInstancia().volverAInicio();
+        mPadre.setBlnSeEstaRealizandoPresentacion(true);
     }
 
     public Usuario getProfesor() {

@@ -24,11 +24,14 @@ import javax.swing.KeyStroke;
 public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrincipal {
     
     private static VentanaPrincipal INSTANCIA;
+    private boolean blnSeEstaRealizandoPresentacion;
 
     /**
      * Constructor por defecto.
      */
     private VentanaPrincipal() {
+        this.blnSeEstaRealizandoPresentacion = false;
+        
         initComponents();
         this.setLocationRelativeTo(null);
         this.pnlSlides.setPanelMostrado(pnlInicio);
@@ -67,9 +70,14 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         mncAyuda = new javax.swing.JMenu();
         mniAcercaDe = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Sistema de Administración de Entornos Educativos");
         setMinimumSize(new java.awt.Dimension(500, 200));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         pnlBackground.setImagen(GestorImagenes.crearImage("/frontend/imagenes/main_background.jpg"));
         pnlBackground.setLayout(new javax.swing.BoxLayout(pnlBackground, javax.swing.BoxLayout.LINE_AXIS));
@@ -157,6 +165,16 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         Mensajes.mostrarAcercaDe();
     }//GEN-LAST:event_mniAcercaDeActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (blnSeEstaRealizandoPresentacion) {
+            Mensajes.mostrarAdvertencia("Usted está conectado a una presentación, desconectese para salir");
+            return;
+        }
+
+        this.dispose();
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblSeparador;
     private javax.swing.JMenuBar mnbMenuBar;
@@ -204,6 +222,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     @Override
     public void setTitulo (String strTitulo) {
         VentanaPrincipal.getInstancia().setTitle(strTitulo);
+    }
+    
+    public void setBlnSeEstaRealizandoPresentacion(boolean blnSeEstaRealizandoPresentacion) {
+        this.blnSeEstaRealizandoPresentacion = blnSeEstaRealizandoPresentacion;
     }
 
     /**
