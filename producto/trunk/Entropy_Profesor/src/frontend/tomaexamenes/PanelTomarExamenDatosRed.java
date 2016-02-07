@@ -2,7 +2,6 @@ package frontend.tomaexamenes;
 
 import backend.auxiliares.Mensajes;
 import backend.red.GestorRedAdHoc;
-import backend.red.Mensaje;
 import backend.red.RedAdHocCreator;
 import frontend.auxiliares.LookAndFeelEntropy;
 import java.awt.Component;

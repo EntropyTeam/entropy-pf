@@ -203,7 +203,9 @@ public class PanelTomaExamen extends javax.swing.JPanel {
         //GestorExamen.getInstancia().guardarDiseñoExamen(examenTomar);
         mPadre.getPanelDeslizante().setPanelMostrado(mPadre.getPnlInicio());
         mPadre.setTitle("Sistema de Administración de Entornos Educativos");
-        new FrameControlTomaExamen(mPadre, examenTomar).setVisible(true);
+        FrameControlTomaExamen ventana = new FrameControlTomaExamen(mPadre, examenTomar);
+        ventana.setTitle("Toma de examen - Su IP es " + new GestorRedAdHoc().getIP());
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnPublicarActionPerformed
 
     private void btnPublicarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPublicarMouseExited
