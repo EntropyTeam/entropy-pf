@@ -5,6 +5,7 @@
  */
 package backend.gestores;
 
+import backend.auxiliares.Mensajes;
 import backend.red.HiloSocketAlumno;
 import backend.red.Mensaje;
 import backend.red.TipoMensaje;
@@ -14,18 +15,13 @@ import frontend.inicio.VentanaPrincipal;
 import frontend.presentacion.DialogPresentacion;
 import frontend.presentacion.PanelIniciarPresentacion;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.Timer;
-
 
 /**
  *
@@ -44,8 +40,6 @@ public class GestorPresentacion {
     private boolean blnEstaConectado = false;
     private boolean blnEsPrimeraVez = true;
     private Dimension screenSize;
-    
-
 
     public GestorPresentacion(String ipServidor, int intPuerto) throws Exception {
         this.ipServidor = ipServidor;
@@ -53,7 +47,7 @@ public class GestorPresentacion {
         this.dialogPresentacion = new DialogPresentacion(mPadre, true, this);
         iniciarConexion();
     }
-    
+
     public String getIpServidor() {
         return ipServidor;
     }
@@ -93,10 +87,20 @@ public class GestorPresentacion {
         hiloSocketAlumno.enviarMensaje(mensaje);
     }
 
+    public void desconectarAlumno() {
+        Mensajes.mostrarAdvertencia("Usted ha sido desconectado de la presentación por su instructor.");
+        this.dialogPresentacion.dispose();
+    }
+
+    public void finalizar() {
+        Mensajes.mostrarAdvertencia("Su instructor ha finalizado la presentación.");
+        this.dialogPresentacion.dispose();
+    }
+
     public void finalizarPresentacion() throws IOException {
         Mensaje mnsAvisarFin = new Mensaje(TipoMensaje.FINALIZAR_PRESENTACION);
         hiloSocketAlumno.enviarMensaje(mnsAvisarFin);
-        
+
         this.avisarServidorCierre();
     }
 
@@ -108,7 +112,7 @@ public class GestorPresentacion {
         try {
             ByteArrayInputStream bufferImg = new ByteArrayInputStream(bytesImg);
             BufferedImage imagen = ImageIO.read(bufferImg);
-            if(this.dialogPresentacion.isVisible()) {
+            if (this.dialogPresentacion.isVisible()) {
                 this.dialogPresentacion.setLblImagen(imagen);
             } else if (blnEsPrimeraVez) {
                 blnEsPrimeraVez = false;
@@ -132,7 +136,7 @@ public class GestorPresentacion {
         });
         timerEspera.start();
     }
-    
+
     public void setProfesor(Usuario profesor) {
         this.profesor = profesor;
     }
@@ -150,23 +154,24 @@ public class GestorPresentacion {
             mPadre.pack();
         }
     }
-    
-     /**
-     * Comienza la presentacion. Comunica al profesor que se inició la presentacion
+
+    /**
+     * Comienza la presentacion. Comunica al profesor que se inició la
+     * presentacion
      */
     public void comenzarPresentacion() throws IOException {
         Mensaje mnsAvisarComienzoPresentacion = new Mensaje(TipoMensaje.INICIAR_PRESENTACION);
         hiloSocketAlumno.enviarMensaje(mnsAvisarComienzoPresentacion);
-        
+
         VentanaPrincipal.getInstancia().volverAInicio();
     }
 
     public Usuario getProfesor() {
         return this.profesor;
     }
-    
+
     public class HiloDialogPresentacion extends Thread {
-        
+
         @Override
         public synchronized void run() {
             dialogPresentacion.setVisible(true);

@@ -66,15 +66,15 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
         gestorDePresentacion = new GestorDePresentacion(this);
         gestorDePresentacion.comenzarConexiones();
 
-        Action anular = new AbstractAction("-") {
+        Action desconectar = new AbstractAction("-") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                anularAlumno(e);
+                desconectarAlumno(e);
             }
         };
         CeldaBotonRendererEntropy anularRenderer = new CeldaBotonRendererEntropy(
                 tblAlumnos,
-                anular,
+                desconectar,
                 4,
                 GestorImagenes.crearImageIcon("/frontend/imagenes/ic_borrar_cuadrado.png"),
                 GestorImagenes.crearImageIcon("/frontend/imagenes/ic_borrar_cuadrado_presionado.png"));
@@ -104,7 +104,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
 
         pnlFondo = new frontend.auxiliares.PanelConFondo();
         pnlBotones = new javax.swing.JPanel();
-        btnCancelar = new javax.swing.JButton();
+        btnFinalizar = new javax.swing.JButton();
         btnGuardarAsistencia = new javax.swing.JButton();
         scrTablaAlumnos = new javax.swing.JScrollPane();
         tblAlumnos = new javax.swing.JTable();
@@ -127,26 +127,26 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
 
         pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
 
-        btnCancelar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_tiempo_terminado_35x35.png"))); // NOI18N
-        btnCancelar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnCancelar.setContentAreaFilled(false);
-        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelar.setIconTextGap(10);
-        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCancelarMouseEntered(evt);
-            }
+        btnFinalizar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_tiempo_terminado_35x35.png"))); // NOI18N
+        btnFinalizar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnFinalizar.setContentAreaFilled(false);
+        btnFinalizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFinalizar.setIconTextGap(10);
+        btnFinalizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCancelarMouseExited(evt);
+                btnFinalizarMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnFinalizarMouseEntered(evt);
             }
         });
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnFinalizarActionPerformed(evt);
             }
         });
-        pnlBotones.add(btnCancelar);
+        pnlBotones.add(btnFinalizar);
 
         btnGuardarAsistencia.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnGuardarAsistencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_guardar.png"))); // NOI18N
@@ -267,22 +267,22 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseEntered
+    private void btnFinalizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarMouseEntered
         this.gestorEstados.setEstadoInstantaneo("Finalizar la presentación.");
         repaint();
-    }//GEN-LAST:event_btnCancelarMouseEntered
+    }//GEN-LAST:event_btnFinalizarMouseEntered
 
-    private void btnCancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseExited
+    private void btnFinalizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarMouseExited
         this.gestorEstados.volverAEstadoImportante();
         repaint();
-    }//GEN-LAST:event_btnCancelarMouseExited
+    }//GEN-LAST:event_btnFinalizarMouseExited
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.terminarPresentacion(true);
-    }//GEN-LAST:event_btnCancelarActionPerformed
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        this.terminarPresentacion();
+    }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.terminarPresentacion(false);
+        this.terminarPresentacion();
     }//GEN-LAST:event_formWindowClosing
 
     private void btnGuardarAsistenciaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaMouseEntered
@@ -308,15 +308,13 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
      *
      * @param e evento de acción provocado al clickear el botón en la tabla.
      */
-    private void anularAlumno(ActionEvent e) {
+    private void desconectarAlumno(ActionEvent e) {
 
         if (tblAlumnos.getModel().getRowCount() > 0
                 && Mensajes.mostrarConfirmacion("Está a punto de desconectar al alumno de la presentación. ¿Realmente desea continuar?")) {
             int intFila = Integer.valueOf(e.getActionCommand());
-            gestorDePresentacion.anularPresentacion(intFila);
+            gestorDePresentacion.desconectarAlumno(intFila);
         }
-
-        throw new UnsupportedOperationException("COMPLETAR");
     }
 
     /**
@@ -363,7 +361,7 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnGuardarAsistencia;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblIconoEstado;
@@ -374,19 +372,12 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
     private javax.swing.JTable tblAlumnos;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * Funcionalidad cuando el usuario cierra la ventana.
-     *
-     * @param blnEsCancelacion true si se está cancelando el examen, false si se
-     * ha terminado la toma.
-     */
-    private void terminarPresentacion(boolean blnEsCancelacion) {
+    private void terminarPresentacion() {
         if (Mensajes.mostrarConfirmacion("Está a punto de finalizar la presentacion. ¿Realmente desea continuar?")) {
-            //gestorDePresentacion.notificarFinalizacionPresentacion();
+            gestorDePresentacion.notificarFinalizacionPresentacion();
+            this.dispose();
+            GestorRedAdHoc gestorRedAdHoc = new GestorRedAdHoc();
+            gestorRedAdHoc.desconectar();
         }
-        this.dispose();
-        GestorRedAdHoc gestorRedAdHoc = new GestorRedAdHoc();
-        gestorRedAdHoc.desconectar();
-        throw new UnsupportedOperationException("Falta cerrar los hilos y todo el lío.");
     }
 }

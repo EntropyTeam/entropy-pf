@@ -181,7 +181,7 @@ public class HiloSocketProfesorPorAlumno extends Thread {
      * método.
      */
     public void enviarMensaje(Mensaje mensaje) throws IOException {
-        if (!socket.isClosed()) objetoSaliente.writeObject(mensaje);
+        if (socket.isConnected() && !socket.isClosed()) objetoSaliente.writeObject(mensaje);
     }
 
     /**
@@ -207,6 +207,7 @@ public class HiloSocketProfesorPorAlumno extends Thread {
     public void cerrarSocket() {
         try {
             this.socket.close();
+            System.out.println("SOCKET DEL PROFESOR CERRADO");
         } catch (IOException ex) {
             System.out.println("Error al cerrar el socket en el profesor.");
             Logger.getLogger(HiloSocketProfesorPorAlumno.class.getName()).log(Level.SEVERE, null, ex);

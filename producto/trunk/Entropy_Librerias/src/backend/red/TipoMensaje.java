@@ -158,4 +158,10 @@ public class TipoMensaje {
      * Integer que indica la cantidad de tiempo a quitar en minutos.
      */
     public static final int QUITAR_TIEMPO_EXAMEN = 25;
+    
+    /**
+     * Se manda cuando el profesor finaliza la presentación desde el frame de 
+     * control de las presentaciones.
+     */
+    public static final int FINALIZAR_PRESENTACION_DESDE_PROFESOR = 26;
 }

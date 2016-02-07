@@ -20,6 +20,7 @@ import backend.usuarios.Alumno;
 import backend.usuarios.Usuario;
 import frontend.presentaciones.FrameControlPresentaciones;
 import frontend.usuario.DialogInfoUsuario;
+import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -41,11 +42,13 @@ public class GestorDePresentacion {
     private final FrameControlPresentaciones frmControlPresentacion;
     private final HiloSocketProfesorConexion hiloSocketConexion;
     private final ArrayList<HiloSocketProfesorPorAlumno> colHilosSocketsAlumnos;
+    private final ArrayList<HiloCapturarImagen> colHilosCapturarImagenes;
 
     public GestorDePresentacion(FrameControlPresentaciones frmControlPresentacion) {
         this.frmControlPresentacion = frmControlPresentacion;
         this.hiloSocketConexion = new HiloSocketProfesorConexion(this);
         this.colHilosSocketsAlumnos = new ArrayList<>();
+        this.colHilosCapturarImagenes = new ArrayList<>();
 
     }
 
@@ -115,7 +118,7 @@ public class GestorDePresentacion {
         return indice;
     }
 
-    public void anularPresentacion(int intIndice) {
+    public void desconectarAlumno(int intIndice) {
         try {
             Mensaje mensaje = new Mensaje(TipoMensaje.DESCONECTAR_PRESENTACION);
             colHilosSocketsAlumnos.get(intIndice).enviarMensaje(mensaje);
@@ -124,6 +127,17 @@ public class GestorDePresentacion {
             System.out.println(e.toString());
         } catch (Exception ex) {
             Logger.getLogger(GestorDePresentacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void notificarFinalizacionPresentacion() {
+        Mensaje mensaje = new Mensaje(TipoMensaje.FINALIZAR_PRESENTACION_DESDE_PROFESOR);
+        for (HiloSocketProfesorPorAlumno hiloSocketProfesorPorAlumno : colHilosSocketsAlumnos) {
+            try {
+                hiloSocketProfesorPorAlumno.enviarMensaje(mensaje);
+            } catch (Exception ex) {
+                Logger.getLogger(GestorDePresentacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -152,10 +166,16 @@ public class GestorDePresentacion {
         this.frmControlPresentacion.iniciarPresentacion(intIndice);
         HiloCapturarImagen hiloCapturarImagen = new HiloCapturarImagen(intIndice);
         hiloCapturarImagen.start();
+        this.colHilosCapturarImagenes.add(hiloCapturarImagen);
     }
     
     public void finalizarPresentacion(int intIndice) {
         frmControlPresentacion.finalizarPresentacion(intIndice);
+        for (HiloCapturarImagen hiloCapturarImagen : colHilosCapturarImagenes) {
+            if (hiloCapturarImagen.getIntIndice() == intIndice) {
+                hiloCapturarImagen.setBlnEstaConectado(false);
+            }
+        }
     }
 
     public void mostrarDatosAlumno(int intIndice) {
@@ -204,7 +224,15 @@ public class GestorDePresentacion {
             while (this.blnEstaConectado) {
                 enviarImagenes(this.intIndice);
             }
+            System.out.println("YA NO ENVIA MAS IMAGENES");
+        }
+
+        public int getIntIndice() {
+            return intIndice;
+        }
+
+        public void setBlnEstaConectado(boolean blnEstaConectado) {
+            this.blnEstaConectado = blnEstaConectado;
         }
     }
-
 }

@@ -46,6 +46,7 @@ public class HiloSocketAlumno extends Thread {
     public void cerrarSocket() {
         try {
             this.socket.close();
+            System.out.println("SOCKET DEL ALUMNO CERRADO");
         } catch (IOException ex) {
             System.out.println("Error al cerrar el socket del alumno");
             Logger.getLogger(HiloSocketAlumno.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,6 +90,12 @@ public class HiloSocketAlumno extends Thread {
             case TipoMensaje.ENVIAR_IMAGENES:
                 byte[] bytesImg = (byte[]) mensaje.getPayload();
                 gestorPresentacion.mostrarImagen(bytesImg);
+                break;
+            case TipoMensaje.DESCONECTAR_PRESENTACION:
+                gestorPresentacion.desconectarAlumno();
+                break;
+            case TipoMensaje.FINALIZAR_PRESENTACION_DESDE_PROFESOR:
+                gestorPresentacion.finalizar();
                 break;
             case TipoMensaje.RESULTADO_VALIDACION:
                 boolean blnValidacion = (boolean) mensaje.getPayload();
