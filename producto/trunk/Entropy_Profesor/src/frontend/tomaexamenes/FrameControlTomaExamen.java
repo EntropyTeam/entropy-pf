@@ -492,24 +492,26 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
      * @param e evento de acción provocado al clickear el botón en la tabla.
      */
     private void anularAlumno(ActionEvent e) {
-
-        if (tblAlumnos.getModel().getRowCount() > 0
-                && Mensajes.mostrarConfirmacion("Está a punto de anular el examen del alumno. ¿Realmente desea continuar?")) {
-            DialogCancelarExamen dlgCancelar = new DialogCancelarExamen(this, true);
-            dlgCancelar.setVisible(true);
-            if (dlgCancelar.getAccionElegida().equals(DialogCancelarExamen.Accion.CONTINUAR)) {
-                int intFila = Integer.valueOf(e.getActionCommand());
-                String strJustificacion = dlgCancelar.getStrMotivoCancelacion();
-                gestorTomaExamen.anularResolucion(intFila, strJustificacion);
-                ((DefaultTableModel) tblAlumnos.getModel()).setValueAt(EstadoTomaExamen.INTERRUMPIDO.toString(), intFila, 1);
-                for (CuentaRegresiva cuentaRegresiva : colCuentasRegresivas) {
-                    if (cuentaRegresiva.intIndice == intFila) {
-                        cuentaRegresiva.parar();
+        int intFila = Integer.valueOf(e.getActionCommand());
+        if (defaultTblAlumnos.getValueAt(intFila, 1) == EstadoTomaExamen.INICIADO) {
+            if (tblAlumnos.getModel().getRowCount() > 0
+                    && Mensajes.mostrarConfirmacion("Está a punto de anular el examen del alumno. ¿Realmente desea continuar?")) {
+                DialogCancelarExamen dlgCancelar = new DialogCancelarExamen(this, true);
+                dlgCancelar.setVisible(true);
+                if (dlgCancelar.getAccionElegida().equals(DialogCancelarExamen.Accion.CONTINUAR)) {
+                    String strJustificacion = dlgCancelar.getStrMotivoCancelacion();
+                    gestorTomaExamen.anularResolucion(intFila, strJustificacion);
+                    ((DefaultTableModel) tblAlumnos.getModel()).setValueAt(EstadoTomaExamen.ANULADO.toString(), intFila, 1);
+                    for (CuentaRegresiva cuentaRegresiva : colCuentasRegresivas) {
+                        if (cuentaRegresiva.intIndice == intFila) {
+                            cuentaRegresiva.parar();
+                        }
                     }
                 }
             }
+        } else {
+            Mensajes.mostrarError("No puedes anular un examen que no esta en estado iniciado.");
         }
-
     }
 
     /**

@@ -29,6 +29,7 @@ public class CeldaTomarExamenRenderer implements TableCellRenderer {
     private static final ImageIcon imgAutenticado = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_usuario_autenticado_35px.png");
     private static final ImageIcon imgIniciado = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_usuario_examen_iniciado_35px.png");
     private static final ImageIcon imgCompletado = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_usuario_examen_terminado_35px.png");
+    private static final ImageIcon imgAnulado = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_usuario_anulado_35px.png");
     private static final ImageIcon imgInterrumpido = GestorImagenes.crearImageIcon("/frontend/imagenes/ic_usuario_anulado_35px.png");
 
     /**
@@ -128,6 +129,8 @@ public class CeldaTomarExamenRenderer implements TableCellRenderer {
             return imgIniciado;
         } else if (strEstadoExamen.equals(EstadoTomaExamen.COMPLETADO.toString())) {
             return imgCompletado;
+        } else if (strEstadoExamen.equals(EstadoTomaExamen.ANULADO.toString())) {
+            return imgAnulado;
         } else if (strEstadoExamen.equals(EstadoTomaExamen.INTERRUMPIDO.toString())) {
             return imgInterrumpido;
         }
