@@ -22,14 +22,9 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.net.ConnectException;
-import java.net.InetAddress;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
 /**
@@ -124,15 +119,11 @@ public class DialogConectarServidor extends javax.swing.JDialog {
         PanelDatosAlumno = new javax.swing.JPanel();
         lblNombre = new javax.swing.JLabel();
         lblLegajo = new javax.swing.JLabel();
-        lblCodigo = new javax.swing.JLabel();
         txtNombre = new frontend.auxiliares.TextFieldEntropy();
         txtLegajo = new frontend.auxiliares.TextFieldEntropy();
-        txtCodigo = new frontend.auxiliares.TextFieldEntropy();
         panelDatosServidor = new javax.swing.JPanel();
         lblIPServidor = new javax.swing.JLabel();
-        lblPuerto = new javax.swing.JLabel();
         txtIPServidor = new frontend.auxiliares.TextFieldEntropy();
-        txtPuerto = new frontend.auxiliares.TextFieldEntropy();
         pnlBoton = new javax.swing.JPanel();
         btnConectar = new javax.swing.JButton();
 
@@ -197,18 +188,11 @@ public class DialogConectarServidor extends javax.swing.JDialog {
         lblLegajo.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblLegajo.setText("Legajo:");
 
-        lblCodigo.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        lblCodigo.setText("Código:");
-
         txtNombre.setTextoPorDefecto("Ingrese su nombre...");
         txtNombre.mostrarTextoPorDefecto();
 
         txtLegajo.setTextoPorDefecto("Ingrese su legajo...");
         txtLegajo.mostrarTextoPorDefecto();
-
-        txtCodigo.setTextoPorDefecto("Ingrese código autenticador...");
-        txtCodigo.mostrarTextoPorDefecto();
-        txtCodigo.setEnabled(false);
 
         javax.swing.GroupLayout PanelDatosAlumnoLayout = new javax.swing.GroupLayout(PanelDatosAlumno);
         PanelDatosAlumno.setLayout(PanelDatosAlumnoLayout);
@@ -217,14 +201,12 @@ public class DialogConectarServidor extends javax.swing.JDialog {
             .addGroup(PanelDatosAlumnoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblLegajo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
-                    .addComponent(txtLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                    .addComponent(txtLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         PanelDatosAlumnoLayout.setVerticalGroup(
@@ -238,11 +220,7 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                 .addGroup(PanelDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLegajo)
                     .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCodigo)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pnlCentral.add(PanelDatosAlumno);
@@ -252,9 +230,6 @@ public class DialogConectarServidor extends javax.swing.JDialog {
 
         lblIPServidor.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblIPServidor.setText("IP del Profesor:");
-
-        lblPuerto.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        lblPuerto.setText("Puerto:");
 
         txtIPServidor.setDocument(new FiltroTexto(FiltroTexto.TipoFiltro.DIGITOS_Y_PUNTO));
         txtIPServidor.setTextoPorDefecto("Ingrese la IP del profesor...");
@@ -268,32 +243,15 @@ public class DialogConectarServidor extends javax.swing.JDialog {
             }
         });
 
-        txtPuerto.setTextoPorDefecto("Ingrese un puerto...");
-        txtPuerto.setDocument(new FiltroTexto(FiltroTexto.TipoFiltro.DIGITOS));
-        txtPuerto.mostrarTextoPorDefecto();
-        txtPuerto.setEnabled(false);
-        txtPuerto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                txtPuertoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtPuertoMouseExited(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelDatosServidorLayout = new javax.swing.GroupLayout(panelDatosServidor);
         panelDatosServidor.setLayout(panelDatosServidorLayout);
         panelDatosServidorLayout.setHorizontalGroup(
             panelDatosServidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatosServidorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelDatosServidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblIPServidor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblPuerto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblIPServidor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelDatosServidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtIPServidor, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                    .addComponent(txtPuerto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txtIPServidor, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelDatosServidorLayout.setVerticalGroup(
@@ -303,11 +261,7 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                 .addGroup(panelDatosServidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblIPServidor)
                     .addComponent(txtIPServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelDatosServidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPuerto)
-                    .addComponent(txtPuerto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addGap(0, 60, Short.MAX_VALUE))
         );
 
         pnlCentral.add(panelDatosServidor);
@@ -356,7 +310,7 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                     .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblBarraTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlCentral, javax.swing.GroupLayout.PREFERRED_SIZE, 141, Short.MAX_VALUE)
+                .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlBoton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -497,16 +451,6 @@ public class DialogConectarServidor extends javax.swing.JDialog {
         repaint();
     }//GEN-LAST:event_txtIPServidorMouseExited
 
-    private void txtPuertoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPuertoMouseEntered
-        this.gestorEstados.setEstadoInstantaneo("Por favor, utilice un puerto entre 1024 y 65536.");
-        repaint();
-    }//GEN-LAST:event_txtPuertoMouseEntered
-
-    private void txtPuertoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPuertoMouseExited
-        this.gestorEstados.volverAEstadoImportante();
-        repaint();
-    }//GEN-LAST:event_txtPuertoMouseExited
-
     public GestorBarrasDeEstado getGestorEstados() {
         return gestorEstados;
     }
@@ -520,16 +464,6 @@ public class DialogConectarServidor extends javax.swing.JDialog {
             Mensajes.mostrarError("Formato de IP inválido.");
             return false;
         }
-//        try {
-//            int intPuerto = Integer.parseInt(txtPuerto.getText().trim());
-//            if (intPuerto < 1024 || intPuerto > 65536) {
-//                Mensajes.mostrarError("Por favor, utilice un puerto entre 1024 y 65536.");
-//                return false;
-//            }
-//        } catch (NumberFormatException ne) {
-//            Mensajes.mostrarError("Formato de puerto inválido.");
-//            return false;
-//        }
         return true;
     }
 
@@ -539,22 +473,18 @@ public class DialogConectarServidor extends javax.swing.JDialog {
     private javax.swing.JButton btnConectar;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblBarraTitulo;
-    private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblIPServidor;
     private javax.swing.JLabel lblIconoEstado;
     private javax.swing.JLabel lblLegajo;
     private javax.swing.JLabel lblNombre;
-    private javax.swing.JLabel lblPuerto;
     private javax.swing.JPanel panelDatosServidor;
     private javax.swing.JPanel pnlBoton;
     private javax.swing.JPanel pnlCentral;
     private javax.swing.JPanel pnlEstado;
     private frontend.auxiliares.PanelConFondo pnlFondo;
-    private frontend.auxiliares.TextFieldEntropy txtCodigo;
     private frontend.auxiliares.TextFieldEntropy txtIPServidor;
     private frontend.auxiliares.TextFieldEntropy txtLegajo;
     private frontend.auxiliares.TextFieldEntropy txtNombre;
-    private frontend.auxiliares.TextFieldEntropy txtPuerto;
     // End of variables declaration//GEN-END:variables
 
     /**
