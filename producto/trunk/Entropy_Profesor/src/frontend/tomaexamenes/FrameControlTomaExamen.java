@@ -627,7 +627,6 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
             this.dispose();
             GestorRedAdHoc gestorRedAdHoc = new GestorRedAdHoc();
             gestorRedAdHoc.desconectar();
-            throw new UnsupportedOperationException("Falta cerrar los hilos y todo el lío.");
         }
     }
 
