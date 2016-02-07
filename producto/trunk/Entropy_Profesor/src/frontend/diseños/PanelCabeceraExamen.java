@@ -71,12 +71,10 @@ public class PanelCabeceraExamen extends javax.swing.JPanel {
         lblNombreInstitucion = new javax.swing.JLabel();
         lblNombreExamen = new javax.swing.JLabel();
         lblIdentificadorCurso = new javax.swing.JLabel();
-        lblNombreDocente = new javax.swing.JLabel();
         lblDescripcion = new javax.swing.JLabel();
         txtNombreExamen = new frontend.auxiliares.TextFieldEntropy();
         scrDescripcion = new javax.swing.JScrollPane();
         txaDescripcion = new frontend.auxiliares.TextAreaEntropy();
-        txtNombreDocente = new frontend.auxiliares.TextFieldEntropy();
         cmbInstitucion = new frontend.auxiliares.ComboBoxEntropy();
         cmbCurso = new frontend.auxiliares.ComboBoxEntropy();
         lblCamposObligatorios = new javax.swing.JLabel();
@@ -86,21 +84,18 @@ public class PanelCabeceraExamen extends javax.swing.JPanel {
         lblLogo = new javax.swing.JLabel();
         lblSiguiente = new javax.swing.JLabel();
 
-        pnlEncabezado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos generales del examen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(204, 102, 0))); // NOI18N
+        pnlEncabezado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos generales del examen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR, new java.awt.Color(204, 102, 0)));
 
-        lblNombreInstitucion.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblNombreInstitucion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblNombreInstitucion.setText("Institución:");
 
-        lblNombreExamen.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblNombreExamen.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblNombreExamen.setText("Título (*):");
 
-        lblIdentificadorCurso.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblIdentificadorCurso.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblIdentificadorCurso.setText("Curso:");
 
-        lblNombreDocente.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        lblNombreDocente.setText("Responsable:");
-
-        lblDescripcion.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblDescripcion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblDescripcion.setText("Descripción:");
 
         txtNombreExamen.setTextoPorDefecto("Ingrese un título para el examen");
@@ -113,8 +108,6 @@ public class PanelCabeceraExamen extends javax.swing.JPanel {
         txaDescripcion.setColumns(20);
         txaDescripcion.setRows(5);
         scrDescripcion.setViewportView(txaDescripcion);
-
-        txtNombreDocente.setEnabled(false);
 
         cmbInstitucion.setTextoPorDefecto("Ingrese nombre de institución");
         cmbInstitucion.mostrarTextoPorDefecto();
@@ -141,7 +134,6 @@ public class PanelCabeceraExamen extends javax.swing.JPanel {
                     .addGroup(pnlDatosEncabezadoLayout.createSequentialGroup()
                         .addGroup(pnlDatosEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblNombreDocente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblNombreInstitucion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblNombreExamen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                             .addComponent(lblIdentificadorCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -149,7 +141,6 @@ public class PanelCabeceraExamen extends javax.swing.JPanel {
                         .addGroup(pnlDatosEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombreExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(scrDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                            .addComponent(txtNombreDocente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbInstitucion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbCurso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(pnlDatosEncabezadoLayout.createSequentialGroup()
@@ -173,16 +164,12 @@ public class PanelCabeceraExamen extends javax.swing.JPanel {
                     .addComponent(lblIdentificadorCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlDatosEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombreDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombreDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDatosEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDescripcion)
                     .addComponent(scrDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                .addGap(42, 42, 42)
                 .addComponent(lblCamposObligatorios)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         btnBorrarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_papelera25x25.png"))); // NOI18N
@@ -202,7 +189,7 @@ public class PanelCabeceraExamen extends javax.swing.JPanel {
         pnlImagenLogo.setPreferredSize(new java.awt.Dimension(155, 155));
 
         lblLogo.setBackground(new java.awt.Color(248, 246, 246));
-        lblLogo.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblLogo.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblLogo.setForeground(new java.awt.Color(102, 102, 102));
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_camara.png"))); // NOI18N
@@ -261,7 +248,7 @@ public class PanelCabeceraExamen extends javax.swing.JPanel {
             .addComponent(pnlDatosEncabezado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlEncabezadoLayout.createSequentialGroup()
                 .addComponent(pnlImagenEncabezado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         lblSiguiente.setBackground(new java.awt.Color(227, 226, 226));
@@ -444,7 +431,6 @@ public class PanelCabeceraExamen extends javax.swing.JPanel {
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblIdentificadorCurso;
     private javax.swing.JLabel lblLogo;
-    private javax.swing.JLabel lblNombreDocente;
     private javax.swing.JLabel lblNombreExamen;
     private javax.swing.JLabel lblNombreInstitucion;
     private javax.swing.JLabel lblSiguiente;
@@ -454,7 +440,6 @@ public class PanelCabeceraExamen extends javax.swing.JPanel {
     private frontend.auxiliares.PanelConFondo pnlImagenLogo;
     private javax.swing.JScrollPane scrDescripcion;
     private frontend.auxiliares.TextAreaEntropy txaDescripcion;
-    private frontend.auxiliares.TextFieldEntropy txtNombreDocente;
     private frontend.auxiliares.TextFieldEntropy txtNombreExamen;
     // End of variables declaration//GEN-END:variables
 

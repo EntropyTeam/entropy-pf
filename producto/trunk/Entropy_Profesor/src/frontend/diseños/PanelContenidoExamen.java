@@ -118,9 +118,9 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
         scrTipoPregunta = new javax.swing.JScrollPane();
         lblAnterior = new javax.swing.JLabel();
 
-        pnlContenido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contenido del examen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(204, 102, 0))); // NOI18N
+        pnlContenido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contenido del examen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR, new java.awt.Color(204, 102, 0)));
 
-        pnlPreguntas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Preguntas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
+        pnlPreguntas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Preguntas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR, new java.awt.Color(102, 102, 102)));
         pnlPreguntas.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         pnlPreguntas.setMaximumSize(new java.awt.Dimension(600, 32767));
 
@@ -277,7 +277,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
         pnlPreguntasLayout.setVerticalGroup(
             pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPreguntasLayout.createSequentialGroup()
-                .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+                .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnNuevaPregunta)
@@ -288,17 +288,17 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
                     .addComponent(btnImportarPregunta)))
         );
 
-        pnlPreguntaSeleccionada.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pregunta Seleccionada", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
+        pnlPreguntaSeleccionada.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pregunta Seleccionada", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR, new java.awt.Color(102, 102, 102)));
         pnlPreguntaSeleccionada.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
 
-        lblTemaPregunta.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblTemaPregunta.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblTemaPregunta.setText("Tema:");
 
-        lblEnunciado.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblEnunciado.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblEnunciado.setText("Enunciado (*): ");
 
         cmbTipoPregunta.setBackground(new java.awt.Color(255, 204, 102));
-        cmbTipoPregunta.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        cmbTipoPregunta.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         cmbTipoPregunta.setRenderer(new frontend.auxiliares.CeldaListaRendererEntropy());
         cmbTipoPregunta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pregunta a Desarrollar", "Pregunta de Opciones Múltiples", "Pregunta Verdadero y Falso", "Pregunta Numérica", "Pregunta de Relación de Columnas" }));
         cmbTipoPregunta.addActionListener(new java.awt.event.ActionListener() {
@@ -307,19 +307,19 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
             }
         });
 
-        lblTipoPregunta.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblTipoPregunta.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblTipoPregunta.setText("Tipo:");
 
-        lblPuntaje.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblPuntaje.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblPuntaje.setText("Puntaje:");
 
-        lblComentario.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblComentario.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblComentario.setText("Comentario:");
 
-        lblTags.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblTags.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblTags.setText("Tags:");
 
-        lblNivel.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblNivel.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         lblNivel.setText("Nivel:");
 
         String[] rutas = {
@@ -329,7 +329,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
             "/frontend/imagenes/ic_nivel_dificil.png",
             "/frontend/imagenes/ic_nivel_experto.png"};
         cmbNivel.setBackground(new java.awt.Color(255, 204, 102));
-        cmbNivel.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        cmbNivel.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
         cmbNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Muy Fácil", "Fácil", "Normal", "Difícil", "Experto" }));
         cmbNivel.setRenderer(new frontend.auxiliares.ComboBoxImagenRendererEntropy(rutas));
 
@@ -438,7 +438,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbNivel, 0, 142, Short.MAX_VALUE))
+                                .addComponent(cmbNivel, 0, 148, Short.MAX_VALUE))
                             .addComponent(scrEnunciado, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(scrComentario, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cmbTema, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
