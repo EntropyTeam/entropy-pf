@@ -81,7 +81,11 @@ public class GestorGenerarReporteResolucion {
             PdfPTable contenidoEncabezado = new PdfPTable(1);
             contenidoEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
             
-            String titulo = this.resolucionExamen.getExamen().getStrNombre();
+            String titulo = this.resolucionExamen.getExamen().getStrNombre(); 
+            //AGREGAR EL ESTADO ANULADO
+            /*if(this.resolucionExamen.isBlnAnulada())
+            {
+            }*/
             PdfPCell cellTitulo = new PdfPCell(new Paragraph(titulo, TITULO));
             cellTitulo.setBorder(Rectangle.NO_BORDER);
             cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
