@@ -674,10 +674,12 @@ public class DialogAdministrarDiseñoExamen extends javax.swing.JDialog {
     }//GEN-LAST:event_btnDuplicarMouseClicked
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
-        try {
-            this.eliminarDiseño();
-        } catch (Exception e) {
-            Mensajes.mostrarError("Problemas con la base de datos. Imposible borrar diseño.");
+        if (Mensajes.mostrarConfirmacion("Está a punto de eliminar el diseño seleccionado, titulado \""+examenSeleccionado.getStrNombre()+"\". ¿Realmente desea proceder?")) {
+            try {
+                this.eliminarDiseño();
+            } catch (Exception e) {
+                Mensajes.mostrarError("Problemas con la base de datos. Imposible borrar diseño.");
+            }
         }
     }//GEN-LAST:event_btnEliminarMouseClicked
 
