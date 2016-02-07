@@ -438,7 +438,7 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                                     pnlNuevoExamen.setName("Toma Examen");
                                     mPadre.getPanelDeslizante().setPanelMostrado(pnlNuevoExamen);
                                     mPadre.setTitle("Toma de examen");
-                                    if (mPadre.isMaximized()) {
+                                    if (!mPadre.isMaximized()) {
                                         mPadre.pack();
                                     }
                                     dispose();
@@ -453,7 +453,7 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                                     pnlNuevaPresentacion.setName("Presentacion");
                                     mPadre.getPanelDeslizante().setPanelMostrado(pnlNuevaPresentacion);
                                     mPadre.setTitle("Presentacion");
-                                    if (mPadre.isMaximized()) {
+                                    if (!mPadre.isMaximized()) {
                                        mPadre.pack();
                                     }
                                     dispose();
