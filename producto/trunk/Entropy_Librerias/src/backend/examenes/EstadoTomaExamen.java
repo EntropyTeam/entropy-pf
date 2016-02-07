@@ -14,6 +14,7 @@ public enum EstadoTomaExamen implements Serializable {
     AUTENTICADO("Autenticado"),
     INICIADO("Iniciado"),
     COMPLETADO("Completado"),
+    ANULADO("Anulado"),
     INTERRUMPIDO("Interrumpido");
     
     private final String value;
