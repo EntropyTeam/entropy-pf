@@ -1171,14 +1171,14 @@ public class DAORespuesta implements IDAORespuesta {
                     + "FROM res_resolucion R "
                     + "INNER JOIN res_respuesta RE ON R.resolucionId = RE.resolucionId "
                     + "INNER JOIN res_respuestadesarrollo RD ON RE.respuestaId = RD.respuestaId "
-                    + "WHERE R.examenId = ? AND RD.calificacion = -1 "
+                    + "WHERE R.examenId = ? AND RD.calificacion = -1 AND R.anulada = 0 "
                     + "GROUP BY RE.respuestaId)  "
                     + "OR RE.respuestaId IN  "
                     + "(SELECT RE.respuestaId "
                     + "FROM res_resolucion R "
                     + "INNER JOIN res_respuesta RE ON R.resolucionId = RE.resolucionId "
                     + "INNER JOIN res_respuestaverdaderofalso RVF ON RE.respuestaId = RVF.respuestaId "
-                    + "WHERE R.examenId = ? AND RVF.calificacion = -1 "
+                    + "WHERE R.examenId = ? AND RVF.calificacion = -1 AND R.anulada = 0 "
                     + "GROUP BY RE.respuestaId)";
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             psConsulta.setInt(1, intIDExamen);

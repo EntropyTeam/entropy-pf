@@ -655,7 +655,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVolverMouseExited
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado((JPanel) pnlPadre);
+        GestorExamen.getInstancia().verResolucion(examen);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverInicioActionPerformed

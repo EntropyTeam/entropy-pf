@@ -190,15 +190,13 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblCodigo" max="32767" attributes="0"/>
                               <Component id="lblLegajo" alignment="1" max="32767" attributes="0"/>
                               <Component id="lblNombre" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtNombre" pref="189" max="32767" attributes="0"/>
+                              <Component id="txtNombre" pref="193" max="32767" attributes="0"/>
                               <Component id="txtLegajo" max="32767" attributes="0"/>
-                              <Component id="txtCodigo" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -217,12 +215,7 @@
                               <Component id="lblLegajo" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtLegajo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -244,14 +237,6 @@
                     <Property name="text" type="java.lang.String" value="Legajo:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblCodigo">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
-                  </Properties>
-                </Component>
                 <Component class="frontend.auxiliares.TextFieldEntropy" name="txtNombre">
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtNombre.setTextoPorDefecto(&quot;Ingrese su nombre...&quot;);&#xa;txtNombre.mostrarTextoPorDefecto();"/>
@@ -260,14 +245,6 @@
                 <Component class="frontend.auxiliares.TextFieldEntropy" name="txtLegajo">
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtLegajo.setTextoPorDefecto(&quot;Ingrese su legajo...&quot;);&#xa;txtLegajo.mostrarTextoPorDefecto();"/>
-                  </AuxValues>
-                </Component>
-                <Component class="frontend.auxiliares.TextFieldEntropy" name="txtCodigo">
-                  <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtCodigo.setTextoPorDefecto(&quot;Ingrese c&#xf3;digo autenticador...&quot;);&#xa;txtCodigo.mostrarTextoPorDefecto();"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
@@ -290,15 +267,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblIPServidor" max="32767" attributes="0"/>
-                              <Component id="lblPuerto" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="lblIPServidor" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtIPServidor" pref="152" max="32767" attributes="0"/>
-                              <Component id="txtPuerto" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="txtIPServidor" pref="152" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -311,12 +282,7 @@
                               <Component id="lblIPServidor" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtIPServidor" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblPuerto" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtPuerto" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="57" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="60" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -330,14 +296,6 @@
                     <Property name="text" type="java.lang.String" value="IP del Profesor:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblPuerto">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Puerto:"/>
-                  </Properties>
-                </Component>
                 <Component class="frontend.auxiliares.TextFieldEntropy" name="txtIPServidor">
                   <Events>
                     <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtIPServidorMouseEntered"/>
@@ -345,18 +303,6 @@
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtIPServidor.setDocument(new FiltroTexto(FiltroTexto.TipoFiltro.DIGITOS_Y_PUNTO));&#xa;txtIPServidor.setTextoPorDefecto(&quot;Ingrese la IP del profesor...&quot;);&#xa;txtIPServidor.mostrarTextoPorDefecto();"/>
-                  </AuxValues>
-                </Component>
-                <Component class="frontend.auxiliares.TextFieldEntropy" name="txtPuerto">
-                  <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtPuertoMouseEntered"/>
-                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtPuertoMouseExited"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtPuerto.setTextoPorDefecto(&quot;Ingrese un puerto...&quot;);&#xa;txtPuerto.setDocument(new FiltroTexto(FiltroTexto.TipoFiltro.DIGITOS));&#xa;txtPuerto.mostrarTextoPorDefecto();"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
