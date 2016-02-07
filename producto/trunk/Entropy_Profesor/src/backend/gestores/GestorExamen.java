@@ -74,7 +74,7 @@ public class GestorExamen {
             resolucion.setExamen(examen);
         }
         PanelResoluciones pnlResoluciones = new PanelResoluciones(examen, colResoluciones);
-        pnlResoluciones.setName("Ver resoluciones");
+        pnlResoluciones.setName("Ver resoluciones " + examen.getStrNombre() + examen.getDteFecha().toString());
         VentanaPrincipal.getInstancia().ocultarMenu();
         VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlResoluciones);
         VentanaPrincipal.getInstancia().setTitle("Resoluciones - " + examen.getStrNombre());
