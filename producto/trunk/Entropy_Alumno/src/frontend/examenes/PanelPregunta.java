@@ -353,11 +353,7 @@ public class PanelPregunta extends javax.swing.JPanel {
 
     private void btnTerminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminarActionPerformed
         try {
-
             // Notificamos progreso.
-            if (!pnlPreguntaSeleccionada.seModifico()) {
-                colCasillas[intIDSeleccionada].setBackground(Color.LIGHT_GRAY);
-            }
             int intTotalPreguntas = gestor.getRespuestas().size();
             int intPreguntasRespondidas = intTotalPreguntas;
             for (JLabel lblCasilla : colCasillas) {
