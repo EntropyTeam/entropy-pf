@@ -46,7 +46,11 @@ public class PanelPreguntaRelacionColumnas extends javax.swing.JPanel implements
 
         Object[] opcionesColDerecha = this.getOpcionesColumnaDerecha().toArray();
         opciones = new Object[opcionesColDerecha.length + 1];
-        opciones[0] = "Seleccionar...";
+        if (!blnEsCorreccion) {
+            opciones[0] = "Seleccionar...";
+        } else {
+            opciones[0] = "No se seleccionó";
+        }
         System.arraycopy(aleatorizarArray(opcionesColDerecha), 0, opciones, 1, opcionesColDerecha.length);
 
         // Características generales de la tabla.
@@ -75,8 +79,7 @@ public class PanelPreguntaRelacionColumnas extends javax.swing.JPanel implements
         cargarTabla();
         cargarRespuesta();
 
-        if (blnEsCorreccion) {
-            
+        if (blnEsCorreccion) {            
             colDerecha.setCellEditor(null);
         }
     }
@@ -249,10 +252,14 @@ public class PanelPreguntaRelacionColumnas extends javax.swing.JPanel implements
 
             // Mantener luego del if anterior.
             if (blnEsCorreccion) {
-                String strColDerechaElegida = respuesta.getColCombinaciones().get(row).getStrColumnaDerecha();
-                String strColDerechaCorrecta = respuesta.getPregunta().getColCombinaciones().get(row).getStrColumnaDerecha();
-                if (!strColDerechaElegida.equals(strColDerechaCorrecta)) {
+                if (respuesta.getColCombinaciones().isEmpty()){
                     value = "<html><span style=\"color: red;\">" + value + "</span></html>";
+                } else {
+                    String strColDerechaElegida = respuesta.getColCombinaciones().get(row).getStrColumnaDerecha();
+                    String strColDerechaCorrecta = respuesta.getPregunta().getColCombinaciones().get(row).getStrColumnaDerecha();
+                    if (!strColDerechaElegida.equals(strColDerechaCorrecta)) {
+                        value = "<html><span style=\"color: red;\">" + value + "</span></html>";
+                    }
                 }
             }
 
