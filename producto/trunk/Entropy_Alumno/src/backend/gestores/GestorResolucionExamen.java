@@ -162,7 +162,7 @@ public class GestorResolucionExamen {
         pnlIniciarExamen.setName("Iniciar Examen");
         mPadre.getPanelDeslizante().setPanelMostrado(pnlIniciarExamen);
         mPadre.setTitle("Iniciar Examen");
-        if (mPadre.isMaximized()) {
+        if (!mPadre.isMaximized()) {
             mPadre.pack();
         }
     }
