@@ -52,6 +52,7 @@ public class GestorGenerarReporteResolucion {
     public static final Font BLUE = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.BLUE);
     public static final Font GREEN = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.GREEN);
     public static final Font TITULO = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.BLACK);
+    public static final Font ANULADO = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.RED);
     public static final Font ENUNCIADO = new Font(Font.FontFamily.HELVETICA, 13, Font.BOLD, BaseColor.BLACK);
     public static final Font CHOISE = new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD, BaseColor.ORANGE);
     public static final Font NORMAL = new Font(Font.FontFamily.HELVETICA, 11, Font.NORMAL, BaseColor.BLACK);
@@ -83,9 +84,13 @@ public class GestorGenerarReporteResolucion {
             
             String titulo = this.resolucionExamen.getExamen().getStrNombre(); 
             //AGREGAR EL ESTADO ANULADO
-            /*if(this.resolucionExamen.isBlnAnulada())
+            if(this.resolucionExamen.isBlnAnulada())
             {
-            }*/
+            PdfPCell cellTitulo = new PdfPCell(new Paragraph("EXAMEN ANULADO", ANULADO));
+            cellTitulo.setBorder(Rectangle.NO_BORDER);
+            cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
+            contenidoEncabezado.addCell(cellTitulo);
+            }
             PdfPCell cellTitulo = new PdfPCell(new Paragraph(titulo, TITULO));
             cellTitulo.setBorder(Rectangle.NO_BORDER);
             cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
