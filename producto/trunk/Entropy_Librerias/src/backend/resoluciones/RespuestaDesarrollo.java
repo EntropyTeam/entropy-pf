@@ -94,7 +94,7 @@ public class RespuestaDesarrollo extends Respuesta implements Serializable {
 
     @Override
     public boolean fueRespondida() {
-        return !strRespuesta.isEmpty();
+        return strRespuesta != null && !strRespuesta.isEmpty();
     }
 
 }
