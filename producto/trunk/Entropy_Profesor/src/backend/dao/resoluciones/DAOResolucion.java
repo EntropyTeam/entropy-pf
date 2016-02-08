@@ -252,4 +252,23 @@ public class DAOResolucion implements IDAOResolucion {
             DAOConexion.desconectarBaseDatos();
         }
     }
+
+    @Override
+    public boolean anularResolucion(int resolucionID, String strJustificacion) {
+        Connection conexion = DAOConexion.conectarBaseDatos();
+        try {
+            String strConsulta = "UPDATE " + EntropyDB.RES_TBL_RESOLUCION 
+                    + " SET " + EntropyDB.RES_COL_RESOLUCION_ANULADA +" = 1, "
+                    + EntropyDB.RES_COL_RESOLUCION_MOTIVO_ANULACION +" = ? "
+                    + " WHERE " + EntropyDB.RES_COL_RESOLUCION_ID + " = ?";
+            PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
+            psConsulta.setString(1, strJustificacion);
+            psConsulta.setInt(2, resolucionID);
+            psConsulta.execute();
+            return true;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
 }

@@ -303,10 +303,10 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrPreguntas" pref="0" max="32767" attributes="0"/>
+                  <Component id="scrPreguntas" pref="331" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="btnCorregirTodas" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="122" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnVerRespuestas" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnVerResolucion" min="-2" max="-2" attributes="0"/>
@@ -314,13 +314,15 @@
                       <Component id="btnVerEstadisticasDelAlumno" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnCompartirResolucion" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnAnularResolucion" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="scrPreguntas" max="32767" attributes="0"/>
+                      <Component id="scrPreguntas" pref="384" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnVerRespuestas" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -328,6 +330,7 @@
                           <Component id="btnCompartirResolucion" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCorregirTodas" min="-2" max="-2" attributes="0"/>
                           <Component id="btnVerResolucion" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAnularResolucion" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -480,6 +483,28 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerResolucionActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="btnAnularResolucion">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/frontend/imagenes/ic_cancelar_25px.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                    <BevelBorder/>
+                  </Border>
+                </Property>
+                <Property name="contentAreaFilled" type="boolean" value="false"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Cursor de Mano"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAnularResolucionMouseEntered"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAnularResolucionMouseExited"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnularResolucionActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="pnlPreguntaSeleccionada">
@@ -542,7 +567,7 @@
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblNombre" pref="253" max="32767" attributes="0"/>
+                              <Component id="lblNombre" pref="264" max="32767" attributes="0"/>
                               <Component id="lblLegajo" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -630,7 +655,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblsPreguntasRespondidas" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblPreguntasRespondidas" pref="168" max="32767" attributes="0"/>
+                                  <Component id="lblPreguntasRespondidas" pref="191" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblsPreguntasCorregidas" min="-2" max="-2" attributes="0"/>

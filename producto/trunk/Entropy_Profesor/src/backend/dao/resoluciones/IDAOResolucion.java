@@ -54,5 +54,7 @@ public interface IDAOResolucion {
     public ArrayList<Resolucion> getResolucionesByInstitucion(int idInstitucion);
     
     public boolean setFueEnviadaPorEmail(int resolucionID, boolean fueEnviada);
-
+    
+    public boolean anularResolucion(int resolucionID, String strJustificacion);
+    
 }

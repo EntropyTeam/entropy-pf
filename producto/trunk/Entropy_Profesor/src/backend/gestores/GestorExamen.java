@@ -21,7 +21,6 @@ import frontend.resoluciones.PanelRespuesta;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -216,5 +215,12 @@ public class GestorExamen {
             VentanaPrincipal.getInstancia().pack();
         }
         return true;
+    }
+
+    public boolean anularResolucion(Resolucion resolucion, String strJustificacion) {
+        if (resolucion.getIntID() < 0) return false;
+        resolucion.setBlnAnulada(true);
+        resolucion.setStrJustificacionAnulacion(strJustificacion);
+        return new DAOResolucion().anularResolucion(resolucion.getIntID(), strJustificacion);
     }
 }

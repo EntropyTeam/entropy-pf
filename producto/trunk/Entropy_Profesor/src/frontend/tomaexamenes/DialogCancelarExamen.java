@@ -31,8 +31,9 @@ public class DialogCancelarExamen extends javax.swing.JDialog {
      * 
      * @param parent padre del dialog
      * @param modal
+     * @param anulacion false si se trata de un cancelación, true de una anulación.
      */
-    public DialogCancelarExamen(java.awt.Frame parent, boolean modal) {
+    public DialogCancelarExamen(java.awt.Frame parent, boolean modal, boolean anulacion) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
@@ -43,7 +44,10 @@ public class DialogCancelarExamen extends javax.swing.JDialog {
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
         
         ComponentMover cm = new ComponentMover(JDialog.class, pnlFondo);
-
+        
+        if (anulacion) {
+            lblMotivo.setText("Describa el motivo de la anulación:");
+        }
         this.pack();
     }
 

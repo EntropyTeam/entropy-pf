@@ -496,7 +496,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         if (defaultTblAlumnos.getValueAt(intFila, 1) == EstadoTomaExamen.INICIADO) {
             if (tblAlumnos.getModel().getRowCount() > 0
                     && Mensajes.mostrarConfirmacion("Está a punto de anular el examen del alumno. ¿Realmente desea continuar?")) {
-                DialogCancelarExamen dlgCancelar = new DialogCancelarExamen(this, true);
+                DialogCancelarExamen dlgCancelar = new DialogCancelarExamen(this, true, true);
                 dlgCancelar.setVisible(true);
                 if (dlgCancelar.getAccionElegida().equals(DialogCancelarExamen.Accion.CONTINUAR)) {
                     String strJustificacion = dlgCancelar.getStrMotivoCancelacion();
@@ -615,7 +615,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
     private void terminarTomaDeExamen(boolean blnEsCancelacion) {
         if (Mensajes.mostrarConfirmacion("Está a punto de cancelar el examen. ¿Realmente desea continuar?")) {
             if (blnEsCancelacion && tblAlumnos.getModel().getRowCount() > 0) {
-                DialogCancelarExamen dlgCancelar = new DialogCancelarExamen(this, true);
+                DialogCancelarExamen dlgCancelar = new DialogCancelarExamen(this, true, false);
                 dlgCancelar.setVisible(true);
                 if (dlgCancelar.getAccionElegida().equals(DialogCancelarExamen.Accion.CONTINUAR)) {
                     GestorExamen.getInstancia().cancelarExamen(examenTomar.getIntExamenId(), dlgCancelar.getStrMotivoCancelacion());

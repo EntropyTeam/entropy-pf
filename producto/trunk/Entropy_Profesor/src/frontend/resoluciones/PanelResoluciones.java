@@ -13,6 +13,7 @@ import frontend.estadisticas.PanelEstadisticasAlumno;
 import frontend.examenes.DialogAdministrarExamen;
 import frontend.inicio.VentanaPrincipal;
 import frontend.mail.DialogEnviarEmail;
+import frontend.tomaexamenes.DialogCancelarExamen;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,7 +22,6 @@ import javax.swing.DefaultListModel;
 import java.awt.Desktop;
 import java.io.File;
 import java.awt.Color;
-import javax.swing.JFrame;
 
 /**
  *
@@ -94,6 +94,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
         btnCompartirResolucion = new javax.swing.JButton();
         btnCorregirTodas = new javax.swing.JButton();
         btnVerResolucion = new javax.swing.JButton();
+        btnAnularResolucion = new javax.swing.JButton();
         pnlPreguntaSeleccionada = new javax.swing.JPanel();
         pnlDatosAlumno = new javax.swing.JPanel();
         lblsNombre = new javax.swing.JLabel();
@@ -369,33 +370,55 @@ public class PanelResoluciones extends javax.swing.JPanel {
             }
         });
 
+        btnAnularResolucion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_cancelar_25px.png"))); // NOI18N
+        btnAnularResolucion.setToolTipText("");
+        btnAnularResolucion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAnularResolucion.setContentAreaFilled(false);
+        btnAnularResolucion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAnularResolucion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAnularResolucionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAnularResolucionMouseExited(evt);
+            }
+        });
+        btnAnularResolucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnularResolucionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlPreguntasLayout = new javax.swing.GroupLayout(pnlPreguntas);
         pnlPreguntas.setLayout(pnlPreguntasLayout);
         pnlPreguntasLayout.setHorizontalGroup(
             pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
             .addGroup(pnlPreguntasLayout.createSequentialGroup()
                 .addComponent(btnCorregirTodas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVerRespuestas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVerResolucion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVerEstadisticasDelAlumno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCompartirResolucion))
+                .addComponent(btnCompartirResolucion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAnularResolucion))
         );
         pnlPreguntasLayout.setVerticalGroup(
             pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPreguntasLayout.createSequentialGroup()
-                .addComponent(scrPreguntas)
+                .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVerRespuestas)
                     .addComponent(btnVerEstadisticasDelAlumno)
                     .addComponent(btnCompartirResolucion)
                     .addComponent(btnCorregirTodas)
-                    .addComponent(btnVerResolucion)))
+                    .addComponent(btnVerResolucion)
+                    .addComponent(btnAnularResolucion)))
         );
 
         pnlPreguntaSeleccionada.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resolución Seleccionada", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
@@ -427,7 +450,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                     .addComponent(lblsNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                     .addComponent(lblLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -503,7 +526,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPreguntasRespondidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPreguntasRespondidas, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
+                        .addComponent(lblPreguntasRespondidas, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPreguntasCorregidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -755,8 +778,42 @@ public class PanelResoluciones extends javax.swing.JPanel {
         VentanaPrincipal.getInstancia().volverAInicio();
     }//GEN-LAST:event_btnVolverInicioActionPerformed
 
+    private void btnAnularResolucionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnularResolucionMouseEntered
+        this.gestorEstado.setEstadoInstantaneo("Anular la resolución seleccionada.");
+    }//GEN-LAST:event_btnAnularResolucionMouseEntered
+
+    private void btnAnularResolucionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnularResolucionMouseExited
+        this.gestorEstado.volverAEstadoImportante();
+    }//GEN-LAST:event_btnAnularResolucionMouseExited
+
+    private void btnAnularResolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularResolucionActionPerformed
+        if (lstResoluciones.getSelectedValue() != null) {
+            Resolucion resolucion = (Resolucion) lstResoluciones.getSelectedValue();
+            if (Mensajes.mostrarConfirmacion("Está por anular la resolución del alumno "
+                + resolucion.getAlumno().toString()+". ¿Realmente desea proceder?")){
+                DialogCancelarExamen dlgCancelar = new DialogCancelarExamen(VentanaPrincipal.getInstancia(), true, true);
+                dlgCancelar.setVisible(true);
+                if (dlgCancelar.getAccionElegida().equals(DialogCancelarExamen.Accion.CONTINUAR)) {
+                    String strJustificacion = dlgCancelar.getStrMotivoCancelacion();
+                    if (GestorExamen.getInstancia().anularResolucion(resolucion, strJustificacion)){
+                        Mensajes.mostrarExito("La resolución ha sido anulada exitosamente");
+                        gestorEstado.setNuevoEstadoImportante(
+                                "Se ha anulado la resolución del alumno " + resolucion.getAlumno().toString()+".",
+                                GestorBarrasDeEstado.TipoEstado.OK);
+                        cargarDatosGenerales(resolucion);
+                    } else {
+                        Mensajes.mostrarError("Error al anular la resolución. Inténtelo nuevamente.");
+                    }
+                }
+            }
+        } else {
+            Mensajes.mostrarAdvertencia("No se ha seleccionado una resolución para anular.");
+        }
+    }//GEN-LAST:event_btnAnularResolucionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnularResolucion;
     private javax.swing.JButton btnCompartirResolucion;
     private javax.swing.JButton btnCorregirTodas;
     private javax.swing.JButton btnVerEstadisticasDelAlumno;

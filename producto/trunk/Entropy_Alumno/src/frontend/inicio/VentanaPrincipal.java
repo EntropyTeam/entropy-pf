@@ -250,13 +250,13 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     
     public boolean isMaximized() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        double screenWidth = screenSize.getWidth();
+        // double screenWidth = screenSize.getWidth();
         double screenHeight = screenSize.getHeight();
         double windowHeight = getSize().height;
-        double windowWidth = getSize().width;
+        // double windowWidth = getSize().width;
         return getExtendedState() == JFrame.MAXIMIZED_BOTH
                 || getExtendedState() == JFrame.MAXIMIZED_VERT
-                || windowWidth > screenWidth / 2 - 60
+                // || windowWidth > screenWidth / 2 - 60
                 || screenHeight - windowHeight < 50;
     }
 }
