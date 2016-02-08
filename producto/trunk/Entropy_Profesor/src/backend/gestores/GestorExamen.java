@@ -71,6 +71,7 @@ public class GestorExamen {
         }
         for (Resolucion resolucion : colResoluciones) {
             resolucion.setExamen(examen);
+            resolucion.setAlumno(new DAOAlumno().getAlumno(resolucion.getAlumno().getIntAlumnoId()));
         }
         PanelResoluciones pnlResoluciones = new PanelResoluciones(examen, colResoluciones);
         pnlResoluciones.setName("Ver resoluciones " + examen.getStrNombre() + examen.getDteFecha().toString());

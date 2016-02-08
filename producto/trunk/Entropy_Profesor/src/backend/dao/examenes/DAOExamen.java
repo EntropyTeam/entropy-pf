@@ -272,14 +272,14 @@ public class DAOExamen implements IDAOExamen {
                     + "INNER JOIN exa_examen E ON R.examenID = E.examenId  "
                     + "INNER JOIN res_respuesta RE ON R.resolucionId = RE.resolucionId    "
                     + "INNER JOIN res_respuestadesarrollo RD ON RE.respuestaId = RD.respuestaId  "
-                    + "WHERE RD.calificacion = -1)  "
+                    + "WHERE RD.calificacion = -1 AND R.anulada = 0)  "
                     + "OR EX.examenId IN  "
                     + "(SELECT R.examenId  "
                     + "FROM res_resolucion R  "
                     + "INNER JOIN exa_examen E ON R.examenID = E.examenId  "
                     + "INNER JOIN res_respuesta RE ON R.resolucionId = RE.resolucionId    "
                     + "INNER JOIN res_respuestaverdaderofalso RVF ON RE.respuestaId = RVF.respuestaId  "
-                    + "WHERE RVF.calificacion = -1))  "
+                    + "WHERE RVF.calificacion = -1 AND R.anulada = 0))  "
                     + "AND EX.examenId = ? ";
 
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);

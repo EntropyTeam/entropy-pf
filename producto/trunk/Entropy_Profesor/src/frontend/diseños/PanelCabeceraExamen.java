@@ -330,9 +330,12 @@ public class PanelCabeceraExamen extends javax.swing.JPanel {
             for (Curso c : mPadre.getGestorDiseñoExamen().getCursosPorFiltro("", i)) {
                 cmbCurso.addItem(c);
             }
-
-            cmbCurso.getEditor().setItem(cmbCurso.getText());
-            cmbCurso.setSelectedItem(cmbCurso.getEditor().getItem());
+            
+            if (cmbCurso.getItemCount() > 0) {
+                cmbCurso.setSelectedIndex(0);
+            }
+            //cmbCurso.getEditor().setItem(cmbCurso.getText());
+            //cmbCurso.setSelectedItem(cmbCurso.getEditor().getItem());            
         }
     }//GEN-LAST:event_cmbInstitucionItemStateChanged
 

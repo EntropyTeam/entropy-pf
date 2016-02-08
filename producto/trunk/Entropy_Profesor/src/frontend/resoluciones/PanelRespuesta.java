@@ -655,10 +655,12 @@ public class PanelRespuesta extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVolverMouseExited
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        GestorExamen.getInstancia().actualizarEstadoExamen(examen.getIntExamenId());
         GestorExamen.getInstancia().verResolucion(examen);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverInicioActionPerformed
+        GestorExamen.getInstancia().actualizarEstadoExamen(examen.getIntExamenId());
         VentanaPrincipal.getInstancia().volverAInicio();
     }//GEN-LAST:event_btnVolverInicioActionPerformed
 
