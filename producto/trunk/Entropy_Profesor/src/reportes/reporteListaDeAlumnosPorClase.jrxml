@@ -185,10 +185,10 @@ WHERE PP.presentacionId=PA.presentacionId AND PA.AlumnoId=GA.alumnoId AND PP.fec
 			</staticText>
 		</band>
 	</title>
-	<detail>
-		<band height="98">
+	<pageHeader>
+		<band height="64">
 			<componentElement>
-				<reportElement key="table 4" style="table 4" x="0" y="0" width="555" height="98" uuid="19c876d3-7850-47b3-921d-d3f11baf7447"/>
+				<reportElement key="table 4" style="table 4" x="0" y="0" width="555" height="64" uuid="19c876d3-7850-47b3-921d-d3f11baf7447"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="New Dataset 1" uuid="1c849ba5-0bcf-4a5b-a30d-f02a59780cf0">
 						<datasetParameter name="fecha">
@@ -310,5 +310,8 @@ WHERE PP.presentacionId=PA.presentacionId AND PA.AlumnoId=GA.alumnoId AND PP.fec
 				</jr:table>
 			</componentElement>
 		</band>
+	</pageHeader>
+	<detail>
+		<band height="23"/>
 	</detail>
 </jasperReport>
