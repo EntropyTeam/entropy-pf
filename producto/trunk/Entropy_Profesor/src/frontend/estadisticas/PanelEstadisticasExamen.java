@@ -48,10 +48,14 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
         this.gestorGraficos = gestorGraficos;
         this.pnlPreguntas.setVisible(false);
         tpnEstadisticas.setUI(new TabbedPaneEntropy());
-        tblRespuestas.setModel(new javax.swing.table.DefaultTableModel(
-            gestorGraficos.crearMatrizRespuestas(),
-            gestorGraficos.getEncabezadoMatriz()
-        ));
+        if (!(mPadre instanceof PanelEstadisticasAlumno)){
+            tblRespuestas.setModel(new javax.swing.table.DefaultTableModel(
+                gestorGraficos.crearMatrizRespuestas(),
+                gestorGraficos.getEncabezadoMatriz()
+            ));
+        } else {
+            tpnEstadisticas.remove(scrRespuestas);
+        }
         tblRespuestas.setDefaultRenderer(Object.class, new CeldaRespuestasRenderer());
         tblRespuestas.getTableHeader().setDefaultRenderer(new CeldaRespuestasHeaderRenderer());
         tblRespuestas.getTableHeader().setReorderingAllowed(false);

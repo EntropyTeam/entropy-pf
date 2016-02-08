@@ -334,9 +334,6 @@
     </Container>
     <Container class="frontend.auxiliares.PanelConFondo" name="pnlGrafico">
       <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
-        </Property>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
 
@@ -348,11 +345,6 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JTabbedPane" name="tpnEstadisticas">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
-            </Property>
-          </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
