@@ -229,7 +229,7 @@ public class DialogInfoUsuario extends javax.swing.JDialog {
         lblsCodigo.setText("Código:");
 
         lblCodigo.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
-        lblCodigo.setText("YDHewr435");
+        lblCodigo.setText("Sin código.");
 
         javax.swing.GroupLayout pnlDatosHostLayout = new javax.swing.GroupLayout(pnlDatosHost);
         pnlDatosHost.setLayout(pnlDatosHostLayout);

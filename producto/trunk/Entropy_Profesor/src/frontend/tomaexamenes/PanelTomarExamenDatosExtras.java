@@ -75,6 +75,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
         txtPorcentajeAprobado = new frontend.auxiliares.TextFieldEntropy();
         lblsSignoPorcentaje = new javax.swing.JLabel();
         chbEsMostrarCorreccion = new javax.swing.JCheckBox();
+        chbEsValidarCodigo = new javax.swing.JCheckBox();
 
         lblSiguiente.setBackground(new java.awt.Color(227, 226, 226));
         lblSiguiente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -278,6 +279,12 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
         chbEsMostrarCorreccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_checkbox.png"))); // NOI18N
         chbEsMostrarCorreccion.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_checkbox_selected.png"))); // NOI18N
 
+        chbEsValidarCodigo.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        chbEsValidarCodigo.setSelected(true);
+        chbEsValidarCodigo.setText("<html>Realizar validación de código.</html>");
+        chbEsValidarCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_checkbox.png"))); // NOI18N
+        chbEsValidarCodigo.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_checkbox_selected.png"))); // NOI18N
+
         javax.swing.GroupLayout pnlOtrosDatosLayout = new javax.swing.GroupLayout(pnlOtrosDatos);
         pnlOtrosDatos.setLayout(pnlOtrosDatosLayout);
         pnlOtrosDatosLayout.setHorizontalGroup(
@@ -288,7 +295,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
                     .addGroup(pnlOtrosDatosLayout.createSequentialGroup()
                         .addComponent(lblFormaPresentacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbFormaPresentacion, 0, 182, Short.MAX_VALUE))
+                        .addComponent(cmbFormaPresentacion, 0, 230, Short.MAX_VALUE))
                     .addGroup(pnlOtrosDatosLayout.createSequentialGroup()
                         .addGroup(pnlOtrosDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlOtrosDatosLayout.createSequentialGroup()
@@ -310,6 +317,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(chbEsMostrarCorreccion, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(chbEsValidarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         pnlOtrosDatosLayout.setVerticalGroup(
             pnlOtrosDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,7 +340,9 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
                     .addComponent(lblsSignoPorcentaje))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chbEsMostrarCorreccion, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chbEsValidarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         pnlEncabezado.add(pnlOtrosDatos);
@@ -436,6 +446,10 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
         return chbEsMostrarCorreccion.isSelected();
     }
     
+    public boolean esValidarCodigo() {
+        return chbEsValidarCodigo.isSelected();
+    }
+    
     /**
      * Se comunica con el gestor de importacion para buscar todos los cursos que
      * pertenecen a una Institucion.
@@ -449,6 +463,7 @@ public class PanelTomarExamenDatosExtras extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox chbEsMostrarCorreccion;
+    private javax.swing.JCheckBox chbEsValidarCodigo;
     private javax.swing.JComboBox cmbCurso;
     private javax.swing.JComboBox cmbFormaPresentacion;
     private javax.swing.JComboBox cmbInstitucion;

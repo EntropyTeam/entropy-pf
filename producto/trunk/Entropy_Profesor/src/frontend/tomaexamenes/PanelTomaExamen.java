@@ -193,6 +193,7 @@ public class PanelTomaExamen extends javax.swing.JPanel {
         this.examenTomar.setCurso(this.pnlDatosExtras.getCursoSeleccionado());
         this.examenTomar.setDblPorcentajeAprobacion(this.pnlDatosExtras.getPorcentajeAprobacion());
         this.examenTomar.setEsMostrarCorreccionAutomatica(this.pnlDatosExtras.esMostrarCorreccionAutomatica());
+        this.examenTomar.setEsValidarCodigo(this.pnlDatosExtras.esValidarCodigo());
         /**
          * Denise dice: Creo que lo que sigue tenemos que hacerlo sólo si algún
          * alumno efectivamente se conecta e intenta hacer un examen. Guardar

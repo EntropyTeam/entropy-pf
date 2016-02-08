@@ -30,6 +30,7 @@ public class Examen implements Serializable {
     private Date dteFecha;
     private Double dblPorcentajeAprobacion;
     private boolean esMostrarCorreccionAutomatica;
+    private boolean esValidarCodigo;
 
     /**
      * Constructor por defecto.
@@ -38,6 +39,7 @@ public class Examen implements Serializable {
     public Examen() {
         this.intExamenId = -1;
         this.esMostrarCorreccionAutomatica = true;
+        this.esValidarCodigo = true;
         this.orden = OrdenLista.ALEATORIO;
     }
 
@@ -55,6 +57,7 @@ public class Examen implements Serializable {
      */
     public Examen(int intExamenId, String strNombre, String strDescripcion, ArrayList<Pregunta> colPreguntas, Curso curso, int intEstado, int intTiempo, Date dteFecha) {
         this.esMostrarCorreccionAutomatica = true;
+        this.esValidarCodigo = true;
         this.intExamenId = intExamenId;
         this.strNombre = strNombre;
         this.strDescripcion = strDescripcion;
@@ -76,6 +79,7 @@ public class Examen implements Serializable {
      */
     public Examen(int intExamenId, String strNombre, String strDescripcion, int intEstado) {
         this.esMostrarCorreccionAutomatica = true;
+        this.esValidarCodigo = true;
         this.intExamenId = intExamenId;
         this.strNombre = strNombre;
         this.strDescripcion = strDescripcion;
@@ -85,6 +89,7 @@ public class Examen implements Serializable {
 
     public Examen(int intExamenId, String strNombre, String strDescripcion, Curso curso, int intEstado, int intTiempo) {
         this.esMostrarCorreccionAutomatica = true;
+        this.esValidarCodigo = true;
         this.intExamenId = intExamenId;
         this.strNombre = strNombre;
         this.strDescripcion = strDescripcion;
@@ -190,7 +195,14 @@ public class Examen implements Serializable {
     public void setEsMostrarCorreccionAutomatica(boolean esMostrarCorreccionAutomatica) {
         this.esMostrarCorreccionAutomatica = esMostrarCorreccionAutomatica;
     }
-    
+
+    public boolean esValidarCodigo() {
+        return esValidarCodigo;
+    }
+
+    public void setEsValidarCodigo(boolean esValidarCodigo) {
+        this.esValidarCodigo = esValidarCodigo;
+    }
     
     @Override
     public boolean equals(Object obj) {

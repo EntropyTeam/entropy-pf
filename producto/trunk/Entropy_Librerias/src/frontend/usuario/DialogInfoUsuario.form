@@ -436,7 +436,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="YDHewr435"/>
+                        <Property name="text" type="java.lang.String" value="Sin c&#xf3;digo."/>
                       </Properties>
                     </Component>
                   </SubComponents>

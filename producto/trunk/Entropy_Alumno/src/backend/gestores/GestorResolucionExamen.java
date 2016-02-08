@@ -180,14 +180,14 @@ public class GestorResolucionExamen {
     }
 
     /**
-     * Comienza el examen. Comunica al profesor que se inició el examen, prepara
+     * Comienza el examen. Valida el código, comunica al profesor que se inició el examen, prepara
      * las respuestas para cada pregunta, y las muestra al alumno.
      *
+     * @param codigo
      * @throws IOException excepcion si es imposible comunicarse con el
      * profesor.
      */
     public void comenzarExamen(String codigo) throws IOException {
-        
         //valido el codigo con el servidor (MAndo mensajes de ida y vuelta)
         Mensaje mnsValidarAlumno = new Mensaje(TipoMensaje.VALIDAR_ALUMNO, codigo);
         hiloSocketAlumno.enviarMensaje(mnsValidarAlumno);
@@ -196,7 +196,21 @@ public class GestorResolucionExamen {
         if (this.blnValidacion == false) {
             return;
         }
-
+        initExamen();
+    }
+    
+    /**
+     * Comienza el examen. Comunica al profesor que se inició el examen, prepara
+     * las respuestas para cada pregunta, y las muestra al alumno.
+     *
+     * @throws IOException excepcion si es imposible comunicarse con el
+     * profesor.
+     */
+    public void comenzarExamen() throws IOException {
+        initExamen();
+    }
+    
+    private void initExamen() throws IOException{
         // Se avisa al servidor
         Mensaje mnsAvisarComienzo = new Mensaje(TipoMensaje.INICIAR_EXAMEN);
         hiloSocketAlumno.enviarMensaje(mnsAvisarComienzo);

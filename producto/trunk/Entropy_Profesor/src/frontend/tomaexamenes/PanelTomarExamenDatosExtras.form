@@ -303,7 +303,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lblFormaPresentacion" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="cmbFormaPresentacion" pref="182" max="32767" attributes="0"/>
+                              <Component id="cmbFormaPresentacion" pref="230" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -332,6 +332,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Component id="chbEsMostrarCorreccion" alignment="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="chbEsValidarCodigo" alignment="0" pref="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -358,7 +359,9 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="chbEsMostrarCorreccion" min="-2" pref="34" max="-2" attributes="0"/>
-                      <EmptySpace pref="78" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="chbEsValidarCodigo" min="-2" pref="34" max="-2" attributes="0"/>
+                      <EmptySpace pref="113" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -474,6 +477,21 @@
                 </Property>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="&lt;html&gt;Mostrar al alumno la correcci&#xf3;n de las preguntas de correcci&#xf3;n autom&#xe1;tica al finalizar el examen.&lt;/html&gt;"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/frontend/imagenes/ic_checkbox.png"/>
+                </Property>
+                <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/frontend/imagenes/ic_checkbox_selected.png"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chbEsValidarCodigo">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="LookAndFeelEntropy.FUENTE_REGULAR" type="code"/>
+                </Property>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;Realizar validaci&#xf3;n de c&#xf3;digo.&lt;/html&gt;"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/frontend/imagenes/ic_checkbox.png"/>
                 </Property>

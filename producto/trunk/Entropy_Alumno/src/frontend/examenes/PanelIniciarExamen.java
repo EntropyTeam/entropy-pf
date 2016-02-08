@@ -32,8 +32,8 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
         int intMinutos = gestor.getExamen().getIntTiempo() % 60;
         String strDuracion = String.format("%02d", intHoras) + ":" + String.format("%02d", intMinutos) + " hs.";
         lblDuracion.setText(strDuracion);
-        //jPanel1.removeAll();
-        //jPanel1.add(btnComenzar, java.awt.BorderLayout.SOUTH);
+        lblCodigo.setVisible(gestor.getExamen().esValidarCodigo());
+        pnlCodigo.setVisible(gestor.getExamen().esValidarCodigo());
     }
 
     /**
@@ -246,8 +246,12 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
 
     private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
         try {
-            String codigo = this.txtCodigo.getText();
-            this.gestor.comenzarExamen(codigo);
+            if (gestor.getExamen().esValidarCodigo()){
+                String codigo = this.txtCodigo.getText();
+                this.gestor.comenzarExamen(codigo);
+            } else {
+                this.gestor.comenzarExamen();
+            }
         } catch (IOException ioe) {
             Mensajes.mostrarError("Imposible avisar comienzo al profesor.");
         }
