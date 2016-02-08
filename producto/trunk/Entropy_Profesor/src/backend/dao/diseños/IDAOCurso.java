@@ -45,4 +45,5 @@ public interface IDAOCurso {
     */
     public void borrarCurso(int intCursoId, int intInstitucionId);
 
+    public boolean tieneDiseñosOExamenesAsociados(int intCursoId);
 }

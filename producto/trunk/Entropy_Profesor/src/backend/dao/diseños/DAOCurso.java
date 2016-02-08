@@ -228,4 +228,33 @@ public class DAOCurso implements IDAOCurso {
         
         return curso;
     }    
+
+    @Override
+    public boolean tieneDiseñosOExamenesAsociados(int intCursoId) {
+        try {
+            Connection conexion = DAOConexion.conectarBaseDatos();
+            String strConsulta = "SELECT 1  "
+                    + "FROM " + EntropyDB.GRL_TBL_CURSO + " C "
+                    + "WHERE (C." + EntropyDB.GRL_COL_CURSO_ID + " IN  "
+                    + "(SELECT D." + EntropyDB.DIS_COL_DISEÑO_EXAMEN_CURSO_ID +" "
+                    + "FROM " + EntropyDB.DIS_TBL_DISEÑO_EXAMEN + " D "
+                    + "WHERE D." + EntropyDB.DIS_COL_DISEÑO_EXAMEN_CURSO_ID +" = ?)  "
+                    + "OR C." + EntropyDB.GRL_COL_CURSO_ID + " IN  "
+                    + "(SELECT E." + EntropyDB.DIS_COL_DISEÑO_EXAMEN_CURSO_ID +" "
+                    + "FROM " + EntropyDB.EXA_TBL_EXAMEN + " E "
+                    + "WHERE E." + EntropyDB.EXA_COL_EXAMEN_CURSO_ID +" = ?))  ";
+            PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
+            psConsulta.setInt(1, intCursoId);
+            ResultSet rsConsulta = psConsulta.executeQuery();
+            while (rsConsulta.next()) {
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            System.err.println("Ha ocurrido un error mientras se guardaba la institucion en la BD " + e.toString());
+            return true;
+        } finally {
+            DAOConexion.desconectarBaseDatos();
+        }
+    }
 }

@@ -907,11 +907,16 @@ public class PanelAdministrarCursos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEliminarCursoMouseExited
 
     private void btnEliminarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCursoActionPerformed
-        if (((Curso) lstCursos.getSelectedValue()) != null) {
+        Curso curso = (Curso) lstCursos.getSelectedValue();
+        if (curso != null) {
             boolean mensaje = Mensajes.mostrarConfirmacion("¿Desea borrar el curso \"" + ((Curso) lstCursos.getSelectedValue()) + "\"?");
             if (mensaje) {
+                if (gestorCursosEInstituciones.esAsociadoAExamenODiseño(curso)){
+                    Mensajes.mostrarInformacion("El curso posee diseños o exámenes asociados. No puede ser eliminado.");
+                    return;
+                }
+                int intIdCurso = curso.getIntCursoId();
                 int intIdInstitucion = ((Institucion) lstInstituciones.getSelectedValue()).getIntInstitucionId();
-                int intIdCurso = ((Curso) lstCursos.getSelectedValue()).getIntCursoId();
                 gestorCursosEInstituciones.eliminarCurso(intIdCurso, intIdInstitucion);
                 Mensajes.mostrarInformacion("Se ha borrado el curso");
                 this.gestorCursosEInstituciones.setInstituciones(this.gestorCursosEInstituciones.recuperarTodasLasInstituciones(""));
@@ -923,9 +928,14 @@ public class PanelAdministrarCursos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEliminarCursoActionPerformed
 
     private void btnEliminarInstitucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarInstitucionActionPerformed
-        if (((Institucion) lstInstituciones.getSelectedValue()) != null) {
+        Institucion institucion = (Institucion) lstInstituciones.getSelectedValue();
+        if (institucion != null) {
             boolean mensaje = Mensajes.mostrarConfirmacion("¿Desea borrar la institución \"" + ((Institucion) lstInstituciones.getSelectedValue()) + "\"?");
             if (mensaje) {
+                if (gestorCursosEInstituciones.esAsociadoAExamenODiseño(institucion)){
+                    Mensajes.mostrarInformacion("La institución posee diseños o exámenes asociados. No puede ser eliminado.");
+                    return;
+                }
                 int intIdInstitucion = ((Institucion) lstInstituciones.getSelectedValue()).getIntInstitucionId();
                 gestorCursosEInstituciones.eliminarInstitucion(intIdInstitucion);
                 this.gestorCursosEInstituciones.setInstituciones(this.gestorCursosEInstituciones.recuperarTodasLasInstituciones(""));
