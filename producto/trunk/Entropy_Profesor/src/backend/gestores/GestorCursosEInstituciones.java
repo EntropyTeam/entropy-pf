@@ -92,4 +92,18 @@ public class GestorCursosEInstituciones {
         DAOCurso daoCurso = new DAOCurso();
         return daoCurso.buscarCurso(idDiseño);
     }
+
+    public boolean esAsociadoAExamenODiseño(Curso curso) {
+        return new DAOCurso().tieneDiseñosOExamenesAsociados(curso.getIntCursoId());
+    }
+
+    public boolean esAsociadoAExamenODiseño(Institucion institucion) {
+        DAOCurso daoCurso = new DAOCurso();
+        for (Curso curso : new GestorDiseñoExamen().getCursosPorFiltro("", institucion)){
+            if (daoCurso.tieneDiseñosOExamenesAsociados(curso.getIntCursoId())){
+                return true;
+            }
+        }
+        return false;
+    }
 }
