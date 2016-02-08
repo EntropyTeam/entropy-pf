@@ -296,6 +296,7 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
                 Desktop.getDesktop().open(fPath);
             } catch (IOException ex) {
                 ex.printStackTrace();
+                Mensajes.mostrarError(ex.getMessage().replace("Failed to open ", "Imposible abrir el archivo ").replace("Error message: ", ""));
             }
         } else {
             Mensajes.mostrarAdvertencia("Su diseño de examen esta vacío.");
