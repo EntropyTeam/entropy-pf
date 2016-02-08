@@ -22,13 +22,9 @@ public class DAOUsuario implements IDAOUsuario {
         try {
             String strConsulta = "SELECT * "
                     + "FROM " + EntropyDB.GRL_TBL_USUARIO + " "
-                    + "WHERE (" + EntropyDB.GRL_COL_USUARIO_TIPO_DOCUMENTO + " = ? "
-                    + "AND " + EntropyDB.GRL_COL_USUARIO_DOCUMENTO + " = ?) "
-                    + "OR " + EntropyDB.GRL_COL_USUARIO_LEGAJO + " = ?";
+                    + "WHERE " + EntropyDB.GRL_COL_USUARIO_ID + " = ? ";
             PreparedStatement psconsulta = conexion.prepareStatement(strConsulta);
-            psconsulta.setString(1, usuario.getStrTipoDocumento());
-            psconsulta.setInt(2, usuario.getIntNroDocumento());
-            psconsulta.setString(3, usuario.getStrLegajo());
+            psconsulta.setInt(1, usuario.getUsuarioID());
 
             String strUpdate;
             PreparedStatement psUpdate;
@@ -64,8 +60,7 @@ public class DAOUsuario implements IDAOUsuario {
                         + EntropyDB.GRL_COL_USUARIO_FOTO + " = ?, "
                         + EntropyDB.GRL_COL_USUARIO_DESCRIPCION + " = ?, "
                         + EntropyDB.GRL_COL_USUARIO_LEGAJO + " = ? "
-                        + "WHERE " + EntropyDB.GRL_COL_USUARIO_TIPO_DOCUMENTO + " = ? "
-                        + "AND " + EntropyDB.GRL_COL_USUARIO_DOCUMENTO + " = ?";
+                        + "WHERE " + EntropyDB.GRL_COL_USUARIO_ID + " = ?";
                 psUpdate = conexion.prepareStatement(strUpdate);
                 psUpdate.setString(1, usuario.getStrNombre());
                 psUpdate.setString(2, usuario.getStrApellido());
@@ -75,8 +70,7 @@ public class DAOUsuario implements IDAOUsuario {
                 psUpdate.setObject(6, usuario.getImgFoto());
                 psUpdate.setString(7, usuario.getStrDescripcion());
                 psUpdate.setString(8, usuario.getStrLegajo());
-                psUpdate.setString(9, usuario.getStrTipoDocumento());
-                psUpdate.setInt(10, usuario.getIntNroDocumento());
+                psUpdate.setInt(9, usuario.getUsuarioID());
             }
 
             if (psUpdate.executeUpdate() > 0)
@@ -106,6 +100,7 @@ public class DAOUsuario implements IDAOUsuario {
             ResultSet rsContulta = psConsulta.executeQuery();
             while (rsContulta.next()) {
                 usuario = new Usuario();
+                usuario.setUsuarioID(rsContulta.getInt(EntropyDB.GRL_COL_USUARIO_ID));
                 usuario.setStrNombre(rsContulta.getString(EntropyDB.GRL_COL_USUARIO_NOMBRE));
                 usuario.setStrApellido(rsContulta.getString(EntropyDB.GRL_COL_USUARIO_APELLIDO));
                 usuario.setStrTipoDocumento(rsContulta.getString(EntropyDB.GRL_COL_USUARIO_TIPO_DOCUMENTO));
@@ -132,6 +127,7 @@ public class DAOUsuario implements IDAOUsuario {
             ResultSet rsContulta = psConsulta.executeQuery();
             while (rsContulta.next()) {
                 usuario = new Usuario();
+                usuario.setUsuarioID(rsContulta.getInt(EntropyDB.GRL_COL_USUARIO_ID));
                 usuario.setStrNombre(rsContulta.getString(EntropyDB.GRL_COL_USUARIO_NOMBRE));
                 usuario.setStrApellido(rsContulta.getString(EntropyDB.GRL_COL_USUARIO_APELLIDO));
                 usuario.setStrTipoDocumento(rsContulta.getString(EntropyDB.GRL_COL_USUARIO_TIPO_DOCUMENTO));

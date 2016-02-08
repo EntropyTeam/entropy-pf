@@ -14,6 +14,7 @@ public class Usuario implements Serializable  {
     protected String strApellido;
     protected String strTipoDocumento;
     protected int intNroDocumento;
+    protected int usuarioID;
     protected String strEmail;
     protected String strDescripcion;
     protected String strLegajo;
@@ -21,10 +22,12 @@ public class Usuario implements Serializable  {
     protected String strIP;
 
     public Usuario() {
+        this.usuarioID = -1;
         this.intNroDocumento = -1;        
     }
 
     public Usuario(String strNombre, String strApellido, String strTipoDocumento, int intNroDocumento, String strEmail, String strLegajo) {
+        this.usuarioID = -1;
         this.strNombre = strNombre;
         this.strApellido = strApellido;
         this.strTipoDocumento = strTipoDocumento;
@@ -113,6 +116,14 @@ public class Usuario implements Serializable  {
         return hash;
     }
 
+    public int getUsuarioID() {
+        return usuarioID;
+    }
+
+    public void setUsuarioID(int usuarioID) {
+        this.usuarioID = usuarioID;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
