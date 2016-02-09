@@ -62,6 +62,11 @@ public class PanelPreguntaVerdaderoFalso extends javax.swing.JPanel implements I
 
         txaJustificacion.setColumns(20);
         txaJustificacion.setRows(5);
+        txaJustificacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txaJustificacionKeyReleased(evt);
+            }
+        });
         scrJustificacion.setViewportView(txaJustificacion);
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
@@ -126,6 +131,12 @@ public class PanelPreguntaVerdaderoFalso extends javax.swing.JPanel implements I
             fabricarRespuesta();
         }
     }//GEN-LAST:event_rbnFalsoActionPerformed
+
+    private void txaJustificacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaJustificacionKeyReleased
+        if (!blnEsCorreccion) {
+            fabricarRespuesta();
+        }
+    }//GEN-LAST:event_txaJustificacionKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
