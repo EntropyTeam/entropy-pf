@@ -50,7 +50,7 @@ public class GestorResolucionExamen {
     private Resolucion resolucion;
     private Resolucion resolucionRecuperar;
     private GestorPersistencia gestorPersistencia;
-    private DialogRealizarExamen dialogRealizarExamen;
+    public DialogRealizarExamen dialogRealizarExamen;
     private Timer timerEspera;
     private Alumno alumno;
     private Usuario profesor;

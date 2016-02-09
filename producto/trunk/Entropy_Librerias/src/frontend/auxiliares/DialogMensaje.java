@@ -68,9 +68,9 @@ public final class DialogMensaje extends javax.swing.JDialog {
 //        cr.setSnapSize(new Dimension(10, 10));
 //        cr.registerComponent(this);
         
-        this.pack();
-        
         setLocationRelativeTo(parent);
+        
+        this.pack();
     }
 
     /*

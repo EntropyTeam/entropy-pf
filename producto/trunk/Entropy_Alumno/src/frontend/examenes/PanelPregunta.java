@@ -409,7 +409,9 @@ public class PanelPregunta extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVerAdjuntoMouseExited
 
     private void btnVerAdjuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerAdjuntoActionPerformed
-        dlgAdjunto.setVisible(true);
+        gestor.dialogRealizarExamen.setAlwaysOnTop(false);
+        dlgAdjunto.setAlwaysOnTop(true);
+        dlgAdjunto.setVisible(true);        
     }//GEN-LAST:event_btnVerAdjuntoActionPerformed
 
 
@@ -646,7 +648,7 @@ public class PanelPregunta extends javax.swing.JPanel {
 
         btnVerAdjunto.setVisible(!respuesta.getPregunta().getColAdjuntos().isEmpty());
         if(!respuesta.getPregunta().getColAdjuntos().isEmpty()){
-            dlgAdjunto = new DialogAdjunto(VentanaPrincipal.getInstancia(), true, respuesta.getPregunta().getColAdjuntos().get(0));
+            dlgAdjunto = new DialogAdjunto(VentanaPrincipal.getInstancia(), true, respuesta.getPregunta().getColAdjuntos().get(0), gestor);
         }        
         
         if (blnEsCorrecion && respuesta.getPregunta().getStrReferencia() != null) {

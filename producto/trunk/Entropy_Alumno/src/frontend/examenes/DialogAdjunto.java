@@ -1,5 +1,6 @@
 package frontend.examenes;
 
+import backend.gestores.GestorResolucionExamen;
 import frontend.auxiliares.ComponentMover;
 import frontend.auxiliares.ComponentResizer;
 import frontend.auxiliares.LookAndFeelEntropy;
@@ -27,15 +28,17 @@ import javax.swing.KeyStroke;
  */
 public class DialogAdjunto extends javax.swing.JDialog {
 
-
+    private GestorResolucionExamen gestor;
+    
     /**
      * Constructor de la clase.
      *
      * @param padre ventana principal de la aplicación.
      * @param modal true si mantiene el foco, false de lo contrario.
      * @param imgAdjunto
+     * @param gestor
      */
-    public DialogAdjunto(JFrame padre, boolean modal, Object imgAdjunto) {
+    public DialogAdjunto(JFrame padre, boolean modal, Object imgAdjunto, GestorResolucionExamen gestor) {
         super(padre, modal);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -45,13 +48,15 @@ public class DialogAdjunto extends javax.swing.JDialog {
 
         //Fondo translúcido.
         this.pnlCentral.setBackground(LookAndFeelEntropy.COLOR_BLANCO_TRANSLUCIDO);
-
+        
         //Para que el undecorated dialog pueda moverse.
         ComponentMover cm = new ComponentMover(JDialog.class, pnlImagen);
         
         ComponentResizer cr = new ComponentResizer();
         cr.setSnapSize(new Dimension(10, 10));
         cr.registerComponent(this);
+        
+        this.gestor = gestor;
         
         try {
             byte[] bytesImagen =  (byte[]) imgAdjunto;
@@ -162,6 +167,9 @@ public class DialogAdjunto extends javax.swing.JDialog {
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.dispose();
+        if (gestor != null) {
+            gestor.dialogRealizarExamen.setAlwaysOnTop(true);
+        }
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -180,6 +188,9 @@ public class DialogAdjunto extends javax.swing.JDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
+            if (gestor != null) {
+                gestor.dialogRealizarExamen.setAlwaysOnTop(true);
+            }
         }
     }
 

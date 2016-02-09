@@ -662,7 +662,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
         
         btnVerAdjunto.setVisible(!respuesta.getPregunta().getColAdjuntos().isEmpty());
         if(!respuesta.getPregunta().getColAdjuntos().isEmpty()){
-            dlgAdjunto = new DialogAdjunto(VentanaPrincipal.getInstancia(), true, respuesta.getPregunta().getColAdjuntos().get(0));
+            dlgAdjunto = new DialogAdjunto(VentanaPrincipal.getInstancia(), true, respuesta.getPregunta().getColAdjuntos().get(0), null);
         }
         
         double dblCalificacion = respuesta.getCalificacion();

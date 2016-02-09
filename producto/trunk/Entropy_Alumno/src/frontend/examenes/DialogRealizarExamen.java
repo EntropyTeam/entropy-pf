@@ -10,7 +10,7 @@ import javax.swing.JPanel;
  * @author Denise
  */
 public class DialogRealizarExamen extends javax.swing.JDialog {
-
+    
     private GestorSeguridad gestorSeguridad;
     private PanelPregunta pnlPregunta;
     
@@ -21,7 +21,7 @@ public class DialogRealizarExamen extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         //Se debe activar el always on top para que ande la seguridad.
-//        this.setAlwaysOnTop(true);
+        this.setAlwaysOnTop(true);
         this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds()); 
         this.setMaximumSize(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getSize());
         this.pnlPregunta = pnlPregunta;

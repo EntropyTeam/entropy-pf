@@ -90,6 +90,10 @@
                           <Image iconType="3" name="/frontend/imagenes/ic_perfil_profesor_50x50.png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="&lt;html&gt;Ver datos del profesor&lt;/html&gt;"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="null"/>
+                        </Property>
+                        <Property name="borderPainted" type="boolean" value="false"/>
                         <Property name="contentAreaFilled" type="boolean" value="false"/>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Cursor de Mano"/>

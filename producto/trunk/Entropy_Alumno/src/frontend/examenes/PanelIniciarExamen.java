@@ -2,7 +2,6 @@ package frontend.examenes;
 
 import backend.auxiliares.Mensajes;
 import backend.gestores.GestorResolucionExamen;
-import backend.usuarios.Alumno;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.inicio.VentanaPrincipal;
 import frontend.usuario.DialogInfoUsuario;
@@ -195,6 +194,8 @@ public class PanelIniciarExamen extends javax.swing.JPanel {
         btnVerDatosProfesor.setForeground(new java.awt.Color(204, 102, 0));
         btnVerDatosProfesor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_perfil_profesor_50x50.png"))); // NOI18N
         btnVerDatosProfesor.setText("<html>Ver datos del profesor</html>");
+        btnVerDatosProfesor.setBorder(null);
+        btnVerDatosProfesor.setBorderPainted(false);
         btnVerDatosProfesor.setContentAreaFilled(false);
         btnVerDatosProfesor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVerDatosProfesor.setFocusPainted(false);
