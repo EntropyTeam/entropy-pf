@@ -104,16 +104,10 @@ public class GestorGenerarReporteResolucion {
             cellInst.setBorder(Rectangle.NO_BORDER);
             cellInst.setHorizontalAlignment(Element.ALIGN_CENTER);
             cellInst.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            if (this.resolucionExamen.getExamen().getCurso() != null
-                    && this.resolucionExamen.getExamen().getCurso().getIntCursoId() > 0
-                    && this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo() != null) {
+            byte[] bytesImagen = (byte[]) this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo();
+            if (bytesImagen != null) {
                 try {
-                    byte[] bytesImagen = (byte[]) this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo();
                     imagenLogoCurso = Image.getInstance(bytesImagen);
-                    PdfPCell cellLogo = new PdfPCell(imagenLogoCurso, true);
-                    cellLogo.setBorder(Rectangle.NO_BORDER);
-                    tablaEncabezado.addCell(cellLogo);
-                    cellLogo.setHorizontalAlignment(Element.ALIGN_CENTER);
                 } catch (BadElementException | IOException ex) {
                     Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
                 }
