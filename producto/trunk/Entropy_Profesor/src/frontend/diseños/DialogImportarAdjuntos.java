@@ -65,7 +65,12 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
         ArrayList<Object> adjuntos = new ArrayList<>();
         adjuntos.add(imagen);
         pregunta.setColAdjuntos(adjuntos);
-        this.mPadre.getRutaAdjunto().setText("Se ha cargado una imagen");
+        this.mPadre.getRutaAdjunto().setText("Se ha cargado una imagen.");
+    }
+    
+    private void removerAdjunto(){
+        mPadre.getPreguntaSeleccionada().getColAdjuntos().clear();
+        this.mPadre.getRutaAdjunto().setText("Seleccione un archivo a cargar...");
     }
 
     @SuppressWarnings("unchecked")
@@ -125,22 +130,16 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
             pnlmagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 250, Short.MAX_VALUE)
             .addGroup(pnlmagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlmagenLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(lblImagenMuestra, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(lblImagenMuestra, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
         );
         pnlmagenLayout.setVerticalGroup(
             pnlmagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 250, Short.MAX_VALUE)
             .addGroup(pnlmagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlmagenLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(lblImagenMuestra, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(lblImagenMuestra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
         );
 
-        pnlBotones.setLayout(new java.awt.GridLayout());
+        pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
 
         btnVolverDiseno.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnVolverDiseno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_volver.png"))); // NOI18N
@@ -213,9 +212,9 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
             guardarAdjuntoEnPregunta(imagen);
             this.dispose();
         } else {
-            System.err.print("No se ha cargado ninguna imagen, si no desea cargar ninguna imagen oprima el boton regresar");
+            removerAdjunto();
+            this.dispose();
         }
-
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
 
     private void btnCargaImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaImagenActionPerformed
