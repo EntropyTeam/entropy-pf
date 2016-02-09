@@ -45,7 +45,6 @@ import org.jfree.chart.renderer.category.GroupedStackedBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.KeyToGroupMap;
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.xy.XYDataset;

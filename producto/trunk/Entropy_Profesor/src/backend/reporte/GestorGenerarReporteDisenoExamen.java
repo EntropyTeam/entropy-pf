@@ -24,12 +24,17 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Graphics2D;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -72,16 +77,16 @@ public final class GestorGenerarReporteDisenoExamen {
             tablaEncabezado.setWidths(columnWidths);
             tablaEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
             tablaEncabezado.setHorizontalAlignment(Element.ALIGN_CENTER);
-            String institucion = (this.examenSeleccionado.getCurso() != null 
-                    && this.examenSeleccionado.getCurso().getIntCursoId() > 0) ?
-                    this.examenSeleccionado.getCurso().getInstitucion().getStrNombre() : "";
+            String institucion = (this.examenSeleccionado.getCurso() != null
+                    && this.examenSeleccionado.getCurso().getIntCursoId() > 0)
+                            ? this.examenSeleccionado.getCurso().getInstitucion().getStrNombre() : "";
             PdfPCell cellInst = new PdfPCell(new Paragraph(institucion, TITULO));
             cellInst.setBorder(Rectangle.NO_BORDER);
             cellInst.setHorizontalAlignment(Element.ALIGN_CENTER);
             cellInst.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            
+
             //INSTITUCION
-            if (this.examenSeleccionado.getCurso() != null 
+            if (this.examenSeleccionado.getCurso() != null
                     && this.examenSeleccionado.getCurso().getIntCursoId() > 0
                     && this.examenSeleccionado.getCurso().getInstitucion().getImgLogo() != null) {
                 try {
@@ -94,7 +99,7 @@ public final class GestorGenerarReporteDisenoExamen {
                 } catch (BadElementException | IOException ex) {
                     Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }            
+            }
             tablaEncabezado.addCell(cellInst);
             document.add(tablaEncabezado);
 
@@ -118,9 +123,9 @@ public final class GestorGenerarReporteDisenoExamen {
             cursoFecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);
             cursoFecha.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-            String nombreCurso = (this.examenSeleccionado.getCurso() != null 
-                    && this.examenSeleccionado.getCurso().getIntCursoId() > 0) ?
-                    this.examenSeleccionado.getCurso().getStrNombre() : "";
+            String nombreCurso = (this.examenSeleccionado.getCurso() != null
+                    && this.examenSeleccionado.getCurso().getIntCursoId() > 0)
+                            ? this.examenSeleccionado.getCurso().getStrNombre() : "";
             PdfPCell cellCurso = new PdfPCell(new Paragraph("Curso: " + nombreCurso));
             cellCurso.setBorder(Rectangle.NO_BORDER);
             cellCurso.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -363,22 +368,21 @@ public final class GestorGenerarReporteDisenoExamen {
             tblImage = new PdfPTable(1);
             Image image = null;
             byte[] bytesImagen = (byte[]) pregunta.getColAdjuntos().get(0);
-
             try {
                 image = Image.getInstance(bytesImagen);
-                image.scaleAbsolute(100f, 100f);
+                image.scalePercent((float)image.getWidth()/40);
             } catch (BadElementException | IOException ex) {
                 Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            PdfPCell cellImage = new PdfPCell(image, true);
+            PdfPCell cellImage = new PdfPCell(image, false);
             cellImage.setHorizontalAlignment(Element.ALIGN_CENTER);
             cellImage.setBorder(Rectangle.NO_BORDER);
             tblImage.addCell(cellImage);
+            tblImage.setTotalWidth(PageSize.A4.getWidth());
         }
         return tblImage;
     }
-    
+
     /**
      * Desordena la lista que contiene las respuestas a mostrarse..
      *
@@ -396,7 +400,7 @@ public final class GestorGenerarReporteDisenoExamen {
         }
         return original;
     }
-                
+
     /**
      * Desordena la lista que contiene las respuestas a mostrarse..
      *
@@ -413,5 +417,25 @@ public final class GestorGenerarReporteDisenoExamen {
             i--;
         }
         return original;
+    }
+
+    /**
+     * Converts a given Image into a BufferedImage
+     *
+     * @param img The Image to be converted
+     * @return The converted BufferedImage
+     */
+    public static BufferedImage toBufferedImage(java.awt.Image img) {
+
+        // Create a buffered image with transparency
+        BufferedImage bimage = new BufferedImage(250, 250, BufferedImage.TYPE_INT_ARGB);
+
+        // Draw the image on to the buffered image
+        Graphics2D bGr = bimage.createGraphics();
+        bGr.drawImage(img, 0, 0, null);
+        bGr.dispose();
+
+        // Return the buffered image
+        return bimage;
     }
 }
