@@ -719,7 +719,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
             }
              if(preguntaSeleccionada!=null && preguntaSeleccionada.getColAdjuntos()!=null && preguntaSeleccionada.getColAdjuntos().size()>0)
             {
-                this.lblAdjunto.setText("Se ha cargado una imagen");
+                this.lblAdjunto.setText("Se ha cargado una imagen.");
             }
             else
             {

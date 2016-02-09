@@ -37,12 +37,14 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
 
     private void validarImagen() {
         Pregunta pregunta = mPadre.getPreguntaSeleccionada();
-        if (pregunta.getColAdjuntos() !=null && pregunta.getColAdjuntos().size()>0) {
-                this.bytesImagen =  (byte[]) pregunta.getColAdjuntos().get(0);
-                Image img = Toolkit.getDefaultToolkit().createImage(bytesImagen);
-                img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
-                this.lblImagenMuestra.setVisible(false);
-                this.pnlmagen.setImagen(img); 
+        if (pregunta.getColAdjuntos() != null && !pregunta.getColAdjuntos().isEmpty()) {
+                this.bytesImagen = (byte[]) pregunta.getColAdjuntos().get(0);
+                if (bytesImagen != null) {
+                    Image img = Toolkit.getDefaultToolkit().createImage(bytesImagen);
+                    img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+                    this.lblImagenMuestra.setVisible(false);
+                    this.pnlmagen.setImagen(img);
+                }
         }
     }
 
@@ -234,11 +236,10 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
                 this.lblImagenMuestra.setVisible(false);
                 bytesImagen = guardarParametrosDeImagen(strRutaAbsoluta);
             } else {
-                System.out.println("OCurrio un error al querer cargar la foto");
+                System.out.println("Ocurrió un error al querer cargar la foto.");
             }
-
         } else {
-            System.out.println("OCurrio un error al querer cargar la foto");
+            System.out.println("No se seleccionó una foto.");
         }
     }//GEN-LAST:event_btnCargaImagenActionPerformed
 

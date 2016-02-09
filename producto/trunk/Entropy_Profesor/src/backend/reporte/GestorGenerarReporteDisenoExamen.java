@@ -326,7 +326,7 @@ public class GestorGenerarReporteDisenoExamen {
             }
             document.close();
 
-            System.out.println("All Done");
+            System.out.println("PDF de diseño generado correctamente.");
         } catch (DocumentException e) {
             e.printStackTrace();
         } catch (FileNotFoundException ex) {
@@ -341,14 +341,9 @@ public class GestorGenerarReporteDisenoExamen {
     
     private PdfPTable getImagePdfTable(Pregunta pregunta) {
         
-        DAOAdjunto dAOAdjunto = new DAOAdjunto();
-        ArrayList<Object> colAdjuntos = new ArrayList<>();
-        colAdjuntos.add(dAOAdjunto.recuperarAdjuntoDiseño(pregunta.getIntPreguntaId()));
-        pregunta.setColAdjuntos(colAdjuntos);
-        
         PdfPTable tblImage = null;
         
-        if (pregunta.getColAdjuntos().get(0) != null) {
+        if (!pregunta.getColAdjuntos().isEmpty()) {
             tblImage = new PdfPTable(1);
             Image image = null;
             byte[] bytesImagen = (byte[]) pregunta.getColAdjuntos().get(0);
@@ -356,9 +351,7 @@ public class GestorGenerarReporteDisenoExamen {
             try {
                 image = Image.getInstance(bytesImagen);
                 image.scaleAbsolute(100f, 100f);
-            } catch (BadElementException ex) {
-                Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
+            } catch (BadElementException | IOException ex) {
                 Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
             }
             

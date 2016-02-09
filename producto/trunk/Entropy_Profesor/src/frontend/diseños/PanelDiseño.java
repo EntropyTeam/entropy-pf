@@ -288,7 +288,6 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
     }//GEN-LAST:event_btnTomarExamenActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-
         if (!this.gestorDiseñoExamen.isNuevoExamen()) {
             GestorGenerarReporteDisenoExamen gestorGenerarReporte = new GestorGenerarReporteDisenoExamen(this.gestorDiseñoExamen.getDiseñoExamen());
             try {
@@ -301,8 +300,6 @@ public class PanelDiseño extends javax.swing.JPanel implements IValidarSalida {
         } else {
             Mensajes.mostrarAdvertencia("Su diseño de examen esta vacío.");
         }
-
-
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     public PanelDeslizante getPanelDeslizante() {
