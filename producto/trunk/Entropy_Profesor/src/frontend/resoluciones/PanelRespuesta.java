@@ -894,15 +894,14 @@ public class PanelRespuesta extends javax.swing.JPanel {
 
         this.intIDSeleccionada = idRespuesta;        
         
-        lblSiguiente.setVisible(true);
-        lblAnterior.setVisible(true);
-
         if (colCasillas.length == 1) {
             lblAnterior.setVisible(false);
             lblSiguiente.setVisible(false);
         } else if (intIDSeleccionada == 0) {
             lblAnterior.setVisible(false);
+            lblSiguiente.setVisible(true);
         } else if (intIDSeleccionada == colCasillas.length - 1) {
+            lblAnterior.setVisible(true);
             lblSiguiente.setVisible(false);
         }
 
