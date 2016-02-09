@@ -622,7 +622,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblRutaAdjunto" max="32767" attributes="0"/>
+                              <Component id="lblAdjunto" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnAdjunto" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -633,7 +633,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblRutaAdjunto" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblAdjunto" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -644,7 +644,7 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="lblRutaAdjunto">
+                    <Component class="javax.swing.JLabel" name="lblAdjunto">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="LookAndFeelEntropy.FUENTE_CURSIVA" type="code"/>

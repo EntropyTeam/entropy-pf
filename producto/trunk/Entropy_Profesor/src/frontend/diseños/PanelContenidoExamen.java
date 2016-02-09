@@ -113,7 +113,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
         cmbTema = new frontend.auxiliares.ComboBoxEntropy();
         lblCamposObligatorios = new javax.swing.JLabel();
         pnlAdjuntos = new javax.swing.JPanel();
-        lblRutaAdjunto = new javax.swing.JLabel();
+        lblAdjunto = new javax.swing.JLabel();
         btnAdjunto = new javax.swing.JButton();
         scrTipoPregunta = new javax.swing.JScrollPane();
         lblAnterior = new javax.swing.JLabel();
@@ -378,9 +378,9 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
 
         pnlAdjuntos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Adjuntos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR));
 
-        lblRutaAdjunto.setFont(LookAndFeelEntropy.FUENTE_CURSIVA);
-        lblRutaAdjunto.setForeground(new java.awt.Color(102, 102, 102));
-        lblRutaAdjunto.setText("Seleccione un archivo a cargar...");
+        lblAdjunto.setFont(LookAndFeelEntropy.FUENTE_CURSIVA);
+        lblAdjunto.setForeground(new java.awt.Color(102, 102, 102));
+        lblAdjunto.setText("Seleccione un archivo a cargar...");
 
         btnAdjunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/frontend/imagenes/ic_attachment_25x25.png"))); // NOI18N
         btnAdjunto.setToolTipText("");
@@ -399,7 +399,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
             pnlAdjuntosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAdjuntosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblRutaAdjunto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblAdjunto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAdjunto)
                 .addContainerGap())
@@ -408,7 +408,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
             pnlAdjuntosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAdjuntosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblRutaAdjunto)
+                .addComponent(lblAdjunto)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnlAdjuntosLayout.createSequentialGroup()
                 .addComponent(btnAdjunto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -596,6 +596,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
         preguntaSeleccionada = new Pregunta();
         mPadre.getGestorDiseñoExamen().agregarPregunta(preguntaSeleccionada);
         blnAgrega = false;
+        lblAdjunto.setText("Seleccione un archivo a cargar...");
         txaEnunciado.grabFocus();
     }//GEN-LAST:event_btnNuevaPreguntaActionPerformed
 
@@ -718,11 +719,11 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
             }
              if(preguntaSeleccionada!=null && preguntaSeleccionada.getColAdjuntos()!=null && preguntaSeleccionada.getColAdjuntos().size()>0)
             {
-                this.lblRutaAdjunto.setText("Se ha cargado una imagen");
+                this.lblAdjunto.setText("Se ha cargado una imagen");
             }
             else
             {
-                this.lblRutaAdjunto.setText("Seleccione un archivo a cargar...");
+                this.lblAdjunto.setText("Seleccione un archivo a cargar...");
                 
             }
         }
@@ -1104,13 +1105,13 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
     private javax.swing.JComboBox cmbNivel;
     private frontend.auxiliares.ComboBoxEntropy cmbTema;
     private javax.swing.JComboBox cmbTipoPregunta;
+    private javax.swing.JLabel lblAdjunto;
     private javax.swing.JLabel lblAnterior;
     private javax.swing.JLabel lblCamposObligatorios;
     private javax.swing.JLabel lblComentario;
     private javax.swing.JLabel lblEnunciado;
     private javax.swing.JLabel lblNivel;
     private javax.swing.JLabel lblPuntaje;
-    private javax.swing.JLabel lblRutaAdjunto;
     private javax.swing.JLabel lblTags;
     private javax.swing.JLabel lblTemaPregunta;
     private javax.swing.JLabel lblTipoPregunta;
@@ -1162,7 +1163,7 @@ public class PanelContenidoExamen extends javax.swing.JPanel {
     
     public JLabel getRutaAdjunto()
     {
-        return this.lblRutaAdjunto;
+        return this.lblAdjunto;
     }
 
 }
