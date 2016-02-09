@@ -102,13 +102,10 @@ public class GestorEnvioDeMail {
                 byte[] pdf = Files.readAllBytes(path);
                 
                 nuevoMail.setAdjunto("Correción del examen " + colResoluciones.get(0).getExamen().getStrNombre() + " _ " + resolucion.getAlumno().toString(), pdf);
-                if (gestorEnvioDeMail.enviarMail(nuevoMail)) {
-                    boolean blnExito = gestorEnvioDeMail.setResolucionEnviada(resolucion.getIntID(), true);
-                    if (!blnExito) {
-                        throw new Exception();
-                    }
-                    resolucion.setFueEnviadaPorEmail(true);
+                if (!gestorEnvioDeMail.enviarMail(nuevoMail) || !gestorEnvioDeMail.setResolucionEnviada(resolucion.getIntID(), true)) {
+                    throw new Exception();
                 }
+                resolucion.setFueEnviadaPorEmail(true);
             }
         } catch (Exception ex) {
             Logger.getLogger(GestorEnvioDeMail.class.getName()).log(Level.SEVERE, null, ex);

@@ -244,7 +244,8 @@ public class DAOResolucion implements IDAOResolucion {
             PreparedStatement psConsulta = conexion.prepareStatement(strConsulta);
             psConsulta.setBoolean(1, fueEnviada);
             psConsulta.setInt(2, resolucionID);
-            return psConsulta.execute();
+            psConsulta.execute();
+            return true;
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return false;
