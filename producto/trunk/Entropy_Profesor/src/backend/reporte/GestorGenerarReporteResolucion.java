@@ -87,7 +87,7 @@ public class GestorGenerarReporteResolucion {
                 document.add(contenidoEncabezado2);
             }
 
-            //LOGO Y INSTITUCION
+            //LOGO E INSTITUCION
             PdfPTable tablaEncabezado = new PdfPTable(2);
             float[] columnWidths = {40f, 350f};
             tablaEncabezado.setTotalWidth(columnWidths);
@@ -104,19 +104,15 @@ public class GestorGenerarReporteResolucion {
             cellInst.setVerticalAlignment(Element.ALIGN_MIDDLE);
             byte[] bytesImagen = (byte[]) this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo();
             if (this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo() == null) {
-
                 try {
                     imagenLogoCurso = Image.getInstance(getClass().getResource("/frontend/imagenes/ic_examen_default.png"));
                 } catch (IOException ex) {
                     Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
             } else {
                 try {
                     imagenLogoCurso = Image.getInstance(bytesImagen);
-                } catch (BadElementException ex) {
-                    Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
+                } catch (BadElementException | IOException ex) {
                     Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -208,92 +204,6 @@ public class GestorGenerarReporteResolucion {
                 document.add(alumnoNota);
             }
             
-
-            /*
-             String fecha = this.getDate(this.resolucionExamen.getExamen().getDteFecha());
-             PdfPCell cellFecha = new PdfPCell(new Paragraph("Fecha: " + fecha));
-             cellFecha.setBorder(Rectangle.NO_BORDER);
-             cellFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             cursoFecha.addCell(cellInst);
-             cursoFecha.addCell(cellFecha);
-             cursoFecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);*/
-            /*
-             //Tabla Encabezado Encabezado
-             PdfPTable tablaEncabezado = new PdfPTable(2); // 2 columns.
-             float[] columnWidths = {10f, 100f};
-             tablaEncabezado.setWidths(columnWidths);
-             tablaEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-
-             //Contenido Encabezado
-             PdfPTable contenidoEncabezado = new PdfPTable(1);
-             contenidoEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-            
-             String titulo = this.resolucionExamen.getExamen().getStrNombre(); 
-
-             PdfPCell cellTitulo = new PdfPCell(new Paragraph(titulo, TITULO));
-             cellTitulo.setBorder(Rectangle.NO_BORDER);
-             cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
-             contenidoEncabezado.addCell(cellTitulo);
-            
-             PdfPTable contenidoEncabezadoInstFecha = new PdfPTable(2);
-             DAOInstitucion dAOInstitucion = new DAOInstitucion();
-             this.resolucionExamen.getExamen().getCurso().setInstitucion(dAOInstitucion.buscarInstitucion(this.resolucionExamen.getExamen().getCurso().getIntCursoId()));
-             String institucion = dAOInstitucion.buscarInstitucion(this.resolucionExamen.getExamen().getCurso().getIntCursoId()).getStrNombre();
-             PdfPCell cellInst = new PdfPCell(new Paragraph(institucion));
-             cellInst.setBorder(Rectangle.NO_BORDER);
-             String fecha = this.getDate(this.resolucionExamen.getExamen().getDteFecha());
-             PdfPCell cellFecha = new PdfPCell(new Paragraph("Fecha: " + fecha));
-             cellFecha.setBorder(Rectangle.NO_BORDER);
-             cellFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             contenidoEncabezadoInstFecha.addCell(cellInst);
-             contenidoEncabezadoInstFecha.addCell(cellFecha);
-             contenidoEncabezado.addCell(contenidoEncabezadoInstFecha);
-             contenidoEncabezadoInstFecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-            
-             PdfPTable contenidoEncabezadoNombreNota = new PdfPTable(2);
-             String Nombre = this.resolucionExamen.getAlumno().getStrNombre();
-             String Apellido = this.resolucionExamen.getAlumno().getStrApellido();
-             PdfPCell cellNombre = new PdfPCell(new Paragraph("Alumno: " + Apellido + " " + Nombre));
-             cellNombre.setBorder(Rectangle.NO_BORDER);
-             PdfPCell cellNota = new PdfPCell(new Paragraph(this.getNota()));
-             cellNota.setBorder(Rectangle.NO_BORDER);
-             cellNota.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             contenidoEncabezadoNombreNota.addCell(cellNombre);
-             contenidoEncabezadoNombreNota.addCell(cellNota);
-             contenidoEncabezado.addCell(contenidoEncabezadoNombreNota);
-             contenidoEncabezadoNombreNota.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-
-             //Imagen encabezado 
-             Image imagenLogoCurso = null;
-             byte[] bytesImagen = (byte[]) this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo();
-             if (this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo() == null) {
-                
-             try {
-             imagenLogoCurso = Image.getInstance(getClass().getResource("/frontend/imagenes/ic_examen_default.png"));
-             } catch (IOException ex) {
-             Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
-             }
-                
-             } else {
-             try {
-             imagenLogoCurso = Image.getInstance(bytesImagen);
-             } catch (BadElementException ex) {
-             Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
-             } catch (IOException ex) {
-             Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
-             }
-             }
-            
-             PdfPCell cellLogo = new PdfPCell(imagenLogoCurso, true);//Con el True en este metodo y sin setear un tamaño para la imagen esta ocupa toda la celda, ver que pasa cuando la celda se hace mas grande por las columnas del lado
-             cellLogo.setHorizontalAlignment(Element.ALIGN_CENTER);
-             cellLogo.setBorder(Rectangle.NO_BORDER);
-            
-             tablaEncabezado.addCell(cellLogo);
-             tablaEncabezado.addCell(contenidoEncabezado);
-             tablaEncabezado.setSpacingAfter(25);
-             tablaEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-             document.add(tablaEncabezado);
-             */
             for (Respuesta respuesta : this.resolucionExamen.getColRespuestas()) {
 
                 String clase = respuesta.getClass().getSimpleName();

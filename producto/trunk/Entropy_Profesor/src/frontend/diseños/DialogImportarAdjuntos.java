@@ -235,6 +235,7 @@ public class DialogImportarAdjuntos extends javax.swing.JDialog {
                 this.pnlmagen.setImagen(imgSeleccionada);
                 this.lblImagenMuestra.setVisible(false);
                 bytesImagen = guardarParametrosDeImagen(strRutaAbsoluta);
+                this.repaint();
             } else {
                 System.out.println("Ocurrió un error al querer cargar la foto.");
             }

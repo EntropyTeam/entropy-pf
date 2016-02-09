@@ -1,7 +1,5 @@
 package backend.reporte;
 
-import backend.dao.diseños.DAOAdjunto;
-import backend.dao.diseños.DAOInstitucion;
 import backend.diseños.CombinacionRelacionColumnas;
 import backend.diseños.DiseñoExamen;
 import backend.diseños.OpcionMultipleOpcion;
@@ -11,10 +9,8 @@ import backend.diseños.PreguntaNumerica;
 import backend.diseños.PreguntaRelacionColumnas;
 import backend.diseños.PreguntaVerdaderoFalso;
 import backend.diseños.TipoPregunta;
-import static backend.reporte.GestorGenerarReporteResolucion.COMENTARIO;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -22,6 +18,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -34,15 +31,14 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author gaston
  */
-public class GestorGenerarReporteDisenoExamen {
+public final class GestorGenerarReporteDisenoExamen {
 
-    private DiseñoExamen examenSeleccionado;
-    private String path = "ReporteExamenPrueba.pdf";
+    private final DiseñoExamen examenSeleccionado;
+    private final String path = "ReporteExamenPrueba.pdf";
 
     //Estilos de texto
     public static final Font RED = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.RED);
@@ -53,7 +49,7 @@ public class GestorGenerarReporteDisenoExamen {
     public static final Font CHOISE = new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD, BaseColor.ORANGE);
     public static final Font NORMAL = new Font(Font.FontFamily.HELVETICA, 11, Font.NORMAL, BaseColor.BLACK);
     public static final Font COMENTARIO = new Font(Font.FontFamily.HELVETICA, 11, Font.ITALIC, BaseColor.DARK_GRAY);
-    
+
     public GestorGenerarReporteDisenoExamen(DiseñoExamen examenSeleccionado) {
         this.examenSeleccionado = examenSeleccionado;
         generarReporteDiseñoExamen();
@@ -68,76 +64,96 @@ public class GestorGenerarReporteDisenoExamen {
             PdfWriter.getInstance(document, new FileOutputStream(path));
             document.open();
 
-            //Tabla Encabezado Encabezado
+            //LOGO E INSTITUCION
             PdfPTable tablaEncabezado = new PdfPTable(2); // 2 columns.
-            float[] columnWidths = {15f, 100f};
+            float[] columnWidths = {40f, 350f};
+            tablaEncabezado.setTotalWidth(columnWidths);
+            tablaEncabezado.setLockedWidth(true);
             tablaEncabezado.setWidths(columnWidths);
             tablaEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-
-            //Contenido Encabezado
-            PdfPTable contenidoEncabezado = new PdfPTable(1);
-            contenidoEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-
-            PdfPCell cellTitulo = new PdfPCell(new Paragraph(this.examenSeleccionado.getStrNombre()));
-            cellTitulo.setBorder(Rectangle.NO_BORDER);
-            cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
-            contenidoEncabezado.addCell(cellTitulo);
-
-            PdfPTable contenidoEncabezadoInstFecha = new PdfPTable(2);
-            DAOInstitucion dAOInstitucion = new DAOInstitucion();
-            this.examenSeleccionado.getCurso().setInstitucion(dAOInstitucion.buscarInstitucion(this.examenSeleccionado.getCurso().getIntCursoId()));
-            String institucion = dAOInstitucion.buscarInstitucion(this.examenSeleccionado.getCurso().getIntCursoId()).getStrNombre();
-            PdfPCell cellInst = new PdfPCell(new Paragraph(institucion));
+            tablaEncabezado.setHorizontalAlignment(Element.ALIGN_CENTER);
+            String institucion = (this.examenSeleccionado.getCurso() != null 
+                    && this.examenSeleccionado.getCurso().getIntCursoId() > 0) ?
+                    this.examenSeleccionado.getCurso().getInstitucion().getStrNombre() : "";
+            PdfPCell cellInst = new PdfPCell(new Paragraph(institucion, TITULO));
             cellInst.setBorder(Rectangle.NO_BORDER);
-            PdfPCell cellFecha = new PdfPCell(new Paragraph("__/__/____"));
-            cellFecha.setBorder(Rectangle.NO_BORDER);
-            cellFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            contenidoEncabezadoInstFecha.addCell(cellInst);
-            contenidoEncabezadoInstFecha.addCell(cellFecha);
-            contenidoEncabezado.addCell(contenidoEncabezadoInstFecha);
-            contenidoEncabezadoInstFecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-
-            PdfPTable contenidoEncabezadoNombreNota = new PdfPTable(2);
-            PdfPCell cellNombre = new PdfPCell(new Paragraph("Alumno:                             "));
-            cellNombre.setBorder(Rectangle.NO_BORDER);
-            PdfPCell cellNota = new PdfPCell(new Paragraph("Nota:_________"));
-            cellNota.setBorder(Rectangle.NO_BORDER);
-            cellNota.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            contenidoEncabezadoNombreNota.addCell(cellNombre);
-            contenidoEncabezadoNombreNota.addCell(cellNota);
-            contenidoEncabezado.addCell(contenidoEncabezadoNombreNota);
-            contenidoEncabezadoNombreNota.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-
-            //Imagen encabezado 
-            Image imagenLogoCurso = null;
-            byte[] bytesImagen = (byte[]) this.examenSeleccionado.getCurso().getInstitucion().getImgLogo();
-            if (this.examenSeleccionado.getCurso().getInstitucion().getImgLogo() == null) {
-
+            cellInst.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellInst.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            
+            //INSTITUCION
+            if (this.examenSeleccionado.getCurso() != null 
+                    && this.examenSeleccionado.getCurso().getIntCursoId() > 0
+                    && this.examenSeleccionado.getCurso().getInstitucion().getImgLogo() != null) {
                 try {
-                    imagenLogoCurso = Image.getInstance(getClass().getResource("/frontend/imagenes/ic_examen_default.png"));
-                } catch (IOException ex) {
+                    byte[] bytesImagen = (byte[]) this.examenSeleccionado.getCurso().getInstitucion().getImgLogo();
+                    Image imagenLogoCurso = Image.getInstance(bytesImagen);
+                    PdfPCell cellLogo = new PdfPCell(imagenLogoCurso, true);
+                    cellLogo.setBorder(Rectangle.NO_BORDER);
+                    tablaEncabezado.addCell(cellLogo);
+                    cellLogo.setHorizontalAlignment(Element.ALIGN_CENTER);
+                } catch (BadElementException | IOException ex) {
                     Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-            } else {
-                try {
-                    imagenLogoCurso = Image.getInstance(bytesImagen);
-                } catch (BadElementException ex) {
-                    Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            PdfPCell cellLogo = new PdfPCell(imagenLogoCurso, true);//Con el True en este metodo y sin setear un tamaño para la imagen esta ocupa toda la celda, ver que pasa cuando la celda se hace mas grande por las columnas del lado
-            cellLogo.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cellLogo.setBorder(Rectangle.NO_BORDER);
-
-            tablaEncabezado.addCell(cellLogo);
-            tablaEncabezado.addCell(contenidoEncabezado);
-            tablaEncabezado.setSpacingAfter(25);
-            tablaEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+            }            
+            tablaEncabezado.addCell(cellInst);
             document.add(tablaEncabezado);
+
+            //TITULO 
+            PdfPTable tablaTituloExamen = new PdfPTable(1);
+            tablaTituloExamen.setTotalWidth(PageSize.A4.getWidth());
+            tablaTituloExamen.setLockedWidth(true);
+            tablaTituloExamen.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+            PdfPCell cellNombreExamen = new PdfPCell(new Paragraph(this.examenSeleccionado.getStrNombre(), TITULO));
+            cellNombreExamen.setBorder(Rectangle.NO_BORDER);
+            cellNombreExamen.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tablaTituloExamen.addCell(cellNombreExamen);
+            document.add(tablaTituloExamen);
+
+            //CURSO-FECHA
+            PdfPTable cursoFecha = new PdfPTable(2);
+            float[] columnWidths2 = {400f, 400f};
+            cursoFecha.setTotalWidth(columnWidths2);
+            cursoFecha.setLockedWidth(true);
+            cursoFecha.setWidths(columnWidths2);
+            cursoFecha.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+            cursoFecha.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+            String nombreCurso = (this.examenSeleccionado.getCurso() != null 
+                    && this.examenSeleccionado.getCurso().getIntCursoId() > 0) ?
+                    this.examenSeleccionado.getCurso().getStrNombre() : "";
+            PdfPCell cellCurso = new PdfPCell(new Paragraph("Curso: " + nombreCurso));
+            cellCurso.setBorder(Rectangle.NO_BORDER);
+            cellCurso.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellCurso.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cursoFecha.addCell(cellCurso);
+
+            PdfPCell cellFecha = new PdfPCell(new Paragraph("Fecha: "));
+            cellFecha.setBorder(Rectangle.NO_BORDER);
+            cellFecha.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellFecha.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cursoFecha.addCell(cellFecha);
+            document.add(cursoFecha);
+
+            //ALUMNO-NOTA
+            PdfPTable alumnoNota = new PdfPTable(2);
+            float[] columnWidths3 = {388f, 350f};
+            alumnoNota.setTotalWidth(columnWidths3);
+            alumnoNota.setLockedWidth(true);
+            alumnoNota.setWidths(columnWidths3);
+            alumnoNota.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+            alumnoNota.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+            PdfPCell cellNombreAlumno = new PdfPCell(new Paragraph("Alumno: "));
+            cellNombreAlumno.setBorder(Rectangle.NO_BORDER);
+            cellNombreAlumno.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellNombreAlumno.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            alumnoNota.addCell(cellNombreAlumno);
+
+            PdfPCell cellNota = new PdfPCell(new Paragraph("Nota: _____"));
+            cellNota.setBorder(Rectangle.NO_BORDER);
+            cellNota.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellNota.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            alumnoNota.addCell(cellNota);
 
             for (Pregunta pregunta : this.examenSeleccionado.getColPreguntas()) {
 
@@ -145,14 +161,14 @@ public class GestorGenerarReporteDisenoExamen {
 
                     case TipoPregunta.DESARROLLAR:
                         Paragraph parrafoPreguntaDesarrollar = new Paragraph(13, contadorOrden + ") " + pregunta.getStrEnunciado() + "\n");
-                        
+
                         //Agrego la imagen de la respuesta.
                         PdfPTable imageTempDesarrollo = this.getImagePdfTable(pregunta);
                         if (imageTempDesarrollo != null) {
                             imageTempDesarrollo.setSpacingAfter(15);
-                            parrafoPreguntaDesarrollar.add(imageTempDesarrollo);                            
+                            parrafoPreguntaDesarrollar.add(imageTempDesarrollo);
                         }
-                        
+
                         parrafoPreguntaDesarrollar.add("______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
                         parrafoPreguntaDesarrollar.setSpacingBefore(30);
                         parrafoPreguntaDesarrollar.setSpacingAfter(15);
@@ -169,20 +185,20 @@ public class GestorGenerarReporteDisenoExamen {
                     case TipoPregunta.MULTIPLE_OPCION:
                         PreguntaMultipleOpcion preguntaMultipleOpcion = (PreguntaMultipleOpcion) pregunta;
                         Paragraph parrafoPreguntaMultipleOpcion = new Paragraph(13, contadorOrden + ") " + preguntaMultipleOpcion.getStrEnunciado() + "\n");
-                        
+
                         //Agrego la imagen de la respuesta.
                         PdfPTable imageTempMO = this.getImagePdfTable(preguntaMultipleOpcion);
                         if (imageTempMO != null) {
                             imageTempMO.setSpacingAfter(15);
-                            parrafoPreguntaMultipleOpcion.add(imageTempMO);                            
+                            parrafoPreguntaMultipleOpcion.add(imageTempMO);
                         }
-                        
+
                         parrafoPreguntaMultipleOpcion.setSpacingBefore(30);
                         parrafoPreguntaMultipleOpcion.setSpacingAfter(15);
                         document.add(parrafoPreguntaMultipleOpcion);
 
-                        List orderedList = new List(List.ORDERED);//Ver que pasa si es ordenada o desordenada.
-                        for (OpcionMultipleOpcion opcionMultipleOpcion : preguntaMultipleOpcion.getColOpciones()) {
+                        List orderedList = new List(List.UNORDERED);//Ver que pasa si es ordenada o desordenada.
+                        for (OpcionMultipleOpcion opcionMultipleOpcion : aleatorizarColeccion(preguntaMultipleOpcion.getColOpciones())) {
                             orderedList.add(new ListItem(opcionMultipleOpcion.getStrRespuesta()));
                         }
                         document.add(orderedList);
@@ -198,14 +214,14 @@ public class GestorGenerarReporteDisenoExamen {
                     case TipoPregunta.NUMERICA:
                         PreguntaNumerica preguntaNumerica = (PreguntaNumerica) pregunta;
                         Paragraph parrafoPreguntaNumerica = new Paragraph(13, contadorOrden + ") " + preguntaNumerica.getStrEnunciado() + "\n");
-                        
+
                         //Agrego la imagen de la respuesta.
                         PdfPTable imageTempNumerica = this.getImagePdfTable(preguntaNumerica);
                         if (imageTempNumerica != null) {
                             imageTempNumerica.setSpacingAfter(15);
-                            parrafoPreguntaNumerica.add(imageTempNumerica);                            
+                            parrafoPreguntaNumerica.add(imageTempNumerica);
                         }
-                        
+
                         parrafoPreguntaNumerica.setSpacingBefore(30);
                         parrafoPreguntaNumerica.setSpacingAfter(15);
                         document.add(parrafoPreguntaNumerica);
@@ -224,14 +240,14 @@ public class GestorGenerarReporteDisenoExamen {
                     case TipoPregunta.RELACION_COLUMNAS:
                         PreguntaRelacionColumnas preguntaRelacionColumnas = (PreguntaRelacionColumnas) pregunta;
                         Paragraph parrafoPreguntaRelacionColumnas = new Paragraph(13, contadorOrden + ") " + preguntaRelacionColumnas.getStrEnunciado() + "\n");
-                        
+
                         //Agrego la imagen de la respuesta.
                         PdfPTable imageTempRC = this.getImagePdfTable(preguntaRelacionColumnas);
                         if (imageTempRC != null) {
                             imageTempRC.setSpacingAfter(15);
-                            parrafoPreguntaRelacionColumnas.add(imageTempRC);                            
+                            parrafoPreguntaRelacionColumnas.add(imageTempRC);
                         }
-                        
+
                         parrafoPreguntaRelacionColumnas.setSpacingBefore(30);
                         parrafoPreguntaRelacionColumnas.setSpacingAfter(15);
                         document.add(parrafoPreguntaRelacionColumnas);
@@ -246,8 +262,8 @@ public class GestorGenerarReporteDisenoExamen {
                         String columnaCentral = "";
 
                         //Armado de columnas
-                        for (CombinacionRelacionColumnas elementoColumna : preguntaRelacionColumnas.getColCombinaciones()) {
-                            columnaIzquierdaRC = columnaIzquierdaRC + elementoColumna.getStrColumnaIzquierda()  + " #" + "\n\n";
+                        for (CombinacionRelacionColumnas elementoColumna : aleatorizarColeccionColumnas(preguntaRelacionColumnas.getColCombinaciones())) {
+                            columnaIzquierdaRC = columnaIzquierdaRC + elementoColumna.getStrColumnaIzquierda() + " #" + "\n\n";
                             columnaDerechaRC = columnaDerechaRC + "# " + elementoColumna.getStrColumnaDerecha() + "\n\n";
                             columnaCentral = columnaCentral + "                " + "\n\n";
                         }
@@ -279,13 +295,13 @@ public class GestorGenerarReporteDisenoExamen {
                     case TipoPregunta.VERDADERO_FALSO:
                         PreguntaVerdaderoFalso preguntaVerdaderoFalso = (PreguntaVerdaderoFalso) pregunta;
                         Paragraph parrafoPreguntaVerdaderoFalso = new Paragraph(13, contadorOrden + ") " + preguntaVerdaderoFalso.getStrEnunciado() + "\n");
-                        
+
                         //Agrego la imagen de la respuesta.
                         PdfPTable imageTempVF = this.getImagePdfTable(preguntaVerdaderoFalso);
                         if (imageTempVF != null) {
-                            parrafoPreguntaVerdaderoFalso.add(imageTempVF);                            
+                            parrafoPreguntaVerdaderoFalso.add(imageTempVF);
                         }
-                        
+
                         parrafoPreguntaVerdaderoFalso.setSpacingBefore(30);
                         parrafoPreguntaVerdaderoFalso.setSpacingAfter(15);
                         document.add(parrafoPreguntaVerdaderoFalso);
@@ -338,28 +354,64 @@ public class GestorGenerarReporteDisenoExamen {
     public String getPath() {
         return path;
     }
-    
+
     private PdfPTable getImagePdfTable(Pregunta pregunta) {
-        
+
         PdfPTable tblImage = null;
-        
+
         if (!pregunta.getColAdjuntos().isEmpty()) {
             tblImage = new PdfPTable(1);
             Image image = null;
             byte[] bytesImagen = (byte[]) pregunta.getColAdjuntos().get(0);
-            
+
             try {
                 image = Image.getInstance(bytesImagen);
                 image.scaleAbsolute(100f, 100f);
             } catch (BadElementException | IOException ex) {
                 Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             PdfPCell cellImage = new PdfPCell(image, true);
             cellImage.setHorizontalAlignment(Element.ALIGN_CENTER);
             cellImage.setBorder(Rectangle.NO_BORDER);
             tblImage.addCell(cellImage);
         }
         return tblImage;
+    }
+    
+    /**
+     * Desordena la lista que contiene las respuestas a mostrarse..
+     *
+     * @param original lista a desordenar.
+     * @return lista desordenada.
+     */
+    private ArrayList<OpcionMultipleOpcion> aleatorizarColeccion(ArrayList<OpcionMultipleOpcion> original) {
+        int i = original.size() - 1;
+        while (i > -1) {
+            int j = (int) Math.floor(Math.random() * (i + 1));
+            OpcionMultipleOpcion tmp = original.get(i);
+            original.set(i, original.get(j));
+            original.set(j, tmp);
+            i--;
+        }
+        return original;
+    }
+                
+    /**
+     * Desordena la lista que contiene las respuestas a mostrarse..
+     *
+     * @param original lista a desordenar.
+     * @return lista desordenada.
+     */
+    private ArrayList<CombinacionRelacionColumnas> aleatorizarColeccionColumnas(ArrayList<CombinacionRelacionColumnas> original) {
+        int i = original.size() - 1;
+        while (i > -1) {
+            int j = (int) Math.floor(Math.random() * (i + 1));
+            String tmp = original.get(i).getStrColumnaDerecha();
+            original.get(i).setStrColumnaDerecha(original.get(j).getStrColumnaDerecha());
+            original.get(j).setStrColumnaDerecha(tmp);
+            i--;
+        }
+        return original;
     }
 }
