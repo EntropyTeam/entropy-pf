@@ -157,10 +157,10 @@ public class DAODiseñoExamen implements IDAODiseñoExamen {
             if (diseñoExamen.getCurso() == null) {
                 psConsulta.setNull(1, Types.NULL);
             } else {
-                if (diseñoExamen.getCurso().getIntCursoId() != 0) {
+                if (diseñoExamen.getCurso().getIntCursoId() > 0) {
                     psConsulta.setInt(1, diseñoExamen.getCurso().getIntCursoId());
                 } else { // Hay un nuevo curso
-                    if (diseñoExamen.getCurso().getInstitucion().getIntInstitucionId() != 0) {
+                    if (diseñoExamen.getCurso().getInstitucion().getIntInstitucionId() > 0) {
                         DAOCurso daoCurso = new DAOCurso();
                         daoCurso.guardarCurso(diseñoExamen.getCurso(), conexion);
                     } else {
