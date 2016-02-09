@@ -95,6 +95,8 @@ public class GestorGenerarReporteResolucion {
             tablaEncabezado.setWidths(columnWidths);
             tablaEncabezado.getDefaultCell().setBorder(Rectangle.NO_BORDER);
             tablaEncabezado.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            //INSTITUCION
             DAOInstitucion dAOInstitucion = new DAOInstitucion();
             String institucion = dAOInstitucion.buscarInstitucion(this.resolucionExamen.getExamen().getCurso().getIntCursoId()).getStrNombre();
             Image imagenLogoCurso = null;
@@ -102,22 +104,20 @@ public class GestorGenerarReporteResolucion {
             cellInst.setBorder(Rectangle.NO_BORDER);
             cellInst.setHorizontalAlignment(Element.ALIGN_CENTER);
             cellInst.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            byte[] bytesImagen = (byte[]) this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo();
-            if (this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo() == null) {
+            if (this.resolucionExamen.getExamen().getCurso() != null
+                    && this.resolucionExamen.getExamen().getCurso().getIntCursoId() > 0
+                    && this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo() != null) {
                 try {
-                    imagenLogoCurso = Image.getInstance(getClass().getResource("/frontend/imagenes/ic_examen_default.png"));
-                } catch (IOException ex) {
-                    Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                try {
+                    byte[] bytesImagen = (byte[]) this.resolucionExamen.getExamen().getCurso().getInstitucion().getImgLogo();
                     imagenLogoCurso = Image.getInstance(bytesImagen);
+                    PdfPCell cellLogo = new PdfPCell(imagenLogoCurso, true);
+                    cellLogo.setBorder(Rectangle.NO_BORDER);
+                    tablaEncabezado.addCell(cellLogo);
+                    cellLogo.setHorizontalAlignment(Element.ALIGN_CENTER);
                 } catch (BadElementException | IOException ex) {
                     Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
-            //INSTITUCION
             PdfPCell cellLogo = new PdfPCell(imagenLogoCurso, true);
             cellLogo.setBorder(Rectangle.NO_BORDER);
             tablaEncabezado.addCell(cellLogo);
@@ -232,7 +232,7 @@ public class GestorGenerarReporteResolucion {
 
                         }
 
-                        if (respuestaDesarrollo.getStrComentario() != null) {
+                        if (respuestaDesarrollo.getStrComentario() != null && !respuestaDesarrollo.getStrComentario().isEmpty()) {
                             parrafoRespuestaDesarrollar.add(new Chunk("Comentario Docente: " + respuestaDesarrollo.getStrComentario() + "\n", COMENTARIO));
                         }
                         contadorOrden++;
@@ -279,7 +279,7 @@ public class GestorGenerarReporteResolucion {
                         } else {
                             parrafoCalificacionComentarioMultipleOpcion = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaMultipleOpcion.getCalificacion() + "/" + respuestaPreguntaMultipleOpcion.getPregunta().getDblPuntaje() + "\n", BLUE);
                         }
-                        if (respuestaPreguntaMultipleOpcion.getStrComentario() != null) {
+                        if (respuestaPreguntaMultipleOpcion.getStrComentario() != null && !respuestaPreguntaMultipleOpcion.getStrComentario().isEmpty()) {
                             parrafoCalificacionComentarioMultipleOpcion.add(new Chunk("Comentario Docente: " + respuestaPreguntaMultipleOpcion.getStrComentario() + "\n", COMENTARIO));
                         }
                         contadorOrden++;
@@ -314,7 +314,7 @@ public class GestorGenerarReporteResolucion {
                         } else {
                             parrafoCalificacionComentarioNumerico = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaNumerica.getCalificacion() + "/" + respuestaPreguntaNumerica.getPregunta().getDblPuntaje() + "\n", BLUE);
                         }
-                        if (respuestaPreguntaNumerica.getStrComentario() != null) {
+                        if (respuestaPreguntaNumerica.getStrComentario() != null && !respuestaPreguntaNumerica.getStrComentario().isEmpty()) {
                             parrafoPreguntaNumerica.add(new Chunk("Comentario Docente: " + respuestaPreguntaNumerica.getStrComentario() + "\n", COMENTARIO));
                         }
                         contadorOrden++;
@@ -382,7 +382,7 @@ public class GestorGenerarReporteResolucion {
                             parrafoCalificacionComentarioRelacionColumnas = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaRelacionColumnas.getCalificacion() + "/" + respuestaPreguntaRelacionColumnas.getPregunta().getDblPuntaje() + "\n", BLUE);
                         }
 
-                        if (respuestaPreguntaRelacionColumnas.getStrComentario() != null) {
+                        if (respuestaPreguntaRelacionColumnas.getStrComentario() != null && !respuestaPreguntaRelacionColumnas.getStrComentario().isEmpty()) {
                             parrafoCalificacionComentarioRelacionColumnas.add(new Chunk("Comentario Docente: " + respuestaPreguntaRelacionColumnas.getStrComentario() + "\n", COMENTARIO));
                         }
                         contadorOrden++;
@@ -450,7 +450,7 @@ public class GestorGenerarReporteResolucion {
                             parrafoCalificacionComentarioVF = new Paragraph(13, "\n" + "Calificacion: " + respuestaPreguntaVerdaderoFalso.getCalificacion() + "/" + respuestaPreguntaVerdaderoFalso.getPregunta().getDblPuntaje() + "\n", BLUE);
                         }
 
-                        if (respuestaPreguntaVerdaderoFalso.getStrComentario() != null) {
+                        if (respuestaPreguntaVerdaderoFalso.getStrComentario() != null && !respuestaPreguntaVerdaderoFalso.getStrComentario().isEmpty()) {
                             parrafoCalificacionComentarioVF.add(new Chunk("Comentario Docente: " + respuestaPreguntaVerdaderoFalso.getStrComentario() + "\n", COMENTARIO));
                         }
                         contadorOrden++;
