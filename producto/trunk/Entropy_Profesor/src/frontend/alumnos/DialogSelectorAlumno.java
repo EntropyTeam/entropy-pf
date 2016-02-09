@@ -436,7 +436,7 @@ public class DialogSelectorAlumno extends javax.swing.JDialog {
         if (evt.getClickCount() >= 2){
             Alumno seleccionado = (Alumno) this.lstAlumnos.getSelectedValue();
             PanelEstadisticasAlumno pnlEstadisticasAlumno = new PanelEstadisticasAlumno(this, seleccionado);
-            pnlEstadisticasAlumno.setName("Estadísticas alumno");
+            pnlEstadisticasAlumno.setName("Estadísticas alumno " + seleccionado.toString());
             VentanaPrincipal.getInstancia().ocultarMenu();
             VentanaPrincipal.getInstancia().getPanelDeslizante().setPanelMostrado(pnlEstadisticasAlumno);
             VentanaPrincipal.getInstancia().setTitle("Estadísticas del alumno " + seleccionado.toString());

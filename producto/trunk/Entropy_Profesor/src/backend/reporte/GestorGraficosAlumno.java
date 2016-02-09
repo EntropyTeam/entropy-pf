@@ -121,7 +121,7 @@ public class GestorGraficosAlumno {
         Iterator it = mapAsistencias.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
-            s1.add(new Month((Date)pair.getKey()), (int)pair.getValue());
+            s1.addOrUpdate(new Month((Date)pair.getKey()), (int)pair.getValue());
             it.remove();
         }
 

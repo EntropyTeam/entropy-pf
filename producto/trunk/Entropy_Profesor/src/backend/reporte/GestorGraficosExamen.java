@@ -10,6 +10,7 @@ import frontend.auxiliares.LookAndFeelEntropy;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GradientPaint;
+import java.awt.Paint;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -44,6 +45,7 @@ import org.jfree.chart.renderer.category.GroupedStackedBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.KeyToGroupMap;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.xy.XYDataset;
@@ -659,7 +661,7 @@ public class GestorGraficosExamen {
                 intervalos,
                 series,
                 porcentaje,
-                leyenda,
+                false,
                 primerIntervaloAprobado,
                 anchoImagen,
                 altoImagen);
@@ -747,9 +749,10 @@ public class GestorGraficosExamen {
         for (Serie serie : series) {
             for (int i = 0; i < serie.valores.length; i++) {
                 if (Serie.colores.size() - 1 < i || Serie.colores.get(i) == null) {
+                    Color color = generarColorAleatorio(Color.orange);
                     GradientPaint gp = new GradientPaint(
-                            0.0f, 0.0f, Color.orange,
-                            0.0f, 0.0f, generarColorAleatorio(Color.orange)
+                            0.0f, 0.0f, color,
+                            0.0f, 0.0f, color
                     );
                     Serie.colores.add(gp);
                 }
@@ -881,22 +884,10 @@ public class GestorGraficosExamen {
         } else {
             rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         }
-        final BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(false);
-
-        for (int i = 0; i < valores.length; i++) {
-            if (i == intervaloAprobacion - 1) {
-                renderer.setSeriesPaint(i, new GradientPaint(
-                        0.0f, 0.0f, Color.orange,
-                        0.0f, 0.0f, generarColorAleatorio(Color.red)
-                ));
-            } else {
-                renderer.setSeriesPaint(i, new GradientPaint(
-                        0.0f, 0.0f, Color.orange,
-                        0.0f, 0.0f, generarColorAleatorio(Color.green)
-                ));
-            }
-        }
+        
+        final AprobadoDesaprobadoBarRenderer renderer = new AprobadoDesaprobadoBarRenderer();
+        renderer.setIntervaloAprobacion(intervaloAprobacion);
+        plot.setRenderer(renderer);
 
         final CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(
@@ -908,6 +899,45 @@ public class GestorGraficosExamen {
         //Generamos una imagen
         return chart.createBufferedImage(anchoImagen, altoImagen);
     }
+    
+    
+    private class AprobadoDesaprobadoBarRenderer extends BarRenderer {
+        
+        private int intervaloAprobacion = 0;
+        private final GradientPaint gpIncorrecto = new GradientPaint(
+                0.0f, 0.0f, new Color(255, 75, 75),
+                0.0f, 0.0f, new Color(255, 75, 75)
+        );
+        private final GradientPaint gpCorrecto = new GradientPaint(
+                0.0f, 0.0f, new Color(118, 229, 155),
+                0.0f, 0.0f, new Color(118, 229, 155)
+        );
+        
+        public AprobadoDesaprobadoBarRenderer() {
+            super();
+            setDrawBarOutline(false);
+        }
+
+        @Override
+        public Paint getItemPaint(int x_row, int x_col) {
+            if (x_col < this.intervaloAprobacion) {
+                return gpIncorrecto;
+            } else {
+                return gpCorrecto;
+            }
+        }
+
+        public int getIntervaloAprobacion() {
+            return intervaloAprobacion;
+        }
+
+        public void setIntervaloAprobacion(int intervaloAprobacion) {
+            this.intervaloAprobacion = intervaloAprobacion;
+        }
+        
+    }
+    
+    
 
     private BufferedImage generarGraficoBarras(String titulo, String ejeHorizontal, String ejeVertical, ArrayList<Serie> series, boolean porcentaje, boolean leyenda, int anchoImagen, int altoImagen) {
         DefaultCategoryDataset barDataset = new DefaultCategoryDataset();
@@ -949,10 +979,11 @@ public class GestorGraficosExamen {
 
         for (Serie serie : series) {
             for (int i = 0; i < serie.valores.length; i++) {
+                Color color = generarColorAleatorio(Color.orange);
                 if (Serie.colores.size() - 1 < i || Serie.colores.get(i) == null) {
                     GradientPaint gp = new GradientPaint(
-                            0.0f, 0.0f, Color.orange,
-                            0.0f, 0.0f, generarColorAleatorio(Color.orange)
+                            0.0f, 0.0f, color,
+                            0.0f, 0.0f, color
                     );
                     Serie.colores.add(gp);
                 }
@@ -1009,11 +1040,13 @@ public class GestorGraficosExamen {
         int green = random.nextInt(256); //100
         int blue = random.nextInt(256); // 60
 
+        /*
         if (base != null) {
             red = (red + base.getRed()) / 2;
             green = (green + base.getGreen()) / 2;
             blue = (blue + base.getBlue()) / 2;
         }
+        */
 
         Color color = new Color(red, green, blue);
         return color;
