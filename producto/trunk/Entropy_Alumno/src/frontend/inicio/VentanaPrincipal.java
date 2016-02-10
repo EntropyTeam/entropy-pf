@@ -23,7 +23,8 @@ import javax.swing.KeyStroke;
  */
 public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrincipal {
     
-    private static VentanaPrincipal INSTANCIA;
+    private static VentanaPrincipal INSTANCIA;    
+    private boolean menuFlag = false;
     private boolean blnSeEstaRealizandoPresentacion;
 
     /**
@@ -91,6 +92,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         lblSeparador.setMaximumSize(new java.awt.Dimension(30, 50));
         lblSeparador.setMinimumSize(new java.awt.Dimension(30, 50));
         lblSeparador.setPreferredSize(new java.awt.Dimension(30, 50));
+        lblSeparador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSeparadorMouseClicked(evt);
+            }
+        });
         pnlMargen.add(lblSeparador);
 
         pnlBackground.add(pnlMargen);
@@ -98,6 +104,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         pnlInicio  = new PanelInicio();
         pnlSlides.setOpaque(false);
         pnlInicio.setOpaque(false);
+        pnlSlides.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlSlidesMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlSlidesLayout = new javax.swing.GroupLayout(pnlSlides);
         pnlSlides.setLayout(pnlSlidesLayout);
@@ -175,6 +186,18 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
+    private void lblSeparadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSeparadorMouseClicked
+        mostrarMenu();
+        menuFlag = true;
+    }//GEN-LAST:event_lblSeparadorMouseClicked
+
+    private void pnlSlidesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlSlidesMouseClicked
+        if (menuFlag) {
+            ocultarMenu();
+            menuFlag = false;
+        }
+    }//GEN-LAST:event_pnlSlidesMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblSeparador;
     private javax.swing.JMenuBar mnbMenuBar;
@@ -226,6 +249,14 @@ public class VentanaPrincipal extends javax.swing.JFrame implements IVentanaPrin
     
     public void setBlnSeEstaRealizandoPresentacion(boolean blnSeEstaRealizandoPresentacion) {
         this.blnSeEstaRealizandoPresentacion = blnSeEstaRealizandoPresentacion;
+    }
+
+    public void mostrarMenu() {
+        try {
+            ((PanelConMenu) pnlConMenu).mostrar();
+        } catch (Exception e) {
+            System.err.println("Error al castear el panel con menú: " + e.getMessage());
+        }
     }
 
     /**

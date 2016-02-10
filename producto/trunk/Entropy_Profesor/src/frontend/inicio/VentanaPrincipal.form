@@ -244,10 +244,16 @@
                       <Dimension value="[30, 50]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSeparadorMousePressed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
             <Container class="frontend.auxiliares.PanelDeslizante" name="pnlSlides">
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnlSlidesMouseClicked"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="private PanelInicio pnlInicio;"/>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="pnlInicio  = new PanelInicio();&#xa;pnlSlides.setOpaque(false);&#xa;pnlInicio.setOpaque(false);"/>

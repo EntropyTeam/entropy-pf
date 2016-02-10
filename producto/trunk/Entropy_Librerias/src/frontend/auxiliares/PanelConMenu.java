@@ -48,47 +48,7 @@ public class PanelConMenu extends JLayeredPane {
         OFFSET = -MENU_ANCHURA;
         setPosicionPanel(OFFSET);
         add(mPanel, 2, 0);
-
-        pnlMenu.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                temporizadorMostrar.stop();
-                temporizadorOcultar.start();
-            }
-        });
-
-        addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                final int intAnchura = e.getX();
-                if (intAnchura < mPanel.getWidth() && mPanel.isVisible()) {
-                    return;
-                } else if (intAnchura < 30 && !temporizadorMostrar.isRunning() && !mPanel.isVisible()) {
-                    if (!waiting) {
-                        timer = new Timer(1000, new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                waiting = false;
-                                Point p = MouseInfo.getPointerInfo().getLocation();
-                                SwingUtilities.convertPointFromScreen(p, PanelConMenu.this);
-                                if (p.x < pnlMenu.getWidth() && !temporizadorMostrar.isRunning() && !mPanel.isVisible()) {
-                                    temporizadorOcultar.stop();
-                                    temporizadorMostrar.start();
-                                }
-                                timer.stop();
-                            }
-                        });
-                        timer.setRepeats(false);
-                        timer.start();
-                        waiting = true;
-                    }
-                } else if (intAnchura > mPanel.getWidth() && !temporizadorOcultar.isRunning() && mPanel.isVisible()) {
-                    timer.stop();
-                    temporizadorMostrar.stop();
-                    temporizadorOcultar.start();
-                }
-            }
-        });
+        //initListeners();
     }
 
     /**
@@ -113,6 +73,52 @@ public class PanelConMenu extends JLayeredPane {
         this.dimensionPanel = new Dimension(MENU_ANCHURA, MENU_ALTURA);
         this.OFFSET = -MENU_ANCHURA;
         this.setPosicionPanel(OFFSET);
+    }
+    
+    /**
+     * Agrega listeners para desplazar el menú con la posición del mouse.
+     */
+    private void initListeners() {
+        mPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                temporizadorMostrar.stop();
+                temporizadorOcultar.start();
+            }
+        });
+
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                final int intAnchura = e.getX();
+                if (intAnchura < mPanel.getWidth() && mPanel.isVisible()) {
+                    return;
+                } else if (intAnchura < 30 && !temporizadorMostrar.isRunning() && !mPanel.isVisible()) {
+                    if (!waiting) {
+                        timer = new Timer(1000, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                waiting = false;
+                                Point p = MouseInfo.getPointerInfo().getLocation();
+                                SwingUtilities.convertPointFromScreen(p, PanelConMenu.this);
+                                if (p.x < mPanel.getWidth() && !temporizadorMostrar.isRunning() && !mPanel.isVisible()) {
+                                    temporizadorOcultar.stop();
+                                    temporizadorMostrar.start();
+                                }
+                                timer.stop();
+                            }
+                        });
+                        timer.setRepeats(false);
+                        timer.start();
+                        waiting = true;
+                    }
+                } else if (intAnchura > mPanel.getWidth() && !temporizadorOcultar.isRunning() && mPanel.isVisible()) {
+                    timer.stop();
+                    temporizadorMostrar.stop();
+                    temporizadorOcultar.start();
+                }
+            }
+        });
     }
 
     /**
@@ -254,5 +260,12 @@ public class PanelConMenu extends JLayeredPane {
      */
     public void ocultar() {
         temporizadorOcultar.start();
+    }
+
+    /**
+     * Muestra el menú.
+     */
+    public void mostrar() {
+        temporizadorMostrar.start();
     }
 }
