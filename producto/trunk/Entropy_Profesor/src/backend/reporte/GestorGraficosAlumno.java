@@ -9,11 +9,7 @@ import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
-import java.util.Map;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
@@ -111,24 +107,17 @@ public class GestorGraficosAlumno {
      */
     private XYDataset createDataset(ArrayList<Presentacion> colPresentaciones) {
         
-        HashMap<Date, Integer> mapAsistencias = new HashMap<>();
         TimeSeries s1 = new TimeSeries("Asistencias", Month.class);
         
         for (Presentacion p : colPresentaciones) {
-            mapAsistencias.put(p.getDteFecha(), (mapAsistencias.get(p.getDteFecha()) == null) ? 1 : (mapAsistencias.get(p.getDteFecha()) + 1 ));
+            Number n = s1.getValue(new Month(p.getDteFecha()));
+            s1.addOrUpdate(new Month(p.getDteFecha()), n == null ? 1 : n.intValue() + 1);
         }
         
-        Iterator it = mapAsistencias.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            s1.addOrUpdate(new Month((Date)pair.getKey()), (int)pair.getValue());
-            it.remove();
-        }
-
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
 
         return dataset;
-
+        
     }
 }
