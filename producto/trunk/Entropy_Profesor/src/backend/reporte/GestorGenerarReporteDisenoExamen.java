@@ -370,7 +370,8 @@ public final class GestorGenerarReporteDisenoExamen {
             byte[] bytesImagen = (byte[]) pregunta.getColAdjuntos().get(0);
             try {
                 image = Image.getInstance(bytesImagen);
-                image.scalePercent((float)image.getWidth()/40);
+                image.scaleAbsolute(100f, 100f);
+                //image.scalePercent((float)image.getWidth()/40);
             } catch (BadElementException | IOException ex) {
                 Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
             }
