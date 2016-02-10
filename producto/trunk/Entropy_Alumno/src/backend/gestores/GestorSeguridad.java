@@ -28,23 +28,23 @@ public class GestorSeguridad {
      *
      */
     public void deshabilitarTaskManager() {
-//        String path = "HKCU" + File.separator
-//                + "Software" + File.separator
-//                + "Microsoft" + File.separator
-//                + "Windows" + File.separator
-//                + "CurrentVersion" + File.separator
-//                + "Policies" + File.separator
-//                + "System";
-//        try {
-//            String comando = "reg add " + path + " /v DisableTaskMgr /t REG_DWORD /d 1 /f";
-//            Process pro = cmd.exec(comando);
-//            pro.waitFor();
-//            BufferedReader buf = new BufferedReader(new InputStreamReader(pro.getInputStream()));
-//            System.out.println(this.leerBuffer(buf) + "\nEl Taskmng esta deshabilitado");
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        System.out.println("deshabilitarTaskManager()");
+        String path = "HKCU" + File.separator
+                + "Software" + File.separator
+                + "Microsoft" + File.separator
+                + "Windows" + File.separator
+                + "CurrentVersion" + File.separator
+                + "Policies" + File.separator
+                + "System";
+        try {
+            String comando = "reg add " + path + " /v DisableTaskMgr /t REG_DWORD /d 1 /f";
+            Process pro = cmd.exec(comando);
+            pro.waitFor();
+            BufferedReader buf = new BufferedReader(new InputStreamReader(pro.getInputStream()));
+            System.out.println(this.leerBuffer(buf) + "\nEl Taskmng esta deshabilitado");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("deshabilitarTaskManager()");
     }
 
     /**
@@ -52,23 +52,23 @@ public class GestorSeguridad {
      *
      */
     public void habilitarTaskManager() {
-//        String path = "HKCU" + File.separator
-//                + "Software" + File.separator
-//                + "Microsoft" + File.separator
-//                + "Windows" + File.separator
-//                + "CurrentVersion" + File.separator
-//                + "Policies" + File.separator
-//                + "System";
-//        try {
-//            String comando = "reg add " + path + " /v DisableTaskMgr /t REG_DWORD /d 0 /f";
-//            Process pro = cmd.exec(comando);
-//            pro.waitFor();
-//            BufferedReader buf = new BufferedReader(new InputStreamReader(pro.getInputStream()));
-//            System.out.println(this.leerBuffer(buf) + "\nEl Taskmng esta habilitado");
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        System.out.println("habilitarTaskManager()");
+        String path = "HKCU" + File.separator
+                + "Software" + File.separator
+                + "Microsoft" + File.separator
+                + "Windows" + File.separator
+                + "CurrentVersion" + File.separator
+                + "Policies" + File.separator
+                + "System";
+        try {
+            String comando = "reg add " + path + " /v DisableTaskMgr /t REG_DWORD /d 0 /f";
+            Process pro = cmd.exec(comando);
+            pro.waitFor();
+            BufferedReader buf = new BufferedReader(new InputStreamReader(pro.getInputStream()));
+            System.out.println(this.leerBuffer(buf) + "\nEl Taskmng esta habilitado");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("habilitarTaskManager()");
     }
 
     /**
@@ -76,20 +76,20 @@ public class GestorSeguridad {
      *
      */
     public void deshabilitarExplorer() {
-//        if (!blnControl) {
-//
-//            try {
-//                String comando = "taskkill /f /im explorer.exe";
-//                Process pro = cmd.exec(comando);
-////            pro.waitFor();//En un principio, esto debe pemanecer comentado para que no genere un bucle indefinido.
-////            BufferedReader buf = new BufferedReader(new InputStreamReader(pro.getInputStream()));//En un principio, esto debe pemanecer comentado para que no genere un bucle indefinido.
-////            System.out.println(this.leerBuffer(buf));//En un principio, esto debe pemanecer comentado para que no genere un bucle indefinido.
-//                blnControl = true;
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage() + "\nEl explorer esta deshabilitado");
-//            }
-//            System.out.println("deshabilitarExplorer()");
-//        }
+        if (!blnControl) {
+
+            try {
+                String comando = "taskkill /f /im explorer.exe";
+                Process pro = cmd.exec(comando);
+//            pro.waitFor();//En un principio, esto debe pemanecer comentado para que no genere un bucle indefinido.
+//            BufferedReader buf = new BufferedReader(new InputStreamReader(pro.getInputStream()));//En un principio, esto debe pemanecer comentado para que no genere un bucle indefinido.
+//            System.out.println(this.leerBuffer(buf));//En un principio, esto debe pemanecer comentado para que no genere un bucle indefinido.
+                blnControl = true;
+            } catch (Exception e) {
+                System.out.println(e.getMessage() + "\nEl explorer esta deshabilitado");
+            }
+            System.out.println("deshabilitarExplorer()");
+        }
     }
 
     /**
@@ -97,34 +97,34 @@ public class GestorSeguridad {
      *
      */
     public void habilitarExplorer() {
-//        if (blnControl) {
-//
-//            try {
-//                String comando = "explorer.exe";
-//                Process pro = cmd.exec(comando);
-//                blnControl = false;
-////            pro.waitFor();//En un principio, esto debe pemanecer comentado para que no genere un bucle indefinido.
-////            BufferedReader buf = new BufferedReader(new InputStreamReader(pro.getInputStream()));//En un principio, esto debe pemanecer comentado para que no genere un bucle indefinido.
-////            System.out.println(this.leerBuffer(buf)+ "\nEl explorer esta habilitado");//En un principio, esto debe pemanecer comentado para que no genere un bucle indefinido.
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
-//            System.out.println("habilitarExplorer()");
-//        }
+        if (blnControl) {
+
+            try {
+                String comando = "explorer.exe";
+                Process pro = cmd.exec(comando);
+                blnControl = false;
+//            pro.waitFor();//En un principio, esto debe pemanecer comentado para que no genere un bucle indefinido.
+//            BufferedReader buf = new BufferedReader(new InputStreamReader(pro.getInputStream()));//En un principio, esto debe pemanecer comentado para que no genere un bucle indefinido.
+//            System.out.println(this.leerBuffer(buf)+ "\nEl explorer esta habilitado");//En un principio, esto debe pemanecer comentado para que no genere un bucle indefinido.
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println("habilitarExplorer()");
+        }
     }
 
     private String leerBuffer(BufferedReader buffMensaje) {
-//        String strMensaje = "";
-//        String strLinea;
-//        try {
-//            while ((strLinea = buffMensaje.readLine()) != null) {
-//                strMensaje = strMensaje + "\n" + strLinea;
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return strMensaje;
-        return "Sin Seguridad";
+        String strMensaje = "";
+        String strLinea;
+        try {
+            while ((strLinea = buffMensaje.readLine()) != null) {
+                strMensaje = strMensaje + "\n" + strLinea;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strMensaje;
+//        return "Sin Seguridad";
     }
 //        Para desactivar la seguridad se debe: Comentar cada metodo de esta clase, Desactivar el always on top de DialogRealizarExamen y modificar el comportamiento del boton listo luego del jOptionPane en ambas opciones.
 
