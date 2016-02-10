@@ -56,7 +56,7 @@ public class RespuestaPreguntaRelacionColumnas extends Respuesta implements Seri
 
     @Override
     public double getCalificacion() {
-        boolean blnEsCorrecta = true;
+        boolean blnEsCorrecta = (colCombinaciones.size() > 0);
         for (RespuestaCombinacionRelacionColumnas combinacionRTA : colCombinaciones) {
             if (!blnEsCorrecta) break;
             for (CombinacionRelacionColumnas combinacionPTA : preguntaRelacionColumnas.getColCombinaciones()){

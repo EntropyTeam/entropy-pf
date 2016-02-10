@@ -123,11 +123,12 @@ public class PanelEstadisticasAlumno extends javax.swing.JPanel {
         double mayor = 0;
         double menor = 0;
         double suma = 0;
-        for (Resolucion resolucion : colResoluciones) {
+        for (int i = 0; i < colResoluciones.size(); i++) {
+            Resolucion resolucion = colResoluciones.get(i);
             if (resolucion.esCorreccionCompleta()){
                 double calificacion = resolucion.getPorcentajeAprobacion();
                 if (calificacion > mayor) mayor = calificacion;
-                if (menor == 0 || calificacion < menor) menor = calificacion;
+                if (i == 0 || calificacion < menor) menor = calificacion;
                 suma += calificacion;
             }
         }        
