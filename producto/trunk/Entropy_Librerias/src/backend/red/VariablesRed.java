@@ -7,7 +7,7 @@ package backend.red;
  */
 public class VariablesRed {
     
-    public static final int PUERTO_TCP_EXAMEN = 5000;
-    public static final int PUERTO_TCP_PRESENTACION = 5001;
+    public static final int PUERTO_TCP_EXAMEN = 64000;
+    public static final int PUERTO_TCP_PRESENTACION = 66000;
     
 }
