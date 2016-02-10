@@ -18,21 +18,24 @@ public class HiloSocketProfesorConexion extends Thread {
     private ServerSocket serverSocket;
     private final GestorTomaExamen gestorTomaExamen;
     private final GestorDePresentacion gestorPresentacion;
+    private int intPuertoEscucha;
 
     public HiloSocketProfesorConexion(GestorTomaExamen gestorTomaExamen) {
         this.gestorTomaExamen = gestorTomaExamen;
-        this.gestorPresentacion=null;
+        this.gestorPresentacion = null;
+        this.intPuertoEscucha = VariablesRed.PUERTO_TCP_EXAMEN;
     }
     
     public HiloSocketProfesorConexion(GestorDePresentacion gestorPresentacion) {
         this.gestorPresentacion = gestorPresentacion;
         this.gestorTomaExamen=null;
+        this.intPuertoEscucha = VariablesRed.PUERTO_TCP_PRESENTACION;
     }
     
     @Override
     public void run() {
         try {
-            serverSocket = new ServerSocket(VariablesRed.puertoTCP);
+            serverSocket = new ServerSocket(this.intPuertoEscucha);
             System.out.println("Server en linea...");
             while (true) {
                 if (gestorTomaExamen != null) gestorTomaExamen.aceptarConexion(serverSocket.accept());

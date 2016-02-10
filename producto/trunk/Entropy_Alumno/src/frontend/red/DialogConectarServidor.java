@@ -373,12 +373,12 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                                 if (accion == DialogConectarServidor.TipoAccion.EXAMEN) {
                                     if (resolucionRecuperar == null) {
                                         try {
-                                            gestorResolucionExamen = new GestorResolucionExamen(strIPServidor, VariablesRed.puertoTCP);
+                                            gestorResolucionExamen = new GestorResolucionExamen(strIPServidor, VariablesRed.PUERTO_TCP_EXAMEN);
                                         } catch (Exception ex) {
                                           //  Logger.getLogger(DialogConectarServidor.class.getName()).log(Level.SEVERE, null, ex);
                                         }
                                     } else {
-                                        gestorResolucionExamen = new GestorResolucionExamen(strIPServidor, VariablesRed.puertoTCP, resolucionRecuperar);
+                                        gestorResolucionExamen = new GestorResolucionExamen(strIPServidor, VariablesRed.PUERTO_TCP_EXAMEN, resolucionRecuperar);
                                     }
                                     
                                     gestorResolucionExamen.conectarAlumno(alumno);
@@ -397,7 +397,7 @@ public class DialogConectarServidor extends javax.swing.JDialog {
                                     }
                                     dispose();
                                 } else {
-                                    gestorPresentacion = new GestorPresentacion(strIPServidor, VariablesRed.puertoTCP);
+                                    gestorPresentacion = new GestorPresentacion(strIPServidor, VariablesRed.PUERTO_TCP_PRESENTACION);
                                     gestorPresentacion.conectarAlumno(alumno);
                                     gestorPresentacion.setmPadre(mPadre);
                                     gestorEstados.setNuevoEstadoImportante("Conexión exitosa.", GestorBarrasDeEstado.TipoEstado.OK);

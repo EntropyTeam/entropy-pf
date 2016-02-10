@@ -6,9 +6,8 @@ package backend.red;
  * @author Denise
  */
 public class VariablesRed {
-
-    public static final int puertoUDPAlumno = 9999;
-    public static final int puertoUDPProfesor = 20000;
-    public static final int puertoTCP = 5000;
+    
+    public static final int PUERTO_TCP_EXAMEN = 5000;
+    public static final int PUERTO_TCP_PRESENTACION = 5001;
     
 }
