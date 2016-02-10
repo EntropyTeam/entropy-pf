@@ -38,6 +38,10 @@ public class DialogRealizarExamen extends javax.swing.JDialog {
     public void quitarTiempo(int intMinutosQuitados) {
         this.pnlPregunta.quitarTiempo(intMinutosQuitados);
     }
+    
+    public void pararReloj() {
+        this.pnlPregunta.pararReloj();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

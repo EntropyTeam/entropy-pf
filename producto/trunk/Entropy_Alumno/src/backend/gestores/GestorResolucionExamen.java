@@ -31,9 +31,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.Timer;
 
 /**
@@ -286,6 +283,9 @@ public class GestorResolucionExamen {
         Mensaje mnsAvisarFin = new Mensaje(TipoMensaje.FINALIZAR_EXAMEN, resolucion);
         hiloSocketAlumno.enviarMensaje(mnsAvisarFin);
         
+        // Paramos el reloj
+        this.dialogRealizarExamen.pararReloj();
+        
         // Cerramos la conexión
         this.avisarServidorCierre();
         this.eliminarArchivoTemporal();
@@ -448,6 +448,10 @@ public class GestorResolucionExamen {
         GestorSeguridad gestorSeguridad = new GestorSeguridad();
         gestorSeguridad.habilitarExplorer();
         gestorSeguridad.habilitarTaskManager();
+        
+        // Paramos el reloj
+        this.dialogRealizarExamen.pararReloj();
+        
         this.resolucion = null;
         this.timerEspera = null;
         try {
@@ -461,10 +465,7 @@ public class GestorResolucionExamen {
         volverPanelInicio();
         Mensajes.mostrarAdvertencia("El examen ha sido cancelado por su instructor.\nComuníquese con el mismo para mayor información.");
     }
-
-    /**
-     * Cancela el examen actual y vuelve a la ventana principal.
-     */
+    
     public void notificarFinalizacionExamen() {
         GestorSeguridad gestorSeguridad = new GestorSeguridad();
         gestorSeguridad.habilitarExplorer();
@@ -472,6 +473,9 @@ public class GestorResolucionExamen {
         
         Mensaje mnsAvisarFin = new Mensaje(TipoMensaje.FINALIZAR_EXAMEN, resolucion);
         hiloSocketAlumno.enviarMensaje(mnsAvisarFin);
+        
+        // Paramos el reloj
+        this.dialogRealizarExamen.pararReloj();
         
         // Cerramos la conexión
         try {
@@ -517,6 +521,10 @@ public class GestorResolucionExamen {
         this.resolucion.setStrJustificacionAnulacion(strJustificacion);
         Mensaje mnsResolucionAnulada = new Mensaje(TipoMensaje.ANULAR_RESOLUCION, resolucion);
         hiloSocketAlumno.enviarMensaje(mnsResolucionAnulada);
+        
+        // Paramos el reloj
+        this.dialogRealizarExamen.pararReloj();
+        
         try {
             this.avisarServidorCierre();
         } catch (IOException ex) {

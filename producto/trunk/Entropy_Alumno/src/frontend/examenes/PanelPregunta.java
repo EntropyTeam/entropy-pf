@@ -75,8 +75,8 @@ public class PanelPregunta extends javax.swing.JPanel {
         this.addAncestorListener(new AncestorListener() {
             @Override
             public void ancestorAdded(AncestorEvent event) {
-                tmrTemporizador = new CuentaRegresiva();
-            }
+                tmrTemporizador = new CuentaRegresiva(); 
+           }
 
             @Override
             public void ancestorRemoved(AncestorEvent event) {
@@ -697,6 +697,10 @@ public class PanelPregunta extends javax.swing.JPanel {
     public void quitarTiempo(int intMinutosQuitados) {
         this.tmrTemporizador.quitarTiempo(intMinutosQuitados);
     }
+    
+    public void pararReloj() {
+        this.tmrTemporizador.pararReloj();
+    }
 
     /**
      * Clase que se encarga de manejar el timer de cuenta regresiva.
@@ -763,16 +767,20 @@ public class PanelPregunta extends javax.swing.JPanel {
             }
         }
 
-        public boolean isCaducado() {
+        private boolean isCaducado() {
             return blnCaducado;
         }
         
-        public void agregarTiempo(int intMinutosAgregados) {
+        private void agregarTiempo(int intMinutosAgregados) {
             this.minutos += intMinutosAgregados;
         }
 
-        public void quitarTiempo(int intMinutosQuitados) {
+        private void quitarTiempo(int intMinutosQuitados) {
             this.minutos -= intMinutosQuitados;
+        }
+        
+        private void pararReloj() {
+            this.tmrTemporizador.stop();
         }
     }
 
