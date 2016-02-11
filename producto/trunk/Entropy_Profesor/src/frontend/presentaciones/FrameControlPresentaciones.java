@@ -287,10 +287,12 @@ public class FrameControlPresentaciones extends javax.swing.JFrame {
 
     private void btnGuardarAsistenciaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaMouseEntered
         this.gestorEstados.setEstadoInstantaneo("Registrar la presentación y sus asistentes.");
+        repaint();
     }//GEN-LAST:event_btnGuardarAsistenciaMouseEntered
 
     private void btnGuardarAsistenciaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaMouseExited
         this.gestorEstados.volverAEstadoImportante();
+        repaint();
     }//GEN-LAST:event_btnGuardarAsistenciaMouseExited
 
     private void btnGuardarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAsistenciaActionPerformed
