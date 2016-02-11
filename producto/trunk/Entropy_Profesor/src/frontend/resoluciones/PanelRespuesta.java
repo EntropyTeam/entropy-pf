@@ -139,7 +139,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
         lblTema = new javax.swing.JLabel();
         lblsComentarios = new javax.swing.JLabel();
         lblComentarios = new javax.swing.JLabel();
-        scrPanelRespuesta = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         pnlCasillas = new javax.swing.JPanel();
         pnlFila1 = new javax.swing.JPanel();
         lblCasillaTemplate = new javax.swing.JLabel();
@@ -318,8 +318,8 @@ public class PanelRespuesta extends javax.swing.JPanel {
 
         pnlPregunta.add(pnlEnunciado);
 
-        scrPanelRespuesta.setBorder(null);
-        pnlPregunta.add(scrPanelRespuesta);
+        jScrollPane1.setBorder(null);
+        pnlPregunta.add(jScrollPane1);
 
         pnlCasillas.setOpaque(false);
         pnlCasillas.setLayout(new javax.swing.BoxLayout(pnlCasillas, javax.swing.BoxLayout.Y_AXIS));
@@ -590,7 +590,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(pnlDatosExamen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(pnlContenido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
                 .addGap(4, 4, 4))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -656,6 +656,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
     private javax.swing.JButton btnVolverInicio;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblActualizacionEstado;
     private javax.swing.JLabel lblAlumno;
     private javax.swing.JLabel lblAnterior;
@@ -691,7 +692,6 @@ public class PanelRespuesta extends javax.swing.JPanel {
     private javax.swing.JPanel pnlPregunta;
     private javax.swing.JPanel pnlSuperior;
     private javax.swing.JScrollPane scrComentario;
-    private javax.swing.JScrollPane scrPanelRespuesta;
     private frontend.auxiliares.TextAreaEntropy txaComentario;
     private frontend.auxiliares.TextFieldEntropy txtCalificacion;
     private javax.swing.JSeparator upperSeparator;
@@ -934,9 +934,9 @@ public class PanelRespuesta extends javax.swing.JPanel {
             pnl.setOpaque(false);
         }
 
-        scrPanelRespuesta.setOpaque(true);
-        this.scrPanelRespuesta.add(pnl);
-        this.scrPanelRespuesta.setViewportView(pnl);
+        jScrollPane1.setOpaque(true);
+        this.jScrollPane1.add(pnl);
+        this.jScrollPane1.setViewportView(pnl);
         this.revalidate();
         this.repaint();
     }
