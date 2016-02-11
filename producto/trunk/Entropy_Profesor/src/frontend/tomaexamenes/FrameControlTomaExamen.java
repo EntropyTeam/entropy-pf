@@ -1,5 +1,6 @@
 package frontend.tomaexamenes;
 import backend.auxiliares.Mensajes;
+import backend.examenes.EstadoExamen;
 import backend.examenes.EstadoTomaExamen;
 import backend.examenes.Examen;
 import backend.gestores.GestorExamen;
@@ -472,6 +473,7 @@ public class FrameControlTomaExamen extends javax.swing.JFrame {
         if (Mensajes.mostrarConfirmacion("Está a punto de finalizar el examen."
                 + " Los exámenes de alumnos que no hayan terminado serán interrumpidos"
                 + " y se guardará su estado actual. ¿Realmente desea continuar?")) {
+            gestorTomaExamen.modificarEstadoExamen(EstadoExamen.FINALIZADO);
             gestorTomaExamen.notificarFinalizacionExamen();
             this.dispose();
             GestorRedAdHoc gestorRedAdHoc = new GestorRedAdHoc();

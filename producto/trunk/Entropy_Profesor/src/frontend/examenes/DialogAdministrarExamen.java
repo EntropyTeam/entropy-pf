@@ -2,14 +2,12 @@ package frontend.examenes;
 
 import backend.auxiliares.Mensajes;
 import backend.dao.resoluciones.DAOResolucion;
-import backend.mail.*;
 import backend.diseños.Curso;
 import backend.diseños.Institucion;
 import backend.examenes.EstadoExamen;
 import backend.examenes.Examen;
 import backend.gestores.GestorExamen;
 import backend.gestores.GestorImportarPregunta;
-import backend.reporte.GestorGenerarReporteResolucion;
 import backend.resoluciones.Resolucion;
 import frontend.auxiliares.CeldaListaRendererEntropy;
 import frontend.auxiliares.ComponentMover;
@@ -835,7 +833,7 @@ public class DialogAdministrarExamen extends javax.swing.JDialog {
                 DefaultMutableTreeNode nodoCurso = new DefaultMutableTreeNode(curso);
                 for (Examen examen : GestorExamen.getInstancia().getExamen(curso)) {
                     if (intEstado == 0
-                            || (intEstado == 1 && examen.getIntEstado() == EstadoExamen.FINALIZADO)
+                            || (intEstado == 1 && (examen.getIntEstado() == EstadoExamen.FINALIZADO || examen.getIntEstado() == EstadoExamen.DESARROLLANDO))
                             || (intEstado == 2 && examen.getIntEstado() == EstadoExamen.CORREGIDO)) {
                         nodoCurso.add(new DefaultMutableTreeNode(examen));
                     }
@@ -862,7 +860,7 @@ public class DialogAdministrarExamen extends javax.swing.JDialog {
         int intEstado = cmbEstado.getSelectedIndex();
         for (Examen examen : GestorExamen.getInstancia().getExamen(curso)) {
             if (intEstado == 0
-                    || (intEstado == 1 && examen.getIntEstado() == EstadoExamen.FINALIZADO)
+                    || (intEstado == 1 && (examen.getIntEstado() == EstadoExamen.FINALIZADO || examen.getIntEstado() == EstadoExamen.DESARROLLANDO))
                     || (intEstado == 2 && examen.getIntEstado() == EstadoExamen.CORREGIDO)) {
                 nodoCurso.add(new DefaultMutableTreeNode(examen));
             }

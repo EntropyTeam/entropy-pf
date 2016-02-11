@@ -2,6 +2,7 @@ package backend.gestores;
 
 import backend.Seguridad.GestorSeguridadAutenticacion;
 import backend.auxiliares.Mensajes;
+import backend.dao.examenes.DAOExamen;
 import backend.dao.resoluciones.DAOResolucion;
 import backend.dao.usuarios.DAOAlumno;
 import backend.examenes.Examen;
@@ -185,5 +186,9 @@ public class GestorTomaExamen {
                 System.err.println("ERROR AL QUITAR TIEMPO AL ALUMNO " + hiloSocketProfesorPorAlumno.getIndice());
             }
         }
+    }
+
+    public void modificarEstadoExamen(int FINALIZADO) {
+        new DAOExamen().actualizarEstado(FINALIZADO, examenResolver.getIntExamenId());
     }
 }
