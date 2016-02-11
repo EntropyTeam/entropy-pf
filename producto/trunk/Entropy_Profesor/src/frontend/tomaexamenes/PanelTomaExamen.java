@@ -205,7 +205,7 @@ public class PanelTomaExamen extends javax.swing.JPanel {
         mPadre.getPanelDeslizante().setPanelMostrado(mPadre.getPnlInicio());
         mPadre.setTitle("Sistema de Administración de Entornos Educativos");
         FrameControlTomaExamen ventana = new FrameControlTomaExamen(mPadre, examenTomar);
-        ventana.setTitle("Toma de examen - Su IP es " + new GestorRedAdHoc().getIP());
+        ventana.setTitle(ventana.getTitle() + " - Su IP es " + new GestorRedAdHoc().getIP());
         ventana.setVisible(true);
     }//GEN-LAST:event_btnPublicarActionPerformed
 

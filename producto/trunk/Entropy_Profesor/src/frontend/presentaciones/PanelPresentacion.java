@@ -1,6 +1,7 @@
 package frontend.presentaciones;
 
 import backend.auxiliares.Mensajes;
+import backend.red.GestorRedAdHoc;
 import frontend.auxiliares.GestorBarrasDeEstado;
 import frontend.auxiliares.LookAndFeelEntropy;
 import frontend.auxiliares.PanelDeslizante;
@@ -165,7 +166,9 @@ public class PanelPresentacion extends javax.swing.JPanel {
         }
         mPadre.getPanelDeslizante().setPanelMostrado(mPadre.getPnlInicio());
         mPadre.setTitle("Sistema de Administración de Entornos Educativos");
-        new FrameControlPresentaciones(mPadre).setVisible(true);
+        FrameControlPresentaciones ventana = new FrameControlPresentaciones(mPadre);
+        ventana.setTitle(ventana.getTitle() + " - Su IP es " + new GestorRedAdHoc().getIP());
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnPublicarActionPerformed
 
     private void btnPublicarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPublicarMouseExited
