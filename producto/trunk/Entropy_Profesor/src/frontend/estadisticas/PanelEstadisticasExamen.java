@@ -55,6 +55,7 @@ public class PanelEstadisticasExamen extends javax.swing.JPanel {
             ));
         } else {
             tpnEstadisticas.remove(scrRespuestas);
+            cmbFiltro.removeItem("Preguntas");
         }
         tblRespuestas.setDefaultRenderer(Object.class, new CeldaRespuestasRenderer());
         tblRespuestas.getTableHeader().setDefaultRenderer(new CeldaRespuestasHeaderRenderer());
