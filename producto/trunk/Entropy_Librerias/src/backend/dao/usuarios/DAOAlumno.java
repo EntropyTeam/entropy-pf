@@ -215,6 +215,7 @@ public class DAOAlumno implements IDAOAlumno {
                     + "AL." + EntropyDB.GRL_COL_ALUMNO_APELLIDO + ", "
                     + "AL." + EntropyDB.GRL_COL_ALUMNO_TIPO_DOCUMENTO + ", "
                     + "AL." + EntropyDB.GRL_COL_ALUMNO_DOCUMENTO + ", "
+                    + "AL." + EntropyDB.GRL_COL_ALUMNO_LEGAJO + ", "
                     + "AL." + EntropyDB.GRL_COL_ALUMNO_EMAIL + " "
                     + "FROM "
                     + EntropyDB.GRL_TBL_ALUMNO + " AL JOIN " + EntropyDB.RES_TBL_RESOLUCION + " RE ON AL." + EntropyDB.GRL_COL_ALUMNO_ID + " = RE." + EntropyDB.RES_COL_RESOLUCION_ALUMNO_ID + " "
@@ -231,6 +232,7 @@ public class DAOAlumno implements IDAOAlumno {
                 alumno.setStrNombre(rsResultado.getString(EntropyDB.GRL_COL_ALUMNO_NOMBRE));
                 alumno.setStrApellido(rsResultado.getString(EntropyDB.GRL_COL_ALUMNO_APELLIDO));
                 alumno.setStrTipoDocumento(rsResultado.getString(EntropyDB.GRL_COL_ALUMNO_TIPO_DOCUMENTO));
+                alumno.setStrLegajo(rsResultado.getString(EntropyDB.GRL_COL_ALUMNO_LEGAJO));
                 alumno.setIntNroDocumento(rsResultado.getInt(EntropyDB.GRL_COL_ALUMNO_DOCUMENTO));
                 alumno.setStrEmail(rsResultado.getString(EntropyDB.GRL_COL_ALUMNO_EMAIL));
             }
