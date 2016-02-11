@@ -941,11 +941,11 @@ public class PanelAdministrarCursos extends javax.swing.JPanel {
                 this.gestorCursosEInstituciones.setInstituciones(this.gestorCursosEInstituciones.recuperarTodasLasInstituciones(""));
                 llenarListaInstituciones(this.gestorCursosEInstituciones.getInstituciones());
                 gestorEstados.setNuevoEstadoImportante("La institución se ha borrado correctamente.", GestorBarrasDeEstado.TipoEstado.OK);
+                lstCursos.setModel(new DefaultListModel());
             }
         } else {
             Mensajes.mostrarError("Debe seleccionar una institución.");
         }
-
     }//GEN-LAST:event_btnEliminarInstitucionActionPerformed
 
     private void btnBorrarLogoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBorrarLogoMouseEntered
@@ -1147,7 +1147,6 @@ public class PanelAdministrarCursos extends javax.swing.JPanel {
         if (lstInstituciones.getSelectedValue() != null) {
             llenarCursosPorInstitucion((Institucion) lstInstituciones.getSelectedValue(), "");
         }
-
     }//GEN-LAST:event_lstInstitucionesValueChanged
 
     private void txtFiltroInstitucionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroInstitucionKeyReleased
