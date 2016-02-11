@@ -72,7 +72,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
 
         jProgressBar1 = new javax.swing.JProgressBar();
         jProgressBar2 = new javax.swing.JProgressBar();
-        jPanel1 = new javax.swing.JPanel();
+        pnlSuperior = new javax.swing.JPanel();
         pnlBotones = new javax.swing.JPanel();
         btnVolver = new javax.swing.JButton();
         btnVolverInicio = new javax.swing.JButton();
@@ -116,14 +116,18 @@ public class PanelResoluciones extends javax.swing.JPanel {
         lblPorcentaje = new javax.swing.JLabel();
         lblsAnulacion = new javax.swing.JLabel();
         lblAnulacion = new javax.swing.JLabel();
+        lblsResultado = new javax.swing.JLabel();
+        lblResultado = new javax.swing.JLabel();
+        lblsPorcentajeAprobacion = new javax.swing.JLabel();
+        lblPorcentajeAprobacion = new javax.swing.JLabel();
         pnlEstado = new javax.swing.JPanel();
         lblActualizacionEstado = new javax.swing.JLabel();
         lblIconoEstado = new javax.swing.JLabel();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(32767, 55));
-        jPanel1.setPreferredSize(new java.awt.Dimension(498, 55));
+        pnlSuperior.setMaximumSize(new java.awt.Dimension(32767, 55));
+        pnlSuperior.setPreferredSize(new java.awt.Dimension(498, 55));
 
         pnlBotones.setMaximumSize(new java.awt.Dimension(32767, 39));
         pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
@@ -162,24 +166,24 @@ public class PanelResoluciones extends javax.swing.JPanel {
         });
         pnlBotones.add(btnVolverInicio);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 706, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE))
+        javax.swing.GroupLayout pnlSuperiorLayout = new javax.swing.GroupLayout(pnlSuperior);
+        pnlSuperior.setLayout(pnlSuperiorLayout);
+        pnlSuperiorLayout.setHorizontalGroup(
+            pnlSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 629, Short.MAX_VALUE)
+            .addGroup(pnlSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlSuperiorLayout.setVerticalGroup(
+            pnlSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 55, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(pnlSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlSuperiorLayout.createSequentialGroup()
                     .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 2, Short.MAX_VALUE)))
         );
 
-        add(jPanel1);
+        add(pnlSuperior);
 
         pnlDatosExamen.setBackground(LookAndFeelEntropy.COLOR_TABLA_PRIMARIO);
         pnlDatosExamen.setMaximumSize(new java.awt.Dimension(32767, 109));
@@ -229,7 +233,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
                             .addComponent(lblExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -393,7 +397,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
         pnlPreguntas.setLayout(pnlPreguntasLayout);
         pnlPreguntasLayout.setHorizontalGroup(
             pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+            .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
             .addGroup(pnlPreguntasLayout.createSequentialGroup()
                 .addComponent(btnCorregirTodas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -410,7 +414,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
         pnlPreguntasLayout.setVerticalGroup(
             pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPreguntasLayout.createSequentialGroup()
-                .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                .addComponent(scrPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVerRespuestas)
@@ -450,7 +454,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
                     .addComponent(lblsNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDatosAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                     .addComponent(lblLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -512,6 +516,18 @@ public class PanelResoluciones extends javax.swing.JPanel {
         lblAnulacion.setText("---");
         lblAnulacion.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
+        lblsResultado.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsResultado.setText("Resultado:");
+
+        lblResultado.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
+        lblResultado.setText("APROBADO.");
+
+        lblsPorcentajeAprobacion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
+        lblsPorcentajeAprobacion.setText("Porcentaje necesario:");
+
+        lblPorcentajeAprobacion.setFont(LookAndFeelEntropy.FUENTE_NEGRITA);
+        lblPorcentajeAprobacion.setText("60 %");
+
         javax.swing.GroupLayout pnlDatosGeneralesLayout = new javax.swing.GroupLayout(pnlDatosGenerales);
         pnlDatosGenerales.setLayout(pnlDatosGeneralesLayout);
         pnlDatosGeneralesLayout.setHorizontalGroup(
@@ -526,15 +542,11 @@ public class PanelResoluciones extends javax.swing.JPanel {
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPreguntasRespondidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPreguntasRespondidas, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+                        .addComponent(lblPreguntasRespondidas, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsPreguntasCorregidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblPreguntasCorregidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
-                        .addComponent(lblsEstado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(lblsCalificacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -547,7 +559,19 @@ public class PanelResoluciones extends javax.swing.JPanel {
                         .addComponent(lblsAnulacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAnulacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
+                        .addComponent(lblsEstado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
+                        .addComponent(lblsResultado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblResultado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
+                        .addComponent(lblsPorcentajeAprobacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPorcentajeAprobacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         pnlDatosGeneralesLayout.setVerticalGroup(
             pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -556,6 +580,10 @@ public class PanelResoluciones extends javax.swing.JPanel {
                 .addGroup(pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblsEstado)
                     .addComponent(lblEstado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblsResultado)
+                    .addComponent(lblResultado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblsDuracion)
@@ -568,6 +596,13 @@ public class PanelResoluciones extends javax.swing.JPanel {
                 .addGroup(pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblsPorcentaje)
                     .addComponent(lblPorcentaje))
+                .addGroup(pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(lblPorcentajeAprobacion))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDatosGeneralesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblsPorcentajeAprobacion)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPreguntasRespondidas)
@@ -578,10 +613,8 @@ public class PanelResoluciones extends javax.swing.JPanel {
                     .addComponent(lblsPreguntasCorregidas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlDatosGeneralesLayout.createSequentialGroup()
-                        .addComponent(lblsAnulacion)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(lblAnulacion, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                    .addComponent(lblsAnulacion)
+                    .addComponent(lblAnulacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -642,14 +675,14 @@ public class PanelResoluciones extends javax.swing.JPanel {
         pnlEstadoLayout.setHorizontalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEstadoLayout.createSequentialGroup()
-                .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblIconoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlEstadoLayout.setVerticalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEstadoLayout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
+                .addGap(0, 2, Short.MAX_VALUE)
                 .addGroup(pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblIconoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -821,7 +854,6 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private javax.swing.JButton btnVerRespuestas;
     private javax.swing.JButton btnVolver;
     private javax.swing.JButton btnVolverInicio;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JProgressBar jProgressBar2;
     private javax.swing.JLabel lblActualizacionEstado;
@@ -836,8 +868,10 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private javax.swing.JLabel lblLegajo;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPorcentaje;
+    private javax.swing.JLabel lblPorcentajeAprobacion;
     private javax.swing.JLabel lblPreguntasCorregidas;
     private javax.swing.JLabel lblPreguntasRespondidas;
+    private javax.swing.JLabel lblResultado;
     private javax.swing.JLabel lblsAnulacion;
     private javax.swing.JLabel lblsCalificacion;
     private javax.swing.JLabel lblsCurso;
@@ -848,8 +882,10 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private javax.swing.JLabel lblsLegajo;
     private javax.swing.JLabel lblsNombre;
     private javax.swing.JLabel lblsPorcentaje;
+    private javax.swing.JLabel lblsPorcentajeAprobacion;
     private javax.swing.JLabel lblsPreguntasCorregidas;
     private javax.swing.JLabel lblsPreguntasRespondidas;
+    private javax.swing.JLabel lblsResultado;
     private javax.swing.JSeparator lowerSeparator;
     private javax.swing.JList lstResoluciones;
     private javax.swing.JPanel pnlBotones;
@@ -860,6 +896,7 @@ public class PanelResoluciones extends javax.swing.JPanel {
     private javax.swing.JPanel pnlEstado;
     private javax.swing.JPanel pnlPreguntaSeleccionada;
     private javax.swing.JPanel pnlPreguntas;
+    private javax.swing.JPanel pnlSuperior;
     private javax.swing.JScrollPane scrPreguntas;
     private javax.swing.JSeparator upperSeparator;
     // End of variables declaration//GEN-END:variables
@@ -872,8 +909,13 @@ public class PanelResoluciones extends javax.swing.JPanel {
         lblDuracion.setText(String.format("%02d", (int) (resolucion.getIntTiempoEmpleado() / 60)) + ":" + String.format("%02d", resolucion.getIntTiempoEmpleado() % 60) + " h");
         double dblCalificacion = resolucion.getCalificacion();
         double dblPuntajeTotal = resolucion.getExamen().getPuntajeTotal();
+        double dblPorcentaje = 100 * dblCalificacion / dblPuntajeTotal;
         lblCalificacion.setText(dblCalificacion + "/" + dblPuntajeTotal);
-        lblPorcentaje.setText(String.format("%.2f", (100 * dblCalificacion / dblPuntajeTotal)) + " %");
+        lblPorcentaje.setText(String.format("%.1f", dblPorcentaje) + " %");
+        boolean blnAprobo = dblPorcentaje > resolucion.getExamen().getDblPorcentajeAprobacion();
+        lblResultado.setText(blnAprobo ? "APROBADO" : "DESAPROBADO");
+        lblResultado.setForeground(blnAprobo ? new Color(8,138,8) : new Color(255,0,0));
+        lblPorcentajeAprobacion.setText(resolucion.getExamen().getDblPorcentajeAprobacion() + " %");
         lblPreguntasRespondidas.setText(resolucion.getCantidadPreguntasRespondidas() + "/" + resolucion.getColRespuestas().size());
         lblPreguntasCorregidas.setText(resolucion.getCantidadPreguntasCorregidas() + "/" + resolucion.getColRespuestas().size());
         lblsAnulacion.setVisible(resolucion.isBlnAnulada());
