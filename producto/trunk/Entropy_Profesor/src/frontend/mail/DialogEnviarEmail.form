@@ -131,7 +131,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblActualizacionEstado" pref="333" max="32767" attributes="0"/>
+                      <Component id="lblActualizacionEstado" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="lblIconoEstado" min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
@@ -199,7 +199,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtDestinatario" max="32767" attributes="0"/>
                           <Component id="txtAsunto" max="32767" attributes="0"/>
-                          <Component id="lblAdjunto" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblAdjunto" alignment="0" min="-2" pref="273" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>

@@ -19,6 +19,8 @@ import backend.examenes.Examen;
 import backend.mail.GestorEnvioDeMail;
 import backend.resoluciones.Resolucion;
 import frontend.auxiliares.TextUtils;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -89,7 +91,7 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
     private void autocompletarDatos() {
         txtDestinatario.setText(this.resoluciones.get(0).getAlumno().getStrEmail());
         txtAsunto.setText("Correción del examen \"" + examen.getStrNombre() + "\"");
-        lblAdjunto.setText("Correción del examen " + examen.getStrNombre() + " _ " + this.resoluciones.get(0).getAlumno().toString() + ".pdf");
+        lblAdjunto.setText("<html>Correción del examen " + examen.getStrNombre() + "_" + this.resoluciones.get(0).getAlumno().toString().replace(" - ", "_") + ".pdf</html>");
         String strMensaje = "Se adjunta la resolución corregida para el examen  \"" + examen.getStrNombre() 
                 + "\", realizado el día " + new SimpleDateFormat("dd/MM/yyyy  -  HH:mm").format(examen.getDteFecha())
                 + ", en el curso " + examen.getCurso().getStrNombre()
@@ -193,7 +195,7 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
         pnlEstadoLayout.setHorizontalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEstadoLayout.createSequentialGroup()
-                .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                .addComponent(lblActualizacionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblIconoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -244,7 +246,7 @@ public class DialogEnviarEmail extends javax.swing.JDialog {
                 .addGroup(pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtDestinatario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtAsunto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblAdjunto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblAdjunto, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         pnlFiltrosLayout.setVerticalGroup(
