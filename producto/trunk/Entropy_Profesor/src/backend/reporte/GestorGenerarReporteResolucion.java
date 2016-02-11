@@ -536,7 +536,7 @@ public class GestorGenerarReporteResolucion {
                 Logger.getLogger(GestorGenerarReporteDisenoExamen.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            PdfPCell cellImage = new PdfPCell(image, true);
+            PdfPCell cellImage = new PdfPCell(image, false);
             cellImage.setHorizontalAlignment(Element.ALIGN_CENTER);
             cellImage.setBorder(Rectangle.NO_BORDER);
             tblImage.addCell(cellImage);
