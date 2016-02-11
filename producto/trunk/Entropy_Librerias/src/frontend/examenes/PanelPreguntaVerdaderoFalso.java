@@ -59,9 +59,10 @@ public class PanelPreguntaVerdaderoFalso extends javax.swing.JPanel implements I
 
         scrJustificacion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Justificación", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, LookAndFeelEntropy.FUENTE_REGULAR));
         scrJustificacion.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrJustificacion.setFont(LookAndFeelEntropy.FUENTE_REGULAR);
 
-        txaJustificacion.setColumns(20);
-        txaJustificacion.setRows(5);
+        txaJustificacion.setColumns(10);
+        txaJustificacion.setRows(3);
         txaJustificacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txaJustificacionKeyReleased(evt);
@@ -110,7 +111,7 @@ public class PanelPreguntaVerdaderoFalso extends javax.swing.JPanel implements I
                 .addComponent(rbnVerdadero)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbnFalso)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         add(pnlOpciones);

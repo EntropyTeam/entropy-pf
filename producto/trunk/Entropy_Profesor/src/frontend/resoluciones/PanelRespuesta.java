@@ -139,7 +139,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
         lblTema = new javax.swing.JLabel();
         lblsComentarios = new javax.swing.JLabel();
         lblComentarios = new javax.swing.JLabel();
-        pnlContenidoPregunta = new javax.swing.JPanel();
+        scrPanelRespuesta = new javax.swing.JScrollPane();
         pnlCasillas = new javax.swing.JPanel();
         pnlFila1 = new javax.swing.JPanel();
         lblCasillaTemplate = new javax.swing.JLabel();
@@ -196,7 +196,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
         pnlComentario.setLayout(pnlComentarioLayout);
         pnlComentarioLayout.setHorizontalGroup(
             pnlComentarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrComentario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+            .addComponent(scrComentario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
         );
         pnlComentarioLayout.setVerticalGroup(
             pnlComentarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,13 +256,17 @@ public class PanelRespuesta extends javax.swing.JPanel {
 
         pnlPregunta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0)));
         pnlPregunta.setOpaque(false);
+        pnlPregunta.setLayout(new javax.swing.BoxLayout(pnlPregunta, javax.swing.BoxLayout.Y_AXIS));
 
+        pnlEnunciado.setMaximumSize(new java.awt.Dimension(32767, 100));
+        pnlEnunciado.setName(""); // NOI18N
         pnlEnunciado.setOpaque(false);
-        pnlEnunciado.setPreferredSize(new java.awt.Dimension(280, 79));
+        pnlEnunciado.setPreferredSize(new java.awt.Dimension(280, 100));
 
         lblEnunciado.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         lblEnunciado.setText("1. ¿Qué le pasa al papagayo en celo?");
         lblEnunciado.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        lblEnunciado.setMaximumSize(new java.awt.Dimension(268, 40));
 
         lblsTema.setFont(LookAndFeelEntropy.FUENTE_CURSIVA);
         lblsTema.setText("Tema:");
@@ -285,7 +289,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
             .addGroup(pnlEnunciadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+                    .addComponent(lblEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
                     .addGroup(pnlEnunciadoLayout.createSequentialGroup()
                         .addGroup(pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblsComentarios)
@@ -300,43 +304,22 @@ public class PanelRespuesta extends javax.swing.JPanel {
             pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEnunciadoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(lblEnunciado, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblsTema)
-                    .addComponent(lblTema))
+                    .addComponent(lblTema)
+                    .addComponent(lblsTema))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblsComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(lblComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblComentarios)
+                    .addComponent(lblsComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        pnlContenidoPregunta.setOpaque(false);
-        pnlContenidoPregunta.setLayout(new java.awt.GridLayout(1, 0));
+        pnlPregunta.add(pnlEnunciado);
 
-        javax.swing.GroupLayout pnlPreguntaLayout = new javax.swing.GroupLayout(pnlPregunta);
-        pnlPregunta.setLayout(pnlPreguntaLayout);
-        pnlPreguntaLayout.setHorizontalGroup(
-            pnlPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 543, Short.MAX_VALUE)
-            .addGroup(pnlPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(pnlContenidoPregunta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
-                .addGroup(pnlPreguntaLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(pnlEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        pnlPreguntaLayout.setVerticalGroup(
-            pnlPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 315, Short.MAX_VALUE)
-            .addGroup(pnlPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlPreguntaLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(pnlEnunciado, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(pnlContenidoPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        scrPanelRespuesta.setBorder(null);
+        pnlPregunta.add(scrPanelRespuesta);
 
         pnlCasillas.setOpaque(false);
         pnlCasillas.setLayout(new javax.swing.BoxLayout(pnlCasillas, javax.swing.BoxLayout.Y_AXIS));
@@ -369,7 +352,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
         pnlCentralLayout.setHorizontalGroup(
             pnlCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCentralLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(pnlCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlCasillas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCentralLayout.createSequentialGroup()
@@ -381,7 +364,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblCorrecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         pnlCentralLayout.setVerticalGroup(
             pnlCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,9 +378,9 @@ public class PanelRespuesta extends javax.swing.JPanel {
                         .addComponent(pnlCorreccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblAnterior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(pnlCasillas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
         pnlContenido.add(pnlCentral);
@@ -478,7 +461,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
         pnlDatosExamenLayout.setHorizontalGroup(
             pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDatosExamenLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lowerSeparator, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(upperSeparator)
@@ -501,12 +484,12 @@ public class PanelRespuesta extends javax.swing.JPanel {
                                 .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         pnlDatosExamenLayout.setVerticalGroup(
             pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDatosExamenLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
                 .addComponent(upperSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDatosExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -525,8 +508,8 @@ public class PanelRespuesta extends javax.swing.JPanel {
                     .addComponent(lblsAlumno)
                     .addComponent(lblAlumno))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lowerSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1))
+                .addComponent(lowerSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5))
         );
 
         pnlBotones.setLayout(new java.awt.GridLayout(1, 0));
@@ -604,11 +587,11 @@ public class PanelRespuesta extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(pnlSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(pnlDatosExamen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(pnlContenido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(4, 4, 4))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -700,7 +683,6 @@ public class PanelRespuesta extends javax.swing.JPanel {
     private javax.swing.JPanel pnlCentral;
     private javax.swing.JPanel pnlComentario;
     private javax.swing.JPanel pnlContenido;
-    private javax.swing.JPanel pnlContenidoPregunta;
     private javax.swing.JPanel pnlCorreccion;
     private javax.swing.JPanel pnlDatosExamen;
     private javax.swing.JPanel pnlEnunciado;
@@ -709,6 +691,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
     private javax.swing.JPanel pnlPregunta;
     private javax.swing.JPanel pnlSuperior;
     private javax.swing.JScrollPane scrComentario;
+    private javax.swing.JScrollPane scrPanelRespuesta;
     private frontend.auxiliares.TextAreaEntropy txaComentario;
     private frontend.auxiliares.TextFieldEntropy txtCalificacion;
     private javax.swing.JSeparator upperSeparator;
@@ -933,7 +916,7 @@ public class PanelRespuesta extends javax.swing.JPanel {
 
         txaComentario.setText(respuesta.getStrComentario());
 
-        lblEnunciado.setText("<html>" + respuesta.getPregunta().getStrEnunciado() + "<br><br></html>");
+        lblEnunciado.setText("<html>" + respuesta.getPregunta().getStrEnunciado() + "</html>");
 
         if (respuesta.getPregunta().getStrReferencia() != null) {
             lblComentarios.setText("<html>" + respuesta.getPregunta().getStrReferencia() + "</html>");
@@ -951,8 +934,9 @@ public class PanelRespuesta extends javax.swing.JPanel {
             pnl.setOpaque(false);
         }
 
-        this.pnlContenidoPregunta.removeAll();
-        this.pnlContenidoPregunta.add(pnl);
+        scrPanelRespuesta.setOpaque(true);
+        this.scrPanelRespuesta.add(pnl);
+        this.scrPanelRespuesta.setViewportView(pnl);
         this.revalidate();
         this.repaint();
     }
